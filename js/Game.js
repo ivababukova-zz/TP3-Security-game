@@ -3,6 +3,158 @@ var TopDownGame = TopDownGame || {};
 //title screen
 TopDownGame.Game = function(){};
 
+/*The player constructor - incomplete*/
+Player = function(){
+
+  //var currentSprite = path to sprite / name of sprite
+  // rolled back to x,y coordinates as using a Coordinate object might mean extra complexity
+  var currentX = 50;
+  var currentY = 50;
+  /* player's item bag - initialised to null; should be set to null when an object is used
+                       - modelled as a multi-dimensional array to support having more than one type of an object*/
+  this.bag = [ [null],
+               [null],
+               [null]];
+  // is visible attribute -  not too sure about use
+  this.isVisible = true;
+  // is collidable attribute - not sure about use
+  this.isCollidable = true;
+  // speed attribute - set to 10.0 as a default - might need adjusting according to world
+  this.speed = 10.0;
+  // the probability of loosing the sheet with passwords
+  this.loseNoteChance = 0.25;
+  //the actual note 
+  var note = new Object();
+
+  // getter methods
+  this.getX = function() {
+    return currentX;
+  }
+
+  this.getY = function() {
+    return curretY;
+  }
+
+  // move method is unnecessary and will/should be handled in the update() function
+  // change the speed of the player
+  this.changeSpeed = function(toSpeed) {
+    this.speed = toSpeed;
+  }
+
+  //run animation is handled by the game engine
+  /*use item from bag on a specified target - will call the object's "use()" method
+    due to small number of objects, will use a swtich case to handle usage*/
+  this.useItem = function ( item ){
+    
+    swtich(item){
+      case 'antivirus':
+        if(this.bag[0][this.bag[0].length -1] != null)
+          this.bag[0][this.bag[0].length -1].use();  //antivirus will hold position 0
+        //do nothing if the player doesn't have the object; potentially play a sound to let him know what's going awn.
+        break;
+
+      case 'anti-keylogger':
+        if(this.bag[1][this.bag[1].length -1] != null)
+          this.bag[1][this.bag[1].length -1].use();
+        break;
+
+      case 'firewall':
+        if(this.bag[2][this.bag[2].length -1] != null)
+          this.bag[2][this.bag[2].length -1.use();
+        break;
+    }
+  }
+
+  //method to add an item to the player's bag; assume item is a string saying what type of item we're adding
+  this.addItem = function(item){
+    swtich(item){
+      case 'antivirus':
+        this.bag[0].push(item);  //antivirus will hold position 0
+        //do nothing if the player doesn't have the object; potentially play a sound to let him know what's going awn.
+        break;
+
+      case 'anti-keylogger':
+        this.bag[1].push(item); // "item" here will be replaced with an instantiation of the appropriate object
+        break;
+
+      case 'firewall':
+        this.bag[2].push(item);
+        break;
+    }
+  }
+  // method to be called everytime the user moves (or at every update) that simulates losing the note object
+  this.loseNote = function(){
+
+    if(note.size > 0 ) {              // if there's anything worth losing, i.e. if the note is not empty
+      var chance = Math.random();
+      if(chance > this.loseNoteChance)
+        //lose the note, i.e. drop it
+    }
+  }
+
+  //method to interact with the friend; should test for proximity of friend when calling this method
+  this.interactWithFriend = function(friend){
+    // interact with the friend
+  }
+}
+
+/* constructor for the policy object 
+    Upon creation of objects on the map, individual policies will be created, then each door will be assigned one policy
+    Each time the user tries to set a new password for a door, the door checks if the password subscribes to the given policy
+    */
+Policy = function( minLength, minNums, minPunct, minSpeChar, colour){
+  // the attributes of the policy object should be the specifications for how passwords should look like
+  //minimum length of a password
+  this.minLength = minLength;
+  // maximum length of a password set to a default of 15; should be changed
+  this.maxLength = 15;
+  // minimum number of numbers
+  this.minNums = minNums;
+  // minimum number of punctuation signs
+  this.minPunct = minPunct;
+  // minimum number of special characters, i.e. @, #, %, ^, &, *, ~
+  this.minSpeChar = minSpeChar
+  // colour corresponding to the policy
+  this.colour = colour;
+
+  // there was no need for methods, as the attributes are set to public
+}
+
+/*constructor for the Friend object
+  There can be more than one object of this type
+  We should be able to instantiate him at a given set of coordinates*/
+Friend = function(currentX, currentY){
+
+  //location
+  this.currentX = currentX;
+  this.currentY = currentY;
+
+  //speed attribute set to a default of 10.0
+  this.speed = 10.0;
+  // password paper set to null by default; will be assigned a clone of the actual object upon player's approval
+  this.passwordNote = null;
+  // permission to follow player; can be set to true after player interacts with the friend
+  this.permission = false;
+
+  this.followPlayer = function(Player){
+    //upon the player moving, we need to check in what direction he's gone to and make the friend move after him 
+    // need to be careful so that he actually moves after the player, and doesn't just teleport near him.
+  }
+
+  // function to be called when player agrees to cooperate
+  this.getApproval = function(note){
+    // friend gets the object (needs changed to clone the object, not a direct reference to it)
+    this.passwordNote = note;
+    // permission is set to true, so that he can now follow the player around
+    this.permission = true;
+  }
+
+  //method that alters friend's speed when the player's speed is altered; speed is the speed of the player
+  this.changeSPeed = function(speed){
+    this.speed = speed;
+  }
+}
+
 TopDownGame.Game.prototype = {
   create: function() {
     this.map = this.game.add.tilemap('level1');
