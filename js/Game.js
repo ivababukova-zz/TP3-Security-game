@@ -70,7 +70,7 @@ TopDownGame.Game.prototype = {
     }, this);
   },
 
-  //find objects in a Tiled layer that containt a property called "type" equal to a certain value
+  //find objects in a Tiled layer that contain a property called "type" equal to a certain value
   findObjectsByType: function(type, map, layer) {
     var result = new Array();
     map.objects[layer].forEach(function(element){
