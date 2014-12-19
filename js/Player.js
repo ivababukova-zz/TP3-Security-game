@@ -62,7 +62,7 @@ function Player () {
 
     //method to add an item to the player's bag; assume item is a string saying what type of item we're adding
     // TODO: refine
-    PLayer.addItem = function (item) {
+    Player.addItem = function (item) {
         switch (item) {
             case 'antivirus':
                 this.bag [0].push (item);  //antivirus will hold position 0
@@ -90,7 +90,7 @@ function Player () {
     };
 
     // method to be called everytime the user moves (or at every update) that simulates losing the note object
-    Player.increaseChanceOflooseNote = function () {
+    Player.increaseChanceOfLooseNote = function () {
 
         if (note.size <= 0) {
         } else {              // if there's anything worth losing, i.e. if the note is not empty

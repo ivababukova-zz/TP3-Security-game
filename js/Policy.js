@@ -14,4 +14,4 @@ Policy = function( minLength, minNums, minPunct, minSpeChar, colour){
     this.colour = colour;
 
     // there was no need for methods, as the attributes are set to public
-}
+};
