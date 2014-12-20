@@ -1,10 +1,10 @@
-var TopDownGame = TopDownGame || {};
+var Encrypt = Encrypt || {};
 
-TopDownGame.game = new Phaser.Game(200, 200, Phaser.AUTO, '');
-TopDownGame.map = new Phaser.Game(360, 360, Phaser.AUTO, '');
+Encrypt.game = new Phaser.Game(200, 200, Phaser.AUTO, '');
+Encrypt.map = new Phaser.Game(360, 360, Phaser.AUTO, '');
 
-TopDownGame.game.state.add('Boot', TopDownGame.Boot);
-TopDownGame.game.state.add('Preload', TopDownGame.Preload);
-TopDownGame.game.state.add('Game', TopDownGame.Game);
+Encrypt.game.state.add('Boot', Encrypt.Boot);
+Encrypt.game.state.add('Preload', Encrypt.Preload);
+Encrypt.game.state.add('Game', Encrypt.Game);
 
-TopDownGame.game.state.start('Boot');
+Encrypt.game.state.start('Boot');

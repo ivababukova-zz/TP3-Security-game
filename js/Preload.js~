@@ -1,9 +1,9 @@
-var Encrypt = Encrypt || {};
+var TopDownGame = TopDownGame || {};
 
 //loading the game assets
-Encrypt.Preload = function(){};
+TopDownGame.Preload = function(){};
 
-Encrypt.Preload.prototype = {
+TopDownGame.Preload.prototype = {
   preload: function() {
     //show loading screen
     this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloadbar');
