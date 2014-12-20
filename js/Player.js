@@ -53,7 +53,7 @@ function Player () {
                 break;
 
             case 'firewall':
-                if (this.bag [2] [this.bag [2].length -1] != null) {
+                if (this.bag [2] [this.bag [2].length - 1] != null) {
                     this.bag [2] [this.bag [2].length - 1].use();
                 }
                 break;
