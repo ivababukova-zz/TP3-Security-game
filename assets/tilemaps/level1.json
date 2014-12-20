@@ -40,8 +40,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":86,
-                 "y":69
+                 "x":48,
+                 "y":48
                 }, 
                 {
                  "gid":1260,
@@ -56,8 +56,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":114,
-                 "y":207
+                 "x":123,
+                 "y":224
                 }, 
                 {
                  "gid":71,
@@ -80,18 +80,19 @@
                  "name":"",
                  "properties":
                     {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
                      "sprite":"browndoor",
-                     "targetTilemap":"level2",
-                     "targetX":"20",
-                     "targetY":"30",
                      "type":"door"
                     },
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":108,
-                 "y":148
+                 "x":32,
+                 "y":320
                 }, 
                 {
                  "gid":1216,
@@ -106,8 +107,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":28,
-                 "y":203
+                 "x":32,
+                 "y":144
                 }, 
                 {
                  "gid":1216,
@@ -122,8 +123,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":57,
-                 "y":269
+                 "x":32,
+                 "y":208
                 }, 
                 {
                  "gid":1216,
@@ -154,8 +155,388 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":72,
-                 "y":129
+                 "x":49,
+                 "y":121
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":32,
+                 "y":240
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":144,
+                 "y":288
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":128,
+                 "y":192
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":256,
+                 "y":240
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":256,
+                 "y":288
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":256,
+                 "y":320
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":176,
+                 "y":320
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":128,
+                 "y":320
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":256,
+                 "y":160
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":256,
+                 "y":96
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoor",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":144,
+                 "y":160
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoorRotated",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":80,
+                 "y":128
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoorRotated",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":64,
+                 "y":288
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoorRotated",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":208,
+                 "y":64
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoorRotated",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":208,
+                 "y":128
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoorRotated",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":208,
+                 "y":208
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoorRotated",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":80,
+                 "y":368
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoorRotated",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":176,
+                 "y":240
+                }, 
+                {
+                 "gid":441,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "hasBeenVisited":"false",
+                     "isKeyLogged":"false",
+                     "password":"null",
+                     "policy":"policy",
+                     "sprite":"browndoorRotated",
+                     "type":"door"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":96,
+                 "y":240
                 }],
          "opacity":1,
          "type":"objectgroup",

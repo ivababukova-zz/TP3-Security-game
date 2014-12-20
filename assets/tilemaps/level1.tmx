@@ -65,13 +65,13 @@
 </data>
  </layer>
  <objectgroup name="objectsLayer">
-  <object gid="1216" x="86" y="69">
+  <object gid="1216" x="48" y="48">
    <properties>
     <property name="sprite" value="bluecup"/>
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object gid="1260" x="114" y="207">
+  <object gid="1260" x="123" y="224">
    <properties>
     <property name="sprite" value="greencup"/>
     <property name="type" value="item"/>
@@ -82,22 +82,23 @@
     <property name="type" value="playerStart"/>
    </properties>
   </object>
-  <object gid="441" x="108" y="148">
+  <object gid="441" x="32" y="320">
    <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
     <property name="sprite" value="browndoor"/>
-    <property name="targetTilemap" value="level2"/>
-    <property name="targetX" value="20"/>
-    <property name="targetY" value="30"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object gid="1216" x="28" y="203">
+  <object gid="1216" x="32" y="144">
    <properties>
     <property name="sprite" value="bluecup"/>
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object gid="1216" x="57" y="269">
+  <object gid="1216" x="32" y="208">
    <properties>
     <property name="sprite" value="bluecup"/>
     <property name="type" value="item"/>
@@ -109,10 +110,200 @@
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object gid="1260" x="72" y="129">
+  <object gid="1260" x="49" y="121">
    <properties>
     <property name="sprite" value="greencup"/>
     <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object gid="441" x="32" y="240">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="144" y="288">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="128" y="192">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="256" y="240">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="256" y="288">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="256" y="320">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="176" y="320">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="128" y="320">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="256" y="160">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="256" y="96">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="144" y="160">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="80" y="128">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoorRotated"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="64" y="288">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoorRotated"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="208" y="64">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoorRotated"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="208" y="128">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoorRotated"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="208" y="208">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoorRotated"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="80" y="368">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoorRotated"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="176" y="240">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoorRotated"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object gid="441" x="96" y="240">
+   <properties>
+    <property name="hasBeenVisited" value="false"/>
+    <property name="isKeyLogged" value="false"/>
+    <property name="password" value="null"/>
+    <property name="policy" value="policy"/>
+    <property name="sprite" value="browndoorRotated"/>
+    <property name="type" value="door"/>
    </properties>
   </object>
  </objectgroup>
