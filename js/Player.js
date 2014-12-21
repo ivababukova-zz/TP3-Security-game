@@ -41,7 +41,7 @@ function Player () {
 
         switch(item){
             case 'antivirus':
-                if (this.bag [0] [this.bag [0].length -1] != null) {
+                if (this.bag [0] [this.bag [0].length - 1] != null) {
                     this.bag [0] [this.bag [0].length - 1].use();  //antivirus will hold position 0
                 }
                 //do nothing if the player doesn't have the object; potentially play a sound to let him know what's going awn.
@@ -87,6 +87,12 @@ function Player () {
     // TODO
     Player.interactWithFriend = function (friend) {
         // interact with the friend
+        if (confirm("Do you want to help your friend by giving him your sheet with passwords?")) {
+            // TODO change the owner of Note to Friend
+        }
+        else {
+
+        }
     };
 
     // method to be called everytime the user moves (or at every update) that simulates losing the note object
@@ -102,3 +108,4 @@ function Player () {
             //lose the note, i.e. drop it
         }
     };
+
