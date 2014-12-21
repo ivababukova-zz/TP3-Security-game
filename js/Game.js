@@ -1,21 +1,6 @@
 var Encrypt = Encrypt || {};
 
-//title screen
-Encrypt.Game = function(){};
-
-/*The player constructor - incomplete*/
-
-
-/* constructor for the policy object 
-    Upon creation of objects on the map, individual policies will be created, then each door will be assigned one policy
-    Each time the user tries to set a new password for a door, the door checks if the password subscribes to the given policy
-    */
-
-
-/*constructor for the Friend object
-  There can be more than one object of this type
-  We should be able to instantiate him at a given set of coordinates*/
-
+//title scree
 
 Encrypt.Game.prototype = {
   create: function() {
@@ -36,19 +21,23 @@ Encrypt.Game.prototype = {
 
     this.createItems();
     this.createDoors();    
+    this.createPlayer();
+  },
 
+  createPlayer: function () {
     //create player
-    var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer')
+    var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
     this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
     this.game.physics.arcade.enable(this.player);
+    //this.game.gravity = 0;
 
     //the camera will follow the player in the world
     this.game.camera.follow(this.player);
 
     //move player with cursor keys
-    this.cursors = this.game.input.keyboard.createCursorKeys();
-
+    
   },
+
   createItems: function() {
 
     //create items
@@ -126,16 +115,4 @@ Encrypt.Game.prototype = {
     //remove sprite
     collectable.destroy();
   },
-  enterDoor: function(player, door) {
-    if(door.password==='null'){
-          door.password=prompt("Set a password");
-      }/**else{
-          var checkPassword=prompt("Enter password");
-          if(checkPassword===door.password){
-              console.log("Access Granted");
-          }else{
-              console.log("Wrong password");
-          }
-      }**/
-  }
 };
