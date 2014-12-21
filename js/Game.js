@@ -84,6 +84,7 @@ Encrypt.Game.prototype = {
         sprite[key] = element.properties[key];
       });
   },
+
   update: function() {
     //collision
     this.game.physics.arcade.collide(this.player, this.blockedLayer);
@@ -107,16 +108,19 @@ Encrypt.Game.prototype = {
       this.player.body.velocity.x += 50;
     }
   },
+
   collect: function(player, collectable) {
     console.log('yummy!');
-
     //remove sprite
     collectable.destroy();
   },
+
   enterDoor: function (player, door) {
-    if(door.password == 'null') {
+
+    if (door.password == 'null') {  // if the user hasn't set up a password yet:
       input = prompt("Set a password for this policy:");
-      if (input == 'null') {
+
+      if (input === null) {  // if the user has pressed cancel:
         console.log("no password entered.");
       }
 
@@ -126,10 +130,11 @@ Encrypt.Game.prototype = {
         door.destroy();  // TODO change with unlock method instead of destroy
       }
     }
-    else {
-      console.log("password is not null");
-      console.log(door.password);
-      // door.unlock();
+
+    else if (door.password != 'null') {  // if the user has set up a password already:
+      console.log ("password is not null");
+      console.log (door.password);
+      //this.unlock();
     }
       /**else{
           var checkPassword=prompt("Enter password");
@@ -139,6 +144,5 @@ Encrypt.Game.prototype = {
               console.log("Wrong password");
           }
       }**/
-  },
-  unlockDoor: function (door, password) {}
+  }
 };
