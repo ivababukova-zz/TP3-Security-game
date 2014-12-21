@@ -50,11 +50,14 @@ Encrypt.Game.prototype = {
 
   },
   createItems: function() {
+
     //create items
     this.items = this.game.add.group();
     this.items.enableBody = true;
+
     var item;    
-    result = this.findObjectsByType('item', this.map, 'objectsLayer');
+    var result = this.findObjectsByType('item', this.map, 'objectsLayer');
+
     result.forEach(function(element){
       this.createFromTiledObject(element, this.items);
     }, this);
@@ -63,7 +66,8 @@ Encrypt.Game.prototype = {
     //create doors
     this.doors = this.game.add.group();
     this.doors.enableBody = true;
-    result = this.findObjectsByType('door', this.map, 'objectsLayer');
+
+    var result = this.findObjectsByType('door', this.map, 'objectsLayer');
 
     result.forEach(function(element){
       this.createFromTiledObject(element, this.doors);
@@ -133,5 +137,5 @@ Encrypt.Game.prototype = {
               console.log("Wrong password");
           }
       }**/
-  },
+  }
 };
