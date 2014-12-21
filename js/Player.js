@@ -108,4 +108,3 @@ function Player () {
             //lose the note, i.e. drop it
         }
     };
-
