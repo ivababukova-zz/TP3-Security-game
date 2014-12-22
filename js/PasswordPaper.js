@@ -26,11 +26,11 @@ PassworPaper = function(){
     var currentY = -1;
 
     this.isVisible = function(){
-        return this.isVisible == true;
+        return this.isVisible === true;
     };
 
     this.isCollidable = function(){
-        return this.isCollidable == true;
+        return this.isCollidable === true;
     };
 
     this.switchVisible = function(){
@@ -45,7 +45,7 @@ PassworPaper = function(){
 
     this.writePassword = function (password) {
 
-        if(typeof(password) == 'string') {
+        if(typeof(password) === 'string') {
             this.passwords.push(password);
             return 1; // return 1 for a successful addition
         }
