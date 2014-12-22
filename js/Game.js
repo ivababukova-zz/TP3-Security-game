@@ -162,17 +162,3 @@ Encrypt.Game.prototype = {
       }**/
   }
 };
-
-  enterDoor: function(player, door) {
-    if(door.password==='null'){
-          door.password=prompt("Set a password");
-      }/**else{
--          var checkPassword=prompt("Enter password");
--          if(checkPassword===door.password){
--              console.log("Access Granted");
--          }else{
--              console.log("Wrong password");
--          }
--      }**/
-  }
-};
