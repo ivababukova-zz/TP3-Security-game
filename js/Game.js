@@ -1,15 +1,15 @@
 var Encrypt = Encrypt || {};
 
-//title scree
+//title screen
 Encrypt.Game = function(){};
-
+var hook;
 /*The player constructor - incomplete*/
 
 
 /* constructor for the policy object 
     Upon creation of objects on the map, individual policies will be created, then each door will be assigned one policy
     Each time the user tries to set a new password for a door, the door checks if the password subscribes to the given policy
--    */
+ */
 
 
 /*constructor for the Friend object
@@ -18,6 +18,8 @@ Encrypt.Game = function(){};
 
 Encrypt.Game.prototype = {
   create: function() {
+    hook = this;
+
     this.map = this.game.add.tilemap('level1');
 
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
@@ -43,6 +45,7 @@ Encrypt.Game.prototype = {
     var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
     this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
     this.game.physics.arcade.enable(this.player);
+    //this.player.body.velocity.y = -100;
     //this.game.gravity = 0;
 
     //the camera will follow the player in the world
@@ -53,7 +56,6 @@ Encrypt.Game.prototype = {
   },
 
   createItems: function() {
-
     //create items
     this.items = this.game.add.group();
     this.items.enableBody = true;
@@ -65,6 +67,7 @@ Encrypt.Game.prototype = {
       this.createFromTiledObject(element, this.items);
     }, this);
   },
+
   createDoors: function() {
     //create doors
     this.doors = this.game.add.group();
@@ -79,8 +82,8 @@ Encrypt.Game.prototype = {
 
   //find objects in a Tiled layer that contain a property called "type" equal to a certain value
   findObjectsByType: function(type, map, layer) {
-    var result = new Array();
-    map.objects[layer].forEach(function(element){
+    var result = [];
+    map.objects[layer].forEach(function(element) {
       if(element.properties.type === type) {
         //Phaser uses top left, Tiled bottom left so we have to adjust
         //also keep in mind that the cup images are a bit smaller than the tile which is 16x16
@@ -101,27 +104,48 @@ Encrypt.Game.prototype = {
       });
   },
 
+  openDoor: function(object1, object2) {
+    //object2.visible = false;
+    object2.texture = this.player.texture;
+    this.showNextFrame = this.showNextFrame || [];
+    //object2.
+    if(this.showNextFrame.indexOf(object2) === -1){
+      this.showNextFrame = this.showNextFrame.concat([object2]);
+    }
+  },
+
   update: function() {
-    //collision
+
     this.game.physics.arcade.collide(this.player, this.blockedLayer);
     this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
-    this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
+    var doorOverlap = this.game.physics.arcade.overlap(this.player, this.doors, this.openDoor, null, this);
+
+    if(!doorOverlap && this.showNextFrame !== undefined){
+      var self = this;
+      this.showNextFrame.forEach(function(door){door.texture = self.doors.getAt(16).texture;});
+      this.showNextFrame = [];
+    }
+
+    //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
+
+    //this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
+    var speed = 50;
     //player movement
     this.player.body.velocity.y = 0;
     this.player.body.velocity.x = 0;
 
     if(this.cursors.up.isDown) {
-      this.player.body.velocity.y -= 50;
+      this.player.body.velocity.y -= speed;
     }
     else if(this.cursors.down.isDown) {
-      this.player.body.velocity.y += 50;
+      this.player.body.velocity.y += speed;
     }
     if(this.cursors.left.isDown) {
-      this.player.body.velocity.x -= 50;
+      this.player.body.velocity.x -= speed;
     }
     else if(this.cursors.right.isDown) {
-      this.player.body.velocity.x += 50;
+      this.player.body.velocity.x += speed;
     }
   },
 
@@ -132,8 +156,9 @@ Encrypt.Game.prototype = {
   },
 
   enterDoor: function (player, door) {
-
-    if (door.password == 'null') {  // if the user hasn't set up a password yet:
+    console.log("***" + door.password + "***");
+    /*
+    if (door.password === null) {  // if the user hasn't set up a password yet:
       input = prompt("Set a password for this policy:");
 
       if (input === null) {  // if the user has pressed cancel:
@@ -143,22 +168,27 @@ Encrypt.Game.prototype = {
       else {
         door.password = input;
         console.log(door.password);
-        door.destroy();  // TODO change with unlock method instead of destroy
+        // TODO change with unlock method instead of destroy
       }
     }
 
-    else if (door.password != 'null') {  // if the user has set up a password already:
-      console.log ("password is not null");
-      console.log (door.password);
-      //this.unlock();
+    else if (door.password !== null) {  // if the user has set up a password already:
+      console.log("password is not null:" + door.password);
+      var checkPassword = prompt("Enter your password, please:");
+      if (checkPassword === door.password) {
+        console.log("Access granted.");
+      }
+      else {
+        console.log("Wrong password, try again:");
+        this.lockDoor(door);
+        return 0;
+      }
     }
-      /**else{
-          var checkPassword=prompt("Enter password");
-          if(checkPassword===door.password){
-              console.log("Access Granted");
-          }else{
-              console.log("Wrong password");
-          }
-      }**/
+    */
+  },
+
+  lockDoor: function (door) {
+    console.log("in lockDoor function");
+    return 0;
   }
 };
