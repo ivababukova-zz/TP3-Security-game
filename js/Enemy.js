@@ -18,12 +18,12 @@ Enemy = function( currentX, currentY){
     // logger chance - set to 0.1 by default - set to private as not used outside of object
     var loggerChance = 0.1;
     // room infection chance set to 0.1 by default -  set to private as not used outside of object
-    var infectChance = 0.1;
+    var virusChance = 0.1;
 
 
     // get coordinates method omitted as the attributes are public
     // move function handled by engine or not?
-    // switchVisible not omitted as the attribute is public
+    // switchVisible omitted as the attribute is public
     // same for collision
     // same for speed
     // animation run by engine
@@ -61,7 +61,7 @@ Enemy = function( currentX, currentY){
             putKeyLogger(door);
         }
 
-        if( infectionChance <= infectionChance) {
+        if( infectionChance <= virusChance) {
             infect(room);
         }
     }

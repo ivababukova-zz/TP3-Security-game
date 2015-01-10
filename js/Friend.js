@@ -4,6 +4,8 @@ Friend = function(currentX, currentY){
     this.currentX = currentX;
     this.currentY = currentY;
 
+    this.isVisible = false;
+    this.isCollidable = true;
     //speed attribute set to a default of 10.0
     this.speed = 10.0;
     // password paper set to null by default; will be assigned a clone of the actual object upon player's approval

@@ -8,6 +8,7 @@ function Player () {
     var currentX;
     var currentY;
     var isVisible = true;
+    var isCollidable = true;
     var speed = 10.0;
     var bag = [[]];  // array of arrays;
     var looseNoteChance = 0.25;
@@ -91,12 +92,13 @@ function Player () {
             // TODO change the owner of Note to Friend
         }
         else {
-
+                // friend.getNote( Player.note);
+                // Player.note = NULL;
         }
     };
 
     // method to be called everytime the user moves (or at every update) that simulates losing the note object
-    Player.increaseChanceOfLooseNote = function () {
+    Player.loseNote = function () {
 
         if (note.size <= 0) {
         } else {              // if there's anything worth losing, i.e. if the note is not empty
@@ -104,7 +106,12 @@ function Player () {
 
             if (chance > this.loseNoteChance) {
                 console.log("lqlqlqlqlq");
+                this.note.dropPaper(currentX, currentY);
             }
+            // create a fresh note in the previous one's stead; need to handle case where user has a note and picks another up
+            this.note = null;
             //lose the note, i.e. drop it
+            // place it on the game map
+            // set the player's Note object to null
         }
     };

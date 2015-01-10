@@ -23,9 +23,6 @@ Firewall = function(currentX, currentY){
     // a number of seconds the firewall is active; set to a default of 30
     var activeTime = 30;
 
-    /*Owner is not a necessary attribute; it can have only one owner: the payer, and he will have a bag where he'll
-     * store objects he can pick up. */
-
     /* Is active is not necessary, because it will ever be in each state once, or it might never be used. It's either
     * inactive in the player's bag, or it's active on the screen, after the player use()ses it.*/
     this.isVisible = function(){
