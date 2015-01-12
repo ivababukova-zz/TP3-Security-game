@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="TileSet1Encrypt" tilewidth="64" tileheight="64">
+  <image source="../TileSet1Encrypt.png" width="6400" height="6400"/>
+ </tileset>
+ <layer name="Floor" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzNmU1u20AMhXML6T6WV2lOJBldtEGOqRooUOQWtQATef1EjjiSx+iCcDSShnzk488oY/fyMjpy6r9+F5m7L9Hnpptc7n/Psra8M/T+npPsq/sM/b/6+A71UTftm6B7uO9LHbbP1dF5CXB7uBTHuV9jjPxm15GOSWwgjqFf23sOdBI3fTZBpz37SzDquxEO8oW8UG7Z/lcnrh7vNH7kqO5H/9FX/J26NS7uTT/r9Sxx93B4NitPPI4O2F/3K+XWLNeMa5RLum4Yrrh3cfa15yxPuBdxsAbU1ohsDZrvOK5dGbPyz3B7OiN/7q0R2RpEzlE368K5X9/THB76NceP1ohsDSI/ZkcvMTB/hn7NKfp/T43I1qAZayOuFcP5vv7jJj9F3uU94jhaI7I1SH156tc+0zjY2p/b399FPjvfDtaUPTUiW4Poby/3GD8Ph+L2asreGlFTg1Q/bWZ8SvHQfq358agaEc1gxOW9QxvGQjxYVxjvvTWCHIxs9uy/dGu8JV4pdzzuW42wZywGzPcIK3uOxxvG+CrCtfNGnns9cJG9szvfi7ju1a6ziFcHSrwiv+eDONgPaOfQr+OV7YGvt7+/ibwV+G06jpylyHuvt9X2wFp+c1ZU22rioXGmXs9PWz1Q48l5w+sdZqPn5wwOzjHe2WNPD2SuEWPUy7fq/xavSmcPnm0yPZDCfkpO2HXWVo9XUS/0emZkM3ugzvfMDa8H0pdbcYnmWl3zvn94Oc2+4fUX5mGpBx7BkT172EzZ+lsDORDZz7WsTdpvW35rsPf17PIeYKHvMzYZpmd8a1hkmQV+3+UzgaPGJuNWy28Ndo84tvKjxibWfa1jUS3gva1zhMWFOLZypcYm1avPaS3wMNScI8yOWhw1NnEutrVHz1nTDhw1Nlm9ajlnjQGOKM9nxDtjk82LLecs41aEw+O91d0am7JzFr9d1crHBg7lqPXzLZvYS7xezTiqP4/Kp+jU2ubFMuqjnP2yc9ajcXj9xsT7bkResu5n85xn2iPy1q/5QBz0a4RDe2HLPD8F+/IecZAbr/ADZ/BnnKc8n3h5oWdh4mB+EEc2z5mHNecp7WelGV/7B3F4vFIcrc9T5F9pxtf+sQfHM2Ki73pzDPsH/cn8iPzZMibEEc34Jh6OjA2t45Gd8XWO2ePH1vHIzvhmw/+Kg/yPZnyN5aNrjdXBZa30P1l+41GpmfFNWvDBnvV8SFxR/8v0fu01LTgRcYF5b5iZ29ner3hb8nwLxyi/mtvZumbPLtd/Ac5lEF0=
+  </data>
+ </layer>
+ <layer name="Walls&amp;Doors" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztWbtO3EAUHYIWilSRQ/IRIRAqAmTz2K1QeHxEKioqvoRHQ8VrqRAQPiKERwdJ+AJI8gEkNHC2sLQ+eNZ3r+aaxfKRjrwzmrnjo3Pt2bl2LonRHmeGSYodYi2OGWPVUMcOxQ6xFseMcWuo49mT8GtxTF/sKtrvwQ/gR/CTp819NbBOsXjNL9TmteJY7WIueHRw7DXMWwc3wE1wy9OuU18D3O5QB68Vx2oX06eD/ah4xjEkuZ6lQ7LWUxoj9WNOqEOS67ymRse8UIfWj6xcb+b3xSPw47Li3BX4G/wD/q3cf46qve3XCqlD68fnPuemwGlwBpzty57TjX7s4r73wH3wK3jQZTqkfkT9zj0HB8AX4Mv+7DmatdLyNw2cV1I/NPek8V6avxxbC8k9abRL8zfU/yuNH5I50vzN0w/Nu1H6nH9D/yH4HTwCj8ETcDFybglcBlei5Ji08adGfkh1vMJeNQi+BofAYfANeI17/wf+B2+i5Ji08SO96fFbYelHniiKDsu8yhMh/PCdB/NECD+kOizrJwzJu1qbV5b1E4bl82FZP2FY+iGpn9Q8v3nv5Dncluyd0nMtQ1I/aXh+897Jc7gt2Tu1fmjPI1YIpUN6HrFCqLx6aD9C6SiKH0XRUeZVGJTv3WS723RI/+9K6155QatDU7e1hFaHpm5rCa0OTd3WEvzeleoIVZezglRHnucoDYrih3T/aNZJz8Bz8Af4E/zVcuV+bqfN7aSPz5Q8hr85+tCsk74Fx8BxcAJ813Llfm6nze2kj8+UPIa/OZYoUaK4uAPvqNSM
+  </data>
+ </layer>
+ <layer name="Ceilings" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztmM0NwjAMhXMHBNdkEUCwU0GwD+zUsg9FYKkSCY3tOnKDn+RTFbtfntv8OPethXduOXGsfKQQs1YqJ6jpn58mjnOiJqdWKucwd9fHITi3Y8YxvHOlarafd1r7/JybTI7W/66NUTOSq8l8J8qYsdopxXr9nuHH6/kDUSt3nql+AH8sxvpKwg8uR+y72od0LSxHrofUvqKM43BI+6GFg+sH9pvV6geGg/LfNT9w+aX9wK6Dt4Dbt8Gap4UD5pUaWvpqy9wbpta80hwlZRzGIaFaOCTX85Iq6YfE/QnEtdAeYDhOMroCfgAH5k5Dcu2k+kHpYUlx+2ruHJT9uKRq4Sh5PpJULX7UwlFLX/07B+U+R1LUedXKMfe+4uxLNHFQ51XrPpHCUYMfwH/xcudC7BmS6of0eZASWA7uPamGM6TJZDKZptUTOR9ZIQ==
+  </data>
+ </layer>
+</map>
