@@ -4,21 +4,28 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Encrypt</title>
+
+		<script type="text/javascript" src="js/phaser.js"></script>
+        <script type="text/javascript" src="js/CanvasInput.js"></script>
+		<script type="text/javascript" src="js/Boot.js"></script>
+		<script type="text/javascript" src="js/Preload.js"></script>
+		<script type="text/javascript" src="js/Game.js"></script>
+
 		<style>
-		    body {
-		        padding: 0px;
-		        margin: 0px;
-		    }
-		</style>
+		  body {
+		    padding: 0px;
+		    margin: 0px;
+		  }
+		  </style>
 	</head>
 
-	<body>  
+	<body bgcolor="#000">
+        <div id="game-area"></div>
+        <script src="js/main.js"></script>
+        <div id="inputpwd" align="center" style="display: none; position: absolute; top:calc(50% - 25px); left:calc(50% - 180px);">
+            <p id="titlePwd" align="center" style="color: #fff">Setup Password</p>
+            <canvas id="pwdCanvas" width="360" height="50"></canvas>
+        </div>
 
-		<!-- include the main game file -->
-		<script type="application/javascript" src="js/phaser.js"></script>
-		<script type="application/javascript" src="js/Boot.js"></script>
-		<script type="application/javascript" src="js/Preload.js"></script>
-		<script type="application/javascript" src="js/Game.js"></script>
-		<script src="js/main.js"></script>
 	</body>
 </html>

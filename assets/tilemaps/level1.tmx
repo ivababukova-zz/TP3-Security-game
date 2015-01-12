@@ -312,7 +312,7 @@
     <property name="isKeyLogged" value="false"/>
     <property name="password" value="null"/>
     <property name="policy" value="policy"/>
-    <property name="sprite" value="browndoorRotated"/>
+    <property name="sprite" value="browndoor"/>
     <property name="type" value="door"/>
    </properties>
   </object>
