@@ -17,8 +17,9 @@ PassworPaper = function(){
     this.isCollidable = false;
 
     // it shouldn't have an "owner" per-se, as, if someone owns it, it will become an attribute of the object that will
-    // an array to keep track of the passwords written down
-    this.passwords = [];
+    // an array to keep track of the passwords written down; it should be an array of arrays so that it can track
+    // the password with its corresponding policy. What about the door?
+    this.passwords = [[]];
 
     /* coordinates for the object; if it's not owned, it should appear on the map where it's dropped; if not, its
     default should be -1, -1, so that it's outside out canvas*/

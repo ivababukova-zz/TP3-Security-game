@@ -2,10 +2,15 @@ var Encrypt = Encrypt || {};
 
 //title screen
 Encrypt.Game = function(){};
+
 var hook;
 var doortexture; // unused
 
 /* The player constructor - incomplete*/
+var selDoor = null;
+var fPause = false;
+
+/*The player constructor - incomplete*/
 
 
 /* constructor for the policy object 
@@ -19,43 +24,86 @@ var doortexture; // unused
 -  We should be able to instantiate him at a given set of coordinates*/
 
 Encrypt.Game.prototype = {
-  create: function() {
-    hook = this;
+    fPause : false,
+    
+    create: function() {
+        this.flagEnter = false;
+        hook = this;
 
-    this.map = this.game.add.tilemap('level1');
+        this.map = this.game.add.tilemap('level1');
 
-    //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
-    this.map.addTilesetImage('tiles', 'gameTiles');
+        //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
+        this.map.addTilesetImage('tiles', 'gameTiles');
 
-    //create layer
-    this.backgroundlayer = this.map.createLayer('backgroundLayer');
-    this.blockedLayer = this.map.createLayer('blockedLayer');
+        //create layer
+        this.backgroundlayer = this.map.createLayer('backgroundLayer');
+        this.blockedLayer = this.map.createLayer('blockedLayer');
 
-    //collision on blockedLayer
-    this.map.setCollisionBetween(1, 2000, true, 'blockedLayer');
+        //collision on blockedLayer
+        this.map.setCollisionBetween(1, 2000, true, 'blockedLayer');
 
-    //resizes the game world to match the layer dimensions
-    this.backgroundlayer.resizeWorld();
+        //resizes the game world to match the layer dimensions
+        this.backgroundlayer.resizeWorld();
 
-    this.createItems();
-    this.createDoors();    
-    this.createPlayer();
-  },
+        this.createItems();
+        this.createDoors();    
+        this.createPlayer();
+        
+        this.password = this.createInput();
 
-  createPlayer: function () {
-    //create player
-    var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
-    this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
-    this.game.physics.arcade.enable(this.player);
-    //this.player.body.velocity.y = -100;
-    //this.game.gravity = 0;
+        fPause = false;
+    },
 
-    //the camera will follow the player in the world
-    this.game.camera.follow(this.player);
+    createPlayer: function () {
+        //create player
+        var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
+        this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
+        this.game.physics.arcade.enable(this.player);
+        //this.player.body.velocity.y = -100;
+        //this.game.gravity = 0;
 
-    //move player with cursor keys
-     this.cursors = this.game.input.keyboard.createCursorKeys();
-  },
+        //the camera will follow the player in the world
+        this.game.camera.follow(this.player);
+
+        //move player with cursor keys
+         this.cursors = this.game.input.keyboard.createCursorKeys();
+    },
+    
+    createInput: function() {
+        var input = new CanvasInput({
+            canvas: document.getElementById('pwdCanvas'),
+            fontSize: 18,
+            fontFamily: 'Arial',
+            fontColor: '#212121',
+            width: 340,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 3,
+            boxShadow: '1px 1px 0px #fff',
+            innerShadow: '0px 0px 5px rgba(0,0,0,0.5)',
+            placeHolder: 'password',
+            onsubmit: function() {
+                if (selDoor.password == 'null') {
+
+                    document.getElementById("inputpwd").style.display = "none";
+
+                    selDoor.password = this._value;
+                    this._hiddenInput.value = '';
+                    fPause = false;
+                } else {
+                    if (selDoor.password == this._value) {
+                        document.getElementById("inputpwd").style.display = 'none';
+                        fPause = false;
+                    } else {
+                        document.getElementById("titlePwd").innerHTML = "Incorrect. Input again!";
+                    }
+                    this._hiddenInput.value = '';
+                }
+            }
+        });
+        return input;
+    },
 
   createItems: function() {
     //create items
@@ -118,11 +166,18 @@ Encrypt.Game.prototype = {
   },
 
   update: function() {
+    //collision
+    if (fPause == true) {
+        this.player.body.velocity.y = 0;
+        this.player.body.velocity.x = 0;
+        return;
+    }
 
     this.game.physics.arcade.collide(this.player, this.blockedLayer);
     this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
     var doorOverlap = this.game.physics.arcade.overlap(this.player, this.doors, this.openDoor, null, this); // this is true or false
 
+<<<<<<< HEAD
     // if the player has gone through a door, restore the original door sprite:
     // todo: door.texture = original door texture, not the texture of door 16
     if(!doorOverlap && this.showNextFrame !== undefined){
@@ -130,8 +185,16 @@ Encrypt.Game.prototype = {
       var texture = this.doors.getAt(16).texture;
       // var texture = doortexture;
       this.showNextFrame.forEach(function(door){door.texture = texture;});
+=======
+    //var doorOverlap = this.game.physics.arcade.overlap(this.player, this.doors, this.openDoor, null, this);
+    this.flagEnter = this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
+      
+    /*if(!doorOverlap && this.showNextFrame !== undefined){
+      var self = this;
+      this.showNextFrame.forEach(function(door){door.texture = self.doors.getAt(16).texture;});
+>>>>>>> 26d596bf857d18ea363a68c2b064451c168b8448
       this.showNextFrame = [];
-    }
+    }*/
 
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
@@ -170,6 +233,7 @@ Encrypt.Game.prototype = {
     collectable.destroy();
   },
 
+<<<<<<< HEAD
 
 enterDoor: function (player, door) {
     console.log("***" + door.password + "***");
@@ -199,8 +263,22 @@ enterDoor: function (player, door) {
         this.lockDoor(door);
         return 0;
       }
+=======
+  enterDoor: function (player, door) {
+    if(this.flagEnter == false){
+        fPause = true;
+        if (door.password == 'null') {
+            document.getElementById("titlePwd").innerHTML = "Setup password";
+        } else {
+            document.getElementById("titlePwd").innerHTML = "Input password";
+        }
+        selDoor = door;
+        document.getElementById("inputpwd").style.display = "block";
+
+        this.flagEnter = true;
+>>>>>>> 26d596bf857d18ea363a68c2b064451c168b8448
     }
-    */
+    
   },
 
   lockDoor: function (door) {
