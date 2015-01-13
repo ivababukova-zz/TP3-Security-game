@@ -184,7 +184,7 @@ Encrypt.Game.prototype = {
       var texture = this.doors.getAt(16).texture;
       // var texture = doortexture;
       this.showNextFrame.forEach(function(door){door.texture = texture;});
-
+  	}
     //var doorOverlap = this.game.physics.arcade.overlap(this.player, this.doors, this.openDoor, null, this);
     this.flagEnter = this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
       
@@ -214,8 +214,7 @@ Encrypt.Game.prototype = {
     else if(this.cursors.right.isDown) {
       this.player.body.velocity.x += speed;
     }
-  },
-
+},
   // function to open a new window in the middle of the screen
   // used for the doors interface
   popup: function(url, title, w, h) {
@@ -231,10 +230,9 @@ Encrypt.Game.prototype = {
     collectable.destroy();
   },
 
-
 enterDoor: function (player, door) {
     console.log("***" + door.password + "***");
-    /*
+    
     if (door.password === null) {  // if the user hasn't set up a password yet:
       input = prompt("Set a password for this policy:");
 
@@ -260,6 +258,8 @@ enterDoor: function (player, door) {
         this.lockDoor(door);
         return 0;
       }
+    }
+ },
 
   enterDoor: function (player, door) {
     if(this.flagEnter == false){
@@ -282,3 +282,4 @@ enterDoor: function (player, door) {
     return 0;
   }
 };
+ 
