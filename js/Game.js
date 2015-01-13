@@ -177,7 +177,6 @@ Encrypt.Game.prototype = {
     this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
     var doorOverlap = this.game.physics.arcade.overlap(this.player, this.doors, this.openDoor, null, this); // this is true or false
 
-<<<<<<< HEAD
     // if the player has gone through a door, restore the original door sprite:
     // todo: door.texture = original door texture, not the texture of door 16
     if(!doorOverlap && this.showNextFrame !== undefined){
@@ -185,14 +184,13 @@ Encrypt.Game.prototype = {
       var texture = this.doors.getAt(16).texture;
       // var texture = doortexture;
       this.showNextFrame.forEach(function(door){door.texture = texture;});
-=======
+
     //var doorOverlap = this.game.physics.arcade.overlap(this.player, this.doors, this.openDoor, null, this);
     this.flagEnter = this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
       
     /*if(!doorOverlap && this.showNextFrame !== undefined){
       var self = this;
       this.showNextFrame.forEach(function(door){door.texture = self.doors.getAt(16).texture;});
->>>>>>> 26d596bf857d18ea363a68c2b064451c168b8448
       this.showNextFrame = [];
     }*/
 
@@ -233,7 +231,6 @@ Encrypt.Game.prototype = {
     collectable.destroy();
   },
 
-<<<<<<< HEAD
 
 enterDoor: function (player, door) {
     console.log("***" + door.password + "***");
@@ -263,7 +260,7 @@ enterDoor: function (player, door) {
         this.lockDoor(door);
         return 0;
       }
-=======
+
   enterDoor: function (player, door) {
     if(this.flagEnter == false){
         fPause = true;
@@ -276,7 +273,6 @@ enterDoor: function (player, door) {
         document.getElementById("inputpwd").style.display = "block";
 
         this.flagEnter = true;
->>>>>>> 26d596bf857d18ea363a68c2b064451c168b8448
     }
     
   },
