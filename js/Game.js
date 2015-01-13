@@ -3,7 +3,9 @@ var Encrypt = Encrypt || {};
 //title screen
 Encrypt.Game = function(){};
 var hook;
-/*The player constructor - incomplete*/
+var doortexture; // unused
+
+/* The player constructor - incomplete*/
 
 
 /* constructor for the policy object 
@@ -72,6 +74,7 @@ Encrypt.Game.prototype = {
     //create doors
     this.doors = this.game.add.group();
     this.doors.enableBody = true;
+    doortexture = this.doors.texture;
 
     var result = this.findObjectsByType('door', this.map, 'objectsLayer');
 
@@ -118,12 +121,15 @@ Encrypt.Game.prototype = {
 
     this.game.physics.arcade.collide(this.player, this.blockedLayer);
     this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
+    var doorOverlap = this.game.physics.arcade.overlap(this.player, this.doors, this.openDoor, null, this); // this is true or false
 
-    var doorOverlap = this.game.physics.arcade.overlap(this.player, this.doors, this.openDoor, null, this);
-
+    // if the player has gone through a door, restore the original door sprite:
+    // todo: door.texture = original door texture, not the texture of door 16
     if(!doorOverlap && this.showNextFrame !== undefined){
-      var self = this;
-      this.showNextFrame.forEach(function(door){door.texture = self.doors.getAt(16).texture;});
+      // var self = this;
+      var texture = this.doors.getAt(16).texture;
+      // var texture = doortexture;
+      this.showNextFrame.forEach(function(door){door.texture = texture;});
       this.showNextFrame = [];
     }
 
@@ -149,13 +155,23 @@ Encrypt.Game.prototype = {
     }
   },
 
+  // function to open a new window in the middle of the screen
+  // used for the doors interface
+  popup: function(url, title, w, h) {
+    var left = (screen.width/2)-(w/2);
+    var top = (screen.height/2)-(h/2);
+    return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
+  },
+
   collect: function(player, collectable) {
     console.log('yummy!');
     //remove sprite
+    this.popup("https://www.facebook.com",'Iva',650,400);
     collectable.destroy();
   },
 
-  enterDoor: function (player, door) {
+
+enterDoor: function (player, door) {
     console.log("***" + door.password + "***");
     /*
     if (door.password === null) {  // if the user hasn't set up a password yet:
