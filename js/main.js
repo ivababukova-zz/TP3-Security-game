@@ -1,6 +1,6 @@
 var Encrypt = Encrypt || {};
 
-Encrypt.game = new Phaser.Game(200, 200, Phaser.AUTO, '');
+Encrypt.game = new Phaser.Game(1200, 1200, Phaser.AUTO, '');
 //Encrypt.map = new Phaser.Game(360, 360, Phaser.AUTO, '');
 
 Encrypt.game.state.add('Boot', Encrypt.Boot);

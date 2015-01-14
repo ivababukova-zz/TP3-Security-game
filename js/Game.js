@@ -33,17 +33,19 @@ Encrypt.Game.prototype = {
         this.map = this.game.add.tilemap('level1');
 
         //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
-        this.map.addTilesetImage('tiles', 'gameTiles');
+        this.map.addTilesetImage('TileSet1Encrypt', 'TileSet1Encrypt');
 
         //create layer
         this.backgroundlayer = this.map.createLayer('backgroundLayer');
         this.blockedLayer = this.map.createLayer('blockedLayer');
+        this.ceilingLayer = this.map.createLayer('ceilingLayer');
 
         //collision on blockedLayer
         this.map.setCollisionBetween(1, 2000, true, 'blockedLayer');
 
         //resizes the game world to match the layer dimensions
         this.backgroundlayer.resizeWorld();
+        this.ceilingLayer.resizeWorld();
 
         this.createItems();
         this.createDoors();    
@@ -173,8 +175,9 @@ Encrypt.Game.prototype = {
         return;
     }
 
-    this.game.physics.arcade.collide(this.player, this.blockedLayer);
+    //this.game.physics.arcade.collide(this.player, this.blockedLayer);
     this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
+    this.game.physics.arcade.overlap(this.player, this.ceilingLayer);
     var doorOverlap = this.game.physics.arcade.overlap(this.player, this.doors, this.openDoor, null, this); // this is true or false
 
     // if the player has gone through a door, restore the original door sprite:
@@ -197,7 +200,7 @@ Encrypt.Game.prototype = {
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
     //this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
-    var speed = 50;
+    var speed = 260;  // set up the speed of the player
     //player movement
     this.player.body.velocity.y = 0;
     this.player.body.velocity.x = 0;
@@ -226,11 +229,11 @@ Encrypt.Game.prototype = {
   collect: function(player, collectable) {
     console.log('yummy!');
     //remove sprite
-    this.popup("https://www.facebook.com",'Iva',650,400);
     collectable.destroy();
   },
 
-enterDoor: function (player, door) {
+  /*
+  enterDoor: function (player, door) {
     console.log("***" + door.password + "***");
     
     if (door.password === null) {  // if the user hasn't set up a password yet:
@@ -260,7 +263,7 @@ enterDoor: function (player, door) {
       }
     }
  },
-
+*/
   enterDoor: function (player, door) {
     if(this.flagEnter == false){
         fPause = true;

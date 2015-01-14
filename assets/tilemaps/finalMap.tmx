@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="75" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="TileSet1Encrypt" tilewidth="64" tileheight="64">
+  <image source="../EncryptTileSets/TileSet1Encrypt.png" width="6400" height="6400"/>
+ </tileset>
+ <tileset firstgid="10001" name="TileSet1Encrypt" tilewidth="64" tileheight="64">
+  <image source="../EncryptTileSets/TileSet1Encrypt.png" width="6400" height="6400"/>
+ </tileset>
+ <tileset firstgid="20001" name="Player1" tilewidth="64" tileheight="64">
+  <image source="../images/Player1.png" width="96" height="120"/>
+ </tileset>
+ <tileset firstgid="20002" name="Player1" tilewidth="64" tileheight="64">
+  <image source="../images/Player1.png" width="96" height="120"/>
+ </tileset>
+ <tileset firstgid="20003" name="Clue" tilewidth="64" tileheight="64">
+  <image source="../images/GameIcons/Clue.png" width="64" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="sprite" value="Clue"/>
+    <property name="type" value="item"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="backgroundLayer" width="60" height="75">
+  <data encoding="base64" compression="zlib">
+   eJzt0bERg0AMRcHrAqohwVQFrsBFGnfCOSNzItAZVjObvz+au1JmAAAAgIt5DfkNHPfbvewee+N87+obAQAAAKAF+8tuid7z67Jbo/ZmN9hrr70AkGOpng10nOFdrdWngZYzjH0pj2rq81vuIOIiGo5qi+gDAADg/21qX+pI
+  </data>
+ </layer>
+ <layer name="blockedLayer" width="60" height="75">
+  <data encoding="base64" compression="zlib">
+   eJztmj1onVUYx09Mm9yamGDSUsEhQ/yI/cI2gZjGpkiGDKVm6BCkg0PFIh06BMnQQaGCQ9d2EpGYlAwdyqVChgxVHCJ26NChSNUOFjI4ODioONRzuPfw/u9zz/d53jdXbv/wwHvf83HP7+bkef/P4V3aIzpG5z1rWcpc69UhIbZgjlM9Qnw6FB/zPe45ro8KcUPG2b72wLF3PTxbmbw7ci1fvVh8XpXfvRYZ6zI2elrn+GikNf6WrP+Mtt9XgWM/3+te70p/ca1+17mAwN/zzHAr797n0n63q7DOK/32fr6xMbyrgbwbJfDuwDp/96w5Zyzyhq4V+bh4z/QV14t99n65YzuF9zas804kb8zYTuEdhXUcjPz/jRnLzbvwUtgcVDju9nD62Mce3pQ8QXkfwXd0Om9KnqC8p2tCPBlqxDpcjx9oxLf7hfhuf3HfFNRvUE8R6jd8vCl5gvKu1RqcNDTvKzJelfGaI7j8ho83JU9QXg4twDw5fsPH+4ghX3GoKr/RKbxV+Q0O3itvhq9N6RND/6r8Bgfv40je3wz9q/IbHLzzx4vPZyeE+KYZ6yeFuHmycX1uouizAP21qqqPcnlVPhyD76gDb21WiH2zjetN4B03rGk3eJ8cDJsf+1HeA2+Yx7wM9328sR4N+1fNa2JRQp++m7zKC/7abw/t42zt87Ww55+vD/IqP/nenjQ/6eNd8/BqH2dr36iFPf98fXCPlHl+xaGQ55+vz1hGvhqLyFccCnn++fr8n3gx59nWuuLpU5V/5lBIvY/3TbxV+WcOqRyvFcI7X2tvr8o/x3p9KuX9fTnelNOpqvLPsV6fyuT9U+T7/3YJn939I+6+1Ou/S0J7fryH3r93Su7VifZ5faI14UpADrDJlxtQyFs38GrPj/c2Ce+tBF66L27BuUEOr+9sE3ltXt81RvEOwzhbPfjLjLsmvDjSetYX4yd1fCb39aWI/czBq/bIYjP03lhs8m46eO8ZfGKon8S4XzGvaw6sCU01fxUaOFFcD5+w90NR3qeTxWcXx19Hiut/j9j7lanLwLhcMu/5o8X1+0ft/crUA2B8WDLvXWD8nvDmvkdiknq3hGoa1jo72d5uUirv+LHi+vVjrW2575GYtGPg5chXyHvnLfs4V74aI+cbpy2hn0u2dvpuiWvtHLwur4BtLt5VC0u9r3gu2XjpuyWutaec1yneZfy7MfCmviOgNABjTbyjM8V1Ku9DyfvDVHtof0Xvv31I+g+yl3LON1DIa5oHeZUX/HmmNfSa8R6tF2bl+ucMof2Vqe2dQ63r4Dqj8M2DvHUDr14z3qP1Aoe4zih88yBvar7iUM75Rsw8HPk55YyE1r855xsx83DwppyR0PqXKz/juUEVz188I6FnIzTPobjys+/dA+76qO44G3Hluap4ueuj0PrXxRvqA0zCsabfjbs+cvG69lJVvNz1kYvXtZdovfC1JXS9YGvHesHEuxx4FoNK5XXtJVov2Hh0vWBr3+ggXtdeQt4vng9bh0m+fMXN6/Jbrn67wZsiyuvKNbSuQnUbL9Y1TzN4ffWRql1/nDKHzoW2dhUXZVyQ8UFEfNgch8K65sJAOq+vPlK1q41F50IX7z0Z202GmFDjrs0VgXXNdgQvzqFE6yNs5woOYV1zeJBnnpw6q2xhXfMxU32U48NdurQvfw7MZTm8mJ9zfKlNlyXr/S7ifSBZJ+H5keN9dfyUwbstx97sCQu9Hl8/9OTTkvUPyC853lfHqd503sO94bx6Pb5+6Mn/HGzlnc7wCp2qL4HpGW/16ylbz3iLz93GW8Yzb7eFTN3Ie+4FISYGuyOWJOtmF/FuSdb/AJA6uHk=
+  </data>
+ </layer>
+ <objectgroup name="objectsLayer">
+  <object gid="20001" x="2496" y="760">
+   <properties>
+    <property name="type" value="playerStart"/>
+   </properties>
+  </object>
+  <object gid="20003" x="1460" y="968">
+   <properties>
+    <property name="sprite" value="clue"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object gid="20003" x="1460" y="968">
+   <properties>
+    <property name="sprite" value="clue"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object gid="20003" x="1460" y="968">
+   <properties>
+    <property name="sprite" value="clue"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object gid="20003" x="1624" y="1772">
+   <properties>
+    <property name="sprite" value="clue"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object gid="20003" x="604" y="372">
+   <properties>
+    <property name="sprite" value="clue"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object gid="20003" x="372" y="1464">
+   <properties>
+    <property name="sprite" value="clue"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="ceilingLayer" width="60" height="75">
+  <data encoding="base64" compression="zlib">
+   eJztm2FugzAMhfN/2wHWi3Q71dhZy4EG2pCqrDi2Y5u4vCdFqgRx+FCInwMtpZSX91KmpX1c9G3qiLH2e1saR+u1viraffyv5fc3c7w93TpiSPreFPd1quJn45WOU/OBVy7w+vQFb1vg/V2zNXlta1NHjDpfePNeO3yGld+I5LVQpvlsIfD69AVvW2fn5dZYVM2WiXersWaitXJGNt5WjNY54OVLU+9LPZwHb4Sf7PGCHrzeftJCmeazhcArPwe8tuNb6oy8rVwyir+yEDenfV72Y0TxWrxPsVAU77bXdnR+j+SNqgepedHjJ2t/683L9YIzMdb177jW21JrgwcvJ0b0OvpI4JX3Ae9jgTdeo/BqfU/EPqgH73qsJx9xct5ovBZz3aMO2/MbrXlG3ftI3l7/Jtnz2/NBkbzS56b1jHhcp1WcZ3hfJokD3rbOzitZ86j6NxMvp/6l9kWy8XJiUM8BeHXKxNv7jZ7XPrcnb2+9kIn3bPMZvHKB9//xuXMNzFT/ar9Xua9jM9W/owi8x8bxFniPjUPJYq/cak9Mk2+kdbuV9+W+w6Vk8V+ZlifP8sxopfVXWQVe8D6TwHs+Xou9tlFbnX89cvxozcILQePrB5cYJAk=
+  </data>
+ </layer>
+</map>
