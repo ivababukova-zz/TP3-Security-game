@@ -16,11 +16,10 @@ Encrypt.Preload.prototype = {
 
     this.load.image('TileSet1Encrypt', 'assets/EncryptTileSets/TileSet1Encrypt.png');
     this.load.image('clue', 'assets/images/GameIcons/Clue.png');
-    this.load.image('greencup', 'assets/images/greencup.png');
-    this.load.image('bluecup', 'assets/images/bluecup.png');
+    this.load.image('passNote', 'assets/images/GameIcons/PasswordNote.png');
+    this.load.image('firewall', 'assets/images/GameIcons/Firewall.png');
     this.load.image('player', 'assets/images/Player1.png');
-    this.load.image('browndoor', 'assets/images/browndoor.png');
-    this.load.image('browndoorRotated', 'assets/images/browndoorRotated.png');
+
 
   },
   create: function() {
