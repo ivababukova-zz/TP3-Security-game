@@ -5,28 +5,32 @@ Encrypt.Game = function(){};
 
 var hook;
 
-/* The player constructor - incomplete*/
-var selDoor = null;
+var TILESIZE = 64;
+var currentRoom = 0;
+var currentDoor = null;
 var fPause = false;
 
 /*The player constructor - incomplete*/
 
 
 /* constructor for the policy object
-    Upon creation of objects on the map, individual policies will be created, then each door will be assigned one policy
-    Each time the user tries to set a new password for a door, the door checks if the password subscribes to the given policy
+ Upon creation of objects on the map, individual policies will be created, then each door will be assigned one policy
+ Each time the user tries to set a new password for a door, the door checks if the password subscribes to the given policy
  */
 
 
 /*constructor for the Friend object
--  There can be more than one object of this type
--  We should be able to instantiate him at a given set of coordinates*/
+ -  There can be more than one object of this type
+ -  We should be able to instantiate him at a given set of coordinates*/
 
 Encrypt.Game.prototype = {
   fPause: false,
 
   create: function () {
+    this.graphs = [];
+    // when the player touches the door, this.flagEnter is true, otherwise false.
     this.flagEnter = false;
+    this.flagSearch = false;
     hook = this;
 
     this.map = this.game.add.tilemap('level1');
@@ -53,6 +57,7 @@ Encrypt.Game.prototype = {
     this.createCeilings();
     this.createDoors();
     this.createPlayer();
+    this.loadRooms();
 
     this.password = this.createInput();
 
@@ -89,15 +94,17 @@ Encrypt.Game.prototype = {
       innerShadow: '0px 0px 5px rgba(0,0,0,0.5)',
       placeHolder: 'password',
       onsubmit: function () {
-        if (selDoor.password == 'null') {
+        // when the user input password and enter 'Enter' key,
+        if (currentDoor.password == 'null') {
 
           document.getElementById("inputpwd").style.display = "none";
 
-          selDoor.password = this._value;
+          currentDoor.password = this._value;
           this._hiddenInput.value = '';
           fPause = false;
-        } else {
-          if (selDoor.password == this._value) {
+        } else { // if password was already set, then compare.
+
+          if (currentDoor.password == this._value) {
             document.getElementById("inputpwd").style.display = 'none';
             fPause = false;
           } else {
@@ -144,12 +151,92 @@ Encrypt.Game.prototype = {
     this.doors = this.game.add.group();
     this.doors.enableBody = true;
     doortexture = this.doors.texture;
-
     var result = this.findObjectsByType('door', this.map, 'objectsLayer');
 
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.doors);
     }, this);
+  },
+
+  loadRooms: function() {
+    this.rooms = this.findObjectsByType('room', this.map, 'RoomLayer');
+    this.getCurrentRoom();
+  },
+
+  getCurrentRoom: function () {
+    currentRoom = 0;
+    this.rooms.forEach(function(element){
+
+      var x = parseInt(element.properties.vx) * TILESIZE;
+      var y = parseInt(element.properties.vy) * TILESIZE;
+      var w = (parseInt(element.properties.vw)) * TILESIZE;
+      var h = (parseInt(element.properties.vh)) * TILESIZE;
+
+      // if player is in the room, then memorise its id
+      var rect1 = new PIXI.Rectangle(x,y,w,h);
+      if (rect1.contains( this.player.position.x, this.player.position.y ) ||
+          rect1.contains( this.player.position.x, this.player.position.y+16 ) ||
+          rect1.contains( this.player.position.x+10, this.player.position.y+16 ) ||
+          rect1.contains( this.player.position.x+10, this.player.position.y )
+      ) {
+        currentRoom = element.properties.idx;
+        console.log("roomPos : " + currentRoom.toString());
+      }
+
+      // changing room's state to visited
+      if (currentRoom == element.properties.idx) {
+        if (element.properties.state == "1") {
+          element.properties.state = "0";
+        }
+      }
+      this.drawRoom(element);
+
+    }, this);
+  },
+
+  // draw the room.
+  drawRoom: function(room) {
+
+    var x1 = parseInt(room.properties.vx) * TILESIZE;
+    var y1 = parseInt(room.properties.vy) * TILESIZE;
+    var w1 = (parseInt(room.properties.vw)) * TILESIZE;
+    var h1 = (parseInt(room.properties.vh)) * TILESIZE;
+
+    var state1 = parseInt(room.properties.state);
+
+    var graphics;
+    var str = room.properties.idx.toString()+"+"+room.properties.vx.toString()+"+"+room.properties.vy.toString();
+
+    if (this.graphs[str] != undefined && this.graphs[str] != null) {
+      graphics = this.graphs[str];
+      graphics.destroy();
+    }
+    graphics = this.game.add.graphics(0, 0);
+    this.graphs[str] = graphics;
+
+    var color = 0xCCCCCC;
+    var alpha = 0.6;
+
+    if (state1 == 0) { // visited
+
+      // if player is not in the room
+      if (currentRoom != room.properties.idx) {
+        alpha = 0.6;
+      } else {
+        return;
+      }
+
+    } else if (state1 == 1) { // not visited
+      color = 0x444444;
+      alpha = 1;
+    } else if (state1 == 2) { // infected
+      color = 0xFFFFFF;
+      alpha = 1;
+    }
+
+    graphics.beginFill(color, alpha);
+    graphics.drawRect(x1, y1, w1, h1);
+    graphics.endFill();
   },
 
   //find objects in a Tiled layer that contain a property called "type" equal to a certain value
@@ -190,7 +277,6 @@ Encrypt.Game.prototype = {
   update: function () {
 
     //collision
-
     if (fPause == true) {
       this.player.body.velocity.y = 0;
       this.player.body.velocity.x = 0;
@@ -221,6 +307,16 @@ Encrypt.Game.prototype = {
     //this.game.physics.arcade.overlap(this.player, this.doors, this.setDoorInvisible(), null, this);
     this.flagEnter = this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
+    // when come out the door, check the room.
+    if (this.flagEnter)
+      this.flagSearch = true;
+    else
+    {
+      if (this.flagSearch == true) {
+        this.flagSearch = false;
+        this.getCurrentRoom();
+      }
+    }
 
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
@@ -268,55 +364,55 @@ Encrypt.Game.prototype = {
     this.doors.renderable = false;
   },
 
-/*
-  enterDoor: function (player, door) {
-    console.log("***" + door.password + "***");
-    
-    if (door.password === null) {  // if the user hasn't set up a password yet:
-      input = prompt("Set a password for this policy:");
+  /*
+   enterDoor: function (player, door) {
+   console.log("***" + door.password + "***");
 
-      if (input === null) {  // if the user has pressed cancel:
-        console.log("no password entered.");
-      }
+   if (door.password === null) {  // if the user hasn't set up a password yet:
+   input = prompt("Set a password for this policy:");
 
-      else {
-        door.password = input;
-        console.log(door.password);
-        // TODO change with unlock method instead of destroy
-      }
-    }
+   if (input === null) {  // if the user has pressed cancel:
+   console.log("no password entered.");
+   }
 
-    else if (door.password !== null) {  // if the user has set up a password already:
-      console.log("password is not null:" + door.password);
-      var checkPassword = prompt("Enter your password, please:");
-      if (checkPassword === door.password) {
-        console.log("Access granted.");
-      }
-      else {
-        console.log("Wrong password, try again:");
-        this.lockDoor(door);
-        return 0;
-      }
-    }
-  }
-*/
+   else {
+   door.password = input;
+   console.log(door.password);
+   // TODO change with unlock method instead of destroy
+   }
+   }
+
+   else if (door.password !== null) {  // if the user has set up a password already:
+   console.log("password is not null:" + door.password);
+   var checkPassword = prompt("Enter your password, please:");
+   if (checkPassword === door.password) {
+   console.log("Access granted.");
+   }
+   else {
+   console.log("Wrong password, try again:");
+   this.lockDoor(door);
+   return 0;
+   }
+   }
+   }
+   */
 
   enterDoor: function (player, door) {
     var self = this;
     if(this.flagEnter == false){
-        fPause = true;
-        if (door.password == 'null') {
-            document.getElementById("titlePwd").innerHTML = "Setup password";
-        } else {
-            document.getElementById("titlePwd").innerHTML = "Input password";
-        }
-        selDoor = door;
-        document.getElementById("inputpwd").style.display = "block";
+      fPause = true;
+      if (door.password == 'null') {
+        document.getElementById("titlePwd").innerHTML = "Setup password";
+      } else {
+        document.getElementById("titlePwd").innerHTML = "Input password";
+      }
+      currentDoor = door;
+      document.getElementById("inputpwd").style.display = "block";
 
-        this.flagEnter = true;
-        self.setDoorInvisible();
+      this.flagEnter = true;
+      self.setDoorInvisible();
     }
-    
+
   }
 
 };
