@@ -42,13 +42,10 @@ Encrypt.Game.prototype = {
     ///this.borderLayer = this.map.createLayer('borderLayer');
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
     this.blockedLayer = this.map.createLayer('blockedLayer');
-    this.ceilingLayer = this.map.createLayer('ceilingLayer');
 
 
     //collision on blockedLayer
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
-    ///this.map.setCollisionBetween(1, 100000, true, 'borderLayer');
-    // this.map.overlap(this.player, this.ceilingLayer);
 
     //resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld();
@@ -60,7 +57,6 @@ Encrypt.Game.prototype = {
     this.loadRooms();
 
     this.password = this.createInput();
-
     fPause = false;
   },
 
@@ -284,8 +280,7 @@ Encrypt.Game.prototype = {
     }
 
     this.game.physics.arcade.collide(this.player, this.blockedLayer);   // set up collision with the walls
-    this.game.physics.arcade.collide(this.player, this.borderLayer);
-    this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
+    this.game.physics.arcade.overlap(this.player, this.items, this.showHint, null, this);
     var isUnderCeiling = this.game.physics.arcade.overlap(this.player, this.ceilings, this.setPlayerInvisible, null, this); // this is true or false
 
 
@@ -350,9 +345,17 @@ Encrypt.Game.prototype = {
     return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
   },
 
-  collect: function (player, collectable) {
-    console.log('yummy!');
-    //remove sprite
+  showHint: function(player, collectable) {
+    var array = [];
+    array.push("how to make your password stronger: hint 1");
+    array.push("how to make your password stronger: hint 2");
+    array.push("how to make your password stronger: hint 3");
+    array.push("how to make your password stronger: hint 4");
+    var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 nad the array length
+    var hint = array[randomIndex];
+
+    var input = confirm(hint);
+
     collectable.destroy();
   },
 
