@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="64" tileheight="64" nextobjectid="46">
  <tileset firstgid="1" name="TileSet1Encrypt" tilewidth="64" tileheight="64">
   <image source="../EncryptTileSets/TileSet1Encrypt.png" width="6400" height="6400"/>
+  <tile id="4610">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="2" width="28" height="62"/>
+   </objectgroup>
+  </tile>
  </tileset>
  <tileset firstgid="10001" name="TileSet1Encrypt" tilewidth="64" tileheight="64">
   <image source="../EncryptTileSets/TileSet1Encrypt.png" width="6400" height="6400"/>
@@ -9,10 +14,7 @@
  <tileset firstgid="20001" name="Player1" tilewidth="64" tileheight="64">
   <image source="../images/Player1.png" width="96" height="120"/>
  </tileset>
- <tileset firstgid="20002" name="Player1" tilewidth="64" tileheight="64">
-  <image source="../images/Player1.png" width="96" height="120"/>
- </tileset>
- <tileset firstgid="20003" name="Clue" tilewidth="64" tileheight="64">
+ <tileset firstgid="20002" name="Clue" tilewidth="64" tileheight="64">
   <image source="../images/GameIcons/Clue.png" width="64" height="64"/>
   <tile id="0">
    <properties>
@@ -21,7 +23,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="20004" name="Firewall" tilewidth="64" tileheight="64">
+ <tileset firstgid="20003" name="Firewall" tilewidth="64" tileheight="64">
   <image source="../images/GameIcons/Firewall.png" width="64" height="64"/>
   <tile id="0">
    <properties>
@@ -31,17 +33,18 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="20005" name="PasswordNote" tilewidth="64" tileheight="64">
+ <tileset firstgid="20004" name="PasswordNote" tilewidth="64" tileheight="64">
   <image source="../images/GameIcons/PasswordNote.png" width="64" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="sprite" value="passNote"/>
+    <property name="type" value="ceiling"/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="backgroundLayer" width="60" height="60">
+ <layer name="backgroundLayer" width="60" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt2rENwjAQBVDPQEOmoQGmCkzAaCAxArAJSYEUUAIUTs5R3kmvcSTrf7m5IvU6pRoAgEW6FZChz2X1bui8+23OfQEYx2kTn4Hx3rYrOo+++bSTo2Pf3ji0W0Z3BgAg3vnL/vjPTvlytV8CADPSnegsufv8muisufpGZ9BXX30BIMahcSwgxxTafz7vjUcBWaawrVLaNfZVfJYlyDE5MoyV7fPuJ7x69BA=
-  </data>
- </layer>
- <layer name="blockedLayer" width="60" height="60">
-  <data encoding="base64" compression="zlib">
-   eJzlmrtPVEEUxgcfsErCxgWCiQUFPtAIUSBRQCGGgoIghQUxFBYajbGwoKCg0AQTC1utLAyC2YLCbDShsEBjoVE7Cwt8FJJQ+AeoscA72Z3c756d9529rPFLTnL3zmPntwznfmdyp3exutGMYS3TKde60MLYC5jjbANjt1vcY6xBP8f9VsYeRDHZWB04ds3A8yIl72a0lkf74s+L0XcvOcZyFMWG5BzXC8n4FbH+bq2+zwPH3t2tX+9cU3zNf9cRi8DfcyKf5N29w+93W4B1zjep+5nGuvAuWvIWa8C7Cev8YVhzmrHIa7tW5AvFO9EYX081qvulHVsvvE9hnc8ceV3G1gtvK6yjw/H/12VsaN7x/XZzUOG4p3n/sd8MvD55gvKuw3fUO69PnqC8oznGNlrKsQzXXe3leNnG2Ku2+L4sqN+gnsLWb5h4fUR5l3JlThqC92AUh6I4rAnqN6iE35CpmDFvCI3DPGn8hol3PUC+CqGs/Ea98KbxGy4KwTt/wu07b0n6p/EbLgrB+82R97ukf1Z+IwTv2Mn482Q3Y88rsTzE2JOh8vWF7rjPOPQXyqo+SsvL82EnfEcJeHPDjO0ZLl+vAm+XZE3bwbvRYTc/9qO87UflYw7AfROvq0fD/lnzyli40KdvJy/3gl+b1CF8nKp9LGf3/DP1QV7uJy/uSnrGD4VyTELulvlJE++SgVf4OFV7MWf37DT1wT0i85M6uZxfhZDNs9PUpzNFvup0yFchZPP8M/X5l3gx56nWOmfok5V/DiGbeh/vy3iz8s8hxHO8kA3vWK66PSv/7Or1qbj3N+V4WU6nyso/u3p9Kpn395Hp/1snfHY3FfR9qdc/T0J4fryH3n/nQLRXu6vnNYnWhHMWOUAlU25AIW9Jwis8P95bJbwrHrx0X6zAuUEaXtPZJvKqvL5uDOfNwzhVPfhlUF8TXiskz/p0fpLHfMXDY5870b6+4bCfQ/DyPTJVCbE3piq8qxrerBSaVzcH1oTbxdvcF1/n+9T9UJR3qz/+rOP4eTy+/nNc3a+WugmMszXmnemJry/1qPvVUh+B8VONedeA8TXhTfseiUz83RKqU7DW4f7qdpl8ebt64+sjvcm2tO+RyLQp4Q2Rr5D32Wn1OF2+6iTnG6OKEOctqnb6bolu7SF4dV4B23S8iwqWUmN83qLipe+W6Nbuc17HeWfx7xaA1/cdAa5mGCvjbR2Mr315P0W8bweqQ/grev/Msch/kL2U5nwDhbyyeZCXe8HPg8kQa8Z7tF4YjtY/Ignhr2Rt544l1xHqjMI0D/KWJLxizXiP1gshFOp8wzQP8vrmqxAKdb5hmidEfvY5I6H1b5rzDZd5QvD6nJHQ+jdUfsZzgyyev3hGQs9GaJ5DhcrPpncPQtdHJc3ZiC7PZcUbuj6yrX91vLY+QCYcK/vdQtdHOl7dXsqKN3R9pOPV7SVaLzxWhKgXVO1YL8h4Zy3PYlC+vLq9ROsFFY+oF1TtxTri1e0l5H24124dMpnyVWhend/S9dsOXh9RXl2uoXUV6n/jxbpmKwWvqT7iteu7AXmIXKhq53EtistRXHGIq5VxKKxrLjf785rqI167qlhELtTxvo/iTYXBJfi4eyNxYF3zxoEX5+Ci9RG2h4q/Gp0rNA==
+   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
   </data>
  </layer>
  <objectgroup name="objectsLayer">
@@ -49,57 +52,69 @@
    <property name="sprite" value="passNote"/>
    <property name="type" value="ceiling"/>
   </properties>
-  <object gid="20001" x="2496" y="760">
+  <object id="1" gid="20001" x="2496" y="760">
    <properties>
     <property name="type" value="playerStart"/>
    </properties>
   </object>
-  <object gid="20003" x="1930" y="876">
+  <object id="2" gid="20002" x="1930" y="876">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object gid="20003" x="1624" y="1772">
+  <object id="3" gid="20002" x="1624" y="1772">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object gid="20003" x="604" y="372">
+  <object id="4" gid="20002" x="604" y="372">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object gid="20003" x="372" y="1464">
+  <object id="5" gid="20002" x="372" y="1464">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object gid="20004" x="2240" y="990">
+  <object id="6" gid="20003" x="2240" y="990">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="firewall"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object x="2754" y="674" width="64" height="64">
+  <object id="7" x="2754" y="674" width="64" height="64">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="firewall"/>
     <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object id="44" gid="20002" x="2576" y="996">
+   <properties>
+    <property name="sprite" value="clue"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object id="45" gid="20002" x="2436" y="576">
+   <properties>
+    <property name="sprite" value="clue"/>
+    <property name="type" value="item"/>
    </properties>
   </object>
  </objectgroup>
- <layer name="ceilingLayer" width="60" height="60">
+ <layer name="blockedLayer" width="60" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmk1OwzAQhb2CRWHFil6kcCrCyXqY5kAkgkiVqcfz30w9T7IUKfE4X+R43jgppZTDeynT0j6O/DYJYqz9XpeG0XqvL4x2Hf9rOf5GjtfSRRCD0vfCeK5TFT8aL3Wcmi956Upem77J21fy/q7ZnLy2tUkQo84X1rwngc/Q8huevBrymM/np7F4357H4uWOk7xySXitx6l5sTUWVLNF4t1qrBlovZwRaT5jYvSuSV68OPU+1cNZ8Hr4SYkXtOC19pMaijSfNZS89GuSV3d8TY3I28sle/FXGsLmtM9jO4YXr8b3FA158W57bffO7568XvUgNC8kfrL2t9a8WC84A2Od/s5zvS20NljwYmJ4r6O3lLz0Psl7W8nrr73wcn2Pxz6oBe96TpKPMDlvb7wac92iDmv5jd48g569J6/Uv1H2/Fo+yJOX+t703hGL+9SK82jfy5JXPs7ovJQ1D6p/I/Fi6l9oXyQaLyYG9B4kL0+ReKX/6Fntc1vySuuFSLyjzefkpSt5/5+fhWtgpPqX+7/KdR0bqf7di5L3vnFa+gEGEdXh
+   eJztmr1KY0EUxydrkisouRgREYsUKYwg4seCimiKFBaiW2wh+wRb7AOksNiFLOxjLIsLKSxkUUhh4Qv4BqIpFFL4ABYWmksc7rmT+b5nJlfYPxzIx8zc87uZnPnPcI/yhEzOZSOOZ9WRZvxWiZBLwLuTI+RHyTwaOfkYVAfF4YB9r/JEqsuUv02vn8vvqfj9n5z8eiK1c/ZjwL6/CvK2zSB5X3c1At7P/TDJW/hgx9sqgDkZ2Pc14dW9r20HvD2Q86Mi5zR9Ia9urpAPi9eX/vOq5YJ3GuQxa/j/NemLzcsLqjTrgO4YKtnUCZb3JsDJ1QfvfjFu+6lox1sfJ+ShNIi/4HV1ZhBU9HNesH6D9RRUKr/hQiwvhrD8hgu54N0LcfyGSjcI9QpDvvxGVnh9CYP3eMWspn5fccOiIwzeriHvPYfXl9/A4G2sxu8PaoRcvAVV9PpzLW6ztzo8pq/9UVrebr9/BVzvX43fpwN4q5ycRsFr42tY3plF/nXmF/V503gt17wnU0leHksk6NNHyRt5wbtAHFSi7xvjeuufqg3kjfzkl3zSM16XB8Hzlg2D85ysCM4Rl+dXWVElRb2qGNQrDOmsf6o274kX1jxRrk1FG1/+GUOqGs+G6e+XNUU13oQ3qumjksjr666/kfc/UaxpbLQ5vL78s8jr6/LyvL+NVP9vmeDaHZTlbVmvf8gEFfwMev+xj33/XzO/V+yesGlYA0Rjq+4V5BV5fVYdhvfUgpedF6chDu+Z4vwB8oq8vqxPxBuCvYBoP3i7Jd8Tfi0PzjZpyPyk6LzyZ39efzOYzxi8sjnSUeyBfQibVzYG3BOOindiLc4hXNPrw/K+rOtxPC3F7Z6XcPL3IVve9yoXvEeaz1VQ6bRtlYavswFy3V53y1tdjtstLCe/032OxIS3x+HFqFeQ93xT3E9WryrM+UZdEFSi79lnS1zwvgJ6ADMd
   </data>
  </layer>
  <objectgroup name="Ceiling">
-  <object gid="20005" x="2144" y="988">
+  <object id="42" gid="20004" x="2149.33" y="992">
    <properties>
     <property name="sprite" value="passNote"/>
     <property name="type" value="ceiling"/>
@@ -107,7 +122,7 @@
   </object>
  </objectgroup>
  <objectgroup name="RoomLayer" opacity="0.9">
-  <object x="1280" y="640" width="960" height="576">
+  <object id="9" x="1149.71" y="627.853" width="947.744" height="607.903" rotation="-0.458378">
    <properties>
     <property name="idx" value="1"/>
     <property name="state" value="1"/>
@@ -118,7 +133,7 @@
     <property name="vy" value="10"/>
    </properties>
   </object>
-  <object x="1280" y="64" width="832" height="448">
+  <object id="10" x="1280" y="64" width="832" height="448">
    <properties>
     <property name="idx" value="2"/>
     <property name="state" value="1"/>
@@ -129,7 +144,7 @@
     <property name="vy" value="1"/>
    </properties>
   </object>
-  <object x="2816" y="128" width="832" height="1024">
+  <object id="11" x="2816" y="128" width="832" height="1024">
    <properties>
     <property name="idx" value="3"/>
     <property name="state" value="1"/>
