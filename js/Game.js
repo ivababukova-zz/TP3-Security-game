@@ -24,7 +24,7 @@ Encrypt.Game.prototype = {
     this.map = this.game.add.tilemap('level1');
 
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
-    this.map.addTilesetImage('TileSet1Encrypt', 'TileSet1Encrypt');
+    this.map.addTilesetImage('32x32TileSet1Encrypt', '32x32TileSet1Encrypt');
 
     //create layer
     ///this.borderLayer = this.map.createLayer('borderLayer');
@@ -33,13 +33,13 @@ Encrypt.Game.prototype = {
 
 
     //collision on blockedLayer
-    this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
+   this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
 
     //resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld();
 
-    this.createItems();
-    this.createCeilings();
+    ///this.createItems();
+    ///this.createCeilings();
     this.createDoors();
     this.createPlayer();
     this.loadRooms();
@@ -51,8 +51,13 @@ Encrypt.Game.prototype = {
   createPlayer: function () {
     //create player
     var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
-    this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
+    this.player = this.game.add.sprite(500, 500, 'player');
     this.game.physics.arcade.enable(this.player);
+    this.player.animations.add('bottom', [1,2,3,4,5,6,7,8,9,10,11], 11, true, true);
+    this.player.animations.add('left',  [12,13,14,15,16,17,18,19,20,21,22,23], 12, true, true);
+    this.player.animations.add('right', [24,25,26,27,28,29,30,31,32,33,34,35], 12, true, true);
+    this.player.animations.add('up',    [36,37,38,39,40,41,42,43,44,45,46,47], 12, true, true);
+    this.player.animations.add('static', [0], 1, true, true);
 
     //the camera will follow the player in the world
     this.game.camera.follow(this.player);
@@ -221,6 +226,7 @@ Encrypt.Game.prototype = {
     graphics.endFill();
   },
 
+
   //find objects in a Tiled layer that contain a property called "type" equal to a certain value
   findObjectsByType: function (type, map, layer) {
     var result = [];
@@ -235,6 +241,7 @@ Encrypt.Game.prototype = {
     });
     return result;
   },
+
   //create a sprite from an object
   createFromTiledObject: function (element, group) {
     var sprite = group.create(element.x, element.y, element.properties.sprite);
@@ -245,6 +252,7 @@ Encrypt.Game.prototype = {
     });
   },
 
+/****************
   // function that changes the door tile with the the player sprite, i.e. simulates opened door
   openDoor: function (object1, object2) {
     //object2.visible = false;
@@ -255,6 +263,7 @@ Encrypt.Game.prototype = {
       this.showNextFrame = this.showNextFrame.concat([object2]);
     }
   },
+  ***********/
 
   update: function () {
 
@@ -266,8 +275,8 @@ Encrypt.Game.prototype = {
     }
 
     this.game.physics.arcade.collide(this.player, this.blockedLayer);   // set up collision with the walls
-    this.game.physics.arcade.overlap(this.player, this.items, this.showHint, null, this);
-    var isUnderCeiling = this.game.physics.arcade.overlap(this.player, this.ceilings, this.setPlayerInvisible, null, this); // this is true or false
+    ///this.game.physics.arcade.overlap(this.player, this.items, this.showHint, null, this);
+    ///var isUnderCeiling = this.game.physics.arcade.overlap(this.player, this.ceilings, this.setPlayerInvisible, null, this); // this is true or false
 
 
     // if the player has gone through a door, restore the original door sprite:
@@ -279,12 +288,12 @@ Encrypt.Game.prototype = {
      this.showNextFrame = [];
      }
      */
-
+/* ************************
     // make the player re-appear again after he has passed under the ceiling:
     if (!isUnderCeiling) {
       this.player.renderable = true;
     }
-
+****************************/
     //this.game.physics.arcade.overlap(this.player, this.doors, this.setDoorInvisible(), null, this);
     this.flagEnter = this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
@@ -301,7 +310,7 @@ Encrypt.Game.prototype = {
 
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
-    //this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
+    this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
     var speed = 220;  // setting up the speed of the player
     //player movement
     this.player.body.velocity.y = 0;
@@ -309,16 +318,27 @@ Encrypt.Game.prototype = {
 
     if (this.cursors.up.isDown) {
       this.player.body.velocity.y -= speed;
+      this.player.animations.play('up');
+      console.log("going up...");
     }
     else if (this.cursors.down.isDown) {
       this.player.body.velocity.y += speed;
+      this.player.animations.play('bottom');
+      console.log("going down...");
+
     }
     if (this.cursors.left.isDown) {
       this.player.body.velocity.x -= speed;
+      this.player.animations.play('left');
     }
     else if (this.cursors.right.isDown) {
       this.player.body.velocity.x += speed;
+      this.player.animations.play('right');
     }
+    if (!this.cursors.right.isDown && !this.cursors.left.isDown && !this.cursors.down.isDown && !this.cursors.up.isDown){
+      this.player.animations.play('static');
+    }
+
     console.log('in update function, Game.js');
   },
 
@@ -373,6 +393,5 @@ Encrypt.Game.prototype = {
     }
 
   }
-
 };
  

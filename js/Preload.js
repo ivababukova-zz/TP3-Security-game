@@ -12,13 +12,14 @@ Encrypt.Preload.prototype = {
     this.load.setPreloadSprite(this.preloadBar);
 
     //load game assets
-    this.load.tilemap('level1', 'assets/tilemaps/finalMap.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.tilemap('level1', 'assets/tilemaps/map32x32.json', null, Phaser.Tilemap.TILED_JSON);
 
-    this.load.image('TileSet1Encrypt', 'assets/EncryptTileSets/TileSet1Encrypt.png');
+    this.load.image('32x32TileSet1Encrypt', 'assets/EncryptTileSets/32x32TileSet1Encrypt.png');
     this.load.image('clue', 'assets/images/GameIcons/Clue.png');
-    this.load.image('passNote', 'assets/images/GameIcons/PasswordNote.png');
-    this.load.image('firewall', 'assets/images/GameIcons/Firewall.png');
-    this.load.image('player', 'assets/images/Player1.png');
+    this .load.image('door', 'assets/images/32pixelPlayer.png');
+    this .load.image('ceiling', 'assets/images/32pixelPlayer.png');
+    // this.load.image('firewall', 'assets/images/GameIcons/Firewall.png');
+    this.load.spritesheet('player', 'assets/images/32x32ExampleSprite.png', 95, 158, 48);
 
   },
   create: function() {
