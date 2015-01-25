@@ -207,6 +207,9 @@ Encrypt.Game.prototype = {
 
     this.password = this.createInput();
     fPause = false;
+
+    //action to write a password down key
+    this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
   },
 
   createPlayer: function () {
@@ -476,6 +479,10 @@ Encrypt.Game.prototype = {
     }
     else if (this.cursors.right.isDown) {
       this.player.sprite.body.velocity.x += speed;
+    }
+    //TODO: create a menu-type pop-up to display current written down passwords & take input - see example
+    if(this.writeKey.justDown){
+      this.player.note.write(prompt("Please type in password"));
     }
     console.log('in update function, Game.js');
   },
