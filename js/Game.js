@@ -1,6 +1,5 @@
 var Encrypt = Encrypt || {};
 
-//title screen
 Encrypt.Game = function(){};
 
 var hook;
@@ -11,6 +10,156 @@ var currentDoor = null;
 var fPause = false;
 
 /*The player constructor - incomplete*/
+/*
+ * ________________________________________________________________________________________________________________
+ * Player area
+ * */
+Player = function (currentX, currentY, game) {
+
+  // player's location on the map
+  this.currentX = currentX;
+  this.currentY = currentY;
+  this.isVisible = true;
+  this.isCollidable = true;
+  this.speed = 10.0;
+  this.bag = [[]];  // array of arrays;
+  this.looseNoteChance = 0.25;
+  this.note = new Note();
+
+  this.sprite = game.add.sprite(currentX, currentY, 'player');
+  game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
+  game.camera.follow(this.sprite);
+  this.sprite.body.immovable = false;
+  this.sprite.body.collideWorldBounds = true;
+  this.sprite.body.bounce.setTo(1, 1);
+};
+
+Player.prototype = {
+
+  /*use item from bag on a specified target - will call the object's "use()" method
+   due to small number of objects, will use a switch case to handle usage */
+  use: function (item) {
+
+    switch (item) {
+      case 'antivirus':
+        if (this.bag [0] [this.bag [0].length - 1] != null) {
+          this.bag [0] [this.bag [0].length - 1].use();  //antivirus will hold position 0
+        }
+        //do nothing if the player doesn't have the object; potentially play a sound to let him know what's going awn.
+        break;
+
+      case 'anti-keylogger':
+        if (this.bag [1] [this.bag [1].length - 1] != null)
+          this.bag [1] [this.bag [1].length - 1].use();
+        break;
+
+      case 'firewall':
+        if (this.bag [2] [this.bag [2].length - 1] != null) {
+          this.bag [2] [this.bag [2].length - 1].use();
+        }
+        break;
+    }
+
+  },
+  /*
+   * method to add an item to the player's bag; assume item is a string saying what type of item we're adding
+   * */
+  addItem: function (item) {
+
+    switch (item) {
+      case 'antivirus':
+        this.bag [0].push(item);  //antivirus will hold position 0
+        //do nothing if the player doesn't have the object; potentially play a sound to let him know what's going awn.
+        break;
+
+      case 'anti-keylogger':
+        this.bag [1].push(item); // "item" here will be replaced with an instantiation of the appropriate object
+        break;
+
+      case 'firewall':
+        this.bag [2].push(item);
+        break;
+    }
+  },
+
+  // TODO: refine to add password to a particular policy, or provide option to just write them down as they are
+  writeToNote: function (password) {
+    this.note.write(password);
+  },
+
+  interactWithFriend: function () {
+
+  },
+  /* method to be called everytime the user moves (or at every update) that simulates losing the note object*/
+  //TODO: handle situation where player picks up another note if he already has one
+  loseNote: function () {
+
+    // if there's anything worth losing, i.e. if the note is not empty
+    if (this.note.passwords.size() > 0) {
+
+      var chance = Math.random();
+
+      if (chance > this.looseNoteChance) {
+        console.log("oh no, you're losing yer paper");
+        //drop the note in the current position;
+        this.note.dropPaper(currentX, currentY);
+      }
+      // create a fresh note in the previous one's stead; need to handle case where user has a note and picks another up
+      this.note = new Note();
+      //lose the note, i.e. drop it
+      // place it on the game map
+      // set the player's Note object to null
+    }
+  }
+};
+
+/**
+ * This object is meant to be owned by the player. If the player drops it, it has to be added to the map, and become
+ * pickable. The enemies should be able to pick it up as well. It should be transferable to the friend upon request; yet
+ * only as a clone
+ * */
+Note = function () {
+
+  // variable to keep track of visibility; set to true as a default
+  this.isVisible = false;
+
+  // variable to keep track of collidability; set to false as a default because it will be instantiated as belongig to player
+  this.isCollidable = false;
+
+  /* an array to keep track of the passwords written down; it should be an array of arrays so that it can track
+   the password with its corresponding policy. */
+  this.passwords = [[]];
+
+  /* coordinates for the object; if it's not owned, it should appear on the map where it's dropped; if not, its
+   default should be -1, -1, so that it's outside out canvas*/
+  this.currentX = -1;
+  this.currentY = -1;
+};
+
+Note.prototype = {
+
+  write: function(password){
+
+    if(typeof(password) === 'string')
+      this.passwords.push(password);
+    //otherwise do nothing
+  },
+
+  /* this method should modify the object's coordinates; the place where it's called should be where the object is
+   * removed from the owning object's possession, i.e. set it's paperPassword attribute to null */
+  dropPaper: function(droppedX, droppedY){
+
+    this.currentX = droppedX;
+    this.currentY = droppedY;
+    //TODO: handle putting the paper on the map when it's dropped and removing it when it's picked up
+    //  make the switch, if the appropriate fields are false
+    if( !this.isCollidable && !this.isVisible) {
+      this.isCollidable = true;
+      this.isVisible = true;
+    }
+  }
+
+};
 
 
 /* constructor for the policy object
@@ -63,13 +212,8 @@ Encrypt.Game.prototype = {
   createPlayer: function () {
     //create player
     var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
-    this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
-    this.game.physics.arcade.enable(this.player);
+    this.player = new Player(result[0].x, result[0].y, this.game);
     //this.player.body.velocity.y = -100;
-    //this.game.gravity = 0;
-
-    //the camera will follow the player in the world
-    this.game.camera.follow(this.player);
 
     //move player with cursor keys
     this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -170,10 +314,10 @@ Encrypt.Game.prototype = {
 
       // if player is in the room, then memorise its id
       var rect1 = new PIXI.Rectangle(x,y,w,h);
-      if (rect1.contains( this.player.position.x, this.player.position.y ) ||
-          rect1.contains( this.player.position.x, this.player.position.y+16 ) ||
-          rect1.contains( this.player.position.x+10, this.player.position.y+16 ) ||
-          rect1.contains( this.player.position.x+10, this.player.position.y )
+      if (rect1.contains( this.player.sprite.position.x, this.player.sprite.position.y ) ||
+          rect1.contains( this.player.sprite.position.x, this.player.sprite.position.y+16 ) ||
+          rect1.contains( this.player.sprite.position.x+10, this.player.sprite.position.y+16 ) ||
+          rect1.contains( this.player.sprite.position.x+10, this.player.sprite.position.y )
       ) {
         currentRoom = element.properties.idx;
         console.log("roomPos : " + currentRoom.toString());
@@ -262,7 +406,7 @@ Encrypt.Game.prototype = {
   // function that changes the door tile with the the player sprite, i.e. simulates opened door
   openDoor: function (object1, object2) {
     //object2.visible = false;
-    object2.texture = this.player.texture;
+    object2.texture = this.player.sprite.texture;
     this.showNextFrame = this.showNextFrame || [];
     //object2.
     if (this.showNextFrame.indexOf(object2) === -1) {
@@ -274,14 +418,14 @@ Encrypt.Game.prototype = {
 
     //collision
     if (fPause == true) {
-      this.player.body.velocity.y = 0;
-      this.player.body.velocity.x = 0;
+      this.player.sprite.body.velocity.y = 0;
+      this.player.sprite.body.velocity.x = 0;
       return;
     }
 
-    this.game.physics.arcade.collide(this.player, this.blockedLayer);   // set up collision with the walls
-    this.game.physics.arcade.overlap(this.player, this.items, this.showHint, null, this);
-    var isUnderCeiling = this.game.physics.arcade.overlap(this.player, this.ceilings, this.setPlayerInvisible, null, this); // this is true or false
+    this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with the walls
+    this.game.physics.arcade.overlap(this.player.sprite, this.items, this.showHint, null, this);
+    var isUnderCeiling = this.game.physics.arcade.overlap(this.player.sprite, this.ceilings, this.setPlayerInvisible, null, this); // this is true or false
 
 
     // if the player has gone through a door, restore the original door sprite:
@@ -296,11 +440,11 @@ Encrypt.Game.prototype = {
 
     // make the player re-apear again after he has passed under the ceiling:
     if (!isUnderCeiling) {
-      this.player.renderable = true;
+      this.player.sprite.renderable = true;
     }
 
     //this.game.physics.arcade.overlap(this.player, this.doors, this.setDoorInvisible(), null, this);
-    this.flagEnter = this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
+    this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
 
     // when come out the door, check the room.
     if (this.flagEnter)
@@ -318,20 +462,20 @@ Encrypt.Game.prototype = {
     //this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
     var speed = 260;  // set up the speed of the player
     //player movement
-    this.player.body.velocity.y = 0;
-    this.player.body.velocity.x = 0;
+    this.player.sprite.body.velocity.y = 0;
+    this.player.sprite.body.velocity.x = 0;
 
     if (this.cursors.up.isDown) {
-      this.player.body.velocity.y -= speed;
+      this.player.sprite.body.velocity.y -= speed;
     }
     else if (this.cursors.down.isDown) {
-      this.player.body.velocity.y += speed;
+      this.player.sprite.body.velocity.y += speed;
     }
     if (this.cursors.left.isDown) {
-      this.player.body.velocity.x -= speed;
+      this.player.sprite.body.velocity.x -= speed;
     }
     else if (this.cursors.right.isDown) {
-      this.player.body.velocity.x += speed;
+      this.player.sprite.body.velocity.x += speed;
     }
     console.log('in update function, Game.js');
   },
@@ -360,7 +504,7 @@ Encrypt.Game.prototype = {
   },
 
   setPlayerInvisible: function () {
-    this.player.renderable = false;
+    this.player.sprite.renderable = false;
   },
 
   setDoorInvisible: function () {

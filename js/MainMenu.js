@@ -12,12 +12,14 @@ Encrypt.MainMenu.prototype = {
 
     create: function(){
 
-        var style = { font: "30px Arial", fill: "#fff", align: "center" };
+        var style = { font: "30px Arial", fill: "#ddd", align: "center" };
         var text = "Hello, This is the Main Menu. Click to start";
 
         //add that bit of text to the main menu
         var displayText = this.game.add.text(this.game.width/2, this.game.height/2, text, style);
         displayText.anchor.setTo(0.5);
+
+        this.game.add.sprite(this.game.width / 2, this.game.height / 2 + 50, 'player' );
     },
 
     update: function(){
