@@ -10,18 +10,6 @@ var currentRoom = 0;
 var currentDoor = null;
 var fPause = false;
 
-/*The player constructor - incomplete*/
-
-
-/* constructor for the policy object
- Upon creation of objects on the map, individual policies will be created, then each door will be assigned one policy
- Each time the user tries to set a new password for a door, the door checks if the password subscribes to the given policy
- */
-
-
-/*constructor for the Friend object
- -  There can be more than one object of this type
- -  We should be able to instantiate him at a given set of coordinates*/
 
 Encrypt.Game.prototype = {
   fPause: false,
@@ -65,8 +53,6 @@ Encrypt.Game.prototype = {
     var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
     this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
     this.game.physics.arcade.enable(this.player);
-    //this.player.body.velocity.y = -100;
-    //this.game.gravity = 0;
 
     //the camera will follow the player in the world
     this.game.camera.follow(this.player);
@@ -294,7 +280,7 @@ Encrypt.Game.prototype = {
      }
      */
 
-    // make the player re-apear again after he has passed under the ceiling:
+    // make the player re-appear again after he has passed under the ceiling:
     if (!isUnderCeiling) {
       this.player.renderable = true;
     }
@@ -316,7 +302,7 @@ Encrypt.Game.prototype = {
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
     //this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
-    var speed = 260;  // set up the speed of the player
+    var speed = 220;  // setting up the speed of the player
     //player movement
     this.player.body.velocity.y = 0;
     this.player.body.velocity.x = 0;
@@ -345,13 +331,15 @@ Encrypt.Game.prototype = {
     return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
   },
 
+  // function that outputs a random hint from an array of hints
+  // called when the player collects a clue object
   showHint: function(player, collectable) {
     var array = [];
     array.push("how to make your password stronger: hint 1");
     array.push("how to make your password stronger: hint 2");
     array.push("how to make your password stronger: hint 3");
     array.push("how to make your password stronger: hint 4");
-    var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 nad the array length
+    var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
     var hint = array[randomIndex];
 
     var input = confirm(hint);
@@ -364,41 +352,9 @@ Encrypt.Game.prototype = {
   },
 
   setDoorInvisible: function () {
-    this.doors.renderable = false;
+    this.doors.renderable = false;  // this doesn't work, because this.doors is about all door objects, not only one of them.
+                                    // so the engine doesn't know which one to make invisible
   },
-
-  /*
-   enterDoor: function (player, door) {
-   console.log("***" + door.password + "***");
-
-   if (door.password === null) {  // if the user hasn't set up a password yet:
-   input = prompt("Set a password for this policy:");
-
-   if (input === null) {  // if the user has pressed cancel:
-   console.log("no password entered.");
-   }
-
-   else {
-   door.password = input;
-   console.log(door.password);
-   // TODO change with unlock method instead of destroy
-   }
-   }
-
-   else if (door.password !== null) {  // if the user has set up a password already:
-   console.log("password is not null:" + door.password);
-   var checkPassword = prompt("Enter your password, please:");
-   if (checkPassword === door.password) {
-   console.log("Access granted.");
-   }
-   else {
-   console.log("Wrong password, try again:");
-   this.lockDoor(door);
-   return 0;
-   }
-   }
-   }
-   */
 
   enterDoor: function (player, door) {
     var self = this;

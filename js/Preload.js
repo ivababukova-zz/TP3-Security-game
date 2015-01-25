@@ -20,7 +20,6 @@ Encrypt.Preload.prototype = {
     this.load.image('firewall', 'assets/images/GameIcons/Firewall.png');
     this.load.image('player', 'assets/images/Player1.png');
 
-
   },
   create: function() {
     this.state.start('Game');
