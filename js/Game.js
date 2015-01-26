@@ -5,7 +5,7 @@ Encrypt.Game = function(){};
 
 var hook;
 
-var TILESIZE = 64;
+var TILESIZE = 32;
 var currentRoom = 0;
 var currentDoor = null;
 var fPause = false;
