@@ -316,18 +316,46 @@ Encrypt.Game.prototype = {
     this.player.body.velocity.y = 0;
     this.player.body.velocity.x = 0;
 
-    if (this.cursors.up.isDown) {
+    if (this.cursors.up.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y -= speed;
       this.player.animations.play('up');
       console.log("going up...");
     }
-    else if (this.cursors.down.isDown) {
+    else if (this.cursors.down.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y += speed;
       this.player.animations.play('bottom');
       console.log("going down...");
 
     }
-    if (this.cursors.left.isDown) {
+    else if (this.cursors.down.isDown && this.cursors.right.isDown && !this.cursors.left.isDown) {
+      this.player.body.velocity.y += speed;
+      this.player.body.velocity.x += speed;
+      this.player.animations.play('right');
+      console.log("going down...");
+
+    }
+    else if (this.cursors.down.isDown && this.cursors.left.isDown && !this.cursors.right.isDown) {
+      this.player.body.velocity.y += speed;
+      this.player.body.velocity.x -= speed;
+      this.player.animations.play('left');
+      console.log("going down...");
+
+    }
+    else if (this.cursors.up.isDown && this.cursors.right.isDown && !this.cursors.left.isDown) {
+      this.player.body.velocity.y -= speed;
+      this.player.body.velocity.x += speed;
+      this.player.animations.play('right');
+      console.log("going down...");
+
+    }
+    else if (this.cursors.up.isDown && this.cursors.left.isDown && !this.cursors.right.isDown) {
+      this.player.body.velocity.y -= speed;
+      this.player.body.velocity.x -= speed;
+      this.player.animations.play('left');
+      console.log("going down...");
+
+    }
+    else if (this.cursors.left.isDown) {
       this.player.body.velocity.x -= speed;
       this.player.animations.play('left');
     }
