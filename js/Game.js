@@ -368,7 +368,7 @@ Encrypt.Game.prototype = {
       lastKnownPlayerDirection = 'right';
     }
     else {
-      //Stand still
+      //Stand still.
       this.player.animations.stop();
       if (lastKnownPlayerDirection === 'up') {
         this.player.frame = 36; 
