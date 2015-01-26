@@ -5,12 +5,10 @@ Encrypt.Game = function(){};
 
 var hook;
 
-var TILESIZE = 32;
+var TILESIZE = 64;
 var currentRoom = 0;
 var currentDoor = null;
 var fPause = false;
-
-var lastKnownPlayerDirection; /*for the purpose of tracking what animation frame to end on*/
 
 
 Encrypt.Game.prototype = {
@@ -59,7 +57,7 @@ Encrypt.Game.prototype = {
     this.player.animations.add('left',  [12,13,14,15,16,17,18,19,20,21,22,23], 12, true, true);
     this.player.animations.add('right', [24,25,26,27,28,29,30,31,32,33,34,35], 12, true, true);
     this.player.animations.add('up',    [36,37,38,39,40,41,42,43,44,45,46,47], 12, true, true);
-    //this.player.animations.add('static', [0], 1, true, true);
+    this.player.animations.add('static', [0], 1, true, true);
 
     //the camera will follow the player in the world
     this.game.camera.follow(this.player);
@@ -318,74 +316,28 @@ Encrypt.Game.prototype = {
     this.player.body.velocity.y = 0;
     this.player.body.velocity.x = 0;
 
-    if (this.cursors.up.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {
+    if (this.cursors.up.isDown) {
       this.player.body.velocity.y -= speed;
       this.player.animations.play('up');
-      lastKnownPlayerDirection = 'up';
+      console.log("going up...");
     }
-    else if (this.cursors.down.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {
+    else if (this.cursors.down.isDown) {
       this.player.body.velocity.y += speed;
       this.player.animations.play('bottom');
-      lastKnownPlayerDirection = 'down';
+      console.log("going down...");
 
     }
-    else if (this.cursors.down.isDown && this.cursors.right.isDown && !this.cursors.left.isDown) {
-      this.player.body.velocity.y += speed;
-      this.player.body.velocity.x += speed;
-      this.player.animations.play('right');
-      lastKnownPlayerDirection = 'right';
-
-    }
-    else if (this.cursors.down.isDown && this.cursors.left.isDown && !this.cursors.right.isDown) {
-      this.player.body.velocity.y += speed;
+    if (this.cursors.left.isDown) {
       this.player.body.velocity.x -= speed;
       this.player.animations.play('left');
-      lastKnownPlayerDirection = 'left';
-
-    }
-    else if (this.cursors.up.isDown && this.cursors.right.isDown && !this.cursors.left.isDown) {
-      this.player.body.velocity.y -= speed;
-      this.player.body.velocity.x += speed;
-      this.player.animations.play('right');
-      lastKnownPlayerDirection = 'right';
-
-    }
-    else if (this.cursors.up.isDown && this.cursors.left.isDown && !this.cursors.right.isDown) {
-      this.player.body.velocity.y -= speed;
-      this.player.body.velocity.x -= speed;
-      this.player.animations.play('left');
-      lastKnownPlayerDirection = 'left';
-
-    }
-    else if (this.cursors.left.isDown) {
-      this.player.body.velocity.x -= speed;
-      this.player.animations.play('left');
-      lastKnownPlayerDirection = 'left';
     }
     else if (this.cursors.right.isDown) {
       this.player.body.velocity.x += speed;
       this.player.animations.play('right');
-      lastKnownPlayerDirection = 'right';
     }
-    else {
-      //Stand still.
-      this.player.animations.stop();
-      if (lastKnownPlayerDirection === 'up') {
-        this.player.frame = 36; 
-      }
-      else if (lastKnownPlayerDirection === 'down') {
-        this.player.frame = 1;
-      }
-      else if (lastKnownPlayerDirection === 'left') {
-        this.player.frame = 23;
-      }
-      else if (lastKnownPlayerDirection === 'right') {
-        this.player.frame = 35;
-      }
+    if (!this.cursors.right.isDown && !this.cursors.left.isDown && !this.cursors.down.isDown && !this.cursors.up.isDown){
+      this.player.animations.play('static');
     }
-    //if (!this.cursors.right.isDown && !this.cursors.left.isDown && !this.cursors.down.isDown && !this.cursors.up.isDown){
-    //  this.player.animations.play('static');
-    //}
 
     console.log('in update function, Game.js');
   },
