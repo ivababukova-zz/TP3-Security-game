@@ -10,7 +10,7 @@ var currentRoom = 0;
 var currentDoor = null;
 var fPause = false;
 
-var lastKnownPlayerDirection; /*for the purpose of tracking what animation frame to end on*/
+var lastKnownPlayerDirection = ['',0]; /*for the purpose of tracking what animation frame to end on*/
 
 
 Encrypt.Game.prototype = {
@@ -55,7 +55,7 @@ Encrypt.Game.prototype = {
     var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
     this.player = this.game.add.sprite(500, 500, 'player');
     this.game.physics.arcade.enable(this.player);
-    this.player.animations.add('bottom', [1,2,3,4,5,6,7,8,9,10,11], 11, true, true);
+    this.player.animations.add('bottom', [0,1,2,3,4,5,6,7,8,9,10,11], 12, true, true);
     this.player.animations.add('left',  [12,13,14,15,16,17,18,19,20,21,22,23], 12, true, true);
     this.player.animations.add('right', [24,25,26,27,28,29,30,31,32,33,34,35], 12, true, true);
     this.player.animations.add('up',    [36,37,38,39,40,41,42,43,44,45,46,47], 12, true, true);
@@ -321,65 +321,65 @@ Encrypt.Game.prototype = {
     if (this.cursors.up.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y -= speed;
       this.player.animations.play('up');
-      lastKnownPlayerDirection = 'up';
+      lastKnownPlayerDirection[0] = 'up';
     }
     else if (this.cursors.down.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y += speed;
       this.player.animations.play('bottom');
-      lastKnownPlayerDirection = 'down';
+      lastKnownPlayerDirection[0] = 'down';
 
     }
     else if (this.cursors.down.isDown && this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y += speed;
       this.player.body.velocity.x += speed;
       this.player.animations.play('right');
-      lastKnownPlayerDirection = 'right';
+      lastKnownPlayerDirection[0] = 'right';
 
     }
     else if (this.cursors.down.isDown && this.cursors.left.isDown && !this.cursors.right.isDown) {
       this.player.body.velocity.y += speed;
       this.player.body.velocity.x -= speed;
       this.player.animations.play('left');
-      lastKnownPlayerDirection = 'left';
+      lastKnownPlayerDirection[0] = 'left';
 
     }
     else if (this.cursors.up.isDown && this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y -= speed;
       this.player.body.velocity.x += speed;
       this.player.animations.play('right');
-      lastKnownPlayerDirection = 'right';
+      lastKnownPlayerDirection[0] = 'right';
 
     }
     else if (this.cursors.up.isDown && this.cursors.left.isDown && !this.cursors.right.isDown) {
       this.player.body.velocity.y -= speed;
       this.player.body.velocity.x -= speed;
       this.player.animations.play('left');
-      lastKnownPlayerDirection = 'left';
+      lastKnownPlayerDirection[0] = 'left';
 
     }
     else if (this.cursors.left.isDown) {
       this.player.body.velocity.x -= speed;
       this.player.animations.play('left');
-      lastKnownPlayerDirection = 'left';
+      lastKnownPlayerDirection[0] = 'left';
     }
     else if (this.cursors.right.isDown) {
       this.player.body.velocity.x += speed;
       this.player.animations.play('right');
-      lastKnownPlayerDirection = 'right';
+      lastKnownPlayerDirection[0] = 'right';
     }
     else {
       //Stand still.
       this.player.animations.stop();
-      if (lastKnownPlayerDirection === 'up') {
+      if (lastKnownPlayerDirection[0] === 'up') {
         this.player.frame = 36; 
       }
-      else if (lastKnownPlayerDirection === 'down') {
+      else if (lastKnownPlayerDirection[0] === 'down') {
         this.player.frame = 1;
       }
-      else if (lastKnownPlayerDirection === 'left') {
+      else if (lastKnownPlayerDirection[0] === 'left') {
         this.player.frame = 23;
       }
-      else if (lastKnownPlayerDirection === 'right') {
+      else if (lastKnownPlayerDirection[0] === 'right') {
         this.player.frame = 35;
       }
     }
