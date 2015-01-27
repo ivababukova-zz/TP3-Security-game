@@ -55,7 +55,7 @@ Encrypt.Game.prototype = {
     var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
     this.player = this.game.add.sprite(500, 500, 'player');
     this.game.physics.arcade.enable(this.player);
-    this.player.animations.add('bottom', [0,1,2,3,4,5,6,7,8,9,10,11], 12, true, true);
+    this.player.animations.add('down', [0,1,2,3,4,5,6,7,8,9,10,11], 12, true, true);
     this.player.animations.add('left',  [12,13,14,15,16,17,18,19,20,21,22,23], 12, true, true);
     this.player.animations.add('right', [24,25,26,27,28,29,30,31,32,33,34,35], 12, true, true);
     this.player.animations.add('up',    [36,37,38,39,40,41,42,43,44,45,46,47], 12, true, true);
@@ -327,7 +327,7 @@ Encrypt.Game.prototype = {
     /* Player moving down only */
     else if (this.cursors.down.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y += speed;
-      this.player.animations.play('bottom');
+      this.player.animations.play('down');
       lastKnownPlayerDirection[0] = 'down';
 
     }
