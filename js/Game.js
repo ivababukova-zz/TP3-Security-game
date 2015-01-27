@@ -10,7 +10,7 @@ var currentRoom = 0;
 var currentDoor = null;
 var fPause = false;
 
-var lastKnownPlayerDirection = ['',0]; /*for the purpose of tracking what animation frame to end on*/
+var lastKnownPlayerDirection = ['',0]; /*for the purpose of tracking what animation frame to end on and lastKnownPlayerDirection*/
 
 
 Encrypt.Game.prototype = {
@@ -318,17 +318,20 @@ Encrypt.Game.prototype = {
     this.player.body.velocity.y = 0;
     this.player.body.velocity.x = 0;
 
+    /* Player moving up only */
     if (this.cursors.up.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y -= speed;
       this.player.animations.play('up');
       lastKnownPlayerDirection[0] = 'up';
     }
+    /* Player moving down only */
     else if (this.cursors.down.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y += speed;
       this.player.animations.play('bottom');
       lastKnownPlayerDirection[0] = 'down';
 
     }
+    /* Player moving diagonally down & right */
     else if (this.cursors.down.isDown && this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y += speed;
       this.player.body.velocity.x += speed;
@@ -336,6 +339,7 @@ Encrypt.Game.prototype = {
       lastKnownPlayerDirection[0] = 'right';
 
     }
+    /* Player moving diagonally down & left */
     else if (this.cursors.down.isDown && this.cursors.left.isDown && !this.cursors.right.isDown) {
       this.player.body.velocity.y += speed;
       this.player.body.velocity.x -= speed;
@@ -343,6 +347,7 @@ Encrypt.Game.prototype = {
       lastKnownPlayerDirection[0] = 'left';
 
     }
+    /* Player moving diagonally up & right */
     else if (this.cursors.up.isDown && this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.velocity.y -= speed;
       this.player.body.velocity.x += speed;
@@ -350,6 +355,7 @@ Encrypt.Game.prototype = {
       lastKnownPlayerDirection[0] = 'right';
 
     }
+    /* Player moving diagonally up & left */
     else if (this.cursors.up.isDown && this.cursors.left.isDown && !this.cursors.right.isDown) {
       this.player.body.velocity.y -= speed;
       this.player.body.velocity.x -= speed;
@@ -357,35 +363,35 @@ Encrypt.Game.prototype = {
       lastKnownPlayerDirection[0] = 'left';
 
     }
+    /* Player moving left only */
     else if (this.cursors.left.isDown) {
       this.player.body.velocity.x -= speed;
       this.player.animations.play('left');
       lastKnownPlayerDirection[0] = 'left';
     }
+    /* Player moving right only */
     else if (this.cursors.right.isDown) {
       this.player.body.velocity.x += speed;
       this.player.animations.play('right');
       lastKnownPlayerDirection[0] = 'right';
     }
+    /*If player becomes static/stops, use last known direction to keep them facing that way*/
     else {
-      //Stand still.
       this.player.animations.stop();
       if (lastKnownPlayerDirection[0] === 'up') {
-        this.player.frame = 36; 
+        this.player.frame = 36; /* leave player facing up*/
       }
       else if (lastKnownPlayerDirection[0] === 'down') {
-        this.player.frame = 1;
+        this.player.frame = 1; /* leave player facing down*/
       }
       else if (lastKnownPlayerDirection[0] === 'left') {
-        this.player.frame = 23;
+        this.player.frame = 23; /* leave player facing left*/
       }
       else if (lastKnownPlayerDirection[0] === 'right') {
-        this.player.frame = 35;
+        this.player.frame = 35; /* leave player facing right*/
       }
     }
-    //if (!this.cursors.right.isDown && !this.cursors.left.isDown && !this.cursors.down.isDown && !this.cursors.up.isDown){
-    //  this.player.animations.play('static');
-    //}
+    
 
     console.log('in update function, Game.js');
   },
