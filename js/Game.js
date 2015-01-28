@@ -54,17 +54,14 @@ Encrypt.Game.prototype = {
 
   createPlayer: function () {
     //create player
-    var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
-    this.player = this.game.add.sprite(300, 500, 'player');
-    this.game.physics.arcade.enable(this.player);
-    this.player.animations.add('down', [0,1,2,3,4,5,6,7,8,9,10,11], 12, true, true);
-    this.player.animations.add('left',  [12,13,14,15,16,17,18,19,20,21,22,23], 12, true, true);
-    this.player.animations.add('right', [24,25,26,27,28,29,30,31,32,33,34,35], 12, true, true);
-    this.player.animations.add('up',    [36,37,38,39,40,41,42,43,44,45,46,47], 12, true, true);
-    //this.player.animations.add('static', [0], 1, true, true);
 
-    //the camera will follow the player in the world
-    this.game.camera.follow(this.player);
+    this.player = new Player(300,500, this.game);
+
+    this.player.sprite.animations.add('down', [0,1,2,3,4,5,6,7,8,9,10,11], 12, true, true);
+    this.player.sprite.animations.add('left',  [12,13,14,15,16,17,18,19,20,21,22,23], 12, true, true);
+    this.player.sprite.animations.add('right', [24,25,26,27,28,29,30,31,32,33,34,35], 12, true, true);
+    this.player.sprite.animations.add('up',    [36,37,38,39,40,41,42,43,44,45,46,47], 12, true, true);
+    //this.player.animations.add('static', [0], 1, true, true);
 
     //move player with cursor keys
     this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -181,10 +178,10 @@ Encrypt.Game.prototype = {
 
       // if player is in the room, then memorise its id
       var rect1 = new PIXI.Rectangle(x,y,w,h);
-      if (rect1.contains( this.player.position.x, this.player.position.y ) ||
-          rect1.contains( this.player.position.x, this.player.position.y+16 ) ||
-          rect1.contains( this.player.position.x+10, this.player.position.y+16 ) ||
-          rect1.contains( this.player.position.x+10, this.player.position.y )
+      if (rect1.contains( this.player.sprite.position.x, this.player.sprite.position.y ) ||
+          rect1.contains( this.player.sprite.position.x, this.player.sprite.position.y+16 ) ||
+          rect1.contains( this.player.sprite.position.x+10, this.player.sprite.position.y+16 ) ||
+          rect1.contains( this.player.sprite.position.x+10, this.player.sprite.position.y )
       ) {
         currentRoom = element.properties.idx;
         console.log("roomPos : " + currentRoom.toString());
@@ -379,12 +376,12 @@ Encrypt.Game.prototype = {
 
     //collision
     if (fPause == true) {
-      this.player.body.velocity.y = 0;
-      this.player.body.velocity.x = 0;
+      this.player.sprite.body.velocity.y = 0;
+      this.player.sprite.body.velocity.x = 0;
       return;
     }
 
-    this.game.physics.arcade.collide(this.player, this.blockedLayer);   // set up collision with the walls
+    this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with the walls
     ///this.game.physics.arcade.overlap(this.player, this.items, this.showHint, null, this);
     ///var isUnderCeiling = this.game.physics.arcade.overlap(this.player, this.ceilings, this.setPlayerInvisible, null, this); // this is true or false
 
@@ -405,7 +402,7 @@ Encrypt.Game.prototype = {
     }
 ****************************/
     //this.game.physics.arcade.overlap(this.player, this.doors, this.setDoorInvisible(), null, this);
-    this.flagEnter = this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
+    this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
 
     // when come out the door, check the room.
     if (this.flagEnter)
@@ -420,9 +417,9 @@ Encrypt.Game.prototype = {
 
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
-    this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
+    this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     var speed = 220;  // setting up the speed of the player
-    this.moveCharacter(this.player, speed);
+    this.moveCharacter(this.player.sprite, speed);
 //    var speed = 220;  // setting up the speed of the player
 //    //player movement
 //    this.player.body.velocity.y = 0;
@@ -532,7 +529,7 @@ Encrypt.Game.prototype = {
   },
 
   setPlayerInvisible: function () {
-    this.player.renderable = false;
+    this.player.sprite.renderable = false;
   },
 
   setDoorInvisible: function () {
