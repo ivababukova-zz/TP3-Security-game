@@ -50,6 +50,9 @@ Encrypt.Game.prototype = {
 
     this.password = this.createInput();
     fPause = false;
+
+    //add the W key to the keyboard to serve as a 'write' option for the player
+    this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
   },
 
   createPlayer: function () {
@@ -420,9 +423,11 @@ Encrypt.Game.prototype = {
     this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     var speed = 220;  // setting up the speed of the player
 
-   this.moveCharacter(this.player.sprite, speed);
+    this.moveCharacter(this.player.sprite, speed);
 
-    
+    if(this.writeKey.justDown){
+      this.player.note.write(prompt("Please type in your password"));
+    }
 
     console.log('in update function, Game.js');
   },
