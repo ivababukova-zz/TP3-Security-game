@@ -31,13 +31,13 @@ Encrypt.Game.prototype = {
     this.map.addTilesetImage('32x32TileSet1Encrypt', '32x32TileSet1Encrypt');
 
     //create layer
-    ///this.borderLayer = this.map.createLayer('borderLayer');
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
+    this.createPlayer();
     this.blockedLayer = this.map.createLayer('blockedLayer');
-
+    this.overPlayerLayer = this.map.createLayer('overPlayerLayer');
 
     //collision on blockedLayer
-   this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
+    this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
 
     //resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld();
@@ -45,7 +45,7 @@ Encrypt.Game.prototype = {
     ///this.createItems();
     ///this.createCeilings();
     this.createDoors();
-    this.createPlayer();
+
     this.loadRooms();
 
     this.password = this.createInput();
@@ -145,11 +145,13 @@ Encrypt.Game.prototype = {
 
     // creates door animation
     // note: this animation is still not connected to the door object in any way
-    frontDoor = this.game.add.sprite(180, 386, 'frontDoor');
-    frontDoor.animations.add('opening', [1,2,3,4,5,6,7], 7, true, true);
+    var frontDoor = this.game.add.sprite(192, 384, 'frontDoor');
+    frontDoor.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, true, true);
+    frontDoor.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, true, true);
     frontDoor.animations.add('closed', [0], 1, true, true);
     frontDoor.animations.add('opened', [16], 1, true, true);
-    frontDoor.animations.play('closed');
+    // frontDoor.animations.play('opening');
+    this.openDoor(frontDoor, 'opening');
 
 
     var result = this.findObjectsByType('door', this.map, 'objectsLayer');
@@ -282,6 +284,14 @@ Encrypt.Game.prototype = {
     }
   },
   ***********/
+
+  openDoor: function(doorObject, string) {
+    doorObject.animations.play(string);
+    //doorObject.animations.play('opened');
+},
+
+
+
   /* Move character function for controlling animations of player
   *  This could probably be generalised to move Enemy too.
   */
