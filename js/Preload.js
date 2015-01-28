@@ -20,6 +20,7 @@ Encrypt.Preload.prototype = {
     this .load.image('ceiling', 'assets/images/32pixelPlayer.png');
     // this.load.image('firewall', 'assets/images/GameIcons/Firewall.png');
     this.load.spritesheet('player', 'assets/images/32x32ExampleSprite.png', 95, 158, 48);
+    this.load.spritesheet('frontDoor','assets/images/Animations/DoorAnimations/FrontDoorAnimationFrames.png', 100, 62, 15 );
 
   },
   create: function() {

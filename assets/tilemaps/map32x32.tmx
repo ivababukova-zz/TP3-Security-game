@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="60" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="65" tilewidth="32" tileheight="32" nextobjectid="9">
  <tileset firstgid="1" name="32x32TileSet1Encrypt" tilewidth="32" tileheight="32">
   <image source="../EncryptTileSets/32x32TileSet1Encrypt.png" width="3200" height="3200"/>
  </tileset>
@@ -20,39 +20,39 @@
  <tileset firstgid="10676" name="frontDoor" tilewidth="32" tileheight="32">
   <image source="../images/GameIcons/PasswordNote.png" width="64" height="64"/>
  </tileset>
- <layer name="backgroundLayer" width="40" height="60">
+ <layer name="backgroundLayer" width="50" height="65">
   <data encoding="base64" compression="zlib">
-   eJztlLENhDAMRYmor7mGOeiuvCFuG8a5fZiJAiFBFCe2hcBI70m/ip08G4lp6FxMzj7rG953rvK7i29aY+Wf5Ehv1GLtabF981Istd4e/PCL7Afn4Nm3tUdb/3sds+/Nz7Z8+mP2PflZKbX6+b1mzOqiJd9ztOCHH3744Rcz+OF3d/DDD79n+kX/v+CHXwS/GtI80lyaebW9WjR+Ul1rL6U7zqA2u8WvdC8AAAAAAPhYAD3duJ8=
+   eJztmtENwiAQhsVu0JdO4YMTaNzGGTqOMc5iXMo0htiSqz3wrhz0/5L/CY7yNUDThL7bFU/ffVI6NTj84uboUJzd78TWSCI1JymPk5uGi983YWL6ptZw+sMDHjk9rAGPdWq4/Uv2GH8ruB6HZppr+60J2+YSWzPu/yC+bd7j2PA9ls4c7cTOyapHOLcUb3hgXVnysMhWPayi6fGve0y9hMfF0fE1c+1Loeo1PXKfb/Ao3yMca00HeNS7ruABD3hs08MC8LBFLg+t8bh5ten/E5L/JkOe+3QPa4GHrXgHTWrxWIMaHAa4HuF+KoXwXon3mLt3snQHJQWJdydxBo65u/j48ai2XB4a5xM84AEPeMCDfo60Azy2ua4AAECLN1K5geY=
   </data>
  </layer>
- <layer name="blockedLayer" width="40" height="60">
+ <layer name="blockedLayer" width="50" height="65">
   <data encoding="base64" compression="zlib">
-   eJzt1D0KwkAQhuFJ1EajEhvxJjaCYGmp4CE8gqWHsBRJkSOk8A5ewwN4AWMR9gezbPIV2cD3whSyM/pUnoYiySrMuc5EngH73qXvNlafN5HI1jG7yNzNPMa+cX2//Rv7uel7lG+u8sh/t+1N7vBlqfv2nqrdT+Lnm8TqZhQ326ePvrrbLnzV6Pn+VzW98dnvg+8wFTlao2e/VbMemKNnv/2buv3XQs25nMLyhNZl2bWgvp+NvvbRh0UfFn1Y9GHRh0UfFn1Y9GHRh0UfFn1Y9GHRh0UfFn1Y9GHRh0UfFn1Y9GHRh9UXX8jzBTuVmNU=
+   eJztmr9OwzAQxuOUClEQiC6ImZGJiamAYOARGBgZUMXMxMBjMDCgsvAQDIxIUMTMzIOAPVhpLnY4O2cnDvdJ39Le9e4XRf5zcLaUZWvbaftcMjz3gONFMtyN2u+jqXeGVY6JyKw6EfhY3xxT/DwvG8aYOGY1dZ4EPtY3BxMPY0wcw9xe42ETH6u1mrvlYOJhDHOkzeHaU5sc2lou659rDib+v3Fc5DQ9heKYIjle5WdvwNNxkQO/s9k1ZzG+bu/7QHLsDqpxbWixr7/2ShPHzVacPl36cl3TusLhKuaI21eq71VbHPtgnaTcU3zyfTnue8Lx01MOtf8eWqx1LPxsyjfdayk4MPdbSpnutRQcmHsIpajWK+agUVf3QVcxR1l9ea+Yg0bMURZz0CgUR8izLMbM0Q8ONYO03TdcrNX0d9TMMcVzCdTeoB8cioE5uiPFcLsedl2JxfEdmCPGmny9kmWnG+lzfBk41CzqAFgLfm4ynC3F4JiMqhxNZ1FwtmR6LhjXPbvK3+EMHMtje48YwbNoiBld5VlF4Ahxpoc1mANfgznwNZgDX4M58DVCcMQQc/jXSPW9gjViWPWMObd33cyBtzq3q/99C+kr6UvpOaEfRWE1H5tF4PiUfifmOBKF9Xwshn8B9gloAA==
   </data>
  </layer>
  <objectgroup name="objectsLayer">
-  <object gid="10010" x="206" y="410">
+  <object id="1" gid="10010" x="206" y="410">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="door"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object gid="10010" x="206" y="410">
+  <object id="2" gid="10010" x="206" y="410">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="door"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object gid="10010" x="620" y="404">
+  <object id="3" gid="10010" x="620" y="404">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="door"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object gid="10010" x="1004" y="400">
+  <object id="4" gid="10010" x="1004" y="400">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="door"/>
@@ -70,7 +70,7 @@
    <property name="vx" value="44"/>
    <property name="vy" value="2"/>
   </properties>
-  <object x="864" y="64" width="320" height="224">
+  <object id="5" x="864" y="64" width="320" height="224">
    <properties>
     <property name="idx" value="3"/>
     <property name="state" value="1"/>
@@ -81,7 +81,7 @@
     <property name="vy" value="2"/>
    </properties>
   </object>
-  <object x="448" y="64" width="352" height="224">
+  <object id="6" x="448" y="64" width="352" height="224">
    <properties>
     <property name="idx" value="2"/>
     <property name="state" value="1"/>
@@ -92,7 +92,7 @@
     <property name="vy" value="2"/>
    </properties>
   </object>
-  <object x="96" y="64" width="288" height="224">
+  <object id="7" x="96" y="64" width="288" height="224">
    <properties>
     <property name="idx" value="1"/>
     <property name="state" value="1"/>
@@ -105,7 +105,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Ceiling">
-  <object gid="10010" x="994" y="332">
+  <object id="8" gid="10010" x="994" y="332">
    <properties>
     <property name="sprite" value="ceiling"/>
     <property name="type" value="ceiling"/>

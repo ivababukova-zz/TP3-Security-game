@@ -11,7 +11,7 @@ var currentDoor = null;
 var fPause = false;
 
 var lastKnownPlayerDirection; /*for the purpose of tracking what animation frame to end on*/
-
+var frontDoor;
 
 Encrypt.Game.prototype = {
   fPause: false,
@@ -53,7 +53,7 @@ Encrypt.Game.prototype = {
   createPlayer: function () {
     //create player
     var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
-    this.player = this.game.add.sprite(500, 500, 'player');
+    this.player = this.game.add.sprite(300, 500, 'player');
     this.game.physics.arcade.enable(this.player);
     this.player.animations.add('bottom', [1,2,3,4,5,6,7,8,9,10,11], 11, true, true);
     this.player.animations.add('left',  [12,13,14,15,16,17,18,19,20,21,22,23], 12, true, true);
@@ -139,12 +139,26 @@ Encrypt.Game.prototype = {
     //create doors
     this.doors = this.game.add.group();
     this.doors.enableBody = true;
-    doortexture = this.doors.texture;
+    // doortexture = this.doors.texture;
+
+    // creates door animation
+    // note: this animation is still not connected to the door object in any way
+    frontDoor = this.game.add.sprite(180, 386, 'frontDoor');
+    frontDoor.animations.add('opening', [1,2,3,4,5,6,7], 7, true, true);
+    frontDoor.animations.add('closed', [0], 1, true, true);
+    frontDoor.animations.add('opened', [16], 1, true, true);
+    frontDoor.animations.play('closed');
+
+
     var result = this.findObjectsByType('door', this.map, 'objectsLayer');
 
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.doors);
     }, this);
+
+
+    // result = blablablablbala for right door and for left door in the same way
+
   },
 
   loadRooms: function() {
