@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="61" height="80" tilewidth="32" tileheight="32" nextobjectid="69">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="61" height="80" tilewidth="32" tileheight="32" nextobjectid="70">
  <tileset firstgid="1" name="32x32TileSet1Encrypt" tilewidth="32" tileheight="32">
   <image source="../EncryptTileSets/32x32TileSet1Encrypt.png" width="3200" height="3200"/>
  </tileset>
@@ -14,12 +14,12 @@
  </tileset>
  <layer name="backgroundLayer" width="61" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2k1OwzAQBWAQa0Shix6FJafgJCxYRL0iZ6oqFCmEZmqP3/zYeU+aVcnEX9MadZLz6WFXOZ9+a0/Zm3crr4fyunfs5/PfKul5/buSNa17S3Uv8+e9pFqO9eyLNL8srvXxgDOj+yLNX4u1fQPN6L5I87ToN4G8Fn1pbjO3HOvZd6TQ3G6eVt8r62jPpzX/vP2veQ23XrOomvMhzKi9x6NQ1znaQTPNHuZsKVl/a99ssTa3xup/eo25dA1b/T4e62o+X+1x66oxl6yhxpxxn9KskeacZmk2NKpZmg2NapbmJGiz1Rwzs9lqjllbkktzXSSz1UwPadZcl97NmjVKZulcNMeZNWukmWaa84Tm7deizBazEkvz+1P7jAM1K1nOOCzNPRQqPa9dE497j17m0r2kZ/P1ObGSvaQ1iPvE62j3N9T3CLUv15ij9w6r8+zd7D13y2D2nrtlMHvPoLzM0ud3VDP6XkQPZvRcfjRzdKzeW5pxQcwovMyomULtjCLKHFmeibZm3Us8onF7P9eNzi2z1e9nbTzeY6vvTeTsOMqced+imWaa5cryrJmnOcuzZp7mLM9d0WxrtupLM80000wzzcyYuQBVu2FP
+   eJzt2k1OwzAQBWAQa0Qpix6FJafgJCxYRL0iXAlVKFIIzdQev/mx8540q5KJv6Y16iTn092ucj791p6yN+9Wng/ldevY98e/VdLz8ncla1r3lupW5s97SbUc69kXaX5aXOuXA86M7os0fyzW9gk0o/sizdOi3wTyWvSluc3ccqxn35FCc7t5Wn2vrKM9n9b8dfxf8xquvWZRNedDmFF7j0ehrnO0g2aaPczZUrL+1r7ZYm1ujdX/9Bpz6Rq2+r3d19V8vtrj1lVjLllDjTnjPqVZI805zdJsaFSzNBsa1SzNSdBmqzlmZrPVHLO2JJfmukhmq5ke0qy5Lr2bNWuUzNK5aI4za9ZIM8005wnN269FmS1mJZbm14f2GQdqVjLX99HW3EOh0vPaNfG49+hlLt1LejZfnhMr2Utag7hPvI52f0N9j1D7co05eu+wOs/ezd5ztwxm77lbBrP3DMrLLH1+RzWj70X0YEbP5UczR8fqvaUZF8SMwsuMminUziiizJHlmWhr1r3EIxq393Pd6FwzW/1+1sbjPbb63kTOjqPMmfctmmmmWa4sz5p5mrM8a+ZpzvLcFc22Zqu+NNNMM80008yMmR8jm2Iw
   </data>
  </layer>
  <layer name="blockedLayer" width="61" height="80">
   <data encoding="base64" compression="zlib">
-   eJztnL9O3EAQxpdDCCXcnRENyrUpU0UUlxRJCgqK1DwDRBRRBF0UpciLkMplHiNCKLoiyhNQ3GvEI27EeHVe79g73rU9nzQS4NvZ+Vlm/3xeuHpmzMELY6YjiFkRP+bGrArmz8XXWRFvFvw4bNG2y7yQ70sR64L55Lkxfzffv9sx5j0jTnce71dV2/NZOXxywucgL9T0z1GTndsVtM6PWZn5Z3GNo5zk4raty4vMIfLmDua9CS/XweQpF7dtXV5kDpGX1tmWuS9SZmUeC/NZ9sT8K+PnkrhfdAz7JDCGIfP1Zq2SkqrqmTJr3ca8JOuVPgjXVL6ymS+OiudnS6C2XZMI3/7sNVUT5vuj+jYpyV5T+chm/nosW2Nowe+iMtdLmZW5D0Lma8ZcBXP5zQCYMwYz9UlsZroOBX/iAzNQ3HZ2oE8Cdexbcyl9tqHGu0k5UPRnNJ+LOaTvwVXuyexbY+7JHGJt31R07+Ji9t3X0HzKnA6zS8rs10aZ+zs/D43ZNYa1zafM6ahL5lTGMGUuXxvqXKXM5WvKzM9XxczxICREfY0umJeJvM+AGt4u5JnhncZly0C1zYNxJcycolYjZLZFfU/fd5N99z1BUD+eHfOR7Xt+n8vWJyEc33w8T/Q9qaf/EIG5zq/1DV/Z7zJxTsYzd6E8bLi3000/L/eqmbvwlKvOVoQ6c4fKPZm7OLfjYg653oR+lDmelFmZU/W02yoF5qGOYS6Nmbmr85bQx+0i/vzc9XlLXKPHYv7dcH3tWnP7fv7PJA7zq91w/XD1encc8zPVt2N5rzNlZs55K45i+8a24G8HJffPkveyieCZW89l98+ceyl5zs72hiTHMIl72UQub0iKOfbepcu9pDLHkzKrZ6DMw5Ey6ximzO37UeZ4UmZlHhuzhIdzI+izcWV7+lJn/1L6HwnU0/8PXBcyig==
+   eJztnL9O5DAQxs0ihI5dNicaxLaUVIiCowCKK664mmcARIHQ0iFEwYtAlZLHQCeEKBBPQMFrkNHtaB1r43gST+wk80kjAVmP5xcF//liuPih1HBLqVEPYj2L+7FSbxnzZfZ1ksWvCT1+1mjbZF7Id5XFV8a8t6bU++z7wyWljgjxe+n//Spqe7KeD5ec8DnICzV9WGoyc9tCr/Nvkmd+zK5RlGq5qG3L8iKzj7yphXllQMs1HMxzUduW5UVmH3n1Ousyt0XCLMx9Yf6TzJmfEnoujvulj2HnDGMYMk9na5WYVFTPiFjrIuZ9bb3SBuGaylUm8+lG9vwsCNSiaxzh2p+5pqrC/LJR3iYmmWsqF5nMN5u8NfoW/C4Kc7mEWZjbIGSeEuYqmMuvO8CcEJh1n8Rk1teh4E8cEwNFbWcG+iRQx6oxl+rPNtT4b5APlP4zPZ+N2afvQVXqyOxaY+rI7GNtX1X63sXG7Lqv0fMJczzMNgmzWxthbu/83DVm2xhWN58wx6MmmWMZw4Q5f62rc5Uw568JMz1fETPFg+CQ7ms0wbwfyfsMqOFgws8M7zTOagaqbh6MC2bmNqjPzJT3qG33PUFQP54dc5Hpe96NeevjEI5vLp4n+p66p/8ZgLnMr3UNV5nvMnFOxjN3vjxsuLejWT/bK8XMTXjKRWcrfJ25Q6WOzE2c27Ex+1xvQj/CHE7CLMyxetp1FQNzV8cwm/rM3NR5S+jjYRJ+fm76vCWu0UMxP1dcX9vW3K6ffx2EYd5Z9tcPVbvL/Zifdd1u8nudMTNTzltRFNo3NgV/O8i5f+a8l1UEz9zXmHf/TLmXnOfsTG+IcwzjuJdVZPOGuJhD712a3EsKczgJs3gGwtwdCbOMYcJcvx9hDidhFua+MXN4ONeMPhtVpqfPdfYvpv+RoHv63443Mak=
   </data>
  </layer>
  <objectgroup name="objectsLayer">
@@ -34,70 +34,77 @@
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="door"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
   <object id="51" gid="10667" x="193.5" y="417">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="door"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
   <object id="55" gid="10667" x="639.5" y="1247">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="door"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
   <object id="58" gid="10667" x="1632" y="1375.5">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="door"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
   <object id="59" gid="10667" x="1536.5" y="1790.5">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="door"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
   <object id="61" gid="10667" x="1664.33" y="672">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="door"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
   <object id="64" gid="10667" x="607.818" y="671.636">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="door"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
   <object id="65" gid="10667" x="384" y="1438.73">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="door"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
   <object id="66" gid="10667" x="384.364" y="1951.09">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="door"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
   <object id="68" gid="10667" x="1279.88" y="1982.88">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="door"/>
+    <property name="type" value="frontDoor"/>
+   </properties>
+  </object>
+  <object id="69" gid="10667" x="1279.88" y="1982.88">
+   <properties>
+    <property name="password" value="null"/>
+    <property name="sprite" value="frontDoor"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
  </objectgroup>
