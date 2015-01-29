@@ -1,53 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="61" height="80" tilewidth="32" tileheight="32" nextobjectid="9">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="61" height="80" tilewidth="32" tileheight="32" nextobjectid="69">
  <tileset firstgid="1" name="32x32TileSet1Encrypt" tilewidth="32" tileheight="32">
   <image source="../EncryptTileSets/32x32TileSet1Encrypt.png" width="3200" height="3200"/>
  </tileset>
- <tileset firstgid="10001" name="32pixelPlayer" tilewidth="32" tileheight="32">
-  <image source="../images/32pixelPlayer.png" width="32" height="32"/>
- </tileset>
- <tileset firstgid="10002" name="32x32ExampleSprite" tilewidth="32" tileheight="32">
+ <tileset firstgid="10001" name="32x32ExampleSprite" tilewidth="32" tileheight="32">
   <image source="../images/32x32ExampleSprite.png" width="1142" height="635"/>
  </tileset>
- <tileset firstgid="10667" name="FrontDoorAnimationFrames" tilewidth="32" tileheight="32">
+ <tileset firstgid="10666" name="FrontDoorAnimationFrames" tilewidth="32" tileheight="32">
+  <image source="../images/Animations/DoorAnimations/FrontDoorAnimationFrames.png" width="1088" height="64"/>
+ </tileset>
+ <tileset firstgid="10734" name="FrontDoorAnimationFrames" tilewidth="32" tileheight="32">
   <image source="../images/Animations/DoorAnimations/FrontDoorAnimationFrames.png" width="1088" height="64"/>
  </tileset>
  <layer name="backgroundLayer" width="61" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2E0KwjAQhmHFtaBuehSXnsLTSK/omaSI4F+aSTOTSZr3g1m1neRRM2DHYdNVxuFZPaU3byjHg7xiz173nyXpOd0n2dN377mK5fV7l1TOsyX7YsaMGfOazS0FM+aY+X76rblrFpWynoZZa/aUKK3v2duBGbOFWfKZeMZqfz2ba01J82WbVkufC/WRmCV7SDHXMKdi5ty5jRkzZsyYMWPGjBkzZsyW5lqCOXwNs8x83um948jt897P0txCaaXlvS/JrcD6mHXNklnilTnv0vmmdY605nKK2Xt2WK2DGTNmzJgxt2z2DmbMmmbNdwop/bzMnlUy3tZaz1WJ9Oj+Z7b6/1xzrM6N57tjL3PNcwszZsyYMWPGjBkzZsyYMeeZ15CerNI8AFmeMvI=
+   eJzt2k1OwzAQBWAQa0Shix6FJafgJCxYRL0iZ6oqFCmEZmqP3/zYeU+aVcnEX9MadZLz6WFXOZ9+a0/Zm3crr4fyunfs5/PfKul5/buSNa17S3Uv8+e9pFqO9eyLNL8srvXxgDOj+yLNX4u1fQPN6L5I87ToN4G8Fn1pbjO3HOvZd6TQ3G6eVt8r62jPpzX/vP2veQ23XrOomvMhzKi9x6NQ1znaQTPNHuZsKVl/a99ssTa3xup/eo25dA1b/T4e62o+X+1x66oxl6yhxpxxn9KskeacZmk2NKpZmg2NapbmJGiz1Rwzs9lqjllbkktzXSSz1UwPadZcl97NmjVKZulcNMeZNWukmWaa84Tm7deizBazEkvz+1P7jAM1K1nOOCzNPRQqPa9dE497j17m0r2kZ/P1ObGSvaQ1iPvE62j3N9T3CLUv15ij9w6r8+zd7D13y2D2nrtlMHvPoLzM0ud3VDP6XkQPZvRcfjRzdKzeW5pxQcwovMyomULtjCLKHFmeibZm3Us8onF7P9eNzi2z1e9nbTzeY6vvTeTsOMqced+imWaa5cryrJmnOcuzZp7mLM9d0WxrtupLM80000wzzcyYuQBVu2FP
   </data>
  </layer>
  <layer name="blockedLayer" width="61" height="80">
   <data encoding="base64" compression="zlib">
-   eJztm7FuFDEQhp2LIgS53KI0EddSUiGKQAEUFBTUeQZAKRDKdQhR8CJQbcljIIRQCsQTpMhrsKPc6Gats9ez9tjO7fzSSLnbeDyftee1//Od3zXm8IEx8wnEURdfF8Zcdswfur+bLp4u+XE/om3OvJDvYxfXHfOTe8b8Xb9+vmfMC0a82rsZL1fbs6N+hOSE/4O8UNM/T012bl/QOt80febv3TWOWpKL23YoLzKnyNt6mA9mvFyHs00ubtuhvMicIi+tM5b5tkiZlXkqzK+bDfOPhp9LYrzoHPZeYA5D5ov1WqUmueqZM2vdxny6XqvUxuwSrqlCZTO/Pe7uny2B2nZNIkL7o2uqscy/j4fb1KQ2AfOnE7n6JASfRWUeljIr85fFxjMpLVcNyHzBqBFyrRzMV4ub9UkNzC4hc8OokfokNjNdh4I/8ZIZKG47O9AngTruWM9Sem9Djb9m/UDR92g+H3NK34OrNpA5tMY2kDnF2n6s6N7Fxxy6r6H5lLkeZp+UOayNMt/uddguMfvmsNh8ylyPcjLXMocpc//arj6rlLl/TZn5+VzMHA9CSquMzPidRmlBDc+W8szwnca7yEDF5sE4F2auUZcTZLZFfc9Qr9Lne+YSeMoxgvrx7FiIbN8ztv8xuorsE+e3EM8TfU/q6cf2P0ZDfi0nQmSfD8NnMp65S+Vhw9jO1/08PHAz5/CUXWcrUp25Q7WBzDnO7fiYU643oR9lLidlVuZaPe1Y1cC8q3OYT1NmznXeEvr4tiz/fD4lvw/JIVyjl2L+GbG+Dt1XuOLPrAzzo/10/XD1eH8az2eqzyfyXmfNzJzzVhzV4BtTwW8HJffPkmM5RnDPXS9k98+csZQ8Z2d7Q5JzmMRYjpHPG5JiLr13ybmXVOZyUmb1DJR5d6TMOocpc3w/ylxOyqzMU2OW8HBWgj4bV7anL3X2L6dnPyTq6f8Ha+g1Yg==
+   eJztnL9O3EAQxpdDCCXcnRENyrUpU0UUlxRJCgqK1DwDRBRRBF0UpciLkMplHiNCKLoiyhNQ3GvEI27EeHVe79g73rU9nzQS4NvZ+Vlm/3xeuHpmzMELY6YjiFkRP+bGrArmz8XXWRFvFvw4bNG2y7yQ70sR64L55Lkxfzffv9sx5j0jTnce71dV2/NZOXxywucgL9T0z1GTndsVtM6PWZn5Z3GNo5zk4raty4vMIfLmDua9CS/XweQpF7dtXV5kDpGX1tmWuS9SZmUeC/NZ9sT8K+PnkrhfdAz7JDCGIfP1Zq2SkqrqmTJr3ca8JOuVPgjXVL6ymS+OiudnS6C2XZMI3/7sNVUT5vuj+jYpyV5T+chm/nosW2Nowe+iMtdLmZW5D0Lma8ZcBXP5zQCYMwYz9UlsZroOBX/iAzNQ3HZ2oE8Cdexbcyl9tqHGu0k5UPRnNJ+LOaTvwVXuyexbY+7JHGJt31R07+Ji9t3X0HzKnA6zS8rs10aZ+zs/D43ZNYa1zafM6ahL5lTGMGUuXxvqXKXM5WvKzM9XxczxICREfY0umJeJvM+AGt4u5JnhncZly0C1zYNxJcycolYjZLZFfU/fd5N99z1BUD+eHfOR7Xt+n8vWJyEc33w8T/Q9qaf/EIG5zq/1DV/Z7zJxTsYzd6E8bLi3000/L/eqmbvwlKvOVoQ6c4fKPZm7OLfjYg653oR+lDmelFmZU/W02yoF5qGOYS6Nmbmr85bQx+0i/vzc9XlLXKPHYv7dcH3tWnP7fv7PJA7zq91w/XD1encc8zPVt2N5rzNlZs55K45i+8a24G8HJffPkveyieCZW89l98+ceyl5zs72hiTHMIl72UQub0iKOfbepcu9pDLHkzKrZ6DMw5Ey6ximzO37UeZ4UmZlHhuzhIdzI+izcWV7+lJn/1L6HwnU0/8PXBcyig==
   </data>
  </layer>
  <objectgroup name="objectsLayer">
-  <object id="1" gid="10001" x="206" y="410">
+  <object id="36" gid="10667" x="1089" y="418">
    <properties>
     <property name="password" value="null"/>
-    <property name="sprite" value="door"/>
+    <property name="sprite" value="frontDoor"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object id="2" gid="10001" x="206" y="410">
+  <object id="37" gid="10667" x="1089" y="418">
    <properties>
     <property name="password" value="null"/>
-    <property name="sprite" value="door"/>
+    <property name="sprite" value="frontDoor"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object id="3" gid="10001" x="620" y="404">
+  <object id="51" gid="10667" x="193.5" y="417">
    <properties>
     <property name="password" value="null"/>
-    <property name="sprite" value="door"/>
+    <property name="sprite" value="frontDoor"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object id="4" gid="10001" x="1004" y="400">
+  <object id="55" gid="10667" x="639.5" y="1247">
    <properties>
     <property name="password" value="null"/>
-    <property name="sprite" value="door"/>
+    <property name="sprite" value="frontDoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object id="58" gid="10667" x="1632" y="1375.5">
+   <properties>
+    <property name="password" value="null"/>
+    <property name="sprite" value="frontDoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object id="59" gid="10667" x="1536.5" y="1790.5">
+   <properties>
+    <property name="password" value="null"/>
+    <property name="sprite" value="frontDoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object id="61" gid="10667" x="1664.33" y="672">
+   <properties>
+    <property name="password" value="null"/>
+    <property name="sprite" value="frontDoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object id="64" gid="10667" x="607.818" y="671.636">
+   <properties>
+    <property name="password" value="null"/>
+    <property name="sprite" value="frontDoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object id="65" gid="10667" x="384" y="1438.73">
+   <properties>
+    <property name="password" value="null"/>
+    <property name="sprite" value="frontDoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object id="66" gid="10667" x="384.364" y="1951.09">
+   <properties>
+    <property name="password" value="null"/>
+    <property name="sprite" value="frontDoor"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object id="68" gid="10667" x="1279.88" y="1982.88">
+   <properties>
+    <property name="password" value="null"/>
+    <property name="sprite" value="frontDoor"/>
     <property name="type" value="door"/>
    </properties>
   </object>
@@ -98,7 +147,7 @@
  </objectgroup>
  <layer name="overPlayerLayer" width="61" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2t0NgjAUhmHu/b20TuIIbqNGNnAZ93EI19BGTdQI0nKg57Tvk/TS0g+RwherCgDKtXNVdXB25pXwWtt2Ncy8GpX8PVuZFw9TFzbq+zgGfkZi3pnQNbBZ2xgAAHjS+23o8PwefJr3X2MXC5d+D14+nz2vLZnZzwFoVeL7M5nzOZaWdWjJ3EZ6jWTWycIapZWYGUAYDT3J2FL3JEBOzhH/VdB6b/hlInR/i7039Dn+v9HUUfvnx9hOWUKf4/ftqHNzUfRbGguZy9CWOdd3YDJ/yjlzU64SM+eKzM1y6h+67s85dRA8k5TBQmbpe0dtIPMQ789e6t74vb+wei5jz//ewHUHAAAAAAB0GKpLT90JtfX6Q/XoqXuh707/BmKIuoc=
+   eJzt2L8OgjAQBnB2/8EmPomJg4+kRncHX8b3YXBwdPA1hKiBGCkFru3d9fslHWl6bW3rlyQAAPHa5UlyyOX0SyG2mm9pPbZ7yr9fCpusHts2498v1KZ5v3Yq27HnN7b9msYzK9tlTlPzesW/fT2JagYAADnO5dk/cXDXDm1dd7BtPyaP+fvNt8jD38HTz9vTdAf3vc8BAHzhmpO4FFvNvrMhDvPrOxviUHMXyjFyzhubKGuWkDdKWRdKEtYFAMILmY+EEjonAdDkuuz/DefzoWlsptw09GxwmWn/y6jHZsoUXGXaqUVGrU3B5LfkE2qOg6lmCRnUEKi5pjnfKVrWUnO+01azVtX+LZTu3zbV/i0s96+mDML2ftaUQeBNEgcJNVOfHScBNbv4/1wJmRv/5hdS53Lo/O8F7DsAAPBLa/5jElvNmjOvNpozLwAAAJ9cZemhMyFTru8qRw+dC/1m+i+HHtZQ
   </data>
  </layer>
 </map>

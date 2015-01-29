@@ -43,7 +43,6 @@ Encrypt.Game.prototype = {
     this.backgroundlayer.resizeWorld();
 
     ///this.createItems();
-    ///this.createCeilings();
     this.createDoors();
 
     this.loadRooms();
@@ -121,22 +120,6 @@ Encrypt.Game.prototype = {
     }, this);
   },
 
-  // this is the set of ceiling tiles that need to overlap the player
-  // It is done in this approach, because I didn't find a way to set overlap between layer and object, but only between two objects
-  // if you know about something better, please fix it, it is not very correct according to physics
-  createCeilings: function () {
-    //create items
-    this.ceilings = this.game.add.group();
-    this.ceilings.enableBody = true;
-
-    var ceiling;
-    var result = this.findObjectsByType('ceiling', this.map, 'Ceiling');
-
-    result.forEach(function (element) {
-      this.createFromTiledObject(element, this.ceilings);
-    }, this);
-  },
-
   createDoors: function () {
     //create doors
     this.doors = this.game.add.group();
@@ -145,23 +128,21 @@ Encrypt.Game.prototype = {
 
     // creates door animation
     // note: this animation is still not connected to the door object in any way
-    var frontDoor = this.game.add.sprite(192, 384, 'frontDoor');
-    frontDoor.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, true, true);
-    frontDoor.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, true, true);
-    frontDoor.animations.add('closed', [0], 1, true, true);
-    frontDoor.animations.add('opened', [16], 1, true, true);
+    // var frontDoor = this.game.add.sprite(192, 384, 'frontDoor');
+    /* this.doors.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, true, true);
+    this.doors.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, true, true);
+    this.doors.animations.add('closed', [0], 1, true, true);
+    this.doors.animations.add('opened', [16], 1, true, true);
     // frontDoor.animations.play('opening');
-    this.openDoor(frontDoor, 'opening');
-
+    // this.openDoor(frontDoor, 'opening');
+*/
 
     var result = this.findObjectsByType('door', this.map, 'objectsLayer');
 
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.doors);
+      // element.animations.play('opened');
     }, this);
-
-
-    // result = blablablablbala for right door and for left door in the same way
 
   },
 
@@ -287,7 +268,6 @@ Encrypt.Game.prototype = {
 
   openDoor: function(doorObject, string) {
     doorObject.animations.play(string);
-    //doorObject.animations.play('opened');
 },
 
 
@@ -479,7 +459,7 @@ Encrypt.Game.prototype = {
       document.getElementById("inputpwd").style.display = "block";
 
       this.flagEnter = true;
-      self.setDoorInvisible();
+      
     }
 
   }
