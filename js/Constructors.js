@@ -431,3 +431,195 @@ Friend.prototype = {
 
     }
 };
+
+MetricsSystem = function( approval ){
+
+    // assume approval given; (approval to store passwords used in game); field to be checked whenever sensitive data might be stored
+    this.approval = true;
+    // check if we've been passed a boolean and assign it to the field just in case it's changed
+    if(typeof(approval) == "boolean")
+        this.approval = approval;
+
+    /*an associative array to store the in-game passwords
+     http://stackoverflow.com/questions/1208222/how-do-i-implement-a-dictionary-or-hashtable-in-javascript
+     each entry will be a password once entered; if the password is already in, increment it's associated value
+     */
+    this.passwords = {};
+
+    /*another associative array to keep track of the passwords that were reset*/
+    this.resetPasswords = {};
+
+    /* another associative array to keep track of what passwords were re-used on doors, and on which of them; used to determined best remembered password*/
+    this.passwordsUsed = {};
+
+    /* the array of passwords used on more than one door, as set by function getPasswordsMultipleDoors*/
+    this.passwordsOnMultipleDoors = [];
+
+    /*another associative array to keep track of what objects were used, how many times, and how*/
+    this.toolsUsed = {};
+    this.toolsUsed["firewall"] = [];            // initialised three fields, where each array holds booleans
+    this.toolsUsed["antivirus"] = [];           // one entry in the array will serve as a time when that tools was used
+    this.toolsUsed["antikeylogger"] = [];       // it will be true if the operation was successful; false if not
+
+
+    //a variable to keep track of the average length of passwords employed
+    this.avgPassLen = 0;
+    // a variable to keep track of the number unique passwords input used to calculate the average
+    this.passNumber = 0;
+    this.totalPassLength = 0;
+
+};
+
+MetricsSystem.protorype = {
+
+    /**this only returns the UNIQUE passwords in the array, not the total number of them
+    * the array can have only one member, say "123abc," but be used 10 times (i.e. on 10 different doors)
+     * TO BE USED ONLY WHEN SETTING A PASSWORD ON A DOOR
+    * */
+    getPasswordArrayLength: function(){
+
+        // the weird, slightly convoluted way of getting the length of an object's/associative array's length
+        return Object.keys(this.passwords).length;
+    },
+
+    addPassword: function(password){
+
+        //first check if the parameter is actually a string
+        if(typeof(password) === "string") {
+
+            // check if it's in the password array or not
+            if (this.passwords.hasOwnProperty(password)) {
+            //add one to its value
+            this.passwords[password] += 1;
+            }
+            else
+                //otherwise, initialise it to 1
+                this.passwords[password] = 1;
+
+            //in any case, a password was used again
+            this.passNumber += 1;
+            //add its length to the total password length var
+            this.totalPassLength += password.length;
+        }
+    },
+
+    /**
+     * Assumption: passNumber & totalPassLength are only incremented when a password is added to a door by calling addPassword
+     * */
+    updateAverage: function(passwordLength){
+
+        this.avgPassLen = this.totalPassLength / this.passNumber;
+    },
+
+    /**
+     * Function to be called only when a password is reset on a door; will add the password to be replaced to an array
+     * */
+    addResetPassword: function(password){
+
+        if( typeof(password) === "string"){
+            //we'll use the same rationale as in the normal password array; if a password was reset more than once, take note
+
+            // check if it's in the password array or not
+            if (this.resetPasswords.hasOwnProperty(password)) {
+                //add one to its value
+                this.resetPasswords[password] += 1;
+            }
+            else
+            //otherwise, initialise it to 1
+                this.resetPasswords[password] = 1;
+        }
+    },
+
+    /**
+     * Function to be called whenever the player goes through a door using a password he set; doorID is the id of the door he went through
+     * This can be used to determine which passwords were used on more than one door
+     * */
+    addUsedPassword: function(password, doorID){
+
+        if( typeof(password) === "string"){
+
+            // check if it's in the password array or not
+            if (this.passwordsUsed.hasOwnProperty(password)) {
+                //add the ID of the door it was used on
+                this.passwordsUsed[password].push(doorID);
+            }
+            else
+            //otherwise, initialise it's array of doors with the one it was used on
+            //NOTE: this does not include the time when the user set the password the first time around
+                this.passwordsUsed[password] = [doorID];
+        }
+    },
+
+    /**
+     * Method that returns the most used password in the array of passwords used. Returns the password, if there is one,
+     * or null, if not.
+     * */
+    mostUsedPassword: function(){
+
+        var max = 0;
+        var mostUsed;
+
+        for( var password in this.passwordsUsed) {
+            if (this.passwordsUsed[password].length > max) {    // here, length represents the number of doorIDs in for password
+                                                                // so, the length of the array denotes how many times that password was used
+                max = this.passwordsUsed[password].length;
+                mostUsed = password;
+            }
+        }
+
+        // if there was a password in the array (each password key is initialised to 1 when added)
+        if( max > 0 )
+            return mostUsed;
+        else
+            return null;
+    },
+
+    /**
+     * Function used to create an array of the passwords use on more than one door, using the passwordsUsed array
+     * the passwordsOnMultipleDoors field of the system will be filled in with all the appropriate passwords
+     * TO BE CALLED AT THE END OF THE GAME as a wrap-up function
+     * */
+    getPasswordsMultipleDoors: function(){
+
+        for( var password in this.passwordsUsed ){
+
+            // associative array used to track the number of unique doors the password was used on
+            var doors = {};
+
+            for( var i = 0; i < this.passwordsUsed[password].length; i++ ) {
+
+                var doorID = this.passwordsUsed[password][i].toString();
+
+                //if this doorID is not in the doors array
+                if (!doors.hasOwnProperty(doorID)) {
+                    // we simply initialise it to 1; no need to keep track how many times it was used on a door; could want it eventually
+                    doors[doorID] = 1;
+                    }
+                }
+
+            //if the length of this array is more than 1, then we know it was used on more than one door
+            if( Object.keys(doors).length > 1 )
+                //then push the current password onto the array
+                this.passwordsOnMultipleDoors.push(password);
+
+        }
+    },
+
+    /**
+     * Function used whenever the player uses a tool. It adds the outcome (i.e. whether he was successful or not) to the array.
+     * Can be used to calculate total number of times a tool was used, percentage of success, either in total, or per tool.
+     * Can be used to find out which tool was used, and which not.
+     * */
+    usedTool: function(tool, successful){
+
+        if( tool instanceof Firewall){
+            this.resetPasswords["firewall"].push(successful);
+        }
+        else if( tool instanceof Antivirus){
+            this.resetPasswords["antivirus"].push(successful);
+        }
+        else if( tool instanceof AntiKeyLogger){
+            this.resetPasswords["antikeylogger"].push(successful);
+        }
+    }
+};
