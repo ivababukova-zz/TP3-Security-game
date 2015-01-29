@@ -150,7 +150,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1664.33333333333,
+                 "x":1664.33,
                  "y":672
                 }, 
                 {
@@ -168,8 +168,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":607.818181818182,
-                 "y":671.636363636364
+                 "x":607.818,
+                 "y":671.636
                 }, 
                 {
                  "gid":10667,
@@ -187,7 +187,7 @@
                  "visible":true,
                  "width":0,
                  "x":384,
-                 "y":1438.72727272727
+                 "y":1438.73
                 }, 
                 {
                  "gid":10667,
@@ -204,8 +204,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":384.363636363636,
-                 "y":1951.09090909091
+                 "x":384.364,
+                 "y":1951.09
                 }, 
                 {
                  "gid":10667,
@@ -222,8 +222,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1279.875,
-                 "y":1982.875
+                 "x":1279.88,
+                 "y":1982.88
                 }, 
                 {
                  "gid":10667,
@@ -240,8 +240,161 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1279.875,
-                 "y":1982.875
+                 "x":1279.88,
+                 "y":1982.88
+                }, 
+                {
+                 "gid":10734,
+                 "height":0,
+                 "id":70,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"clue",
+                     "type":"item"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":376,
+                 "y":864
+                }, 
+                {
+                 "gid":10734,
+                 "height":0,
+                 "id":71,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"clue",
+                     "type":"item"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1022.66666666667,
+                 "y":1044
+                }, 
+                {
+                 "gid":10734,
+                 "height":0,
+                 "id":72,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"clue",
+                     "type":"item"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1684.84848484848,
+                 "y":960.606060606061
+                }, 
+                {
+                 "gid":10734,
+                 "height":0,
+                 "id":73,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"clue",
+                     "type":"item"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1363.63636363636,
+                 "y":1572.72727272727
+                }, 
+                {
+                 "gid":10734,
+                 "height":0,
+                 "id":74,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"clue",
+                     "type":"item"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":584.848484848485,
+                 "y":1706.06060606061
+                }, 
+                {
+                 "gid":10734,
+                 "height":0,
+                 "id":75,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"clue",
+                     "type":"item"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":157.575757575758,
+                 "y":1545.45454545455
+                }, 
+                {
+                 "gid":10734,
+                 "height":0,
+                 "id":76,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"clue",
+                     "type":"item"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1433.33333333333,
+                 "y":212.121212121212
+                }, 
+                {
+                 "gid":10734,
+                 "height":0,
+                 "id":77,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"clue",
+                     "type":"item"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1393.93939393939,
+                 "y":2230.30303030303
+                }, 
+                {
+                 "gid":10734,
+                 "height":0,
+                 "id":78,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"clue",
+                     "type":"item"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":221.212121212121,
+                 "y":2381.81818181818
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -346,7 +499,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":70,
+ "nextobjectid":79,
  "orientation":"orthogonal",
  "properties":
     {
@@ -402,11 +555,11 @@
         }, 
         {
          "firstgid":10734,
-         "image":"..\/images\/Animations\/DoorAnimations\/FrontDoorAnimationFrames.png",
+         "image":"..\/images\/GameIcons\/Clue.png",
          "imageheight":64,
-         "imagewidth":1088,
+         "imagewidth":64,
          "margin":0,
-         "name":"FrontDoorAnimationFrames",
+         "name":"Clue",
          "properties":
             {
 

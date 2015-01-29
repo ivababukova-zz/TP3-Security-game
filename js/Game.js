@@ -8,6 +8,7 @@ var hook;
 var TILESIZE = 32;
 var currentRoom = 0;
 var currentDoor = null;
+var text = null;
 var fPause = false;
 var lastKnownPlayerDirection = ['',0]; /*for the purpose of tracking what animation frame to end on and lastKnownPlayerDirection*/
 
@@ -39,9 +40,8 @@ Encrypt.Game.prototype = {
     //resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld();
 
-    ///this.createItems();
+    this.createItems();
     this.createDoors();
-
     this.loadRooms();
 
     this.password = this.createInput();
@@ -371,6 +371,7 @@ Encrypt.Game.prototype = {
 
   update: function () {
 
+    var self = this;
     //collision
     if (fPause == true) {
       this.player.sprite.body.velocity.y = 0;
@@ -379,8 +380,7 @@ Encrypt.Game.prototype = {
     }
 
     this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
-    ///this.game.physics.arcade.overlap(this.player, this.items, this.showHint, null, this);
-
+    var hintsOverlapped = this.game.physics.arcade.overlap(this.player.sprite, this.items, this.showHint, null, this);
 
 
     // if the player has gone through a door, restore the original door sprite:
@@ -399,18 +399,22 @@ Encrypt.Game.prototype = {
     */
 
     this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
-
     // when come out the door, check the room.
-    if (this.flagEnter)
+    if (this.flagEnter) {
       this.flagSearch = true;
+      console.log('in front of a door. ');
+      door = currentDoor;
+    }
     else
     {
       if (this.flagSearch == true) {
         this.flagSearch = false;
         this.getCurrentRoom();
       }
+      if (this.flagEnter === false) {
+        console.log('went away from the door.');
+      }
     }
-
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
     this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
@@ -436,15 +440,17 @@ Encrypt.Game.prototype = {
   // called when the player collects a clue object
   showHint: function(player, collectable) {
     var array = [];
-    array.push("how to make your password stronger: hint 1");
-    array.push("how to make your password stronger: hint 2");
-    array.push("how to make your password stronger: hint 3");
-    array.push("how to make your password stronger: hint 4");
+    array.push("how to make your \npassword stronger:\n hint 1");
+    array.push("how to make your \npassword stronger:\n hint 2");
+    array.push("how to make your \npassword stronger:\n hint 3");
+    array.push("how to make your \npassword stronger:\n hint 4");
     var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
     var hint = array[randomIndex];
 
-    var input = confirm(hint);
-
+    // var input = confirm(hint);
+    // display hint:
+    var style = { font: "25px Arial", fill: "#000000", align: "center" };
+    text = this.game.add.text(this.player.sprite.x,  this.player.sprite.y, hint, style);
     collectable.destroy();
   },
 
