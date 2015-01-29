@@ -8,10 +8,8 @@ var hook;
 var TILESIZE = 32;
 var currentRoom = 0;
 var currentDoor = null;
+var text = null;
 var fPause = false;
-
-var frontDoor;
-
 var lastKnownPlayerDirection = ['',0]; /*for the purpose of tracking what animation frame to end on and lastKnownPlayerDirection*/
 
 
@@ -42,10 +40,8 @@ Encrypt.Game.prototype = {
     //resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld();
 
-    ///this.createItems();
-    ///this.createCeilings();
+    this.createItems();
     this.createDoors();
-
     this.loadRooms();
 
     this.password = this.createInput();
@@ -71,6 +67,7 @@ Encrypt.Game.prototype = {
   },
 
   createInput: function () {
+    var self = this;
     var input = new CanvasInput({
       canvas: document.getElementById('pwdCanvas'),
       fontSize: 18,
@@ -89,7 +86,7 @@ Encrypt.Game.prototype = {
         if (currentDoor.password == 'null') {
 
           document.getElementById("inputpwd").style.display = "none";
-
+          self.changeDoorState(currentDoor,'opening');
           currentDoor.password = this._value;
           this._hiddenInput.value = '';
           fPause = false;
@@ -121,47 +118,24 @@ Encrypt.Game.prototype = {
     }, this);
   },
 
-  // this is the set of ceiling tiles that need to overlap the player
-  // It is done in this approach, because I didn't find a way to set overlap between layer and object, but only between two objects
-  // if you know about something better, please fix it, it is not very correct according to physics
-  createCeilings: function () {
-    //create items
-    this.ceilings = this.game.add.group();
-    this.ceilings.enableBody = true;
 
-    var ceiling;
-    var result = this.findObjectsByType('ceiling', this.map, 'Ceiling');
-
-    result.forEach(function (element) {
-      this.createFromTiledObject(element, this.ceilings);
-    }, this);
-  },
-
+  // this function creates only front doors at the moment:
   createDoors: function () {
     //create doors
     this.doors = this.game.add.group();
     this.doors.enableBody = true;
-    // doortexture = this.doors.texture;
-
-    // creates door animation
-    // note: this animation is still not connected to the door object in any way
-    var frontDoor = this.game.add.sprite(192, 384, 'frontDoor');
-    frontDoor.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, true, true);
-    frontDoor.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, true, true);
-    frontDoor.animations.add('closed', [0], 1, true, true);
-    frontDoor.animations.add('opened', [16], 1, true, true);
-    // frontDoor.animations.play('opening');
-    this.openDoor(frontDoor, 'opening');
 
 
-    var result = this.findObjectsByType('door', this.map, 'objectsLayer');
+    var result = this.findObjectsByType('frontDoor', this.map, 'objectsLayer');
+    var doorID = 0; // used to assign unique id for each door created
 
+
+    // create the front door objects:
     result.forEach(function (element) {
-      this.createFromTiledObject(element, this.doors);
+      this.createDoorFromTiledObject(element, this.doors, doorID, 'frontDoor');
+      doorID++;
     }, this);
 
-
-    // result = blablablablbala for right door and for left door in the same way
 
   },
 
@@ -263,8 +237,10 @@ Encrypt.Game.prototype = {
   },
 
   //create a sprite from an object
-  createFromTiledObject: function (element, group) {
+  createFromTiledObject: function (element, group, ID) {
     var sprite = group.create(element.x, element.y, element.properties.sprite);
+
+    element.id = ID;
 
     //copy all properties to the sprite
     Object.keys(element.properties).forEach(function (key) {
@@ -272,8 +248,28 @@ Encrypt.Game.prototype = {
     });
   },
 
-/****************
-  // function that changes the door tile with the the player sprite, i.e. simulates opened door
+  //create front door and load the animations for it
+  createDoorFromTiledObject: function (element, group, doorID, spritesheet) {
+
+    //frontDoorSprite = this.game.add.sprite(element.x, element.y, 'frontDoor');
+    var sprite2 = group.create(element.x, element.y, spritesheet);
+
+    //var sprite = group.create(element.x, element.y, element.properties.sprite);
+
+    sprite2.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, true, true);
+    sprite2.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, true, true);
+    sprite2.animations.add('closed', [0], 1, true, true);
+    sprite2.animations.add('opened', [16], 1, true, true);
+    //sprite2.animations.play('closed');
+    this.changeDoorState(sprite2, 'closed');
+    element.id = doorID; // the id of the door, not used yet
+
+    //copy all properties to the sprite
+    Object.keys(element.properties).forEach(function (key) {
+      sprite2[key] = element.properties[key];
+    });
+  },
+/**************** function that changes the door tile with the the player sprite, i.e. simulates opened door
   openDoor: function (object1, object2) {
     //object2.visible = false;
     object2.texture = this.player.texture;
@@ -282,13 +278,11 @@ Encrypt.Game.prototype = {
     if (this.showNextFrame.indexOf(object2) === -1) {
       this.showNextFrame = this.showNextFrame.concat([object2]);
     }
+  }, ***********/
+  changeDoorState: function(doorObject, string) {
+    var currFrame = doorObject.animations.play(string);
+    console.log('frame number: ' + currFrame.frame + ' ' + string);
   },
-  ***********/
-
-  openDoor: function(doorObject, string) {
-    doorObject.animations.play(string);
-    //doorObject.animations.play('opened');
-},
 
 
 
@@ -377,6 +371,7 @@ Encrypt.Game.prototype = {
 
   update: function () {
 
+    var self = this;
     //collision
     if (fPause == true) {
       this.player.sprite.body.velocity.y = 0;
@@ -384,9 +379,8 @@ Encrypt.Game.prototype = {
       return;
     }
 
-    this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with the walls
-    ///this.game.physics.arcade.overlap(this.player, this.items, this.showHint, null, this);
-    ///var isUnderCeiling = this.game.physics.arcade.overlap(this.player, this.ceilings, this.setPlayerInvisible, null, this); // this is true or false
+    this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
+    var hintsOverlapped = this.game.physics.arcade.overlap(this.player.sprite, this.items, this.showHint, null, this);
 
 
     // if the player has gone through a door, restore the original door sprite:
@@ -397,39 +391,40 @@ Encrypt.Game.prototype = {
      this.showNextFrame.forEach(function(door){door.texture = texture;});
      this.showNextFrame = [];
      }
-     */
-/* ************************
+
     // make the player re-appear again after he has passed under the ceiling:
     if (!isUnderCeiling) {
       this.player.renderable = true;
     }
-****************************/
-    //this.game.physics.arcade.overlap(this.player, this.doors, this.setDoorInvisible(), null, this);
-    this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
+    */
 
+    this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     // when come out the door, check the room.
-    if (this.flagEnter)
+    if (this.flagEnter) {
       this.flagSearch = true;
+      console.log('in front of a door. ');
+      door = currentDoor;
+    }
     else
     {
       if (this.flagSearch == true) {
         this.flagSearch = false;
         this.getCurrentRoom();
       }
+      if (this.flagEnter === false) {
+        console.log('went away from the door.');
+      }
     }
-
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
     this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
-    var speed = 220;  // setting up the speed of the player
+    var speed = 260;  // setting up the speed of the player
 
     this.moveCharacter(this.player.sprite, speed);
 
     if(this.writeKey.justDown){
       this.player.note.write(prompt("Please type in your password"));
     }
-
-    console.log('in update function, Game.js');
   },
 
 
@@ -445,15 +440,17 @@ Encrypt.Game.prototype = {
   // called when the player collects a clue object
   showHint: function(player, collectable) {
     var array = [];
-    array.push("how to make your password stronger: hint 1");
-    array.push("how to make your password stronger: hint 2");
-    array.push("how to make your password stronger: hint 3");
-    array.push("how to make your password stronger: hint 4");
+    array.push("how to make your \npassword stronger:\n hint 1");
+    array.push("how to make your \npassword stronger:\n hint 2");
+    array.push("how to make your \npassword stronger:\n hint 3");
+    array.push("how to make your \npassword stronger:\n hint 4");
     var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
     var hint = array[randomIndex];
 
-    var input = confirm(hint);
-
+    // var input = confirm(hint);
+    // display hint:
+    var style = { font: "25px Arial", fill: "#000000", align: "center" };
+    text = this.game.add.text(this.player.sprite.x,  this.player.sprite.y, hint, style);
     collectable.destroy();
   },
 
@@ -461,13 +458,14 @@ Encrypt.Game.prototype = {
     this.player.sprite.renderable = false;
   },
 
-  setDoorInvisible: function () {
-    this.doors.renderable = false;  // this doesn't work, because this.doors is about all door objects, not only one of them.
+  setDoorInvisible: function (door) {
+    door.renderable = false;  // this doesn't work, because this.doors is about all door objects, not only one of them.
                                     // so the engine doesn't know which one to make invisible
   },
 
   enterDoor: function (player, door) {
     var self = this;
+
     if(this.flagEnter == false){
       fPause = true;
       if (door.password == 'null') {
@@ -479,7 +477,6 @@ Encrypt.Game.prototype = {
       document.getElementById("inputpwd").style.display = "block";
 
       this.flagEnter = true;
-      self.setDoorInvisible();
     }
 
   }
