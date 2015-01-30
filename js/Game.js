@@ -10,8 +10,8 @@ var currentRoom = 0;
 var currentDoor = null;
 var text = null;
 var fPause = false;
-var lastKnownPlayerDirection = ['',0]; /*for the purpose of tracking what animation frame to end on and lastKnownPlayerDirection*/
-var doorPass = '';
+var lastKnownPlayerDirection = ['',0]; /*BMDK: for the purpose of tracking what animation frame to end on and lastKnownPlayerDirection*/
+var doorPass = ''; /*BMDK: for the purpose of being able to eventually close a door via animation*/
 
 Encrypt.Game.prototype = {
   fPause: false,
@@ -95,7 +95,8 @@ Encrypt.Game.prototype = {
           if (currentDoor.password == this._value) {
             document.getElementById("inputpwd").style.display = 'none';
             fPause = false;
-            self.changeDoorState(currentDoor,'opening');
+            /*BMDK: call to function to open door when password is successful*/
+            self.changeDoorState(currentDoor,'opening'); 
           } else {
             document.getElementById("titlePwd").innerHTML = "Incorrect. Input again!";
           }
@@ -288,7 +289,7 @@ Encrypt.Game.prototype = {
 
 
   /* Move character function for controlling animations of player
-  *  This could probably be generalised to move Enemy too.
+  *  This could probably be generalised to move Enemy too. - BMDK
   */
   moveCharacter: function (character, speed) {
     //player movement
@@ -405,6 +406,7 @@ Encrypt.Game.prototype = {
       this.flagSearch = true;
       door = currentDoor;
       console.log('in front of a door');
+      /*BMDK:- update doorPass to track last door action*/
       doorPass = 'in front of a door';
     }
     else
@@ -414,10 +416,12 @@ Encrypt.Game.prototype = {
         this.getCurrentRoom();
       }
       if (this.flagEnter === false) {
+        /*BMDK:- if player was in front of an open door but goes away from it: close the door*/
         if (doorPass === 'in front of a door'){
           this.changeDoorState(door, 'closing');
         }
         console.log('went away from the door');
+        /*BMDK:- update doorPass to track last door action*/
         doorPass = 'went away from the door';
       }
     }
