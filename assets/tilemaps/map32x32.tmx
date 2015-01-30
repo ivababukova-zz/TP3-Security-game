@@ -23,28 +23,28 @@
   </data>
  </layer>
  <objectgroup name="objectsLayer">
-  <object id="36" gid="10667" x="1089" y="418">
+  <object id="36" gid="10667" x="1088" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object id="37" gid="10667" x="1089" y="418">
+  <object id="37" gid="10667" x="1088" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="51" gid="10667" x="193.5" y="417">
+  <object id="51" gid="10667" x="192" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="55" gid="10667" x="639.5" y="1247">
+  <object id="55" gid="10667" x="640" y="1248">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
@@ -58,35 +58,35 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="59" gid="10667" x="1536.5" y="1790.5">
+  <object id="59" gid="10667" x="1536" y="1792">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="61" gid="10667" x="1664.33" y="672">
+  <object id="61" gid="10667" x="1664" y="672">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="64" gid="10667" x="607.818" y="671.636">
+  <object id="64" gid="10667" x="608" y="672">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="65" gid="10667" x="384" y="1438.73">
+  <object id="65" gid="10667" x="384" y="1440">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="66" gid="10667" x="384.364" y="1951.09">
+  <object id="66" gid="10667" x="384" y="1952">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
@@ -100,7 +100,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="69" gid="10667" x="1279.88" y="1982.88">
+  <object id="69" gid="10667" x="1280" y="1984">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
