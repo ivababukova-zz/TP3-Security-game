@@ -11,7 +11,7 @@ var currentDoor = null;
 var text = null;
 var fPause = false;
 var lastKnownPlayerDirection = ['',0]; /*for the purpose of tracking what animation frame to end on and lastKnownPlayerDirection*/
-
+var doorPass = '';
 
 Encrypt.Game.prototype = {
   fPause: false,
@@ -95,6 +95,7 @@ Encrypt.Game.prototype = {
           if (currentDoor.password == this._value) {
             document.getElementById("inputpwd").style.display = 'none';
             fPause = false;
+            self.changeDoorState(currentDoor,'opening');
           } else {
             document.getElementById("titlePwd").innerHTML = "Incorrect. Input again!";
           }
@@ -256,8 +257,8 @@ Encrypt.Game.prototype = {
 
     //var sprite = group.create(element.x, element.y, element.properties.sprite);
 
-    sprite2.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, true, true);
-    sprite2.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, true, true);
+    sprite2.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, false, true);
+    sprite2.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, false, true);
     sprite2.animations.add('closed', [0], 1, true, true);
     sprite2.animations.add('opened', [16], 1, true, true);
     //sprite2.animations.play('closed');
@@ -402,8 +403,9 @@ Encrypt.Game.prototype = {
     // when come out the door, check the room.
     if (this.flagEnter) {
       this.flagSearch = true;
-      console.log('in front of a door. ');
       door = currentDoor;
+      console.log('in front of a door');
+      doorPass = 'in front of a door';
     }
     else
     {
@@ -412,7 +414,11 @@ Encrypt.Game.prototype = {
         this.getCurrentRoom();
       }
       if (this.flagEnter === false) {
-        console.log('went away from the door.');
+        if (doorPass === 'in front of a door'){
+          this.changeDoorState(door, 'closing');
+        }
+        console.log('went away from the door');
+        doorPass = 'went away from the door';
       }
     }
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
