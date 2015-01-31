@@ -28,3 +28,7 @@ Enhancements: -
 5. Menu graphics: - Specifications & Design ~ Andy & Bryan
 6. Difficulty setting (parameters for game states etc...) ~ ?
 7. Policy image colour coding - red, green blue yellow orange (photoshop by Bryan, then object refinement on map for relevant tiles to be replaced) ~ Bryan
+
+Ideas: - 
+
+1. RE writing down passwords: - what if the player was able to write their passwords explicitly or some kind of reminder/clue that they could use to help themselves remember? THen we would require an algorithm that was able to check the likeness to the password that the note relates to. For notes that are very similar, a higher penalty can be induced. This gives more purpose to the note writing facility as it would no longer be an automatic punishment for using the tools that we have provided to the user.
