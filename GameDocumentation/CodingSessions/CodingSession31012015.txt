@@ -26,3 +26,5 @@ Enhancements: -
 3. Write hints/tips for player feedback etc...
 4. Instructions
 5. Menu graphics: - Specifications & Design
+6. Difficulty setting (parameters for game states etc...)
+7. Policy image colour coding - red, green blue yellow orange (photoshop by Bryan, then object refinement on map for relevant tiles to be replaced)
