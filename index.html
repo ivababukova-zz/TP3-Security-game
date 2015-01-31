@@ -37,16 +37,21 @@
 	</script>
 </div>
 // POLICY FIELD
-<div id="policyField" align="center" style="display: none; position: absolute; top:calc(50% - 240px); left:calc(50% - 240px);">
+<div id="policyField" class="passwordPopUp" align="center" style="display: none; position: absolute; top:calc(50% - 240px); left:calc(50% - 240px);">
 	<p id="policyTitle" align="center"  style="color: #fff;font-size: 40px;width: 480px;margin: 15px 0px 0px">Policy Rules</p>
 	<p id="policyRules" align="left"  style="color: #fff;font-size: 25px">MIN LENGTH: 5<br>MIN #NUMBERS: 2<br>MIN #PUNCTUATION SIGNS:1<br>MIN #SPECIAL CHARACTERS: 1</p>
 </div>
+// NO POLICY LABEL
+<div id="noPolicyField" align="center" style="display: none; position: absolute; top:calc(50% - 240px); left:calc(50% - 240px);">
+	<p id="noPolicyLabel" align="center"  style="color: #fff;font-size: 40px;width: 480px;margin: 15px 0px 0px">YOU NEED POLICY TO ENTER</p>
+	<button></button>
+</div>
 // LIVE FEEDBACK FIELD
-<div id="feedbackField" align="center" style="display: none; position: absolute; top:calc(50% + 135px); left:calc(50% - 250px);">
+<div id="feedbackField" class="passwordPopUp" align="center" style="display: none; position: absolute; top:calc(50% + 135px); left:calc(50% - 250px);">
 	<p id="feedback" align="center"  style="color: #fff;width: 500px;font-size: 25px">Feedback</p>
 </div>
 // PASSWORD FIELD
-<div id="inputPwd" align="center" style="display: none; position: absolute; top:calc(50% + 35px); left:calc(50% - 180px);">
+<div id="inputPwd" class="passwordPopUp" align="center" style="display: none; position: absolute; top:calc(50% + 35px); left:calc(50% - 180px);">
 	<p id="titlePwd" align="center"  style="color: #fff;font-size: 25px;padding:0px 0px 5px;margin:0px 0px 0px 0px;">Setup Password</p>
 	<canvas id="pwdCanvas" width="360" height="50"></canvas>
 </div>
