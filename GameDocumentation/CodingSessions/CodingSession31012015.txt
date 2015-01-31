@@ -3,7 +3,7 @@ Coding session 31/01/2015
 Bugs: -
 
 1. Password input: - moving cursor back and forth with arrow keys(maybe even mouse click positioning) ~ Antanas
-2. Map Collision: - fix collisions & sprite behind door ~ Bryan
+2. Map Collision: - fix collisions(DONE) & sprite behind door(? may be fixable once we have our own character added to the game) ~ Bryan
 3. Policies & doors they relate to ~ Antanas
 4. The 'w' bug that Andy introduced/inpute for password note :p ~ Antanas
 5. Door animation bug RE overlaps ~ Bryan
