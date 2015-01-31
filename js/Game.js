@@ -5,7 +5,6 @@ Encrypt.Game = function(){};
 
 var hook;
 
-var TILESIZE = 32;
 var currentRoom = 0;
 var currentDoor = null;
 var text = null;
@@ -14,12 +13,12 @@ var lastKnownPlayerDirection = ['',0]; /*BMDK: for the purpose of tracking what 
 var doorPass = ''; /*BMDK: for the purpose of being able to eventually close a door via animation*/
 
 Encrypt.Game.prototype = {
-  fPause: false,
-
   create: function () {
-    this.graphs = [];
+    // array to hold rooms' graphics
+    this.roomGraphs = [];
     // when the player touches the door, this.flagEnter is true, otherwise false.
     this.flagEnter = false;
+    // flagSearch is used to update the currentRoom only when flagEnter goes from true to false.
     this.flagSearch = false;
     hook = this;
 
@@ -42,10 +41,9 @@ Encrypt.Game.prototype = {
 
     this.createItems();
     this.createDoors();
+    this.createPolicies();
     this.loadRooms();
-
-    this.password = this.createInput();
-    fPause = false;
+    this.createInput();
 
     //add the W key to the keyboard to serve as a 'write' option for the player
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -82,10 +80,16 @@ Encrypt.Game.prototype = {
       innerShadow: '0px 0px 5px rgba(0,0,0,0.5)',
       placeHolder: 'password',
       onsubmit: function () {
-        // when the user input password and enter 'Enter' key,
+        // when the user input password and enter 'Enter' key
+        if(!this.approved){
+          return;
+        }
         if (currentDoor.password == 'null') {
 
-          document.getElementById("inputpwd").style.display = "none";
+          document.getElementById("inputPwd").style.display = "none";
+          document.getElementById("policyField").style.display= "none";
+          document.getElementById("feedbackField").style.display = "none";
+          document.getElementById("mainLayer").style.display= "none";
           self.changeDoorState(currentDoor,'opening');
           currentDoor.password = this._value;
           this._hiddenInput.value = '';
@@ -93,7 +97,10 @@ Encrypt.Game.prototype = {
         } else { // if password was already set, then compare.
 
           if (currentDoor.password == this._value) {
-            document.getElementById("inputpwd").style.display = 'none';
+            document.getElementById("inputPwd").style.display = "none";
+            document.getElementById("policyField").style.display= "none";
+            document.getElementById("feedbackField").style.display = "none";
+            document.getElementById("mainLayer").style.display= "none";
             fPause = false;
             /*BMDK: call to function to open door when password is successful*/
             self.changeDoorState(currentDoor,'opening'); 
@@ -102,8 +109,42 @@ Encrypt.Game.prototype = {
           }
           this._hiddenInput.value = '';
         }
+      },
+      // Feedback generated within each key-press
+      onkeyup: function() {
+        // first check if password pop up is open
+        if (document.getElementById("inputPwd").style.display === "block") {
+          var policy = self.policies[currentDoor.policy];
+          var feedback = "";
+          this.approved = false;
+          // CHECK LENGTH
+          if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.length < policy.minLength) {
+            feedback = "Too short";
+            // CHECK NUMERICALS
+          } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/\D/g, '').length < policy.minNums) {
+            feedback = "Need more numbers.";
+            // CHECK PUNCTUATION
+          } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/[^\.,-\/!?\^&\*;:{}\-_`'"~()]/g,'').length < policy.minPunct) {
+            feedback = "Need more punctuation signs.";
+            // CHECK SPECIAL CHARACTERS
+          } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/[^\%$#&@=]/g,'').length < policy.minSpeChar) {
+            feedback = "Need more special characters.";
+          } else if(this._hiddenInput.value.length > 0){ // If policy requirements are met, approve
+            this.approved = true;
+            feedback = "Approved.";
+          }
+
+          if (this.approved) {
+            document.getElementById("feedback").style.color = "green";
+          } else {
+            document.getElementById("feedback").style.color = "red";
+          }
+          document.getElementById("feedback").innerHTML = feedback;
+          document.getElementById("feedbackField").style.display = "block";
+        }
       }
     });
+    input.focus();
     return input;
   },
 
@@ -112,8 +153,16 @@ Encrypt.Game.prototype = {
     this.items = this.game.add.group();
     this.items.enableBody = true;
 
-    var item;
-    var result = this.findObjectsByType('item', this.map, 'objectsLayer');
+    // CLUES
+    var clue;
+    var result = this.findObjectsByType('clue', this.map, 'objectsLayer');
+
+    result.forEach(function (element) {
+      this.createFromTiledObject(element, this.items);
+    }, this);
+    // POLICIES
+    var policy;
+    result = this.findObjectsByType('policy', this.map, 'objectsLayer');
 
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.items);
@@ -137,91 +186,111 @@ Encrypt.Game.prototype = {
       this.createDoorFromTiledObject(element, this.doors, doorID, 'frontDoor');
       doorID++;
     }, this);
-
-
   },
 
+  /** Creates an initial policy */
+  createPolicies: function(){
+    this.policies = [];
+    //default policy
+    this.policies["green"] = new Policy(0, 0,this.game, 5, 3, 1, 1, "green");
+  },
+  /** When found add the new policy
+   * @param {object} policy
+   */
+  addPolicy: function(policy){
+    this.policies[policy.colour] = policy;
+    policy.destroy();
+  },
+  /** Take the color of a policy ang give back its rules
+   * @param {string} the color of a policy
+   * @return {string} rules policy contains
+   */
+  retrievePolicyRules: function(pol){
+    var policy = this.policies[pol];
+    var str = "MIN LENGTH: " + policy.minLength + "<br>MIN #NUMBERS: " + policy.minNums
+        + "<br>MIN #PUNCTUATION SIGNS:" + policy.minPunct + "<br>MIN #SPECIAL CHARACTERS: " + policy.minSpeChar;
+    return str;
+  },
+
+  /** Preload all room objects */
   loadRooms: function() {
+    // Get all room objects
     this.rooms = this.findObjectsByType('room', this.map, 'RoomLayer');
+    // find in which room(if any) the player is located
     this.getCurrentRoom();
+    // draw rooms
+    this.drawRooms();
   },
 
+  /** Update the global variable currentRoom to store the current room's ID */
   getCurrentRoom: function () {
+    // Initialisation
     currentRoom = 0;
+    // Checking each room
     this.rooms.forEach(function(element){
+      // Getting room's dimensions and coordinates
+      var x = parseInt(element.x);
+      var y = parseInt(element.y+this.map.tileHeight);
+      var w = parseInt(element.width);
+      var h = parseInt(element.height);
+      var rect = new PIXI.Rectangle(x,y,w,h);
 
-      var x = parseInt(element.properties.vx) * TILESIZE;
-      var y = parseInt(element.properties.vy) * TILESIZE;
-      var w = (parseInt(element.properties.vw)) * TILESIZE;
-      var h = (parseInt(element.properties.vh)) * TILESIZE;
-
-      // if player is in the room, then memorise its id
-      var rect1 = new PIXI.Rectangle(x,y,w,h);
-      if (rect1.contains( this.player.sprite.position.x, this.player.sprite.position.y ) ||
-          rect1.contains( this.player.sprite.position.x, this.player.sprite.position.y+16 ) ||
-          rect1.contains( this.player.sprite.position.x+10, this.player.sprite.position.y+16 ) ||
-          rect1.contains( this.player.sprite.position.x+10, this.player.sprite.position.y )
-      ) {
-        currentRoom = element.properties.idx;
-        console.log("roomPos : " + currentRoom.toString());
+      // check if a player is in a room. If yes,
+      // then memorise its ID and finish searching
+      if (rect.contains(this.player.sprite.x, this.player.sprite.y))
+      {
+        currentRoom = parseInt(element.properties.idx);
+        return;
       }
-
-      // changing room's state to visited
-      if (currentRoom == element.properties.idx) {
-        if (element.properties.state == "1") {
-          element.properties.state = "0";
-        }
-      }
-      this.drawRoom(element);
 
     }, this);
   },
 
-  // draw the room.
-  drawRoom: function(room) {
-
-    var x1 = parseInt(room.properties.vx) * TILESIZE;
-    var y1 = parseInt(room.properties.vy) * TILESIZE;
-    var w1 = (parseInt(room.properties.vw)) * TILESIZE;
-    var h1 = (parseInt(room.properties.vh)) * TILESIZE;
-
-    var state1 = parseInt(room.properties.state);
-
-    var graphics;
-    var str = room.properties.idx.toString()+"+"+room.properties.vx.toString()+"+"+room.properties.vy.toString();
-
-    if (this.graphs[str] != undefined && this.graphs[str] != null) {
-      graphics = this.graphs[str];
-      graphics.destroy();
-    }
-    graphics = this.game.add.graphics(0, 0);
-    this.graphs[str] = graphics;
-
-    var color = 0xCCCCCC;
-    var alpha = 0.6;
-
-    if (state1 == 0) { // visited
-
-      // if player is not in the room
-      if (currentRoom != room.properties.idx) {
-        alpha = 0.6;
-      } else {
-        return;
+  /** Draws the rooms */
+  drawRooms: function() {
+    var graphics; // used to store room's graph
+    // one room at a time
+    this.rooms.forEach(function(element){
+      // get dimensions and coordinates
+      var x = parseInt(element.x);
+      var y = parseInt(element.y+this.map.tileHeight);
+      var w = parseInt(element.width);
+      var h = parseInt(element.height);
+      // get the state of the room
+      var state = parseInt(element.properties.state);
+      // generating unique room's ID. Beneficial in cases when room is not a rectangle and therefore built from multiple blocks.
+      var str = element.properties.idx.toString()+"+"+x.toString()+"+"+y.toString();
+      // if already drawn, then destroy the graph(start from scratch)
+      if (this.roomGraphs[str] != undefined && this.roomGraphs[str] != null) {
+        graphics = this.roomGraphs[str];
+        graphics.destroy();
       }
 
-    } else if (state1 == 1) { // not visited
-      color = 0x444444;
-      alpha = 1;
-    } else if (state1 == 2) { // infected
-      color = 0xFFFFFF;
-      alpha = 1;
-    }
+      // new room's graph
+      graphics = this.game.add.graphics(0, 0);
+      this.roomGraphs[str] = graphics;
+      // in order to fix a bug as the room's height kept on shrinking by 32px
+      element.y += 32;
 
-    graphics.beginFill(color, alpha);
-    graphics.drawRect(x1, y1, w1, h1);
-    graphics.endFill();
+      var color = 0xCCCCCC;
+      var opacity;
+      if (currentRoom == element.properties.idx) { // player in the room
+        element.properties.state = "0";
+        return;
+      } else if(state == 0){  // visited
+        opacity = 0.6;
+      }else if (state == 1) { // not visited
+        color = 0x444444;
+        opacity = 1;
+      } else if (state == 2) { // infected
+        color = 0xFFFFFF;
+        opacity = 1;
+      }
+      graphics.beginFill(color, opacity);
+      graphics.drawRect(x, y, w, h);
+      graphics.endFill();
+    }, this);
   },
-
 
   //find objects in a Tiled layer that contain a property called "type" equal to a certain value
   findObjectsByType: function (type, map, layer) {
@@ -383,7 +452,7 @@ Encrypt.Game.prototype = {
     }
 
     this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
-    var hintsOverlapped = this.game.physics.arcade.overlap(this.player.sprite, this.items, this.showHint, null, this);
+    var hintsOverlapped = this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
 
 
     // if the player has gone through a door, restore the original door sprite:
@@ -414,7 +483,7 @@ Encrypt.Game.prototype = {
     {
       if (this.flagSearch == true) {
         this.flagSearch = false;
-        this.getCurrentRoom();
+        this.loadRooms();
       }
       if (this.flagEnter === false) {
         /*BMDK:- if player was in front of an open door but goes away from it: close the door*/
@@ -447,6 +516,18 @@ Encrypt.Game.prototype = {
     return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
   },
 
+  /** Used to differentiate item types and deal with them appropriately
+   * @param player
+   * @param collectable
+   */
+  pickupItem: function(player, collectable){
+    if(collectable.type === "clue"){
+      this.showHint(player, collectable);
+    }
+    else if(collectable.type === "policy"){
+      this.addPolicy(collectable);
+    }
+  },
   // function that outputs a random hint from an array of hints
   // called when the player collects a clue object
   showHint: function(player, collectable) {
@@ -475,19 +556,28 @@ Encrypt.Game.prototype = {
   },
 
   enterDoor: function (player, door) {
-    var self = this;
-
+    if(this.policies[door.policy] === undefined){// Does not work properly
+      this.game.physics.arcade.collide(player, door);
+      return;
+    }
     if(this.flagEnter == false){
+      // update global variables
+      currentDoor = door;
+      this.flagEnter = true;
       fPause = true;
+      // password not set yet
       if (door.password == 'null') {
         document.getElementById("titlePwd").innerHTML = "Setup password";
       } else {
         document.getElementById("titlePwd").innerHTML = "Input password";
       }
-      currentDoor = door;
-      document.getElementById("inputpwd").style.display = "block";
-
-      this.flagEnter = true;
+      // determine door's policy
+      document.getElementById("policyTitle").style.color = door.policy;
+      document.getElementById("policyRules").innerHTML = this.retrievePolicyRules(door.policy);
+      // display password pop up
+      document.getElementById("mainLayer").style.display = "block";
+      document.getElementById("policyField").style.display = "block";
+      document.getElementById("inputPwd").style.display = "block";
     }
 
   }

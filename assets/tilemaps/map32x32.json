@@ -30,7 +30,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":36,
                  "name":"",
                  "properties":
                     {
@@ -48,11 +47,11 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":37,
                  "name":"",
                  "properties":
                     {
                      "password":"null",
+                     "policy":"red",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -66,11 +65,11 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":51,
                  "name":"",
                  "properties":
                     {
                      "password":"null",
+                     "policy":"blue",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -84,11 +83,11 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":55,
                  "name":"",
                  "properties":
                     {
                      "password":"null",
+                     "policy":"green",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -102,11 +101,11 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":58,
                  "name":"",
                  "properties":
                     {
                      "password":"null",
+                     "policy":"red",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -120,7 +119,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":59,
                  "name":"",
                  "properties":
                     {
@@ -138,11 +136,11 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":61,
                  "name":"",
                  "properties":
                     {
                      "password":"null",
+                     "policy":"blue",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -156,11 +154,11 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":64,
                  "name":"",
                  "properties":
                     {
                      "password":"null",
+                     "policy":"green",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -174,11 +172,11 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":65,
                  "name":"",
                  "properties":
                     {
                      "password":"null",
+                     "policy":"blue",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -192,7 +190,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":66,
                  "name":"",
                  "properties":
                     {
@@ -210,7 +207,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":68,
                  "name":"",
                  "properties":
                     {
@@ -228,7 +224,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":69,
                  "name":"",
                  "properties":
                     {
@@ -246,12 +241,11 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":70,
                  "name":"",
                  "properties":
                     {
                      "sprite":"clue",
-                     "type":"item"
+                     "type":"clue"
                     },
                  "rotation":0,
                  "type":"",
@@ -263,12 +257,11 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":71,
                  "name":"",
                  "properties":
                     {
                      "sprite":"clue",
-                     "type":"item"
+                     "type":"clue"
                     },
                  "rotation":0,
                  "type":"",
@@ -280,12 +273,11 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":72,
                  "name":"",
                  "properties":
                     {
                      "sprite":"clue",
-                     "type":"item"
+                     "type":"clue"
                     },
                  "rotation":0,
                  "type":"",
@@ -297,12 +289,11 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":73,
                  "name":"",
                  "properties":
                     {
                      "sprite":"clue",
-                     "type":"item"
+                     "type":"clue"
                     },
                  "rotation":0,
                  "type":"",
@@ -314,12 +305,11 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":74,
                  "name":"",
                  "properties":
                     {
                      "sprite":"clue",
-                     "type":"item"
+                     "type":"clue"
                     },
                  "rotation":0,
                  "type":"",
@@ -331,12 +321,11 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":75,
                  "name":"",
                  "properties":
                     {
                      "sprite":"clue",
-                     "type":"item"
+                     "type":"clue"
                     },
                  "rotation":0,
                  "type":"",
@@ -348,12 +337,11 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":76,
                  "name":"",
                  "properties":
                     {
                      "sprite":"clue",
-                     "type":"item"
+                     "type":"clue"
                     },
                  "rotation":0,
                  "type":"",
@@ -365,7 +353,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":77,
                  "name":"",
                  "properties":
                     {
@@ -382,7 +369,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":78,
                  "name":"",
                  "properties":
                     {
@@ -395,6 +381,48 @@
                  "width":0,
                  "x":221.212,
                  "y":2381.82
+                }, 
+                {
+                 "gid":10738,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "colour":"blue",
+                     "minLength":"8",
+                     "minNums":"2",
+                     "minPunct":"2",
+                     "minSpeChar":"1",
+                     "sprite":"policy",
+                     "type":"policy"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":486,
+                 "y":512
+                }, 
+                {
+                 "gid":10738,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "colour":"red",
+                     "minLength":"10",
+                     "minNums":"3",
+                     "minPunct":"1",
+                     "minSpeChar":"2",
+                     "sprite":"policy",
+                     "type":"policy"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":884,
+                 "y":518
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -409,67 +437,276 @@
          "name":"RoomLayer",
          "objects":[
                 {
-                 "height":224,
-                 "id":5,
+                 "height":288,
                  "name":"",
                  "properties":
                     {
                      "idx":"3",
                      "state":"1",
-                     "type":"room",
-                     "vh":"7",
-                     "vw":"10",
-                     "vx":"27",
-                     "vy":"2"
+                     "type":"room"
                     },
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":320,
-                 "x":864,
-                 "y":64
+                 "width":576,
+                 "x":1280,
+                 "y":32
                 }, 
                 {
-                 "height":224,
-                 "id":6,
+                 "height":352,
                  "name":"",
                  "properties":
                     {
                      "idx":"2",
                      "state":"1",
-                     "type":"room",
-                     "vh":"7",
-                     "vw":"11",
-                     "vx":"14",
-                     "vy":"2"
+                     "type":"room"
                     },
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":352,
-                 "x":448,
-                 "y":64
+                 "width":640,
+                 "x":576,
+                 "y":32
                 }, 
                 {
-                 "height":224,
-                 "id":7,
+                 "height":352,
                  "name":"",
                  "properties":
                     {
                      "idx":"1",
                      "state":"1",
-                     "type":"room",
-                     "vh":"7",
-                     "vw":"9",
-                     "vx":"3",
-                     "vy":"2"
+                     "type":"room"
                     },
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":288,
+                 "width":448,
+                 "x":64,
+                 "y":32
+                }, 
+                {
+                 "height":320,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"3",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":352,
+                 "x":1504,
+                 "y":320
+                }, 
+                {
+                 "height":480,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"4",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1056,
+                 "x":800,
+                 "y":2016
+                }, 
+                {
+                 "height":544,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"5",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":640,
                  "x":96,
-                 "y":64
+                 "y":1984
+                }, 
+                {
+                 "height":448,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"6",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":640,
+                 "x":96,
+                 "y":1472
+                }, 
+                {
+                 "height":512,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"7",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1024,
+                 "x":192,
+                 "y":704
+                }, 
+                {
+                 "height":640,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"8",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":352,
+                 "x":1504,
+                 "y":704
+                }, 
+                {
+                 "height":352,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"9",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":800,
+                 "x":1056,
+                 "y":1408
+                }, 
+                {
+                 "height":128,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"10",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1152,
+                 "x":800,
+                 "y":1824
+                }, 
+                {
+                 "height":544,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"10",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":160,
+                 "x":800,
+                 "y":1280
+                }, 
+                {
+                 "height":96,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"10",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":480,
+                 "x":960,
+                 "y":1280
+                }, 
+                {
+                 "height":832,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"10",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":160,
+                 "x":1280,
+                 "y":448
+                }, 
+                {
+                 "height":192,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"10",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1280,
+                 "x":0,
+                 "y":448
+                }, 
+                {
+                 "height":768,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"10",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":0,
+                 "y":640
+                }, 
+                {
+                 "height":128,
+                 "name":"",
+                 "properties":
+                    {
+                     "idx":"10",
+                     "state":"1",
+                     "type":"room"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":672,
+                 "x":128,
+                 "y":1280
                 }],
          "opacity":1,
          "properties":
@@ -499,7 +736,6 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":79,
  "orientation":"orthogonal",
  "properties":
     {
@@ -560,6 +796,21 @@
          "imagewidth":64,
          "margin":0,
          "name":"Clue",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "firstgid":10738,
+         "image":"..\/images\/GameIcons\/PasswordPolicySheet.png",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"policySheet",
          "properties":
             {
 
