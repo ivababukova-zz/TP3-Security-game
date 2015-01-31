@@ -47,6 +47,7 @@ Encrypt.Game.prototype = {
 
     //add the W key to the keyboard to serve as a 'write' option for the player
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+    this.escapeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
   },
 
   createPlayer: function () {
@@ -114,6 +115,14 @@ Encrypt.Game.prototype = {
       onkeyup: function() {
         // first check if password pop up is open
         if (document.getElementById("inputPwd").style.display === "block") {
+          if(self.escapeKey.justDown){
+            document.getElementById("inputPwd").style.display = "none";
+            document.getElementById("policyField").style.display= "none";
+            document.getElementById("feedbackField").style.display = "none";
+            document.getElementById("mainLayer").style.display= "none";
+            this._hiddenInput.value = '';
+            fPause = false;
+          }
           var policy = self.policies[currentDoor.policy];
           var feedback = "";
           this.approved = false;
@@ -556,10 +565,10 @@ Encrypt.Game.prototype = {
   },
 
   enterDoor: function (player, door) {
-    if(this.policies[door.policy] === undefined){// Does not work properly
+    /**if(this.policies[door.policy] === undefined){// Does not work properly
       this.game.physics.arcade.collide(player, door);
       return;
-    }
+    }*/
     if(this.flagEnter == false){
       // update global variables
       currentDoor = door;

@@ -218,7 +218,7 @@
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="64" y="32" width="448" height="352">
+  <object x="32" y="32" width="544" height="352">
    <properties>
     <property name="idx" value="1"/>
     <property name="state" value="1"/>
