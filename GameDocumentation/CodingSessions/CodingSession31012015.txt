@@ -2,29 +2,29 @@ Coding session 31/01/2015
 
 Bugs: -
 
-1. Password input: - moving cursor back and forth with arrow keys(maybe even mouse click positioning)
-2. Map Collision: - fix collisions & sprite behind door
-3. Policies & doors they relate to
-4. The 'w' bug that Andy introduced/inpute for password note :p
-5. Door animation bug RE overlaps
+1. Password input: - moving cursor back and forth with arrow keys(maybe even mouse click positioning) ~ Antanas
+2. Map Collision: - fix collisions & sprite behind door ~ Bryan
+3. Policies & doors they relate to ~ Antanas
+4. The 'w' bug that Andy introduced/inpute for password note :p ~ Antanas
+5. Door animation bug RE overlaps ~ Bryan
 
 Features: -
 
-1. Score System
-2. Entropy checker (See Regexes, entropy formula, create function)
-3. Character Animations
-4. Resize of password input window
-5. Cancel option for password input
-6. if door already has a password, allow for a reset
-7. entropy variable to be added to doors
-8. Side doors and their animations
+1. Score System ~ Andy
+2. Entropy checker (See Regexes, entropy formula, create function) ~ Bryan
+3. Character Animations ~ Bryan
+4. Resize of password input window ~ Antanas
+5. Cancel option for password input ~ Antanas
+6. if door already has a password, allow for a reset ~ ?
+7. entropy variable to be added to doors ~ ?
+8. Side doors and their animations ~ ?
 
 Enhancements: -
 
-1. Combine Room/object layer if it provides rendering optimisation
-2. Main menu
-3. Write hints/tips for player feedback etc...
-4. Instructions
-5. Menu graphics: - Specifications & Design
-6. Difficulty setting (parameters for game states etc...)
-7. Policy image colour coding - red, green blue yellow orange (photoshop by Bryan, then object refinement on map for relevant tiles to be replaced)
+1. Combine Room/object layer if it provides rendering optimisation ~ Antanas
+2. Main menu ~ Andy
+3. Write hints/tips for player feedback etc... ~ ?
+4. Instructions ~ ?
+5. Menu graphics: - Specifications & Design ~ Andy & Bryan
+6. Difficulty setting (parameters for game states etc...) ~ ?
+7. Policy image colour coding - red, green blue yellow orange (photoshop by Bryan, then object refinement on map for relevant tiles to be replaced) ~ Bryan
