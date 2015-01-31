@@ -376,6 +376,7 @@ Encrypt.Game.prototype = {
     var self = this;
     //collision
     if (fPause == true) {
+      self.player.sprite.animations.stop(); /* BMDK: This will stop the animations running whilst game is paused*/
       this.player.sprite.body.velocity.y = 0;
       this.player.sprite.body.velocity.x = 0;
       return;
