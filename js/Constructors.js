@@ -28,7 +28,7 @@ Note = function () {
 
     /* an array to keep track of the passwords written down; it should be an array of arrays so that it can track
      the password with its corresponding policy. */
-    this.passwords = [[]];
+    this.passwords =[];
 
     /* coordinates for the object; if it's not owned, it should appear on the map where it's dropped; if not, its
      default should be -1, -1, so that it's outside out canvas*/
@@ -432,10 +432,11 @@ Friend.prototype = {
     }
 };
 
-MetricsSystem = function( approval ){
+MetricsSystem = function( game, approval ){
 
     // assume approval given; (approval to store passwords used in game); field to be checked whenever sensitive data might be stored
     this.approval = true;
+    this.game = game;
     // check if we've been passed a boolean and assign it to the field just in case it's changed
     if(typeof(approval) == "boolean")
         this.approval = approval;
@@ -622,4 +623,135 @@ MetricsSystem.protorype = {
             this.resetPasswords["antikeylogger"].push(successful);
         }
     }
+};
+
+ScoreSystem = function(game){
+
+    this.game = game;
+
+    // the variable that is going to keep track of the actual score
+    this.score = 0;
+
+    //number of consecutive successful disinfections
+    this.disinfections = 0;
+};
+
+ScoreSystem.prototype = {
+
+    /**
+     * Function used to award points to the player according to the entropy score he received upon setting a password.
+     * Assumption: Entropy scores ar ein range 1 - 10
+     * The parameter expected is an int
+     * TO BE CALLED UPON SUCCESSFULLY SETTING UP A PASSWORD
+     * */
+    scorePassword: function( entropy ){
+        if(typeof(entropy) == "int")
+            this.score += 10 * entropy;
+    },
+
+    /**
+     * Function used to award points to the player when he/she successfully disinfects a door/room
+     * objectName is a string denoting what the player did; it's either "room," "door," or "failed"
+     * "failed" is to be passed to the function when the player uses his tool on an uninfected object
+     * TO BE CALLED WHEN THE DISINFECTANT TOOLS ARE USED
+     * */
+    scoreNeutralise: function (objectName){
+
+        if( objectName === "door"){
+            this.score += 20;   // as specified in the score system doc, 20 points are added
+        }
+        else if(objectName === "room"){
+
+        }
+        else if(objectName === "failed"){
+
+        }
+        else{
+            console.log("Tie fuck? This is naething I canne disinfect!");
+        }
+    },
+
+    /**
+     * Function used to award points to the player upon use of the firewall
+     * WOULD be great to know whether the enemy is in the same room or not; would improve accuracy of points awarded
+     * */
+    scoreFirewall: function(){
+        //award a base 5 points for usel; potentially increase this number so as to encourage use; PITFALL: can be used without actual need
+        this.score += 5;
+    },
+
+    /**
+     * Function used when the player goes through a door he's already set a password on (i.e. when he remembers a password he set before)
+     * Based on the entropy of the password: 25% of the initial score awarded for setting the password
+     * TO BE USED ONLY WHEN THE PLAYER INPUTS A PASSWORD HE SET PREVIOUSLY
+     * */
+
+    //working title
+    scorePassingThroughDoorWithoutResetting: function(password, entropy, player){
+
+        var found = false;
+
+        //look through the player's note to see if he has it already stored
+        if( player.note.length > 0) {
+
+            for( var i = 0; i < player.note.length && !found; i++ ){
+                if( password === player.note.length[i] )
+                    found  = true;
+            }
+        }
+
+        if( !found )
+            this.score += 0.25 * ( entropy *10 );
+    },
+
+    /**
+     * Function that subtracts points from the user for each reset he uses. Initial idea: subtract 50% of initial password score given
+     * TO BE CALLED ONLY WHEN A RESET IS ISSUES AND COMPLETED
+     * */
+
+    scoreReset: function(entropy){
+
+        this.score -= 0.5 * (entropy *10);
+    },
+
+    /**
+     * Function that subtracts points from the player when they write down one of the passwords. Decided to only take 1 point/password written
+     * */
+    scorePasswordWriteDown: function(){
+
+        this.score -= 1;
+    },
+
+    /**
+     * Function to award points to the player when he picks up a password policy; only intended as an incentive to make him explore the full breadth of the game
+     * TO BE CALLED WHEN PICKING UP A POLICY
+     * */
+    scorePolicyPickUp: function(){
+
+        this.score += 5;
+    },
+
+    /**
+     * Function to award points to the player for helping the friend. As friend, as a feature, is still under scrutiny, this was not implemented yet.
+     * */
+    scoreHelpFriend: function(){
+
+    },
+
+    /**
+     * Function used to award points to the player upon finishing the game.
+     * BONUSES:
+     *  - enemy not in the room (TODO)
+     *  - how far away enemies are (TODO once search algorithm is in place)
+     *  - time taken to complete game(TODO: find a standard time needed to finish a game)
+     * EXTRA NICETIES:
+     *  - generate string saying what bonuses are given and for what
+     * */
+    scoreGameWon: function(){
+
+        //award 100 points for winning the game
+        this.score  += 100;
+    }
+
+
 };
