@@ -487,6 +487,7 @@ Encrypt.Game.prototype = {
     if(this.flagEnter == false){
       // update global variables
       currentDoor = door;
+      console.log(currentDoor.policy);
       this.flagEnter = true;
       fPause = true;
       // password not set yet
