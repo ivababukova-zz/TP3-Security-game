@@ -38,6 +38,7 @@ Encrypt.Game.prototype = {
 
     this.blockedLayer = this.map.createLayer('blockedLayer');
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer'); //collision on blockedLayer
+    this.createDoors();
 
     this.overPlayerLayer = this.map.createLayer('overPlayerLayer');
 
@@ -47,7 +48,6 @@ Encrypt.Game.prototype = {
     this.backgroundlayer.resizeWorld();
 
     this.createItems();
-    this.createDoors();
     this.createPolicies();
     this.loadRooms();
     this.createInput();
