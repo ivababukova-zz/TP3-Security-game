@@ -71,7 +71,7 @@
                      "password":"null",
                      "policy":"blue",
                      "sprite":"frontDoor",
-                     "type":"frontDoor"
+                     "type":"blueFrontDoor"
                     },
                  "rotation":0,
                  "type":"",
@@ -176,7 +176,7 @@
                  "properties":
                     {
                      "password":"null",
-                     "policy":"blue",
+                     "policy":"green",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -194,6 +194,7 @@
                  "properties":
                     {
                      "password":"null",
+                     "policy":"green",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -228,6 +229,7 @@
                  "properties":
                     {
                      "password":"null",
+                     "policy":"green",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -393,7 +395,7 @@
                      "minNums":"2",
                      "minPunct":"2",
                      "minSpeChar":"1",
-                     "sprite":"policy",
+                     "sprite":"bluePolicy",
                      "type":"policy"
                     },
                  "rotation":0,
@@ -414,7 +416,7 @@
                      "minNums":"3",
                      "minPunct":"1",
                      "minSpeChar":"2",
-                     "sprite":"policy",
+                     "sprite":"redPolicy",
                      "type":"policy"
                     },
                  "rotation":0,
@@ -423,6 +425,48 @@
                  "width":0,
                  "x":884,
                  "y":518
+                }, 
+                {
+                 "gid":10738,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "colour":"yellow",
+                     "minLength":"10",
+                     "minNums":"3",
+                     "minPunct":"1",
+                     "minSpeChar":"2",
+                     "sprite":"yellowPolicy",
+                     "type":"policy"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1116,
+                 "y":530
+                }, 
+                {
+                 "gid":10738,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "colour":"magenta",
+                     "minLength":"10",
+                     "minNums":"3",
+                     "minPunct":"1",
+                     "minSpeChar":"2",
+                     "sprite":"magentaPolicy",
+                     "type":"policy"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1244,
+                 "y":524
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -720,7 +764,7 @@
              "vy":"2"
             },
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "width":0,
          "x":0,
          "y":0

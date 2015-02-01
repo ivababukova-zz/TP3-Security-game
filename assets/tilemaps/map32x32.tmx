@@ -46,7 +46,7 @@
     <property name="password" value="null"/>
     <property name="policy" value="blue"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="frontDoor"/>
+    <property name="type" value="blueFrontDoor"/>
    </properties>
   </object>
   <object gid="10667" x="640" y="1248">
@@ -91,7 +91,7 @@
   <object gid="10667" x="384" y="1440">
    <properties>
     <property name="password" value="null"/>
-    <property name="policy" value="blue"/>
+    <property name="policy" value="green"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
@@ -99,6 +99,7 @@
   <object gid="10667" x="384" y="1952">
    <properties>
     <property name="password" value="null"/>
+    <property name="policy" value="green"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
@@ -113,6 +114,7 @@
   <object gid="10667" x="1280" y="1984">
    <properties>
     <property name="password" value="null"/>
+    <property name="policy" value="green"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
@@ -178,7 +180,7 @@
     <property name="minNums" value="2"/>
     <property name="minPunct" value="2"/>
     <property name="minSpeChar" value="1"/>
-    <property name="sprite" value="policy"/>
+    <property name="sprite" value="bluePolicy"/>
     <property name="type" value="policy"/>
    </properties>
   </object>
@@ -189,12 +191,34 @@
     <property name="minNums" value="3"/>
     <property name="minPunct" value="1"/>
     <property name="minSpeChar" value="2"/>
-    <property name="sprite" value="policy"/>
+    <property name="sprite" value="redPolicy"/>
+    <property name="type" value="policy"/>
+   </properties>
+  </object>
+  <object gid="10738" x="1116" y="530">
+   <properties>
+    <property name="colour" value="yellow"/>
+    <property name="minLength" value="10"/>
+    <property name="minNums" value="3"/>
+    <property name="minPunct" value="1"/>
+    <property name="minSpeChar" value="2"/>
+    <property name="sprite" value="yellowPolicy"/>
+    <property name="type" value="policy"/>
+   </properties>
+  </object>
+  <object gid="10738" x="1244" y="524">
+   <properties>
+    <property name="colour" value="magenta"/>
+    <property name="minLength" value="10"/>
+    <property name="minNums" value="3"/>
+    <property name="minPunct" value="1"/>
+    <property name="minSpeChar" value="2"/>
+    <property name="sprite" value="magentaPolicy"/>
     <property name="type" value="policy"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="RoomLayer">
+ <objectgroup name="RoomLayer" visible="0">
   <properties>
    <property name="idx" value="3"/>
    <property name="state" value="1"/>
