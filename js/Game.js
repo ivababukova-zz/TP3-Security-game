@@ -378,6 +378,59 @@ Encrypt.Game.prototype = {
     input.focus();
     return input;
   },
+  /* BMDK: - Function for calculation of password entropy*/
+getEntropy: function (pwdFeed) {
+  /* ints to represent how many characters are in each set
+  *  Note: not consistent with password policies that split into special & punctuation characters
+  */
+  var pwd = String(pwdFeed);
+  var numbersNumOf = 10;
+  var lowersNumOf = 26;
+  var uppersNumOf = 26;
+  var nonAlphaNumericsNumOf = 34; 
+
+  /* the range of characters used */
+  var range = 0;
+  /* the length of the password */
+  var pwdLength = pwd.length;
+  /* possible feedback for the user */
+  var possibleEntropyResults = ['weak', 'moderate','strong', 'very strong'];
+
+
+  /* increase range if numbers are present*/
+  if (pwd.replace(/[0-9]+/g, "").length < pwdLength) {
+    range += numbersNumOf;
+        console.log('Numbers exist ' + range);
+
+  }
+  /* increase range if lower case chars are present*/
+  if (pwd.replace(/[a-z]+/g, "").length < pwdLength) {
+    range += lowersNumOf;
+        console.log('lowers exist ' + range);
+
+  }
+  /* increase range if upper case chars are present*/
+  if (pwd.replace(/[A-Z]+/g, "").length < pwdLength) {
+    range += uppersNumOf;
+        console.log('Uppers exist ' + range);
+
+  }
+  /* increase range if non-alphanumeric chars are present*/
+  if (pwd.replace(/\W+/g, "").length < pwdLength) {
+    range += nonAlphaNumericsNumOf;
+        console.log('NonANums exist ' + range);
+
+  }
+
+  /*bit strength calculated by log2(rangeOfChars)*lengthOfPassword*/
+  var tempLogVal = Math.log(range) / Math.log(2);
+  var entropy = pwdLength*tempLogVal;
+  /* Stop from returning NaN value*/
+  if (entropy > 0) {
+    return entropy;
+  }
+  return 0;
+},
   /****************HELPER METHODS TO CREATE*******************
    * find objects in a Tiled layer that contain a property called "type" equal to a certain value
    * @param type
