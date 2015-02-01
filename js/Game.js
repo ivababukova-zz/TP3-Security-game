@@ -45,8 +45,8 @@ Encrypt.Game.prototype = {
     this.backgroundlayer.resizeWorld();
 
     this.createItems();
-    this.createFrontDoors();
-    this.createSideDoors();
+    //this.createFrontDoors();
+    this.createDoors();
     this.createPolicies();
     this.loadRooms();
     this.createInput();
@@ -144,13 +144,14 @@ Encrypt.Game.prototype = {
   },
 
   // this function creates only front doors:
-  createFrontDoors: function () {
+  createDoors: function () {
     //create doors
     this.doors = this.game.add.group();
     this.doors.enableBody = true;
 
 
     var result = this.findObjectsByType('frontDoor', this.map, 'objectsLayer');
+    var result2 = this.findObjectsByType('sideDoor', this.map, 'objectsLayer');
     var doorID = 0; // used to assign unique id for each door created
 
 
@@ -159,21 +160,10 @@ Encrypt.Game.prototype = {
       this.createDoorFromTiledObject(element, this.doors, doorID, 'frontDoor');
       doorID++;
     }, this);
-  },
 
-  // function to create the side doors on the map:
-  createSideDoors: function () {
-    //create doors
-    this.doors = this.game.add.group();
-    this.doors.enableBody = true;
-
-
-    var result = this.findObjectsByType('sideDoor', this.map, 'objectsLayer');
-    var doorID = 0; // used to assign unique id for each door created
-
-
-    // create the front door objects:
-    result.forEach(function (element) {
+    
+    // create the side door objects:
+    result2.forEach(function (element) {
       this.createDoorFromTiledObject(element, this.doors, doorID, 'sideDoor');
       doorID++;
     }, this);
@@ -419,7 +409,7 @@ Encrypt.Game.prototype = {
       sprite[key] = element.properties[key];
     });
   },
-  /** Create front door and load the animations for it
+  /** Create front or side door and load the animations for it
    * @param element
    * @param group
    * @param doorID
@@ -443,11 +433,12 @@ Encrypt.Game.prototype = {
   },
   /*************************METHODS CALLED BY UPDATE() **************************
    * @param doorObject
-   * @param string
+   * @param string : animation to be played
+   * This function changes the current state of the doorObject to new one, specified by the string parameter
    */
    changeDoorState: function(doorObject, string) {
     var currFrame = doorObject.animations.play(string);
-    console.log('frame number: ' + currFrame.frame + ' ' + string);
+    // console.log('frame number: ' + currFrame.frame + ' ' + string);
   },
   /** Used to differentiate item types and deal with them appropriately
    * @param player
@@ -466,6 +457,8 @@ Encrypt.Game.prototype = {
    * @param player
    * @param collectable
    */
+    // TODO: update the array with real hints
+    // change the current display of the hints as the current one is quite ugly
   showHint: function(player, collectable) {
     var array = [];
     array.push("how to make your \npassword stronger:\n hint 1");
@@ -477,7 +470,7 @@ Encrypt.Game.prototype = {
 
     // var input = confirm(hint);
     // display hint:
-    var style = { font: "25px Arial", fill: "#000000", align: "center" };
+    var style = { font: "20px Arial", fill: "#000000", align: "center" };
     text = this.game.add.text(this.player.sprite.x,  this.player.sprite.y, hint, style);
     collectable.destroy();
   },
@@ -486,12 +479,15 @@ Encrypt.Game.prototype = {
    * @param door
    */
   enterDoor: function (player, door) {
+
     if(this.flagEnter == false){
+
       // update global variables
       currentDoor = door;
       console.log(currentDoor.policy);
       this.flagEnter = true;
       fPause = true;
+
       // password not set yet
       if (door.password == 'null') {
         document.getElementById("titlePwd").innerHTML = "Setup password";
