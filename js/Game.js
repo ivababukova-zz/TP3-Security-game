@@ -33,19 +33,20 @@ Encrypt.Game.prototype = {
     this.map.addTilesetImage('32x32TileSet1Encrypt', '32x32TileSet1Encrypt');
 
     //create layer
-    this.overPlayerLayer = this.map.createLayer('overPlayerLayer');
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
     this.createPlayer();
-    this.blockedLayer = this.map.createLayer('blockedLayer');
 
-    //collision on blockedLayer
-    this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
+    this.blockedLayer = this.map.createLayer('blockedLayer');
+    this.map.setCollisionBetween(1, 100000, true, 'blockedLayer'); //collision on blockedLayer
+
+    this.overPlayerLayer = this.map.createLayer('overPlayerLayer');
+
+
 
     //resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld();
 
     this.createItems();
-    //this.createFrontDoors();
     this.createDoors();
     this.createPolicies();
     this.loadRooms();
@@ -61,6 +62,7 @@ Encrypt.Game.prototype = {
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
     //ESC key is used for closing pop ups
     this.escapeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+
   },
 
   update: function () {
@@ -161,7 +163,7 @@ Encrypt.Game.prototype = {
       doorID++;
     }, this);
 
-    
+
     // create the side door objects:
     result2.forEach(function (element) {
       this.createDoorFromTiledObject(element, this.doors, doorID, 'sideDoor');
@@ -417,18 +419,20 @@ Encrypt.Game.prototype = {
    */
   createDoorFromTiledObject: function (element, group, doorID, spritesheet) {
     //frontDoorSprite = this.game.add.sprite(element.x, element.y, 'frontDoor');
-    var sprite2 = group.create(element.x, element.y, spritesheet);
-    //var sprite = group.create(element.x, element.y, element.properties.sprite);
-    sprite2.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, false, true);
-    sprite2.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, false, true);
-    sprite2.animations.add('closed', [0], 1, true, true);
-    sprite2.animations.add('opened', [16], 1, true, true);
-    //sprite2.animations.play('closed');
-    this.changeDoorState(sprite2, 'closed');
+    var sprite = group.create(element.x, element.y, spritesheet);
+
+    // these animation options are valid for both types of doors
+    sprite.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, false, true);
+    sprite.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, false, true);
+    sprite.animations.add('closed', [0], 1, true, true);
+    sprite.animations.add('opened', [], 0, true, true); // no sprite, because an opened door sprite is already drawn on the map.
+
+    this.changeDoorState(sprite, 'closed'); // the door is initially closed
     element.id = doorID; // the id of the door, not used yet
-    //copy all properties to the sprite
+
+    //copy all properties to the sprite:
     Object.keys(element.properties).forEach(function (key) {
-      sprite2[key] = element.properties[key];
+      sprite[key] = element.properties[key];
     });
   },
   /*************************METHODS CALLED BY UPDATE() **************************
