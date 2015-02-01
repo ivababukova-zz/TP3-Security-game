@@ -22,7 +22,7 @@
  </layer>
  <layer name="blockedLayer" width="61" height="80">
   <data encoding="base64" compression="zlib">
-   eJztnL1OwzAQgFNQxdACUhfUrjwBGwzAwMDAzDMAYkDMCDHwJEwdeQyEEFPVJ2DgNaglTlyO5HpO7IuT3CdZAmqf/UnFPxe3WWb0jeNBlp14lLMB3/ZyO18kMV29dXGLYnMFx6O8MK8VMUf1fdtqxp0zMYYbfrFGq/p30yy7n/q3XRd3sYq5DBR3xMQIOe6UMOc85twdOOfXXf9Yi8hz2E3kOWw89YuF6/u21YzLOR/O/GLh+r5tNeNS56vJ6v1TUICi12IUaX9uTwV7ggvh/yJ1/pgU10sVvKeq6vywF248GpwjT3Mux5zNuQ1gZ+naTeu12Vm6dtN62NnFg72ky0+cehbAtx0tbg2GcWyRtRQ7uzG+b+QLgP9G8yTUGQiZ9/AFr8Gcs3SMNE9S5hxib18VPOdwztJzDTeHpeQseW93yZnDnGVt1jnDe6ovzm3AOfvml9vgzM1hVeNhUnUGzLl+PEeKc5i2M5Cqc+g5rC3OgDnL4jnM+e/nkM8lfMF9azqHfC7hC+47trN7pnFdswB140C5jezcBvru3Je8Jx5/1bzn00648WgA4z+ayXKeRXnPrwac8f6xKF8rLVJo3hPOFUthThuQ5KjHv177w/99Aho5Ze6eQay7fJyzxr0dzjnkfhP3U+Qc4/6gZCwULWdtzDlPaOeyOUwbLeeUSMG5q3MYR1fXKg7t3ATXh9Ycpp2b4PrQWqveKu6vuT23tP4ncezq+ow52Mz/3gfnR5IviHUHO2XnWHewm8wbU55JviD0+RloMm9M+SbOsc7PVe7Xhbxnx91zjzWHNXm/zsF9djCWc9NnlybOz+asj6ZzyM+F1R1LGU2PLRbmnMecu4PNYXlsrQrXjznrY855zDlcPyk7p/ydBHXg+k/5OwnqQPv/ATIE9Rc=
+   eJztnL9KxEAQxvdORPTOi1wjXusTiIVaqIWFhbXPoGIhop2IhS+iVUofQ0TEQnwCC1/DDN5wm+Wy2Ukym00yHwyouZ3Mb4n758vq5bJSgw2lhh2I1SQeR0p9JsxXyddRErsTeqyVaOszL+S7TuI3Yd5eUepr+v1+T6kDQhz1/vsrq+3pajpccsLnIC/U9G2pycxtC73OkyjN/JxcoyjWclHb5uVF5iryxhbmxT4t16A/y0Vtm5cXmavIq9dZlrkpEmZh7grzcTRjfonouTj6Sx/DLhjGMGS+ma5VQlJWPUNirfOYd7T1ShOEaypXmcxn4+T5mROoedc4wvV+5pqqCPP7OL9NSDLXVC4yme/WeWusWvC7KMz5EmZhboKQ+YYwV8FcftsC5ojArPskJrO+DgV/4pAYKGo7M9AngTqWjLlUf7ahxrd+OlD6z/R8NuYqfQ+qYkdm1xpjR+Yq1vZFpe9dbMyu+xo9nzCHw2yTMLu1Eebmzs9tY7aNYWXzCXM48skcyhgmzOlrbZ2rhDl9TZjp+bKYKR4Eh3RfwwfzTiDvM6CGvQk/M7zTOC8ZqLJ5MC6ZmZugLjNT3qM23fcEQf14dsxFpu/5MOKtj0M4vrl4nuh76p7+Tw3MeX6ta7jKfJeJczKeuavKw4a+HU7vs7mYzezDU846W1HVmTtU7Mjs49yOjbnK9SbcR5jrkzALc6iedlmFwNzWMcymLjP7Om8J93ia1D8/+z5viWv0uphfC66vbWtu189/9LsxV+naWuge8/06v9cZMjPlvBVFdfvGpuBvBzn3z5x9WUTwzP2OePfPlL7kPGdnekOcYxhHXxaRzRviYq577+JzLynM9UmYxTMQ5vZImGUME+by9xHm+iTMwtw1Zg4P55bRZ6PK9PS5zv6F9D8SdE//D4aWMXs=
   </data>
  </layer>
  <objectgroup name="objectsLayer">
@@ -68,6 +68,7 @@
   <object gid="10667" x="1536" y="1792">
    <properties>
     <property name="password" value="null"/>
+    <property name="policy" value="green"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
@@ -99,6 +100,7 @@
   <object gid="10667" x="384" y="1952">
    <properties>
     <property name="password" value="null"/>
+    <property name="policy" value="green"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
@@ -113,6 +115,7 @@
   <object gid="10667" x="1280" y="1984">
    <properties>
     <property name="password" value="null"/>
+    <property name="policy" value="green"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
@@ -178,7 +181,7 @@
     <property name="minNums" value="2"/>
     <property name="minPunct" value="2"/>
     <property name="minSpeChar" value="1"/>
-    <property name="sprite" value="policy"/>
+    <property name="sprite" value="bluePolicy"/>
     <property name="type" value="policy"/>
    </properties>
   </object>
@@ -189,7 +192,40 @@
     <property name="minNums" value="3"/>
     <property name="minPunct" value="1"/>
     <property name="minSpeChar" value="2"/>
-    <property name="sprite" value="policy"/>
+    <property name="sprite" value="redPolicy"/>
+    <property name="type" value="policy"/>
+   </properties>
+  </object>
+  <object gid="10738" x="1096" y="526">
+   <properties>
+    <property name="colour" value="green"/>
+    <property name="minLength" value="5"/>
+    <property name="minNums" value="0"/>
+    <property name="minPunct" value="0"/>
+    <property name="minSpeChar" value="0"/>
+    <property name="sprite" value="greenPolicy"/>
+    <property name="type" value="policy"/>
+   </properties>
+  </object>
+  <object gid="10738" x="1002" y="782">
+   <properties>
+    <property name="colour" value="magenta"/>
+    <property name="minLength" value="4"/>
+    <property name="minNums" value="3"/>
+    <property name="minPunct" value="1"/>
+    <property name="minSpeChar" value="2"/>
+    <property name="sprite" value="magentaPolicy"/>
+    <property name="type" value="policy"/>
+   </properties>
+  </object>
+  <object gid="10738" x="1320" y="552">
+   <properties>
+    <property name="colour" value="yellow"/>
+    <property name="minLength" value="6"/>
+    <property name="minNums" value="2"/>
+    <property name="minPunct" value="1"/>
+    <property name="minSpeChar" value="2"/>
+    <property name="sprite" value="yellowPolicy"/>
     <property name="type" value="policy"/>
    </properties>
   </object>
@@ -218,7 +254,7 @@
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="32" y="32" width="544" height="352">
+  <object x="32" y="32" width="502" height="352.667">
    <properties>
     <property name="idx" value="1"/>
     <property name="state" value="1"/>
@@ -326,7 +362,7 @@
  </objectgroup>
  <layer name="overPlayerLayer" width="61" height="80">
   <data encoding="base64" compression="zlib">
-   eJztXLFu2zAQVbzGdewtkvMHHTImgQtkznf0A9Si9pyhn9GhHrvkOzJkFIIMHTv0MxIdbMKqIFIhee94svoAIglinu7xjuTxicnVSZad5lk2HUH7ULe7mu+PupX196siy64D2qcivK+kXbL3teb5UPN9rVuV734OQRnRV9KusbeYZNnnyY7z84g4x8Z5KOCK8+PyYOtpyecfwm4X55A4f7w42Lq84PENZZcrzi/zg63fcx7fUHaNvU3kfF4tDrZuFzy+oexyrttDQde6/bPY/c6nriGs66/fcv++fXa3hdsnqqm+z8I4U5yv9rUKwae2aX7et2+MXVNT/Q3kPBYMnXNIjTZmzpuBcg7ZW4ce57Fy9q0nbJzvZ7o0E9se7FtPELZFN+c/s914nOX8uodvm+b2PZg4rzxqAoLZ04ec25zzGaV7+MLlRwznrr1Ky3nD5Qd3nIegEx1jbvdpQ4g4p87tPm3oGGuSPm2IsyZB6Zi+QGtDTaB0TE6ExsXGGaVjhsC2lobGxcYZpWOGwMY5NC7a1zCCjXNoXLTvzwg/tO/PBBdnbj1MS+2J4tx1xiiVxNk19og4h7zT4GwE0jVsY8/NOfSdBmczz74pZDgPAf85+/XRxvnX+fs+V3quOQSb7imFGE3Z+B+reyI17S6NOkZTNjx90c5tlKY9z/3fE6OgYT5L13vtuxWoc4WLl3RdL3UPUMt5hZA6zil0N0nOXXFOobulvh+WQneTmM+Uv5Ulf1PobhKcKX8r4fx1geterwuUv5Ujf1PuzyjOlL+VI38ltQmC0SDQ67YLktqEeQZpEJt9nFPUYSmBym2CpjqsCTRnzXHmXk8Ia8VxNn9HR+BcN+aCa/N79YsmZ0QOIsYyRr/4sueIPEtqed/XBpqzlvksUYeZ52jmjPBNU26b8V+A6zBtcZbgrAltzijNQMNdMwMJztrumklw1nTXjFDl/56fEeu2prtmhDJPrxlIQ3Kv0jKWEvPZPEcTZ4naU5NmIFlva+FcjTS325wRdbEmDbBrf0boYX3/k0CqGV+acUbo601bnHY5NP03ncERbA==
+   eJzt2LFOwzAQBmDvtCXdCO0bMLAiMfBItKI7Ay/DmzAwemBgZOA1iAVVqqo2Tnpn313+T/IYyxdf7fR3DgBgmt5Wzj22zm278b6SPy+Fm3W/ttu1/HkpfDT92j4b+fNSuF/2a3tYyp8XerN22Nh142ngM7nzptYz78bLgqbmu2v5Y++bqGYAANDjuTv7Lxju2rHjvzs4d56Ur8XvN99lW/8Onv19e6bu4KH3OQBACZKzIS6SsyEuJbMhKT1VMhvS0FPU+yI5b9yj3hcNeaOGfaGmYV8AoL6a+UgttXMSAEter4Y/I/l8OHRupnxo7NnAmWmfyqjPzZQpcGXaTUZGbY0X8lsqCTVPQ6xmKbkbh1jNGnK3sWI1W813Qv/6SP9azXdC/3qj/RsT+tcb7N+U0L8+s38tZRC597OlDALfJNOgoWbqs2OnoGaO/89Bzdz4OL/Q+i7Hvv+Ngr4DAIByLGdeMZYzrxirmVeK1cwLAACgNK4svXYmlMr1uXL02rnQcab/A6GX6SA=
   </data>
  </layer>
 </map>
