@@ -345,6 +345,7 @@ Encrypt.Game.prototype = {
         }
         // first check if password pop up is open
         if (document.getElementById("mainLayer").style.display === "block") {
+          console.log(self.getEntropy(this._hiddenInput.value));//BMDK testing
           var policy = self.player.policies[currentDoor.policy];
           var feedback = "";
           this.approved = false;
