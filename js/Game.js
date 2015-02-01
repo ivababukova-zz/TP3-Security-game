@@ -14,6 +14,7 @@ var doorPass = ''; /*BMDK: for the purpose of being able to eventually close a d
 
 Encrypt.Game.prototype = {
   create: function () {
+
     // array to hold rooms' graphics
     this.roomGraphs = [];
     // when the player touches the door, this.flagEnter is true, otherwise false.
@@ -21,6 +22,10 @@ Encrypt.Game.prototype = {
     // flagSearch is used to update the currentRoom only when flagEnter goes from true to false.
     this.flagSearch = false;
     hook = this;
+
+    //creating the auxiliary systems
+    this.score = new ScoreSystem(this.game);
+    this.metrics = new MetricsSystem(this.game, true);
 
     this.map = this.game.add.tilemap('level1');
 
@@ -44,6 +49,12 @@ Encrypt.Game.prototype = {
     this.createPolicies();
     this.loadRooms();
     this.createInput();
+
+    // create the score label
+    this.scoreLabel = this.game.add.text(0, 0, "Score:" + this.score.score, { font: "32px Arial", fill: "#ffffff", align: "center"});
+    this.scoreLabel.fixedToCamera = true;
+    this.scoreLabel.cameraOffset.setTo(25,25);
+    this.game.world.bringToTop(this.scoreLabel);
 
     //add the W key to the keyboard to serve as a 'write' option for the player
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -177,15 +188,15 @@ Encrypt.Game.prototype = {
    * @param {object} policy
    */
   addPolicy: function(policy){
-    this.policies[policy.colour] = policy;
+    this.player.addPolicy(policy);
     policy.destroy();
   },
   /** Take the color of a policy ang give back its rules
    * @param {string} the color of a policy
    * @return {string} rules policy contains
    */
-  retrievePolicyRules: function(pol){
-    var policy = this.policies[pol];
+  retrievePolicyRules: function(colour){
+    var policy = this.player.policies[colour];
     var str = "MIN LENGTH: " + policy.minLength + "<br>MIN #NUMBERS: " + policy.minNums
         + "<br>MIN #PUNCTUATION SIGNS:" + policy.minPunct + "<br>MIN #SPECIAL CHARACTERS: " + policy.minSpeChar;
     return str;
@@ -297,7 +308,7 @@ Encrypt.Game.prototype = {
         if(!this.approved){
           return;
         }
-        if (currentDoor.password == 'null') {
+        if (currentDoor.password === 'null') {
           document.getElementById("inputPwd").style.display = "none";
           document.getElementById("policyField").style.display= "none";
           document.getElementById("feedbackField").style.display = "none";
@@ -340,7 +351,7 @@ Encrypt.Game.prototype = {
         }
         // first check if password pop up is open
         if (document.getElementById("mainLayer").style.display === "block") {
-          var policy = self.policies[currentDoor.policy];
+          var policy = self.player.policies[currentDoor.policy];
           var feedback = "";
           this.approved = false;
           // CHECK LENGTH
@@ -485,7 +496,7 @@ Encrypt.Game.prototype = {
         document.getElementById("titlePwd").innerHTML = "Input password";
       }
       // Check if player has the right policy for the door
-      if(this.policies[door.policy] === undefined){
+      if(this.player.policies[door.policy] === undefined){
         document.getElementById("mainLayer").style.display = "block";
         document.getElementById("noPolicyField").style.display = "block";
         document.getElementById("noPolicyLabel").innerHTML = "YOU NEED TO HAVE " + door.policy + " POLICY.";

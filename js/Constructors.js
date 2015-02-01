@@ -64,7 +64,7 @@ Note.prototype = {
  * ________________________________________________________________________________________________________________
  * Player area
  * */
-Player = function (currentX, currentY, game) {
+Player = function (currentX, currentY, game, metrics, score) {
 
     // player's location on the map
     this.currentX = currentX;
@@ -75,6 +75,12 @@ Player = function (currentX, currentY, game) {
     this.bag = [[]];  // array of arrays;
     this.looseNoteChance = 0.25;
     this.note = new Note();
+    this.metrics = metrics;
+    this.score = score;
+
+    // policies dictionary: keeps track of what policies the player has access to
+    this.policies = {};
+    this.policies["green"] = true;
 
     this.sprite = game.add.sprite(currentX, currentY, 'player');
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
@@ -160,7 +166,15 @@ Player.prototype = {
             // place it on the game map
             // set the player's Note object to null
         }
-    }
+    },
+
+    addPolicy: function(policy){
+
+         // if the array stored in the player doesn't have the key corresponding to the colour of the given policy
+        if(!this.policies.hasOwnProperty(policy.colour))
+            this.policies[policy.colour] = policy;
+            //else do nothing
+        }
 };
 
 /*
@@ -287,11 +301,12 @@ Firewall.prototype = {
 /**
  * This object is meant to be owned and used by the Player. When placing objects of this type on the map, make sure
  * they belong to the same group as the other pickable objects that only the player can pick up.*/
-Antivirus = function(currentX, currentY, game){
+Antivirus = function(currentX, currentY, game, score){
 
     this.currentX = currentX;
     this.currentY = currentY;
     this.game = game;
+    this.score = score;
 
     //assume put on the map
     this.isVisible = true;
@@ -311,9 +326,9 @@ Antivirus.prototype = {
         if(typeof (room) === 'object')
             if(room.hasOwnProperty('isInfected')){
                 room.switchInfected();         //huzzah! door is healed
-                return 1;                       // let the caller know too
+                this.score.scoreNeutralise("room");     //update the score in case of success
             }
-        return 0; // otherwise return 0
+        this.score.scoreNeutralise("failed");
     }
 };
 
@@ -321,11 +336,12 @@ Antivirus.prototype = {
  * This object is meant to be owned and used by the Player. When placing objects of this type on the map, make sure
  * they belong to the same group as the other pickable objects that only the player can pick up.*/
 
-AntiKeyLogger = function(currentX, currentY, game){
+AntiKeyLogger = function(currentX, currentY, game, score){
 
     this.currentX = currentX;
     this.currentY = currentY;
     this.game = game;
+    this.score = score;
 
     //assumed to be on the map
     this.isVisible = true;
@@ -346,9 +362,9 @@ AntiKeyLogger.prototype = {
         if(typeof (door) === 'object')
             if(door.hasOwnProperty('isInfected')){
                 door.switchInfected();         //huzzah! door is healed
-                return 1;                       // let the caller know too
+                this.score.scoreNeutralise("door");
             }
-        return 0; // otherwise return 0
+        this.score.scoreNeutralise("failed");
     }
 
 };
@@ -661,14 +677,18 @@ ScoreSystem.prototype = {
             this.score += 20;   // as specified in the score system doc, 20 points are added
         }
         else if(objectName === "room"){
+            this.score += 10;   //as above
 
         }
         else if(objectName === "failed"){
-
+            this.disinfections = 0; // set this variable back to 0, to reset the streak
         }
         else{
             console.log("Tie fuck? This is naething I canne disinfect!");
         }
+        // give a bonus for a streak of successful disinfections
+        if( this.disinfections > 0 )
+            this.score += this.disinfections * 2; // award a basic bonus according to the number of success
     },
 
     /**
