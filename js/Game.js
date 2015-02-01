@@ -420,10 +420,10 @@ getEntropy: function (pwdFeed) {
   /*Array to hold entropy @ index 0 and user feedback at index 1 */
   var entropy = [(pwdLength*tempLogVal), ''] ;
   /* Stop from returning NaN value*/
-  if (entropy > 0) {
+  if (entropy[0] > 0) {
     return entropy;
   }
-  return 0;
+  return [0,possibleEntropyResults[0]];
 },
   /****************HELPER METHODS TO CREATE*******************
    * find objects in a Tiled layer that contain a property called "type" equal to a certain value
