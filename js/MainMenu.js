@@ -35,11 +35,20 @@ Encrypt.MainMenu.prototype = {
         var bestLabel = this.game.add.text(this.game.width / 2, this.game.height / 2 + 30, text, style);
         bestLabel.anchor.set(0.5);
 
+        var pause_label = this.game.add.text(this.game.width / 2, this.game.height / 2 + 60, 'Instructions', { font: '24px Arial', fill: '#fff' });
+        pause_label.inputEnabled = true;
+        pause_label.events.onInputUp.add(this.actionInstructions);
+
     },
 
     update: function() {
         if(this.game.input.activePointer.justPressed()) {
             this.game.state.start('Game');
         }
+    },
+
+    actionInstructions: function(){
+
+        this.game.state.start('Instructions');
     }
 };
