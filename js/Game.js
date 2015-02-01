@@ -33,10 +33,10 @@ Encrypt.Game.prototype = {
     this.map.addTilesetImage('32x32TileSet1Encrypt', '32x32TileSet1Encrypt');
 
     //create layer
+    this.overPlayerLayer = this.map.createLayer('overPlayerLayer');
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
     this.createPlayer();
     this.blockedLayer = this.map.createLayer('blockedLayer');
-    this.overPlayerLayer = this.map.createLayer('overPlayerLayer');
 
     //collision on blockedLayer
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
@@ -45,7 +45,8 @@ Encrypt.Game.prototype = {
     this.backgroundlayer.resizeWorld();
 
     this.createItems();
-    this.createDoors();
+    this.createFrontDoors();
+    this.createSideDoors();
     this.createPolicies();
     this.loadRooms();
     this.createInput();
@@ -73,25 +74,7 @@ Encrypt.Game.prototype = {
     }
 
     this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
-    //this.game.physics.arcade.collide(this.player.sprite, this.doors, this.enterDoor, null, this);
     var hintsOverlapped = this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
-
-
-    // if the player has gone through a door, restore the original door sprite:
-    /* do not delete this code:
-     if (!doorOverlap && this.showNextFrame !== undefined){
-     // var self = this;
-     var texture = this.doors.getAt(16).texture;
-     this.showNextFrame.forEach(function(door){door.texture = texture;});
-     this.showNextFrame = [];
-     }
-
-     // make the player re-appear again after he has passed under the ceiling:
-     if (!isUnderCeiling) {
-     this.player.renderable = true;
-     }
-     */
-
     this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     // when come out the door, check the room.
     if (this.flagEnter) {
@@ -160,8 +143,8 @@ Encrypt.Game.prototype = {
     }, this);
   },
 
-  // this function creates only front doors at the moment:
-  createDoors: function () {
+  // this function creates only front doors:
+  createFrontDoors: function () {
     //create doors
     this.doors = this.game.add.group();
     this.doors.enableBody = true;
@@ -177,6 +160,25 @@ Encrypt.Game.prototype = {
       doorID++;
     }, this);
   },
+
+  // function to create the side doors on the map:
+  createSideDoors: function () {
+    //create doors
+    this.doors = this.game.add.group();
+    this.doors.enableBody = true;
+
+
+    var result = this.findObjectsByType('sideDoor', this.map, 'objectsLayer');
+    var doorID = 0; // used to assign unique id for each door created
+
+
+    // create the front door objects:
+    result.forEach(function (element) {
+      this.createDoorFromTiledObject(element, this.doors, doorID, 'sideDoor');
+      doorID++;
+    }, this);
+  },
+
 /********************* POLICY METHODS ************************
   /** Creates an initial policy */
   createPolicies: function(){
@@ -620,6 +622,5 @@ Encrypt.Game.prototype = {
   setDoorInvisible: function (door) {
     door.renderable = false;  // this doesn't work, because this.doors is about all door objects, not only one of them.
                                     // so the engine doesn't know which one to make invisible
-  }/******************************************************************************
- */
+  }
  };
