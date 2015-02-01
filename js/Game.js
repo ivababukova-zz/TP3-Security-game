@@ -345,7 +345,7 @@ Encrypt.Game.prototype = {
         }
         // first check if password pop up is open
         if (document.getElementById("mainLayer").style.display === "block") {
-          console.log(self.getEntropy(this._hiddenInput.value));//BMDK testing
+          console.log(self.getEntropy(this._hiddenInput.value)[0]);//BMDK testing
           var policy = self.player.policies[currentDoor.policy];
           var feedback = "";
           this.approved = false;
@@ -401,31 +401,24 @@ getEntropy: function (pwdFeed) {
   /* increase range if numbers are present*/
   if (pwd.replace(/[0-9]+/g, "").length < pwdLength) {
     range += numbersNumOf;
-        console.log('Numbers exist ' + range);
-
   }
   /* increase range if lower case chars are present*/
   if (pwd.replace(/[a-z]+/g, "").length < pwdLength) {
     range += lowersNumOf;
-        console.log('lowers exist ' + range);
-
   }
   /* increase range if upper case chars are present*/
   if (pwd.replace(/[A-Z]+/g, "").length < pwdLength) {
     range += uppersNumOf;
-        console.log('Uppers exist ' + range);
-
   }
   /* increase range if non-alphanumeric chars are present*/
   if (pwd.replace(/\W+/g, "").length < pwdLength) {
     range += nonAlphaNumericsNumOf;
-        console.log('NonANums exist ' + range);
-
   }
 
   /*bit strength calculated by log2(rangeOfChars)*lengthOfPassword*/
   var tempLogVal = Math.log(range) / Math.log(2);
-  var entropy = pwdLength*tempLogVal;
+  /*Array to hold entropy @ index 0 and user feedback at index 1 */
+  var entropy = [(pwdLength*tempLogVal), ''] ;
   /* Stop from returning NaN value*/
   if (entropy > 0) {
     return entropy;
