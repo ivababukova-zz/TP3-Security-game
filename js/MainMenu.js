@@ -3,7 +3,7 @@
  */
 Encrypt = Encrypt || {};
 
-Encrypt.MainMenu = function(){}
+Encrypt.MainMenu = function(){};
 
 Encrypt.MainMenu.prototype = {
 
@@ -15,7 +15,7 @@ Encrypt.MainMenu.prototype = {
         //give it speed in x
         this.background.autoScroll(-20, 0);
 
-        var text = "Tap tae begin";
+        var text = "Tap SPACEBAR tae begin";
         var style = {font: "20px Arial", fill: "#fff", align: "center"};
         var textLabel = this.game.add.text(this.game.width / 2, this.game.height / 2, text, style);
         textLabel.anchor.set(0.5);
@@ -35,20 +35,29 @@ Encrypt.MainMenu.prototype = {
         var bestLabel = this.game.add.text(this.game.width / 2, this.game.height / 2 + 30, text, style);
         bestLabel.anchor.set(0.5);
 
-        var pause_label = this.game.add.text(this.game.width / 2, this.game.height / 2 + 60, 'Instructions', { font: '24px Arial', fill: '#fff' });
+        var pause_label = this.game.add.text(this.game.width / 2, this.game.height / 2 + 60, 'Instructions - TAP I', { font: '24px Arial', fill: '#fff', align:"center" });
         pause_label.inputEnabled = true;
         pause_label.events.onInputUp.add(this.actionInstructions);
+
+        this.startKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        this.instructionsKey = this.game.input.keyboard.addKey(Phaser.Keyboard.I);
 
     },
 
     update: function() {
-        if(this.game.input.activePointer.justPressed()) {
+        /*if(this.game.input.activePointer.justPressed()) {
             this.game.state.start('Game');
-        }
+        }*/
+
+        if(this.startKey.justDown)
+            this.game.state.start('Game');
+
+        if(this.instructionsKey.justDown)
+            this.game.state.start('I');
     },
 
     actionInstructions: function(){
 
-        this.game.state.start('Instructions');
+        this.game.state.start('I');
     }
 };

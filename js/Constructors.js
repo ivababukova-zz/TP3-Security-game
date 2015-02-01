@@ -80,7 +80,7 @@ Player = function (currentX, currentY, game, metrics, score) {
 
     // policies dictionary: keeps track of what policies the player has access to
     this.policies = {};
-    this.policies["green"] = Policy(-1, -1, this.game, 5, 0, 0, 0, "green" );
+    this.policies["green"] = new Policy(-1, -1, this.game, 5, 0, 0, 0, "green" );
 
     this.sprite = game.add.sprite(currentX, currentY, 'player');
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
