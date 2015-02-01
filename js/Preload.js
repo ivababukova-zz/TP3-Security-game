@@ -23,6 +23,7 @@ Encrypt.Preload.prototype = {
     this .load.image('greenPolicy', 'assets/images/GameIcons/PasswordPolicySheetGreen.png');
     this .load.image('magentaPolicy', 'assets/images/GameIcons/PasswordPolicySheetMagenta.png');
     this .load.image('yellowPolicy', 'assets/images/GameIcons/PasswordPolicySheetYellow.png');
+    this .load.image('space', 'assets/images/space.png');
     // this.load.image('firewall', 'assets/images/GameIcons/Firewall.png');
     this.load.spritesheet('player', 'assets/images/32x32ExampleSprite.png', 64, 64, 30);
     this.load.spritesheet('frontDoor','assets/images/Animations/DoorAnimations/FrontDoorAnimationFrames.png', 64, 64, 17, 0, 0 );
@@ -30,6 +31,6 @@ Encrypt.Preload.prototype = {
 
   },
   create: function() {
-    this.state.start('Game');
+    this.state.start('MainMenu');
   }
 };
