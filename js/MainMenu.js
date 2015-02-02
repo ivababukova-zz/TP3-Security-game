@@ -9,11 +9,16 @@ Encrypt.MainMenu.prototype = {
 
     create: function() {
 
-        //show the space tile, repeated
+        //show the space tile, repeated: - (BMDK - Updated to our backdrop)
         this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
+        //
+        this.foreground = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space2');
+
 
         //give it speed in x
         this.background.autoScroll(-20, 0);
+        //BMDK:- Letters are given other direction of scrolling
+        this.foreground.autoScroll(0, 20);
 
         var text = "Tap SPACEBAR tae begin";
         var style = {font: "20px Arial", fill: "#fff", align: "center"};

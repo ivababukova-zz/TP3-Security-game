@@ -29,7 +29,8 @@ Encrypt.Preload.prototype = {
     this.load.spritesheet('sideDoor', 'assets/images/Animations/DoorAnimations/SideDoorAnimationFrames.png', 128, 128, 17, 0, 0);
 
     //main menu images
-    this .load.image('space', 'assets/images/space.png');
+    this .load.image('space', 'assets/images/BackDrop.png');
+    this .load.image('space2', 'assets/images/MLetters.png');
 
     // instructions images
     this.load.image('backButton', 'assets/images/back_button.png');
