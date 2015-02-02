@@ -57,7 +57,6 @@ Encrypt.Game.prototype = {
     this.scoreLabel = this.game.add.text(0, 0, "Score:" + this.score.score, { font: "32px Arial", fill: "#ffffff", align: "center"});
     this.scoreLabel.fixedToCamera = true;
     this.scoreLabel.cameraOffset.setTo(25,25);
-    this.game.world.bringToTop(this.scoreLabel);
 
     //add the W key to the keyboard to serve as a 'write' option for the player
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -110,6 +109,9 @@ Encrypt.Game.prototype = {
     var speed = 260;  // setting up the speed of the player
 
     this.moveCharacter(this.player.sprite, speed);
+    /*BMDK: - Moved bringToTop here to allow the score to appear on top at all times*/
+    this.game.world.bringToTop(this.scoreLabel);
+
 
   },
   //create player
