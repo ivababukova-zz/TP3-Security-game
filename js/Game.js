@@ -35,11 +35,12 @@ Encrypt.Game.prototype = {
 
     //create layer
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
+    this.createDoors(); //BMDK, moved here as was rendering over the player ... might want to set invisible after door opens instead
     this.createPlayer();
 
     this.blockedLayer = this.map.createLayer('blockedLayer');
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer'); //collision on blockedLayer
-    this.createDoors();
+    
 
     this.overPlayerLayer = this.map.createLayer('overPlayerLayer');
 
