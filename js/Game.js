@@ -97,7 +97,7 @@ Encrypt.Game.prototype = {
         /*BMDK:- if player was in front of an open door but goes away from it: close the door*/
         if (doorPass === 'in front of a door' && doorJustOpened){
           this.changeDoorState(door, 'closing');
-          doorJustOpened = !doorJustOpened;
+          doorJustOpened = !doorJustOpened; // BMDK: set false as door is no longer open
         }
         console.log('went away from the door');
         /*BMDK:- update doorPass to track last door action*/
@@ -313,7 +313,7 @@ Encrypt.Game.prototype = {
           document.getElementById("feedbackField").style.display = "none";
           document.getElementById("mainLayer").style.display= "none";
           self.changeDoorState(currentDoor,'opening');
-          doorJustOpened = true;
+          doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
           this._hiddenInput.value = '';
           fPause = false;
@@ -327,7 +327,7 @@ Encrypt.Game.prototype = {
             fPause = false;
             /*BMDK: call to function to open door when password is successful*/
             self.changeDoorState(currentDoor,'opening'); 
-            doorJustOpened = true;
+            doorJustOpened = true; //BMDK: track that door opened
           } else {
             document.getElementById("titlePwd").innerHTML = "Incorrect. Input again!";
           }
