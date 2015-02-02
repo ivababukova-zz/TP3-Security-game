@@ -30,7 +30,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":1,
                  "name":"",
                  "properties":
                     {
@@ -48,7 +47,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":2,
                  "name":"",
                  "properties":
                     {
@@ -67,14 +65,13 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":3,
                  "name":"",
                  "properties":
                     {
                      "password":"null",
                      "policy":"blue",
                      "sprite":"frontDoor",
-                     "type":"blueFrontDoor"
+                     "type":"frontDoor"
                     },
                  "rotation":0,
                  "type":"",
@@ -86,7 +83,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":4,
                  "name":"",
                  "properties":
                     {
@@ -105,7 +101,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":5,
                  "name":"",
                  "properties":
                     {
@@ -124,7 +119,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":6,
                  "name":"",
                  "properties":
                     {
@@ -142,7 +136,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":7,
                  "name":"",
                  "properties":
                     {
@@ -161,7 +154,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":8,
                  "name":"",
                  "properties":
                     {
@@ -180,7 +172,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":9,
                  "name":"",
                  "properties":
                     {
@@ -199,7 +190,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":10,
                  "name":"",
                  "properties":
                     {
@@ -218,7 +208,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":11,
                  "name":"",
                  "properties":
                     {
@@ -236,7 +225,6 @@
                 {
                  "gid":10667,
                  "height":0,
-                 "id":12,
                  "name":"",
                  "properties":
                     {
@@ -255,7 +243,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":13,
                  "name":"",
                  "properties":
                     {
@@ -272,7 +259,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":14,
                  "name":"",
                  "properties":
                     {
@@ -289,7 +275,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":15,
                  "name":"",
                  "properties":
                     {
@@ -306,7 +291,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":16,
                  "name":"",
                  "properties":
                     {
@@ -323,7 +307,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":17,
                  "name":"",
                  "properties":
                     {
@@ -340,7 +323,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":18,
                  "name":"",
                  "properties":
                     {
@@ -357,7 +339,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":19,
                  "name":"",
                  "properties":
                     {
@@ -374,7 +355,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":20,
                  "name":"",
                  "properties":
                     {
@@ -391,7 +371,6 @@
                 {
                  "gid":10734,
                  "height":0,
-                 "id":21,
                  "name":"",
                  "properties":
                     {
@@ -408,7 +387,6 @@
                 {
                  "gid":10738,
                  "height":0,
-                 "id":22,
                  "name":"",
                  "properties":
                     {
@@ -430,7 +408,6 @@
                 {
                  "gid":10738,
                  "height":0,
-                 "id":23,
                  "name":"",
                  "properties":
                     {
@@ -452,7 +429,6 @@
                 {
                  "gid":10738,
                  "height":0,
-                 "id":24,
                  "name":"",
                  "properties":
                     {
@@ -474,7 +450,6 @@
                 {
                  "gid":10738,
                  "height":0,
-                 "id":25,
                  "name":"",
                  "properties":
                     {
@@ -496,7 +471,6 @@
                 {
                  "gid":10742,
                  "height":0,
-                 "id":44,
                  "name":"",
                  "properties":
                     {
@@ -515,7 +489,6 @@
                 {
                  "gid":10742,
                  "height":0,
-                 "id":45,
                  "name":"",
                  "properties":
                     {
@@ -534,7 +507,6 @@
                 {
                  "gid":10742,
                  "height":0,
-                 "id":47,
                  "name":"",
                  "properties":
                     {
@@ -553,7 +525,6 @@
                 {
                  "gid":10742,
                  "height":0,
-                 "id":48,
                  "name":"",
                  "properties":
                     {
@@ -572,7 +543,6 @@
                 {
                  "gid":10742,
                  "height":0,
-                 "id":49,
                  "name":"",
                  "properties":
                     {
@@ -591,7 +561,6 @@
                 {
                  "gid":10742,
                  "height":0,
-                 "id":50,
                  "name":"",
                  "properties":
                     {
@@ -610,7 +579,6 @@
                 {
                  "gid":10742,
                  "height":0,
-                 "id":51,
                  "name":"",
                  "properties":
                     {
@@ -629,7 +597,6 @@
                 {
                  "gid":10742,
                  "height":0,
-                 "id":52,
                  "name":"",
                  "properties":
                     {
@@ -659,7 +626,6 @@
          "objects":[
                 {
                  "height":288,
-                 "id":26,
                  "name":"",
                  "properties":
                     {
@@ -676,7 +642,6 @@
                 }, 
                 {
                  "height":352,
-                 "id":27,
                  "name":"",
                  "properties":
                     {
@@ -693,7 +658,6 @@
                 }, 
                 {
                  "height":352,
-                 "id":28,
                  "name":"",
                  "properties":
                     {
@@ -710,7 +674,6 @@
                 }, 
                 {
                  "height":320,
-                 "id":29,
                  "name":"",
                  "properties":
                     {
@@ -727,7 +690,6 @@
                 }, 
                 {
                  "height":480,
-                 "id":30,
                  "name":"",
                  "properties":
                     {
@@ -744,7 +706,6 @@
                 }, 
                 {
                  "height":544,
-                 "id":31,
                  "name":"",
                  "properties":
                     {
@@ -761,7 +722,6 @@
                 }, 
                 {
                  "height":448,
-                 "id":32,
                  "name":"",
                  "properties":
                     {
@@ -778,7 +738,6 @@
                 }, 
                 {
                  "height":512,
-                 "id":33,
                  "name":"",
                  "properties":
                     {
@@ -795,7 +754,6 @@
                 }, 
                 {
                  "height":640,
-                 "id":34,
                  "name":"",
                  "properties":
                     {
@@ -812,7 +770,6 @@
                 }, 
                 {
                  "height":352,
-                 "id":35,
                  "name":"",
                  "properties":
                     {
@@ -829,7 +786,6 @@
                 }, 
                 {
                  "height":128,
-                 "id":36,
                  "name":"",
                  "properties":
                     {
@@ -846,7 +802,6 @@
                 }, 
                 {
                  "height":544,
-                 "id":37,
                  "name":"",
                  "properties":
                     {
@@ -863,7 +818,6 @@
                 }, 
                 {
                  "height":96,
-                 "id":38,
                  "name":"",
                  "properties":
                     {
@@ -880,7 +834,6 @@
                 }, 
                 {
                  "height":832,
-                 "id":39,
                  "name":"",
                  "properties":
                     {
@@ -897,7 +850,6 @@
                 }, 
                 {
                  "height":192,
-                 "id":40,
                  "name":"",
                  "properties":
                     {
@@ -914,7 +866,6 @@
                 }, 
                 {
                  "height":768,
-                 "id":41,
                  "name":"",
                  "properties":
                     {
@@ -931,7 +882,6 @@
                 }, 
                 {
                  "height":128,
-                 "id":42,
                  "name":"",
                  "properties":
                     {
@@ -958,7 +908,7 @@
              "vy":"2"
             },
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "width":0,
          "x":0,
          "y":0
@@ -974,7 +924,6 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":53,
  "orientation":"orthogonal",
  "properties":
     {
