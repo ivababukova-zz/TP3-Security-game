@@ -183,7 +183,7 @@ Encrypt.Game.prototype = {
   createPolicies: function(){
     this.policies = [];
     //default policy
-    this.policies["green"] = new Policy(0, 0,this.game, 5, 3, 1, 1, "green");
+    this.policies["green"] = new Policy(0, 0,this.game, 5, 3, 1, 1, "green"); //BMDK: - This doesn't appear to be needed. It creates an image in the top left corner of the screen.
   },
   /** When found add the new policy
    * @param {object} policy
