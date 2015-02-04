@@ -30,6 +30,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":1,
                  "name":"",
                  "properties":
                     {
@@ -47,6 +48,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":2,
                  "name":"",
                  "properties":
                     {
@@ -65,6 +67,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":3,
                  "name":"",
                  "properties":
                     {
@@ -83,6 +86,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":4,
                  "name":"",
                  "properties":
                     {
@@ -101,6 +105,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":5,
                  "name":"",
                  "properties":
                     {
@@ -119,6 +124,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":6,
                  "name":"",
                  "properties":
                     {
@@ -136,6 +142,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":7,
                  "name":"",
                  "properties":
                     {
@@ -154,6 +161,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":8,
                  "name":"",
                  "properties":
                     {
@@ -172,6 +180,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":9,
                  "name":"",
                  "properties":
                     {
@@ -190,6 +199,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":10,
                  "name":"",
                  "properties":
                     {
@@ -208,6 +218,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":11,
                  "name":"",
                  "properties":
                     {
@@ -225,6 +236,7 @@
                 {
                  "gid":10667,
                  "height":0,
+                 "id":12,
                  "name":"",
                  "properties":
                     {
@@ -243,6 +255,7 @@
                 {
                  "gid":10734,
                  "height":0,
+                 "id":13,
                  "name":"",
                  "properties":
                     {
@@ -259,6 +272,7 @@
                 {
                  "gid":10734,
                  "height":0,
+                 "id":14,
                  "name":"",
                  "properties":
                     {
@@ -275,6 +289,7 @@
                 {
                  "gid":10734,
                  "height":0,
+                 "id":15,
                  "name":"",
                  "properties":
                     {
@@ -291,6 +306,7 @@
                 {
                  "gid":10734,
                  "height":0,
+                 "id":16,
                  "name":"",
                  "properties":
                     {
@@ -307,6 +323,7 @@
                 {
                  "gid":10734,
                  "height":0,
+                 "id":17,
                  "name":"",
                  "properties":
                     {
@@ -323,6 +340,7 @@
                 {
                  "gid":10734,
                  "height":0,
+                 "id":18,
                  "name":"",
                  "properties":
                     {
@@ -339,6 +357,7 @@
                 {
                  "gid":10734,
                  "height":0,
+                 "id":19,
                  "name":"",
                  "properties":
                     {
@@ -355,6 +374,7 @@
                 {
                  "gid":10734,
                  "height":0,
+                 "id":20,
                  "name":"",
                  "properties":
                     {
@@ -371,6 +391,7 @@
                 {
                  "gid":10734,
                  "height":0,
+                 "id":21,
                  "name":"",
                  "properties":
                     {
@@ -385,8 +406,9 @@
                  "y":2381.82
                 }, 
                 {
-                 "gid":10738,
+                 "gid":10735,
                  "height":0,
+                 "id":22,
                  "name":"",
                  "properties":
                     {
@@ -406,8 +428,9 @@
                  "y":512
                 }, 
                 {
-                 "gid":10738,
+                 "gid":10735,
                  "height":0,
+                 "id":23,
                  "name":"",
                  "properties":
                     {
@@ -427,8 +450,9 @@
                  "y":518
                 }, 
                 {
-                 "gid":10738,
+                 "gid":10735,
                  "height":0,
+                 "id":24,
                  "name":"",
                  "properties":
                     {
@@ -448,8 +472,9 @@
                  "y":530
                 }, 
                 {
-                 "gid":10738,
+                 "gid":10735,
                  "height":0,
+                 "id":25,
                  "name":"",
                  "properties":
                     {
@@ -469,8 +494,9 @@
                  "y":524
                 }, 
                 {
-                 "gid":10742,
+                 "gid":10736,
                  "height":0,
+                 "id":44,
                  "name":"",
                  "properties":
                     {
@@ -487,8 +513,9 @@
                  "y":895.25
                 }, 
                 {
-                 "gid":10742,
+                 "gid":10736,
                  "height":0,
+                 "id":45,
                  "name":"",
                  "properties":
                     {
@@ -505,8 +532,9 @@
                  "y":895.25
                 }, 
                 {
-                 "gid":10742,
+                 "gid":10736,
                  "height":0,
+                 "id":47,
                  "name":"",
                  "properties":
                     {
@@ -523,8 +551,9 @@
                  "y":799.091
                 }, 
                 {
-                 "gid":10742,
+                 "gid":10736,
                  "height":0,
+                 "id":48,
                  "name":"",
                  "properties":
                     {
@@ -541,8 +570,9 @@
                  "y":192
                 }, 
                 {
-                 "gid":10742,
+                 "gid":10736,
                  "height":0,
+                 "id":49,
                  "name":"",
                  "properties":
                     {
@@ -559,8 +589,9 @@
                  "y":191.909
                 }, 
                 {
-                 "gid":10742,
+                 "gid":10736,
                  "height":0,
+                 "id":50,
                  "name":"",
                  "properties":
                     {
@@ -577,8 +608,9 @@
                  "y":928
                 }, 
                 {
-                 "gid":10742,
+                 "gid":10736,
                  "height":0,
+                 "id":51,
                  "name":"",
                  "properties":
                     {
@@ -595,8 +627,9 @@
                  "y":1536
                 }, 
                 {
-                 "gid":10742,
+                 "gid":10736,
                  "height":0,
+                 "id":52,
                  "name":"",
                  "properties":
                     {
@@ -611,6 +644,179 @@
                  "width":0,
                  "x":704,
                  "y":1631.94
+                }, 
+                {
+                 "gid":11008,
+                 "height":0,
+                 "id":63,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"AntiKeyLog",
+                     "type":"AntiKeyLog"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":852,
+                 "y":241
+                }, 
+                {
+                 "gid":11008,
+                 "height":0,
+                 "id":64,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"AntiKeyLog",
+                     "type":"AntiKeyLog"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":238,
+                 "y":228
+                }, 
+                {
+                 "gid":11008,
+                 "height":0,
+                 "id":65,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"AntiKeyLog",
+                     "type":"AntiKeyLog"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1082,
+                 "y":2430
+                }, 
+                {
+                 "gid":11008,
+                 "height":0,
+                 "id":66,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"AntiKeyLog",
+                     "type":"AntiKeyLog"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1788,
+                 "y":1460
+                }, 
+                {
+                 "gid":11009,
+                 "height":0,
+                 "id":72,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"antivirus",
+                     "type":"antivirus"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":509.333333333333,
+                 "y":1612.66666666667
+                }, 
+                {
+                 "gid":11009,
+                 "height":0,
+                 "id":73,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"antivirus",
+                     "type":"antivirus"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1090.90909090909,
+                 "y":775.757575757576
+                }, 
+                {
+                 "gid":11010,
+                 "height":0,
+                 "id":74,
+                 "name":"",
+                 "properties":
+                    {
+                     "isActivated":"false",
+                     "sprite":"firewall",
+                     "type":"firewall"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":553.69696969697,
+                 "y":2097.81818181818
+                }, 
+                {
+                 "gid":11010,
+                 "height":0,
+                 "id":79,
+                 "name":"",
+                 "properties":
+                    {
+                     "isActivated":"false",
+                     "sprite":"firewall",
+                     "type":"firewall"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1718.18181818182,
+                 "y":2139.39393939394
+                }, 
+                {
+                 "gid":11010,
+                 "height":0,
+                 "id":80,
+                 "name":"",
+                 "properties":
+                    {
+                     "isActivated":"false",
+                     "sprite":"firewall",
+                     "type":"firewall"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":642.424242424242,
+                 "y":1072.72727272727
+                }, 
+                {
+                 "gid":11011,
+                 "height":0,
+                 "id":81,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"info",
+                     "type":"info"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":317.333333333333,
+                 "y":525.090909090909
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -626,6 +832,7 @@
          "objects":[
                 {
                  "height":288,
+                 "id":26,
                  "name":"",
                  "properties":
                     {
@@ -642,6 +849,7 @@
                 }, 
                 {
                  "height":352,
+                 "id":27,
                  "name":"",
                  "properties":
                     {
@@ -658,6 +866,7 @@
                 }, 
                 {
                  "height":352,
+                 "id":28,
                  "name":"",
                  "properties":
                     {
@@ -674,6 +883,7 @@
                 }, 
                 {
                  "height":320,
+                 "id":29,
                  "name":"",
                  "properties":
                     {
@@ -690,6 +900,7 @@
                 }, 
                 {
                  "height":480,
+                 "id":30,
                  "name":"",
                  "properties":
                     {
@@ -706,6 +917,7 @@
                 }, 
                 {
                  "height":544,
+                 "id":31,
                  "name":"",
                  "properties":
                     {
@@ -722,6 +934,7 @@
                 }, 
                 {
                  "height":448,
+                 "id":32,
                  "name":"",
                  "properties":
                     {
@@ -738,6 +951,7 @@
                 }, 
                 {
                  "height":512,
+                 "id":33,
                  "name":"",
                  "properties":
                     {
@@ -754,6 +968,7 @@
                 }, 
                 {
                  "height":640,
+                 "id":34,
                  "name":"",
                  "properties":
                     {
@@ -770,6 +985,7 @@
                 }, 
                 {
                  "height":352,
+                 "id":35,
                  "name":"",
                  "properties":
                     {
@@ -786,6 +1002,7 @@
                 }, 
                 {
                  "height":128,
+                 "id":36,
                  "name":"",
                  "properties":
                     {
@@ -802,6 +1019,7 @@
                 }, 
                 {
                  "height":544,
+                 "id":37,
                  "name":"",
                  "properties":
                     {
@@ -818,6 +1036,7 @@
                 }, 
                 {
                  "height":96,
+                 "id":38,
                  "name":"",
                  "properties":
                     {
@@ -834,6 +1053,7 @@
                 }, 
                 {
                  "height":832,
+                 "id":39,
                  "name":"",
                  "properties":
                     {
@@ -850,6 +1070,7 @@
                 }, 
                 {
                  "height":192,
+                 "id":40,
                  "name":"",
                  "properties":
                     {
@@ -866,6 +1087,7 @@
                 }, 
                 {
                  "height":768,
+                 "id":41,
                  "name":"",
                  "properties":
                     {
@@ -882,6 +1104,7 @@
                 }, 
                 {
                  "height":128,
+                 "id":42,
                  "name":"",
                  "properties":
                     {
@@ -924,6 +1147,7 @@
          "x":0,
          "y":0
         }],
+ "nextobjectid":82,
  "orientation":"orthogonal",
  "properties":
     {
@@ -980,8 +1204,8 @@
         {
          "firstgid":10734,
          "image":"..\/images\/GameIcons\/Clue.png",
-         "imageheight":64,
-         "imagewidth":64,
+         "imageheight":32,
+         "imagewidth":32,
          "margin":0,
          "name":"Clue",
          "properties":
@@ -993,10 +1217,10 @@
          "tilewidth":32
         }, 
         {
-         "firstgid":10738,
+         "firstgid":10735,
          "image":"..\/images\/GameIcons\/PasswordPolicySheet.png",
-         "imageheight":64,
-         "imagewidth":64,
+         "imageheight":32,
+         "imagewidth":32,
          "margin":0,
          "name":"policySheet",
          "properties":
@@ -1008,12 +1232,72 @@
          "tilewidth":32
         }, 
         {
-         "firstgid":10742,
+         "firstgid":10736,
          "image":"..\/images\/Animations\/DoorAnimations\/SideDoorAnimationFrames.png",
          "imageheight":128,
          "imagewidth":2176,
          "margin":0,
          "name":"SideDoorAnimationFrames",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "firstgid":11008,
+         "image":"..\/images\/GameIcons\/AntiKeyLogger.png",
+         "imageheight":32,
+         "imagewidth":32,
+         "margin":0,
+         "name":"AntiKeyLogger",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "firstgid":11009,
+         "image":"..\/images\/GameIcons\/AntiVirus.png",
+         "imageheight":32,
+         "imagewidth":32,
+         "margin":0,
+         "name":"AntiVirus",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "firstgid":11010,
+         "image":"..\/images\/GameIcons\/Firewall.png",
+         "imageheight":32,
+         "imagewidth":32,
+         "margin":0,
+         "name":"Firewall",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "firstgid":11011,
+         "image":"..\/images\/GameIcons\/Info.png",
+         "imageheight":32,
+         "imagewidth":32,
+         "margin":0,
+         "name":"Info",
          "properties":
             {
 

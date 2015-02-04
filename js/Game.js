@@ -144,10 +144,39 @@ Encrypt.Game.prototype = {
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.items);
     }, this);
+
     // POLICIES
     var policy;
     result = this.findObjectsByType('policy', this.map, 'objectsLayer');
 
+    result.forEach(function (element) {
+      this.createFromTiledObject(element, this.items);
+    }, this);
+
+    // ANTIKEYLOGGERS
+    var antikeylogger;
+    result = this.findObjectsByType('AntiKeyLog', this.map, 'objectsLayer');
+    result.forEach(function (element) {
+      this.createFromTiledObject(element, this.items);
+    }, this);
+
+    // INFO
+    var info;
+    result = this.findObjectsByType('info', this.map, 'objectsLayer');
+    result.forEach(function (element) {
+      this.createFromTiledObject(element, this.items);
+    }, this);
+
+    // FIREWALL
+    var firewall;
+    result = this.findObjectsByType('firewall', this.map, 'objectsLayer');
+    result.forEach(function (element) {
+      this.createFromTiledObject(element, this.items);
+    }, this);
+
+    // ANTIVIRUS
+    var antivirus;
+    result = this.findObjectsByType('antivirus', this.map, 'objectsLayer');
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.items);
     }, this);

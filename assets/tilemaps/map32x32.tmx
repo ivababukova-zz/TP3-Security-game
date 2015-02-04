@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="61" height="80" tilewidth="32" tileheight="32" nextobjectid="53">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="61" height="80" tilewidth="32" tileheight="32" nextobjectid="82">
  <tileset firstgid="1" name="32x32TileSet1Encrypt" tilewidth="32" tileheight="32">
   <image source="../EncryptTileSets/32x32TileSet1Encrypt.png" width="3200" height="3200"/>
  </tileset>
@@ -10,13 +10,25 @@
   <image source="../images/Animations/DoorAnimations/FrontDoorAnimationFrames.png" width="1088" height="64"/>
  </tileset>
  <tileset firstgid="10734" name="Clue" tilewidth="32" tileheight="32">
-  <image source="../images/GameIcons/Clue.png" width="64" height="64"/>
+  <image source="../images/GameIcons/Clue.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="10738" name="policySheet" tilewidth="32" tileheight="32">
-  <image source="../images/GameIcons/PasswordPolicySheet.png" width="64" height="64"/>
+ <tileset firstgid="10735" name="policySheet" tilewidth="32" tileheight="32">
+  <image source="../images/GameIcons/PasswordPolicySheet.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="10742" name="SideDoorAnimationFrames" tilewidth="32" tileheight="32">
+ <tileset firstgid="10736" name="SideDoorAnimationFrames" tilewidth="32" tileheight="32">
   <image source="../images/Animations/DoorAnimations/SideDoorAnimationFrames.png" width="2176" height="128"/>
+ </tileset>
+ <tileset firstgid="11008" name="AntiKeyLogger" tilewidth="32" tileheight="32">
+  <image source="../images/GameIcons/AntiKeyLogger.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="11009" name="AntiVirus" tilewidth="32" tileheight="32">
+  <image source="../images/GameIcons/AntiVirus.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="11010" name="Firewall" tilewidth="32" tileheight="32">
+  <image source="../images/GameIcons/Firewall.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="11011" name="Info" tilewidth="32" tileheight="32">
+  <image source="../images/GameIcons/Info.png" width="32" height="32"/>
  </tileset>
  <layer name="backgroundLayer" width="61" height="80">
   <data encoding="base64" compression="zlib">
@@ -49,7 +61,7 @@
     <property name="password" value="null"/>
     <property name="policy" value="blue"/>
     <property name="sprite" value="frontDoor"/>
-    <property name="type" value="blueFrontDoor"/>
+    <property name="type" value="frontDoor"/>
    </properties>
   </object>
   <object id="4" gid="10667" x="640" y="1248">
@@ -176,7 +188,7 @@
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object id="22" gid="10738" x="486" y="512">
+  <object id="22" gid="10735" x="486" y="512">
    <properties>
     <property name="colour" value="blue"/>
     <property name="minLength" value="8"/>
@@ -187,7 +199,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object id="23" gid="10738" x="884" y="518">
+  <object id="23" gid="10735" x="884" y="518">
    <properties>
     <property name="colour" value="red"/>
     <property name="minLength" value="10"/>
@@ -198,7 +210,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object id="24" gid="10738" x="1116" y="530">
+  <object id="24" gid="10735" x="1116" y="530">
    <properties>
     <property name="colour" value="yellow"/>
     <property name="minLength" value="10"/>
@@ -209,7 +221,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object id="25" gid="10738" x="1244" y="524">
+  <object id="25" gid="10735" x="1244" y="524">
    <properties>
     <property name="colour" value="magenta"/>
     <property name="minLength" value="10"/>
@@ -220,7 +232,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object id="44" gid="10742" x="95.75" y="895.25">
+  <object id="44" gid="10736" x="95.75" y="895.25">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -228,7 +240,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="45" gid="10742" x="95.75" y="895.25">
+  <object id="45" gid="10736" x="95.75" y="895.25">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -236,7 +248,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="47" gid="10742" x="1183.64" y="799.091">
+  <object id="47" gid="10736" x="1183.64" y="799.091">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -244,7 +256,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="48" gid="10742" x="479.909" y="192">
+  <object id="48" gid="10736" x="479.909" y="192">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -252,7 +264,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="49" gid="10742" x="1183.91" y="191.909">
+  <object id="49" gid="10736" x="1183.91" y="191.909">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -260,7 +272,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="50" gid="10742" x="1408" y="928">
+  <object id="50" gid="10736" x="1408" y="928">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -268,7 +280,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="51" gid="10742" x="928" y="1536">
+  <object id="51" gid="10736" x="928" y="1536">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -276,16 +288,79 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="52" gid="10742" x="704" y="1631.94">
+  <object id="52" gid="10736" x="704" y="1631.94">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
     <property name="sprite" value="sideDoor"/>
     <property name="type" value="sideDoor"/>
+   </properties>
+  </object>
+  <object id="63" gid="11008" x="852" y="241">
+   <properties>
+    <property name="sprite" value="AntiKeyLog"/>
+    <property name="type" value="AntiKeyLog"/>
+   </properties>
+  </object>
+  <object id="64" gid="11008" x="238" y="228">
+   <properties>
+    <property name="sprite" value="AntiKeyLog"/>
+    <property name="type" value="AntiKeyLog"/>
+   </properties>
+  </object>
+  <object id="65" gid="11008" x="1082" y="2430">
+   <properties>
+    <property name="sprite" value="AntiKeyLog"/>
+    <property name="type" value="AntiKeyLog"/>
+   </properties>
+  </object>
+  <object id="66" gid="11008" x="1788" y="1460">
+   <properties>
+    <property name="sprite" value="AntiKeyLog"/>
+    <property name="type" value="AntiKeyLog"/>
+   </properties>
+  </object>
+  <object id="72" gid="11009" x="509.333" y="1612.67">
+   <properties>
+    <property name="sprite" value="antivirus"/>
+    <property name="type" value="antivirus"/>
+   </properties>
+  </object>
+  <object id="73" gid="11009" x="1090.91" y="775.758">
+   <properties>
+    <property name="sprite" value="antivirus"/>
+    <property name="type" value="antivirus"/>
+   </properties>
+  </object>
+  <object id="74" gid="11010" x="553.697" y="2097.82">
+   <properties>
+    <property name="isActivated" value="false"/>
+    <property name="sprite" value="firewall"/>
+    <property name="type" value="firewall"/>
+   </properties>
+  </object>
+  <object id="79" gid="11010" x="1718.18" y="2139.39">
+   <properties>
+    <property name="isActivated" value="false"/>
+    <property name="sprite" value="firewall"/>
+    <property name="type" value="firewall"/>
+   </properties>
+  </object>
+  <object id="80" gid="11010" x="642.424" y="1072.73">
+   <properties>
+    <property name="isActivated" value="false"/>
+    <property name="sprite" value="firewall"/>
+    <property name="type" value="firewall"/>
+   </properties>
+  </object>
+  <object id="81" gid="11011" x="317.333" y="525.091">
+   <properties>
+    <property name="sprite" value="info"/>
+    <property name="type" value="info"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="RoomLayer">
+ <objectgroup name="RoomLayer" visible="0">
   <properties>
    <property name="idx" value="3"/>
    <property name="state" value="1"/>
