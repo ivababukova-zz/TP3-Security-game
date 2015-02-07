@@ -39,7 +39,8 @@ Encrypt.Preload.prototype = {
     this .load.image('space2', 'assets/images/MLetters.png');
 
     // instructions images
-    this.load.image('backButton', 'assets/images/back_button.png');
+    this.load.image('backButton', 'assets/images/gobackButtonIva.png');
+    this.load.image('instructionsButton', 'assets/images/instructionsButton.png');
 
   },
   create: function() {
