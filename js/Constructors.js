@@ -72,9 +72,11 @@ Player = function (currentX, currentY, game, metrics, score) {
     this.isVisible = true;
     this.isCollidable = true;
     this.speed = 10.0;
-    this.bagFirewall = [];  // stores: firewall
-    this.bagAntivirus = [];
-    this.bagAntikeyLogger = [];
+
+    this.bagFirewall = [];  // stores: firewall objects collected from the map @iva
+    this.bagAntivirus = []; // stores: antivirus objects collected from the map @iva
+    this.bagAntikeyLogger = []; // stores: antikeylogger objects from the map @iva
+
     this.looseNoteChance = 0.25;
     this.note = new Note();
     this.metrics = metrics;
@@ -96,24 +98,25 @@ Player.prototype = {
 
     /*use item from bag on a specified target - will call the object's "use()" method
      due to small number of objects, will use a switch case to handle usage */
+    // modified by Iva 07.02.2015
     use: function (item) {
 
         switch (item) {
             case 'antivirus':
-                if (this.bag [0] [this.bag [0].length - 1] != null) {
-                    this.bag [0] [this.bag [0].length - 1].use();  //antivirus will hold position 0
+                if (this.bagAntivirus != null) {
+                    this.bagAntivirus [this.bagAntivirus.length - 1].use();  //antivirus will hold position 0
                 }
                 //do nothing if the player doesn't have the object; potentially play a sound to let him know what's going awn.
                 break;
 
-            case 'anti-keylogger':
-                if (this.bag [1] [this.bag [1].length - 1] != null)
-                    this.bag [1] [this.bag [1].length - 1].use();
+            case 'AntiKeyLog':
+                if (this.bagAntikeyLogger [this.bagAntikeyLogger.length - 1] != null)
+                    this.bagAntikeyLogger [this.bagAntikeyLogger.length - 1].use();
                 break;
 
             case 'firewall':
-                if (this.bag [2] [this.bag [2].length - 1] != null) {
-                    this.bag [2] [this.bag [2].length - 1].use();
+                if (this.bagFirewall [this.bagFirewall.length - 1] != null) {
+                    this.bagFirewall [this.bagFirewall.length - 1].use();
                 }
                 break;
         }

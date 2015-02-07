@@ -561,18 +561,21 @@ getEntropy: function (pwdFeed) {
       this.addPolicy(collectable);
     }
 
+    // added by @iva 07.02.2015
     else if ( collectable.type === "firewall" ) {
       this.player.addItem(1);
       collectable.destroy();
       // console.log ("just collected antivirus wohohohooooo!");
     }
 
+    // added by @iva 07.02.2015
     else if ( collectable.type === "antivirus" ) {
       this.player.addItem(2);
       collectable.destroy();
       // console.log ("just collected antivirus wohohohooooo!");
     }
 
+    // added by @iva 07.02.2015
     else if ( collectable.type === "AntiKeyLog" ) {
       this.player.addItem(3);
       collectable.destroy();
