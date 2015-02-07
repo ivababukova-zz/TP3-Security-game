@@ -72,15 +72,10 @@ Encrypt.Game.prototype = {
     var self = this;
     //collision
     if (fPause === true) {
-      self.enemy.sprite.body.velocity.y = 0;/* Andi: stopping the enemy first */
-      self.enemy.sprite.body.velocity.x = 0;
-
-      self.player.sprite.animations.stop(); /* BMDK: This will stop the animations running whilst game is paused*/
-      this.player.sprite.body.velocity.y = 0;
-      this.player.sprite.body.velocity.x = 0;
+      self.stopMotion();
       return;
     }
-    console.log(doorsCollidable);
+
     if(doorsCollidable){
       this.game.physics.arcade.collide(this.player.sprite, this.doorBlocks);
     }
@@ -91,34 +86,10 @@ Encrypt.Game.prototype = {
 
     this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     // when come out the door, check the room.
-    if (this.flagEnter) {
-      this.flagSearch = true;
-      door = currentDoor;
-      console.log('in front of a door');
-      /*BMDK:- update doorPass to track last door action*/
-      doorPass = 'in front of a door';
-    }
-    else
-    {
-      if (this.flagSearch === true) {
-        this.flagSearch = false;
-        this.loadRooms();
-      }
-      if (this.flagEnter === false) {
-        /*BMDK:- if player was in front of an open door but goes away from it: close the door*/
-        if (doorPass === 'in front of a door' && doorJustOpened){
-          this.changeDoorState(door, 'closing');
-          doorsCollidable = true;
-          doorJustOpened = !doorJustOpened; // BMDK: set false as door is no longer open
-        }
-        console.log('went away from the door');
-        /*BMDK:- update doorPass to track last door action*/
-        doorPass = 'went away from the door';
-      }
-    }
+    this.updateRoomHighlighting();
+    this.changeDoorStates();
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
-    this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     var speed = 260;  // setting up the speed of the player
 
     this.moveCharacter(this.player.sprite, speed);
@@ -371,6 +342,7 @@ Encrypt.Game.prototype = {
           self.player.note.write(this._value);
           document.getElementById("inputPwd").style.display = "none";
           this._hiddenInput.value = '';
+          self.game.input.keyboard.enabled = true;
           return;
         }
         // when the user input password and enter 'Enter' key
@@ -422,7 +394,6 @@ Encrypt.Game.prototype = {
           self.game.input.keyboard.enabled = false;
           document.getElementById("inputPwd").style.display = "block";
           document.getElementById("titlePwd").innerHTML = "Go on, I dare you!";
-          console.log("test");
         }
         // first check if main layer is open and then check if it's not a noPolicy pop up
         if (document.getElementById("mainLayer").style.display === "block" && document.getElementById("inputPwd").style.display === "block") {
@@ -571,6 +542,52 @@ getEntropy: function (pwdFeed) {
    changeDoorState: function(doorObject, string) {
     var currFrame = doorObject.animations.play(string);
     // console.log('frame number: ' + currFrame.frame + ' ' + string);
+  },
+  /** Method stops moveable entities from moving
+   */
+  stopMotion: function(){
+    var self = this;
+    self.enemy.sprite.body.velocity.y = 0;/* Andi: stopping the enemy first */
+    self.enemy.sprite.body.velocity.x = 0;
+
+    self.player.sprite.animations.stop(); /* BMDK: This will stop the animations running whilst game is paused*/
+    self.player.sprite.body.velocity.y = 0;
+    self.player.sprite.body.velocity.x = 0;
+  },
+  /** Method deals with states of the doors when they are being approached, opened or left
+   */
+  changeDoorStates: function(){
+    if (this.flagEnter) {
+      console.log('in front of a door');
+      /*BMDK:- update doorPass to track last door action*/
+      doorPass = 'in front of a door';
+    }
+    else
+    {
+        /*BMDK:- if player was in front of an open door but goes away from it: close the door*/
+      if (doorPass === 'in front of a door' && doorJustOpened){
+        this.changeDoorState(currentDoor, 'closing');
+        doorsCollidable = true;
+        doorJustOpened = !doorJustOpened; // BMDK: set false as door is no longer open
+      }
+      console.log('went away from the door');
+       /*BMDK:- update doorPass to track last door action*/
+      doorPass = 'went away from the door';
+    }
+  },
+  /** Method deals with redrawing of the rooms
+   */
+  updateRoomHighlighting: function(){
+    if (this.flagEnter) {
+      this.flagSearch = true;
+    }
+    else
+    {
+      if (this.flagSearch === true) {
+        this.flagSearch = false;
+        this.loadRooms();
+      }
+    }
   },
   /** Used to differentiate item types and deal with them appropriately
    * @param player
