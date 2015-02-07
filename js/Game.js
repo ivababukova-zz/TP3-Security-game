@@ -595,7 +595,7 @@ getEntropy: function (pwdFeed) {
     // added by @iva 07.02.2015
     else if ( collectable.type === "antivirus" ) {
       this.player.addItem(2);
-      // this.state.start('GameOver');
+      this.state.start('GameOver');
       collectable.destroy();
       // console.log ("just collected antivirus wohohohooooo!");
     }

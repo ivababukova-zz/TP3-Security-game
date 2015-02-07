@@ -33,31 +33,19 @@ Encrypt.MainMenu.prototype = {
 
         text = "Dun farget tae bring yer knife eh";
         style = {font: "20px Arial", fill: "#fff", align: "center"};
-        var bestLabel = this.game.add.text(this.game.width / 2, this.game.height - 350, text, style);
+        var bestLabel = this.game.add.text(this.game.width / 2, this.game.height - 360, text, style);
         bestLabel.anchor.set(0.5);
 
-        var pause_label = this.game.add.text(this.game.width - 450, this.game.height - 300, 'Instructions - Press te button', { font: '24px Arial', fill: '#fff', align:"center" });
-        pause_label.inputEnabled = true;
-        pause_label.events.onInputUp.add(this.actionInstructions);
 
-        this.startKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-        var backButton = this.game.add.button(this.game.width/2 -70, this.game.height - 200, 'instructionsButton', this.actionInstructions, this);
-
-    },
-
-    update: function() {
-        /*if(this.game.input.activePointer.justPressed()) {
-         this.game.state.start('Game');
-         }*/
-
-        if(this.startKey.justDown)
-            this.game.state.start('Game');
-
+        var instructionsButton = this.game.add.button(this.game.width/2 -70, this.game.height - 340, 'instructionsButton', this.actionInstructions, this);
+        var startButton = this.game.add.button(this.game.width/2 -80, this.game.height - 200, 'startButton', this.startInstructions, this);
     },
 
     actionInstructions: function(){
-
         this.game.state.start('Instructions');
+    },
+
+    startInstructions: function(){
+        this.game.state.start('Game');
     }
 };
