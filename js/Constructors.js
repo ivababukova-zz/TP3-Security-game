@@ -72,7 +72,9 @@ Player = function (currentX, currentY, game, metrics, score) {
     this.isVisible = true;
     this.isCollidable = true;
     this.speed = 10.0;
-    this.bag = [[]];  // array of arrays;
+    this.bagFirewall = [];  // stores: firewall
+    this.bagAntivirus = [];
+    this.bagAntikeyLogger = [];
     this.looseNoteChance = 0.25;
     this.note = new Note();
     this.metrics = metrics;
@@ -120,22 +122,26 @@ Player.prototype = {
     /*
      * method to add an item to the player's bag; assume item is a string saying what type of item we're adding
      * */
-    addItem: function (item) {
-
-        switch (item) {
-            case 'antivirus':
-                this.bag [0].push(item);  //antivirus will hold position 0
-                //do nothing if the player doesn't have the object; potentially play a sound to let him know what's going awn.
-                break;
-
-            case 'anti-keylogger':
-                this.bag [1].push(item); // "item" here will be replaced with an instantiation of the appropriate object
-                break;
-
-            case 'firewall':
-                this.bag [2].push(item);
-                break;
-        }
+    /*
+    * TODO: there is a bug in this method:
+    * no more than one item from the same type can be added. For example, if the player collects 1, or 15, or
+    * 2 firewall items, the bag will contain only 1.
+    * */
+    // modified by Iva 07.02.2015
+      addItem: function (numb) {
+        console.log ("just collected item wohohohooooo!");
+         if (numb === 1) {
+             this.bagFirewall.push(this.bagFirewall.length + 1);  // increment the firewall bag
+             console.log("number of items in the firewall bag now: " + this.bagFirewall.length);
+         }
+        else if (numb === 2) {
+             this.bagAntivirus.push(this.bagAntivirus.length + 1);
+             console.log("number of items in the antivirus bag now: " + this.bagAntivirus.length);
+         }
+        else if (numb === 3) {
+             this.bagAntikeyLogger.push(this.bagAntikeyLogger.length + 1);
+             console.log("number of items in the antikeylog bag now: " + this.bagAntikeyLogger.length);
+         }
     },
 
     // TODO: refine to add password to a particular policy, or provide option to just write them down as they are

@@ -82,7 +82,7 @@ Encrypt.Game.prototype = {
     this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
     this.game.physics.arcade.collide(this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
 
-    var hintsOverlapped = this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
+    var itemsOverlapped = this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
 
     this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     // when come out the door, check the room.
@@ -553,13 +553,34 @@ getEntropy: function (pwdFeed) {
    * @param collectable
    */
   pickupItem: function(player, collectable){
-    if(collectable.type === "clue"){
+    if (collectable.type === "clue"  || (collectable.type === "info") ) {
       this.showHint(player, collectable);
     }
-    else if(collectable.type === "policy"){
+
+    else if (collectable.type === "policy") {
       this.addPolicy(collectable);
     }
+
+    else if ( collectable.type === "firewall" ) {
+      this.player.addItem(1);
+      collectable.destroy();
+      // console.log ("just collected antivirus wohohohooooo!");
+    }
+
+    else if ( collectable.type === "antivirus" ) {
+      this.player.addItem(2);
+      collectable.destroy();
+      // console.log ("just collected antivirus wohohohooooo!");
+    }
+
+    else if ( collectable.type === "AntiKeyLog" ) {
+      this.player.addItem(3);
+      collectable.destroy();
+      // console.log ("just collected antivirus wohohohooooo!");
+    }
   },
+
+
   /** function that outputs a random hint from an array of hints
    *  called when the player collects a clue object
    * @param player
