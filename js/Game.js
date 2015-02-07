@@ -68,7 +68,7 @@ Encrypt.Game.prototype = {
   update: function () {
     var self = this;
     //collision
-    if (fPause == true) {
+    if (fPause === true) {
       self.player.sprite.animations.stop(); /* BMDK: This will stop the animations running whilst game is paused*/
       this.player.sprite.body.velocity.y = 0;
       this.player.sprite.body.velocity.x = 0;
@@ -88,7 +88,7 @@ Encrypt.Game.prototype = {
     }
     else
     {
-      if (this.flagSearch == true) {
+      if (this.flagSearch === true) {
         this.flagSearch = false;
         this.loadRooms();
       }
@@ -286,18 +286,26 @@ Encrypt.Game.prototype = {
 
       var color = 0xCCCCCC;
       var opacity;
-      if (currentRoom == element.properties.idx) { // player in the room
-        element.properties.state = "0";
-        return;
-      } else if(state == 0){  // visited
-        opacity = 0.6;
-      }else if (state == 1) { // not visited
+      if (currentRoom === parseInt(element.properties.idx)) { // player in the room
+        element.properties.state = "0"; // Change to visited
+        if(element.properties.infected){ // Infected
+          color = 0x16E91D;
+          opacity = 0.5;
+        }else{
+          return;
+        }
+      } else if(state === 0){  // visited
+        if(element.properties.infected){ // Infected
+          color = 0x16E91D;
+          opacity = 0.5;
+        }else{
+          opacity = 0.6;
+        }
+      }else if (state ===  1) { // not visited
         color = 0x444444;
         opacity = 1;
-      } else if (state == 2) { // infected
-        color = 0xFFFFFF;
-        opacity = 1;
       }
+
       graphics.beginFill(color, opacity);
       graphics.drawRect(x, y, w, h);
       graphics.endFill();
@@ -345,7 +353,7 @@ Encrypt.Game.prototype = {
           fPause = false;
         } else { // if password was already set, then compare.
 
-          if (currentDoor.password == this._value) {
+          if (currentDoor.password === this._value) {
             document.getElementById("inputPwd").style.display = "none";
             document.getElementById("policyField").style.display= "none";
             document.getElementById("feedbackField").style.display = "none";
@@ -371,13 +379,15 @@ Encrypt.Game.prototype = {
           document.getElementById("mainLayer").style.display = "none";
           this._hiddenInput.value = '';
           fPause = false;
-        }
+        }// if W key is pressed, then open note pop up
         if(self.writeKey.justDown){
+          self.game.input.keyboard.enabled = false;
           document.getElementById("inputPwd").style.display = "block";
           document.getElementById("titlePwd").innerHTML = "Go on, I dare you!";
+          console.log("test");
         }
-        // first check if password pop up is open
-        if (document.getElementById("mainLayer").style.display === "block") {
+        // first check if main layer is open and then check if it's not a noPolicy pop up
+        if (document.getElementById("mainLayer").style.display === "block" && document.getElementById("inputPwd").style.display === "block") {
           console.log(self.getEntropy(this._hiddenInput.value)[0]);//BMDK testing
           var policy = self.player.policies[currentDoor.policy];
           var feedback = "";
@@ -396,7 +406,7 @@ Encrypt.Game.prototype = {
             feedback = "Need more special characters.";
           } else if(this._hiddenInput.value.length > 0){ // If policy requirements are met, approve
             this.approved = true;
-            feedback = "Approved.";
+            feedback = "Policy requirements met.";
           }
 
           if (this.approved) {
@@ -564,16 +574,15 @@ getEntropy: function (pwdFeed) {
    */
   enterDoor: function (player, door) {
 
-    if(this.flagEnter == false){
+    if(this.flagEnter === false){
 
       // update global variables
       currentDoor = door;
-      console.log(currentDoor.policy);
       this.flagEnter = true;
       fPause = true;
 
       // password not set yet
-      if (door.password == 'null') {
+      if (door.password === 'null') {
         document.getElementById("titlePwd").innerHTML = "Setup password";
       } else {
         document.getElementById("titlePwd").innerHTML = "Input password";
