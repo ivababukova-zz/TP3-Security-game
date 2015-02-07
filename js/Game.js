@@ -12,6 +12,7 @@ var fPause = false;
 var lastKnownPlayerDirection = ['',0]; /*BMDK: for the purpose of tracking what animation frame to end on and lastKnownPlayerDirection*/
 var doorPass = ''; /*BMDK: for the purpose of being able to eventually close a door via animation*/
 var doorJustOpened = false;
+var doorsCollidable = true;
 
 Encrypt.Game.prototype = {
   create: function () {
@@ -34,6 +35,7 @@ Encrypt.Game.prototype = {
     this.map.addTilesetImage('32x32TileSet1Encrypt', '32x32TileSet1Encrypt');
 
     //create layer
+    this.createDoorBlocks();
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
     this.createDoors(); //BMDK, moved here as was rendering over the player ... might want to set invisible after door opens instead
     this.createPlayer();
@@ -78,7 +80,10 @@ Encrypt.Game.prototype = {
       this.player.sprite.body.velocity.x = 0;
       return;
     }
-
+    console.log(doorsCollidable);
+    if(doorsCollidable){
+      this.game.physics.arcade.collide(this.player.sprite, this.doorBlocks);
+    }
     this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
     this.game.physics.arcade.collide(this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
 
@@ -103,6 +108,7 @@ Encrypt.Game.prototype = {
         /*BMDK:- if player was in front of an open door but goes away from it: close the door*/
         if (doorPass === 'in front of a door' && doorJustOpened){
           this.changeDoorState(door, 'closing');
+          doorsCollidable = true;
           doorJustOpened = !doorJustOpened; // BMDK: set false as door is no longer open
         }
         console.log('went away from the door');
@@ -193,6 +199,22 @@ Encrypt.Game.prototype = {
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.items);
     }, this);
+  },
+
+  createDoorBlocks: function(){
+    this.doorBlocks = this.game.add.group();
+    this.doorBlocks.enableBody = true;
+
+    var result = this.findObjectsByType('block', this.map, 'doorBlocks');
+    var doorBlockID = 0;
+
+    // create the front door objects:
+    result.forEach(function (element) {
+      this.createFromTiledObject(element, this.doorBlocks, doorBlockID);
+      doorBlockID++;
+    }, this);
+
+    this.doorBlocks.setAll('body.moves', false);
   },
 
   // this function creates only front doors:
@@ -361,6 +383,7 @@ Encrypt.Game.prototype = {
           document.getElementById("feedbackField").style.display = "none";
           document.getElementById("mainLayer").style.display= "none";
           self.changeDoorState(currentDoor,'opening');
+          doorsCollidable = false;
           doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
           this._hiddenInput.value = '';
@@ -374,7 +397,8 @@ Encrypt.Game.prototype = {
             document.getElementById("mainLayer").style.display= "none";
             fPause = false;
             /*BMDK: call to function to open door when password is successful*/
-            self.changeDoorState(currentDoor,'opening'); 
+            self.changeDoorState(currentDoor,'opening');
+            doorsCollidable = false;
             doorJustOpened = true; //BMDK: track that door opened
           } else {
             document.getElementById("titlePwd").innerHTML = "Incorrect. Input again!";

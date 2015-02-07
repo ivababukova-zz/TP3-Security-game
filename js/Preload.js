@@ -28,6 +28,8 @@ Encrypt.Preload.prototype = {
     this.load.image('info', 'assets/images/GameIcons/Info.png');
     this.load.image('antivirus', 'assets/images/GameIcons/AntiVirus.png');
     this.load.image('enemy', 'assets/images/Virus.png');
+    this.load.image('frontBlock', 'assets/images/GameIcons/frontDoorBlock.png');
+    this.load.image('sideBlock', 'assets/images/GameIcons/sidewaysDoorBlock.png');
     this.load.spritesheet('player', 'assets/images/32x32ExampleSprite.png', 64, 64, 30);
     this.load.spritesheet('frontDoor','assets/images/Animations/DoorAnimations/FrontDoorAnimationFrames.png', 64, 64, 17, 0, 0 );
     this.load.spritesheet('sideDoor', 'assets/images/Animations/DoorAnimations/SideDoorAnimationFrames.png', 128, 128, 17, 0, 0);
