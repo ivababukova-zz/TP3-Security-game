@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="61" height="80" tilewidth="32" tileheight="32" nextobjectid="82">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="61" height="80" tilewidth="32" tileheight="32" nextobjectid="84">
  <tileset firstgid="1" name="32x32TileSet1Encrypt" tilewidth="32" tileheight="32">
   <image source="../EncryptTileSets/32x32TileSet1Encrypt.png" width="3200" height="3200"/>
  </tileset>
@@ -32,7 +32,7 @@
  </tileset>
  <layer name="backgroundLayer" width="61" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2k1Ow0AMBWAQ64pSFj0KS07BSViwiHoubgFXqqoqUgiNO+N5/snkPcmrEme+ph1UJ6fjw6ZyOl5rS9madykv+/K6d+zH7m+V9Lz8Xcma5r2lupfx815SLcd69kWanyfX+nWPM6P7Is2fk7V9Ac3ovkjzMOk3gLwWfWluM7cc69m3p9Dcbh5m3yvraM+nNf8c/te4hluvWVTN+RBm1N7jUajrHO2gmWYPc7aUrL+1b7ZYm1tj9T+9xly6hqV+7491NZ6v9rh51ZhL1lBjzrhPadZIc06zNBvq1SzNhno1S3MStNlqjpnZbDXHrC3Jpbkuktlqpoc0a67L2s2aNUpm6Vw0x5k1a6SZZprzhObl16LMFrMSS/PbU/uMAzUrGev3YGteQ6Gy5rVr4nHv0ctcupes2Xx5TqxkL2kN4j7xPNr9DfU9Qu3LNebovcPqPFs3e8/dMpi9524ZzN4zKC+z9Pnt1Yy+F7EGM3ou35s5OlbvLc24IGYUHubvHW6mUDujiDJHlmeirVn3Eo9o3N7PdaNzy2z1+1kbj/fY6nsTOTuOMmfet2immWa5sjxr5mnO8qyZpznLc1c025qt+tJMM80000wz02fOTz1i9A==
+   eJztmsFOwzAMhoc4T4xxyN6EIw/AOPIkHDhUO8FOPBBvAY9BeQtaQaTOtFliO47T+pesRVnn+ms8r3NzcKtF6eB+bUlaGu+Urjfxdu6zj+tTi/HZHxcTE/QdsnPy+R5jUG+OxygxxcRJ8X81WOubDR8z9KuJ+WkQ2zMjM/SribkZ+OPihfndEHmNmc4MVWsNq0nGTGduwPc1t7DnwzJ/bP+bj2HsvRyWcj4OZmqNkDSudS7NYczGLMGsTTHxU/1qU25mqnL9pqcwx8Yw5e/uIs38+VI/By2FOSaGFGaNdQoTozHrZA71hubKHOoNzZV5WHdhn4SbmbvfWAMzd78RayEuzLqEmEPXVwszZl1qZ8bEGGIOncuYyzFjYjRmYzZmPTLm6fdKMefoleRkvr2k9zi4eiXePrd5mWswLtUcO0YSzx6lmGNrSc3M/T6xmFpCFcdzYihsfeP6HnHV5RTm0rUj13mWzizdd9PALN1308As3YOSYg7l71yZuZ9F1MDM3ZefG3Np5bq2xswnjh6FBPP7mq+nkNqjKMVc0iRVmlVrLZEQhlt6Xze3xphz/X/GSuIav3T+Xzs7OtoYqmTv+Jy+Ov9tZ9+ONobSXLfud6vVvrOHHW1cEzMmn5uI3NbMnJrD/vXo6s7tPu6xvB3O+3Hrxue17DWLze12JFfhvB+3E/Na9prlyu393/rCY7xK7rtKze0hTyi3p46phdnnZ+tOc3sqhz0rPAZKMzO2bvu5Wuu23ZPw3G9rZrb7bcvtuea2aZ76AZHQjcQ=
   </data>
  </layer>
  <layer name="blockedLayer" width="61" height="80">
@@ -380,6 +380,7 @@
   <object id="27" x="576" y="32" width="640" height="352">
    <properties>
     <property name="idx" value="2"/>
+    <property name="infected" value="true"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
