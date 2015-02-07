@@ -37,6 +37,7 @@ Encrypt.Game.prototype = {
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
     this.createDoors(); //BMDK, moved here as was rendering over the player ... might want to set invisible after door opens instead
     this.createPlayer();
+    this.createEnemy(); // Andi: create the enemy
 
     this.blockedLayer = this.map.createLayer('blockedLayer');
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer'); //collision on blockedLayer
@@ -69,6 +70,9 @@ Encrypt.Game.prototype = {
     var self = this;
     //collision
     if (fPause === true) {
+      self.enemy.sprite.body.velocity.y = 0;/* Andi: stopping the enemy first */
+      self.enemy.sprite.body.velocity.x = 0;
+
       self.player.sprite.animations.stop(); /* BMDK: This will stop the animations running whilst game is paused*/
       this.player.sprite.body.velocity.y = 0;
       this.player.sprite.body.velocity.x = 0;
@@ -76,7 +80,10 @@ Encrypt.Game.prototype = {
     }
 
     this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
+    this.game.physics.arcade.collide(this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
+
     var hintsOverlapped = this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
+
     this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     // when come out the door, check the room.
     if (this.flagEnter) {
@@ -130,6 +137,13 @@ Encrypt.Game.prototype = {
     //move player with cursor keys
     this.cursors = this.game.input.keyboard.createCursorKeys();
   },
+
+  //create an enemy
+  createEnemy: function() {
+
+    this.enemy = new Enemy(100, 300, this.game, this.player);
+  },
+
   // create items
   createItems: function () {
     //create items

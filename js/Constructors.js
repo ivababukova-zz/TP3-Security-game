@@ -203,6 +203,14 @@ Enemy = function(currentX, currentY, game, player) {
     this.loggerChance = 0.1;
     // room infection chance set to 0.1 by default -  set to private as not used outside of object
     this.virusChance = 0.1;
+
+    //add its sprite
+    this.sprite = game.add.sprite(currentX, currentY, 'enemy');
+
+    game.physics.enable(this.sprite, Phaser.ARCADE);
+    this.sprite.body.immovable = false;
+    this.sprite.body.collideWorldBounds = true;
+
 };
 
 Enemy.prototype = {
