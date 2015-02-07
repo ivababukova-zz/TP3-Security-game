@@ -8,5 +8,6 @@ Encrypt.game.state.add('Preload', Encrypt.Preload);
 Encrypt.game.state.add('MainMenu', Encrypt.MainMenu);
 Encrypt.game.state.add('I', Encrypt.Instructions);
 Encrypt.game.state.add('Game', Encrypt.Game);
+Encrypt.game.state.add('GameOver', Encrypt.Game);
 
 Encrypt.game.state.start('Boot');
