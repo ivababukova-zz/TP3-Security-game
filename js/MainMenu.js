@@ -8,6 +8,10 @@ Encrypt.MainMenu = function(){};
 Encrypt.MainMenu.prototype = {
 
     create: function() {
+	
+		//play main menu music
+	    this.music = this.game.add.audio('music');
+        this.music.play();
 
         //show the space tile, repeated: - (BMDK - Updated to our backdrop)
         this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
@@ -46,6 +50,7 @@ Encrypt.MainMenu.prototype = {
     },
 
     startInstructions: function(){
+		this.music.stop();
         this.game.state.start('Game');
     }
 };

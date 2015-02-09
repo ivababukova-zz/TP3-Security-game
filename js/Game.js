@@ -594,6 +594,11 @@ getEntropy: function (pwdFeed) {
    * @param collectable
    */
   pickupItem: function(player, collectable){
+  
+	//play sound when object is picked up
+    this.pickUpSound = this.game.add.audio('pickUpSound');
+    this.pickUpSound.play();
+	
     if (collectable.type === "clue"  || (collectable.type === "info") ) {
       this.showHint(player, collectable);
     }
