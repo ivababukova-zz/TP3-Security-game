@@ -640,10 +640,10 @@ getEntropy: function (pwdFeed) {
     // change the current display of the hints as the current one is quite ugly
   showHint: function(player, collectable) {
     var array = [];
-    array.push("how to make your \npassword stronger:\n hint 1");
-    array.push("how to make your \npassword stronger:\n hint 2");
-    array.push("how to make your \npassword stronger:\n hint 3");
-    array.push("how to make your \npassword stronger:\n hint 4");
+    array.push("Don't share\n your passwords\n with anyone");
+    array.push("Always use\n combination of letters,\n numbers and special characters");
+    array.push("Don't ever use\n same passwords on\n multiple websites");
+    array.push("Don't include\n personal information\n in your passwords");
     var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
     var hint = array[randomIndex];
 
