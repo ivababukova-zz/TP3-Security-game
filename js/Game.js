@@ -13,6 +13,8 @@ var lastKnownPlayerDirection = ['',0]; /*BMDK: for the purpose of tracking what 
 var doorPass = ''; /*BMDK: for the purpose of being able to eventually close a door via animation*/
 var doorJustOpened = false;
 var doorsCollidable = true;
+var doorSound = null;
+var pickupSound = null;
 
 Encrypt.Game.prototype = {
   create: function () {
@@ -65,6 +67,10 @@ Encrypt.Game.prototype = {
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
     //ESC key is used for closing pop ups
     this.escapeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+	
+	//create sounds used elsewhere in the game
+	doorSound = this.game.add.audio('doorSound');
+	pickupSound = this.game.add.audio('pickUpSound');
 
   },
 
@@ -355,6 +361,7 @@ Encrypt.Game.prototype = {
           document.getElementById("feedbackField").style.display = "none";
           document.getElementById("mainLayer").style.display= "none";
           self.changeDoorState(currentDoor,'opening');
+		  doorSound.play();
           doorsCollidable = false;
           doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
@@ -595,9 +602,7 @@ getEntropy: function (pwdFeed) {
    */
   pickupItem: function(player, collectable){
   
-	//play sound when object is picked up
-    this.pickUpSound = this.game.add.audio('pickUpSound');
-    this.pickUpSound.play();
+    pickupSound.play(); //play sound when object is picked up
 	
     if (collectable.type === "clue"  || (collectable.type === "info") ) {
       this.showHint(player, collectable);

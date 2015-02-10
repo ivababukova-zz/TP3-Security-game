@@ -70,8 +70,9 @@ Encrypt.Preload.prototype = {
 	
 	//music
     this.load.audio('music', 'assets/sounds/main_music.ogg');
-    this.load.audio('doorSound', 'assets/sounds/door_sound.wav');
-    this.load.audio('pickUpSound', 'assets/sounds/pickup_sound.wav');
+    //this.load.audio('passwordSound', 'assets/sounds/door_sound.wav');
+    this.load.audio('pickUpSound', 'assets/sounds/pickup_sound.ogg');
+	this.load.audio('doorSound', 'assets/sounds/door_open.ogg');
 
   },
   create: function() {
