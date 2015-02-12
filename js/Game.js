@@ -13,6 +13,8 @@ var lastKnownPlayerDirection = ['',0]; /*BMDK: for the purpose of tracking what 
 var doorPass = ''; /*BMDK: for the purpose of being able to eventually close a door via animation*/
 var doorJustOpened = false;
 var doorsCollidable = true;
+var doorSound = null;
+var pickupSound = null;
 
 Encrypt.Game.prototype = {
   create: function () {
@@ -65,6 +67,10 @@ Encrypt.Game.prototype = {
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
     //ESC key is used for closing pop ups
     this.escapeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+	
+	//create sounds used elsewhere in the game
+	doorSound = this.game.add.audio('doorSound');
+	pickupSound = this.game.add.audio('pickUpSound');
 
   },
 
@@ -362,6 +368,7 @@ Encrypt.Game.prototype = {
           document.getElementById("feedbackField").style.display = "none";
           document.getElementById("mainLayer").style.display= "none";
           self.changeDoorState(currentDoor,'opening');
+		  doorSound.play();
           doorsCollidable = false;
           doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
@@ -601,6 +608,9 @@ getEntropy: function (pwdFeed) {
    * @param collectable
    */
   pickupItem: function(player, collectable){
+  
+    pickupSound.play(); //play sound when object is picked up
+	
     if (collectable.type === "clue"  || (collectable.type === "info") ) {
       this.showHint(player, collectable);
     }
@@ -642,10 +652,10 @@ getEntropy: function (pwdFeed) {
     // change the current display of the hints as the current one is quite ugly
   showHint: function(player, collectable) {
     var array = [];
-    array.push("how to make your \npassword stronger:\n hint 1");
-    array.push("how to make your \npassword stronger:\n hint 2");
-    array.push("how to make your \npassword stronger:\n hint 3");
-    array.push("how to make your \npassword stronger:\n hint 4");
+    array.push("Don't share\n your passwords\n with anyone");
+    array.push("Always use\n combination of letters,\n numbers and special characters");
+    array.push("Don't ever use\n same passwords on\n multiple websites");
+    array.push("Don't include\n personal information\n in your passwords");
     var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
     var hint = array[randomIndex];
 

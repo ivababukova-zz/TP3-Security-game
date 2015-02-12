@@ -67,6 +67,12 @@ Encrypt.Preload.prototype = {
     this.load.image('instructionsButton', 'assets/images/instructionsButton.png');
     this.load.image('restartButton', 'assets/images/restart_button.png');
     this.load.image('startButton', 'assets/images/startButton.png');
+	
+	//music
+    this.load.audio('music', 'assets/sounds/main_music.ogg');
+    //this.load.audio('passwordSound', 'assets/sounds/door_sound.wav');
+    this.load.audio('pickUpSound', 'assets/sounds/pickup_sound.ogg');
+	this.load.audio('doorSound', 'assets/sounds/door_open.ogg');
 
   },
   create: function() {
