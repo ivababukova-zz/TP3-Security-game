@@ -68,6 +68,7 @@ Encrypt.Game.prototype = {
 
   },
 
+  // UPDATE STATE:
   update: function () {
     var self = this;
     //collision
@@ -79,10 +80,10 @@ Encrypt.Game.prototype = {
     if(doorsCollidable){
       this.game.physics.arcade.collide(this.player.sprite, this.doorBlocks);
     }
+
     this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
     this.game.physics.arcade.collide(this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
-
-    var itemsOverlapped = this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
+    this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
 
     this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     // when come out the door, check the room.
@@ -264,6 +265,12 @@ Encrypt.Game.prototype = {
         return;
       }
     }, this);
+    // added by @iva
+    console.log("in getCurrentRoom function ... current room: " + currentRoom);
+    if (currentRoom == 2) {  // need better method to detet infected room
+      console.log("this room is infected!");
+    }
+    // 
   },
   /** Draws the rooms */
   drawRooms: function() {
