@@ -24,11 +24,6 @@ Encrypt.MainMenu.prototype = {
         //BMDK:- Letters are given other direction of scrolling
         this.foreground.autoScroll(0, 20);
 
-        var text = "Tap SPACEBAR tae begin";
-        var style = {font: "20px Arial", fill: "#fff", align: "center"};
-        var textLabel = this.game.add.text(this.game.width / 2, this.game.height - 400 , text, style);
-        textLabel.anchor.set(0.5);
-
         text = "WELCOME TO 3NCRYPT, PLAYA' \n HAI BRYAN, HEN xoxo";
         style = {font: "35px Arial", fill: "#fff", align: "center"};
         var welcomeLabel = this.game.add.text(this.game.width / 2, this.game.height - 500, text, style);

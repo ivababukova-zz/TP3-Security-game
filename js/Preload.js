@@ -61,6 +61,7 @@ Encrypt.Preload.prototype = {
     //main menu images
     this.load.image('space', 'assets/images/BackDrop.png');
     this.load.image('space2', 'assets/images/MLetters.png');
+    this.load.image('gameover', 'assets/images/GameOver.png');
 
     // buttons:
     this.load.image('backButton', 'assets/images/gobackButtonIva.png');
