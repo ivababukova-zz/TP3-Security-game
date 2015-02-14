@@ -653,9 +653,13 @@ getEntropy: function (pwdFeed) {
   showHint: function(player, collectable) {
     var array = [];
     array.push("Don't share\n your passwords\n with anyone");
-    array.push("Always use\n combination of letters,\n numbers and special characters");
+    array.push("Use combination of \nsmall and big letters, \nnumbers and special characters");
     array.push("Don't ever use\n same passwords on\n multiple websites");
     array.push("Don't include\n personal information\n in your passwords");
+    array.push("Create passwords\n easy to remember\n but hard to guess");
+    array.push("Make your passwords \nat least \n8 characters long");
+    array.push("Don't let your \nbrowser remember \nthe password for you");
+    array.push("Always log off if \nyou leave your device \nand anyone is around");
     var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
     var hint = array[randomIndex];
 
