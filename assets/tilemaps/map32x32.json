@@ -1122,7 +1122,7 @@
                 {
                  "gid":11011,
                  "height":0,
-                 "id":61,
+                 "id":83,
                  "name":"",
                  "properties":
                     {
@@ -1133,8 +1133,59 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":317.333,
-                 "y":525.091
+                 "x":728,
+                 "y":536
+                }, 
+                {
+                 "gid":11011,
+                 "height":0,
+                 "id":84,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"info",
+                     "type":"info"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":884,
+                 "y":894
+                }, 
+                {
+                 "gid":11011,
+                 "height":0,
+                 "id":85,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"info",
+                     "type":"info"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":336,
+                 "y":1744
+                }, 
+                {
+                 "gid":11012,
+                 "height":0,
+                 "id":87,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"winkey",
+                     "type":"winkey"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":476,
+                 "y":2186
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1502,7 +1553,7 @@
              "vy":"2"
             },
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "width":0,
          "x":0,
          "y":0
@@ -1518,7 +1569,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":83,
+ "nextobjectid":88,
  "orientation":"orthogonal",
  "properties":
     {
@@ -1669,6 +1720,21 @@
          "imagewidth":32,
          "margin":0,
          "name":"Info",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "firstgid":11012,
+         "image":"..\/images\/winkey.png",
+         "imageheight":32,
+         "imagewidth":32,
+         "margin":0,
+         "name":"winkey",
          "properties":
             {
 

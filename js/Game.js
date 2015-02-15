@@ -150,33 +150,42 @@ Encrypt.Game.prototype = {
       this.createFromTiledObject(element, this.items);
     }, this);
 
-    // ANTIKEYLOGGERS
+    // ANTIKEYLOGGERS @iva
     var antikeylogger;
     result = this.findObjectsByType('AntiKeyLog', this.map, 'objectsLayer');
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.items);
     }, this);
 
-    // INFO
+    // INFO @iva
     var info;
     result = this.findObjectsByType('info', this.map, 'objectsLayer');
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.items);
     }, this);
 
-    // FIREWALL
+    // FIREWALL @iva
     var firewall;
     result = this.findObjectsByType('firewall', this.map, 'objectsLayer');
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.items);
     }, this);
 
-    // ANTIVIRUS
+    // ANTIVIRUS @iva
     var antivirus;
     result = this.findObjectsByType('antivirus', this.map, 'objectsLayer');
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.items);
     }, this);
+
+    //WINNING KEY @iva
+    var winkey;
+    result = this.findObjectsByType('winkey', this.map, 'objectsLayer');
+    result.forEach(function (element) {
+      this.createFromTiledObject(element, this.items);
+    }, this);
+
+
   },
 
   createDoorBlocks: function(){
@@ -640,6 +649,12 @@ getEntropy: function (pwdFeed) {
       collectable.destroy();
       // console.log ("just collected antivirus wohohohooooo!");
     }
+
+    // calls the win page @iva
+    else if (collectable.type === "winkey" ) {
+      this.state.start('GameWon');
+      collectable.destroy();
+    }
   },
 
 
@@ -665,7 +680,7 @@ getEntropy: function (pwdFeed) {
 
     // var input = confirm(hint);
     // display hint:
-    var style = { font: "20px Arial", fill: "#000000", align: "center" };
+    var style = { font: "20px Serif", fill: "#000000", align: "center" };
     text = this.game.add.text(this.player.sprite.x,  this.player.sprite.y, hint, style);
     collectable.destroy();
   },
