@@ -219,10 +219,17 @@ Enemy = function(currentX, currentY, game, player) {
     game.physics.enable(this.sprite, Phaser.ARCADE);
     this.sprite.body.immovable = false;
     this.sprite.body.collideWorldBounds = true;
+    this.sprite.enableBody = true;
 
 };
 
 Enemy.prototype = {
+
+    update: function(){
+
+
+        this.sprite.body.velocity.x = 10;
+    },
 
     putKeyLogger: function(door){
         //TODO: add implementation
@@ -506,7 +513,7 @@ MetricsSystem = function( game, approval ){
 
 };
 
-MetricsSystem.protorype = {
+MetricsSystem.prototype = {
 
     /**this only returns the UNIQUE passwords in the array, not the total number of them
     * the array can have only one member, say "123abc," but be used 10 times (i.e. on 10 different doors)
@@ -520,6 +527,7 @@ MetricsSystem.protorype = {
 
     addPassword: function(password){
 
+        console.log("I was called!" + password);
         //first check if the parameter is actually a string
         if(typeof(password) === "string") {
 
@@ -680,8 +688,11 @@ ScoreSystem.prototype = {
      * TO BE CALLED UPON SUCCESSFULLY SETTING UP A PASSWORD
      * */
     scorePassword: function( entropy ){
-        if(typeof(entropy) == "int")
+
+        //taking the floor of the entropy as it comes as a float
+        if(typeof(entropy) === "number")
             this.score += 10 * entropy;
+
     },
 
     /**

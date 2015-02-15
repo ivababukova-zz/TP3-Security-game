@@ -28,8 +28,8 @@ Encrypt.Game.prototype = {
     hook = this;
 
     //creating the auxiliary systems
-    this.score = new ScoreSystem(this.game);
-    this.metrics = new MetricsSystem(this.game, true);
+    this.scoreSystem = new ScoreSystem(this.game);
+    this.metricsSystem = new MetricsSystem(this.game, true);
 
     this.map = this.game.add.tilemap('level1');
 
@@ -59,7 +59,8 @@ Encrypt.Game.prototype = {
     this.createInput();
 
     // create the score label
-    this.scoreLabel = this.game.add.text(0, 0, "Score:" + this.score.score, { font: "32px Arial", fill: "#ffffff", align: "center"});
+    this.scoreString = "Score: " + this.scoreSystem.score;
+    this.scoreLabel = this.game.add.text(0, 0, this.scoreString, { font: "32px Arial", fill: "#ffffff", align: "center"});
     this.scoreLabel.fixedToCamera = true;
     this.scoreLabel.cameraOffset.setTo(25,25);
 
@@ -71,6 +72,18 @@ Encrypt.Game.prototype = {
 	//create sounds used elsewhere in the game
 	doorSound = this.game.add.audio('doorSound');
 	pickupSound = this.game.add.audio('pickUpSound');
+
+
+    // path-finding algorithm
+
+    var walkables = [30];
+
+    this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
+    this.pathfinder.setGrid(this.map.layers[1].data, walkables);
+
+    this.marker = this.game.add.graphics();
+    this.marker.lineStyle(2, 0x000000, 1);
+    this.marker.drawRect(0, 0, 32, 32);
 
   },
 
@@ -101,10 +114,34 @@ Encrypt.Game.prototype = {
 
     this.moveCharacter(this.player.sprite, speed);
     /*BMDK: - Moved bringToTop here to allow the score to appear on top at all times*/
+
+    this.scoreLabel.text = "Score:" + this.scoreSystem.score;
     this.game.world.bringToTop(this.scoreLabel);
 
 
+    this.marker.x = this.backgroundlayer.getTileX(this.game.input.activePointer.worldX) * 32;
+    this.marker.y = this.backgroundlayer.getTileY(this.game.input.activePointer.worldY) * 32;
+
+    if (this.game.input.mousePointer.isDown)
+    {
+      this.findPathTo(this.backgroundlayer.getTileX(this.marker.x), this.backgroundlayer.getTileY(this.marker.y));
+    }
+
   },
+
+  findPathTo: function(tilex, tiley) {
+
+    this.pathfinder.setCallbackFunction(function (path) {
+      path = path || [];
+      for (var i = 0, ilen = path.length; i < ilen; i++) {
+        this.map.putTile(46, path[i].x, path[i].y);
+      }
+    });
+
+    this.pathfinder.preparePathCalculation([0,0], [tilex,tiley]);
+    this.pathfinder.calculatePath();
+  },
+
   //create player
   createPlayer: function () {
     this.player = new Player(300,500, this.game);
@@ -381,6 +418,8 @@ Encrypt.Game.prototype = {
           doorsCollidable = false;
           doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
+          self.scoreSystem.scorePassword(self.getEntropy(this._value)); /*Andi: adding the password to the score & metrics systems*/
+          self.metricsSystem.addPassword(this._value);
           this._hiddenInput.value = '';
           fPause = false;
         } else { // if password was already set, then compare.
@@ -394,6 +433,10 @@ Encrypt.Game.prototype = {
             /*BMDK: call to function to open door when password is successful*/
             self.changeDoorState(currentDoor,'opening');
             doorsCollidable = false;
+
+            self.metricsSystem.addUsedPassword(this._value, 0); //Andi: adding the already set up password to the metrics system; TODO: add the door id
+            self.scoreSystem.scorePassingThroughDoorWithoutResetting(this._value, self.getEntropy(this._value), self.player); //Andi: added scoring for this scenario to scoring system
+
             doorJustOpened = true; //BMDK: track that door opened
           } else {
             document.getElementById("titlePwd").innerHTML = "Incorrect. Input again!";
@@ -496,7 +539,7 @@ getEntropy: function (pwdFeed) {
   var entropy = [(pwdLength*tempLogVal), ''] ;
   /* Stop from returning NaN value*/
   if (entropy[0] > 0) {
-    return entropy;
+    return Math.floor(entropy[0]); //Andi: returning the floor from here so that it doesn't need to get done everywhere else
   }
   return [0,possibleEntropyResults[0]];
 },
@@ -626,6 +669,7 @@ getEntropy: function (pwdFeed) {
 
     else if (collectable.type === "policy") {
       this.addPolicy(collectable);
+      this.scoreSystem.scorePolicyPickUp();
     }
 
     // added by @iva 07.02.2015
