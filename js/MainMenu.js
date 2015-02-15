@@ -36,8 +36,8 @@ Encrypt.MainMenu.prototype = {
         bestLabel.anchor.set(0.5);
 
 
-        var instructionsButton = this.game.add.button(this.game.width/2 -70, this.game.height - 340, 'instructionsButton', this.actionInstructions, this);
-        var startButton = this.game.add.button(this.game.width/2 -80, this.game.height - 200, 'startButton', this.startInstructions, this);
+        var instructionsButton = this.game.add.button(this.game.width/2 -70, this.game.height - 300, 'instructionsButton', this.actionInstructions, this);
+        var startButton = this.game.add.button(this.game.width/2 - 73, this.game.height - 200, 'startButton', this.startInstructions, this);
     },
 
     actionInstructions: function(){

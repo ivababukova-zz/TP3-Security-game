@@ -18,12 +18,10 @@ Encrypt.GameWon.prototype = {
     this.foreground.autoScroll(0, 20);
 
 
-    var text = "YOUSA WON DIZ GAME \n Mesa very happy \n\n\n Your score is:";
+    var text = "YOUSA WON DIZ GAME \n Mesa very happy.\n\nYour score is: " + finalscore;
     var style = {font: "20px Arial", fill: "#fff", align: "center"};
     var textLabel = this.game.add.text(this.game.width / 2, this.game.height - 400 , text, style);
     textLabel.anchor.set(0.5);
-
-
 
     var backButton = this.game.add.button(this.game.width/2 -90, this.game.height - 200, 'restartButton', this.actionInstructions, this);
 },

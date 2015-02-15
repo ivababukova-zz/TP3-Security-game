@@ -15,10 +15,12 @@ var doorJustOpened = false;
 var doorsCollidable = true;
 var doorSound = null;
 var pickupSound = null;
+var finalscore;
 
 Encrypt.Game.prototype = {
   create: function () {
 
+    finalscore = 0;
     // array to hold rooms' graphics
     this.roomGraphs = [];
     // when the player touches the door, this.flagEnter is true, otherwise false.
@@ -28,7 +30,7 @@ Encrypt.Game.prototype = {
     hook = this;
 
     //creating the auxiliary systems
-    this.scoreSystem = new ScoreSystem(this.game);
+    this.scoreSystem = new ScoreSystem(this.game); // the score is initially 0
     this.metricsSystem = new MetricsSystem(this.game, true);
 
     this.map = this.game.add.tilemap('level1');
@@ -695,8 +697,11 @@ getEntropy: function (pwdFeed) {
       }
     // calls the win page @iva
     else if (collectable.type === "winkey" ) {
-      this.state.start('GameWon');
-      collectable.destroy();
+      // this.scoreSystem.setScore(this.score);
+        finalscore = this.scoreSystem.score;
+        console.log("scoooore: " + finalscore);
+        this.state.start('GameWon');
+        collectable.destroy();
     }
   },
 
