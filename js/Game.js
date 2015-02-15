@@ -76,16 +76,11 @@ Encrypt.Game.prototype = {
 	pickupSound = this.game.add.audio('pickUpSound');
 
 
-    // path-finding algorithm
-
-    var walkables = [30];
-
+    // path-finding algorithm set up
+    var walkables = [6013];
     this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
-    this.pathfinder.setGrid(this.map.layers[1].data, walkables);
-
-    this.marker = this.game.add.graphics();
-    this.marker.lineStyle(2, 0x000000, 1);
-    this.marker.drawRect(0, 0, 32, 32);
+    this.pathfinder.setGrid(this.map.layers[0].data, walkables);
+    //console.log(this.map.layers);
 
   },
 
@@ -117,30 +112,32 @@ Encrypt.Game.prototype = {
     this.moveCharacter(this.player.sprite, speed);
     /*BMDK: - Moved bringToTop here to allow the score to appear on top at all times*/
 
-    this.scoreLabel.text = "Score:" + this.scoreSystem.score;
-    this.game.world.bringToTop(this.scoreLabel);
+    this.scoreLabel.text = "Score:" + this.scoreSystem.score; // Andi: update the score
+    this.game.world.bringToTop(this.scoreLabel);              // and bring it to top of the rendered objects
 
+    //functionality for the path-finding algorithm
+    //this.marker.x = this.backgroundlayer.getTileX(this.game.input.activePointer.worldX) *32 ;
+    //this.marker.y = this.backgroundlayer.getTileY(this.game.input.activePointer.worldY) *32;
 
-    this.marker.x = this.backgroundlayer.getTileX(this.game.input.activePointer.worldX) * 32;
-    this.marker.y = this.backgroundlayer.getTileY(this.game.input.activePointer.worldY) * 32;
+    //if (this.game.input.mousePointer.isDown)
+    //{
+    //  this.findPathTo(this.backgroundlayer.getTileX(this.marker.x), this.backgroundlayer.getTileY(this.marker.y));
+    //}
 
-    if (this.game.input.mousePointer.isDown)
-    {
-      this.findPathTo(this.backgroundlayer.getTileX(this.marker.x), this.backgroundlayer.getTileY(this.marker.y));
-    }
-
+    this.enemy.update();
+    this.moveEnemy();
   },
 
-  findPathTo: function(tilex, tiley) {
+  findPathTo: function(enemyX, enemyY, playerX, playerY) {
 
     this.pathfinder.setCallbackFunction(function (path) {
       path = path || [];
-      for (var i = 0, ilen = path.length; i < ilen; i++) {
-        this.map.putTile(46, path[i].x, path[i].y);
-      }
+      console.log(path);
+      //for (var i = 0, ilen = path.length; i < ilen; i++) {
+        //this.map.putTile('yellowpolicy', path[i].x, path[i].y);
+      //}
     });
-
-    this.pathfinder.preparePathCalculation([0,0], [tilex,tiley]);
+    this.pathfinder.preparePathCalculation([enemyX, enemyY], [playerX,playerY]);
     this.pathfinder.calculatePath();
   },
 
@@ -164,7 +161,7 @@ Encrypt.Game.prototype = {
   //create an enemy
   createEnemy: function() {
 
-    this.enemy = new Enemy(100, 300, this.game, this.player);
+    this.enemy = new Enemy(350, 500, this.game, this.player);
   },
 
   // create items
@@ -626,7 +623,6 @@ getEntropy: function (pwdFeed) {
    */
   changeDoorStates: function(){
     if (this.flagEnter) {
-      console.log('in front of a door');
       /*BMDK:- update doorPass to track last door action*/
       doorPass = 'in front of a door';
     }
@@ -638,7 +634,6 @@ getEntropy: function (pwdFeed) {
         doorsCollidable = true;
         doorJustOpened = !doorJustOpened; // BMDK: set false as door is no longer open
       }
-      console.log('went away from the door');
        /*BMDK:- update doorPass to track last door action*/
       doorPass = 'went away from the door';
     }
@@ -678,7 +673,6 @@ getEntropy: function (pwdFeed) {
       else if (collectable.type === "firewall") {
         this.player.addItem(1);
         collectable.destroy();
-        // console.log ("just collected antivirus wohohohooooo!");
       }
 
       // added by @iva 07.02.2015
@@ -686,14 +680,12 @@ getEntropy: function (pwdFeed) {
         this.player.addItem(2);
         this.state.start('GameLost');
         collectable.destroy();
-        // console.log ("just collected antivirus wohohohooooo!");
       }
 
       // added by @iva 07.02.2015
       else if (collectable.type === "AntiKeyLog") {
         this.player.addItem(3);
         collectable.destroy();
-        // console.log ("just collected antivirus wohohohooooo!");
       }
     // calls the win page @iva
     else if (collectable.type === "winkey" ) {
@@ -851,6 +843,22 @@ getEntropy: function (pwdFeed) {
       }
     }
   },
+
+  /**
+   * Andi: method to move the enemy
+   * */
+  moveEnemy: function( ){
+
+    //get its tiles
+    var currentTileX = this.backgroundlayer.getTileX(this.enemy.sprite.x);
+    var currentTileY = this.backgroundlayer.getTileY(this.enemy.sprite.y);
+
+    var playerTileX = this.backgroundlayer.getTileX(this.player.sprite.x);
+    var playerTileY = this.backgroundlayer.getTileY(this.player.sprite.y);
+
+    this.findPathTo(currentTileX, currentTileY, playerTileX, playerTileY);
+
+  },
  /***************************** UNUSED METHODS ***********************************
 **************** function that changes the door tile with the the player sprite, i.e. simulates opened door
   openDoor: function (object1, object2) {
@@ -862,7 +870,6 @@ getEntropy: function (pwdFeed) {
       this.showNextFrame = this.showNextFrame.concat([object2]);
     }
   }, ***********/
-
   // function to open a new window in the middle of the screen
   // used for the doors interface
   popup: function (url, title, w, h) {
