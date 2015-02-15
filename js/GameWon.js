@@ -7,9 +7,9 @@
 //
 Encrypt = Encrypt || {};
 
-Encrypt.GameOver = function(){};
+Encrypt.GameWon = function(){};
 
-Encrypt.GameOver.prototype = {
+Encrypt.GameWon.prototype = {
 
   create: function () {
 

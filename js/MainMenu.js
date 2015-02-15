@@ -8,6 +8,10 @@ Encrypt.MainMenu = function(){};
 Encrypt.MainMenu.prototype = {
 
     create: function() {
+	
+		//play main menu music
+	    this.music = this.game.add.audio('music');
+        this.music.play();
 
         //show the space tile, repeated: - (BMDK - Updated to our backdrop)
         this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
@@ -19,11 +23,6 @@ Encrypt.MainMenu.prototype = {
         this.background.autoScroll(-20, 0);
         //BMDK:- Letters are given other direction of scrolling
         this.foreground.autoScroll(0, 20);
-
-        var text = "Tap SPACEBAR tae begin";
-        var style = {font: "20px Arial", fill: "#fff", align: "center"};
-        var textLabel = this.game.add.text(this.game.width / 2, this.game.height - 400 , text, style);
-        textLabel.anchor.set(0.5);
 
         text = "WELCOME TO 3NCRYPT, PLAYA' \n HAI BRYAN, HEN xoxo";
         style = {font: "35px Arial", fill: "#fff", align: "center"};
@@ -46,6 +45,7 @@ Encrypt.MainMenu.prototype = {
     },
 
     startInstructions: function(){
+		this.music.stop();
         this.game.state.start('Game');
     }
 };

@@ -61,12 +61,19 @@ Encrypt.Preload.prototype = {
     //main menu images
     this.load.image('space', 'assets/images/BackDrop.png');
     this.load.image('space2', 'assets/images/MLetters.png');
+    this.load.image('gameover', 'assets/images/GameOver.png');
 
     // buttons:
     this.load.image('backButton', 'assets/images/gobackButtonIva.png');
     this.load.image('instructionsButton', 'assets/images/instructionsButton.png');
     this.load.image('restartButton', 'assets/images/restart_button.png');
     this.load.image('startButton', 'assets/images/startButton.png');
+	
+	//music
+    this.load.audio('music', 'assets/sounds/main_music.ogg');
+    //this.load.audio('passwordSound', 'assets/sounds/door_sound.wav');
+    this.load.audio('pickUpSound', 'assets/sounds/pickup_sound.ogg');
+	this.load.audio('doorSound', 'assets/sounds/door_open.ogg');
 
   },
   create: function() {

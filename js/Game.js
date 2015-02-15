@@ -13,6 +13,8 @@ var lastKnownPlayerDirection = ['',0]; /*BMDK: for the purpose of tracking what 
 var doorPass = ''; /*BMDK: for the purpose of being able to eventually close a door via animation*/
 var doorJustOpened = false;
 var doorsCollidable = true;
+var doorSound = null;
+var pickupSound = null;
 
 Encrypt.Game.prototype = {
   create: function () {
@@ -66,6 +68,10 @@ Encrypt.Game.prototype = {
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
     //ESC key is used for closing pop ups
     this.escapeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+	
+	//create sounds used elsewhere in the game
+	doorSound = this.game.add.audio('doorSound');
+	pickupSound = this.game.add.audio('pickUpSound');
 
 
     // path-finding algorithm
@@ -81,6 +87,7 @@ Encrypt.Game.prototype = {
 
   },
 
+  // UPDATE STATE:
   update: function () {
     var self = this;
     //collision
@@ -92,10 +99,10 @@ Encrypt.Game.prototype = {
     if(doorsCollidable){
       this.game.physics.arcade.collide(this.player.sprite, this.doorBlocks);
     }
+
     this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
     this.game.physics.arcade.collide(this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
-
-    var itemsOverlapped = this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
+    this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
 
     this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     // when come out the door, check the room.
@@ -301,6 +308,12 @@ Encrypt.Game.prototype = {
         return;
       }
     }, this);
+    // added by @iva
+    console.log("in getCurrentRoom function ... current room: " + currentRoom);
+    if (currentRoom == 2) {  // need better method to detet infected room
+      console.log("this room is infected!");
+    }
+    // 
   },
   /** Draws the rooms */
   drawRooms: function() {
@@ -392,6 +405,7 @@ Encrypt.Game.prototype = {
           document.getElementById("feedbackField").style.display = "none";
           document.getElementById("mainLayer").style.display= "none";
           self.changeDoorState(currentDoor,'opening');
+		  doorSound.play();
           doorsCollidable = false;
           doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
@@ -637,6 +651,9 @@ getEntropy: function (pwdFeed) {
    * @param collectable
    */
   pickupItem: function(player, collectable){
+  
+    pickupSound.play(); //play sound when object is picked up
+	
     if (collectable.type === "clue"  || (collectable.type === "info") ) {
       this.showHint(player, collectable);
     }
@@ -656,7 +673,7 @@ getEntropy: function (pwdFeed) {
     // added by @iva 07.02.2015
     else if ( collectable.type === "antivirus" ) {
       this.player.addItem(2);
-      this.state.start('GameOver');
+      this.state.start('GameLost');
       collectable.destroy();
       // console.log ("just collected antivirus wohohohooooo!");
     }
@@ -679,10 +696,14 @@ getEntropy: function (pwdFeed) {
     // change the current display of the hints as the current one is quite ugly
   showHint: function(player, collectable) {
     var array = [];
-    array.push("how to make your \npassword stronger:\n hint 1");
-    array.push("how to make your \npassword stronger:\n hint 2");
-    array.push("how to make your \npassword stronger:\n hint 3");
-    array.push("how to make your \npassword stronger:\n hint 4");
+    array.push("Don't share\n your passwords\n with anyone");
+    array.push("Use combination of \nsmall and big letters, \nnumbers and special characters");
+    array.push("Don't ever use\n same passwords on\n multiple websites");
+    array.push("Don't include\n personal information\n in your passwords");
+    array.push("Create passwords\n easy to remember\n but hard to guess");
+    array.push("Make your passwords \nat least \n8 characters long");
+    array.push("Don't let your \nbrowser remember \nthe password for you");
+    array.push("Always log off if \nyou leave your device \nand anyone is around");
     var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
     var hint = array[randomIndex];
 
