@@ -1,0 +1,23 @@
+Coding session 15/02/2015
+
+Bugs: -
+
+1. Door bugs: - door not existent at all, door without policy, door without animation are fixed ~ Iva
+2. Map: - added background tiles to make a path for the path finding algorithm ~ Bryan
+
+Features: -
+
+1. Score System fully working ~ Andy
+2. Password reset option ~ Antanas
+3. Database system ~ Bryan
+4. Other password features ~ Antanas
+5. Integrating the password note ~ Magda
+6. Integrating the path finding algorithm ~ Andy
+7. Questionaire for the evaluation ~ Magda
+
+Enhancements: -
+
+1. Final score is displayed on the GameWon page and the GameLost page ~ Iva
+2. Write hints/tips for player feedback etc... ~ Magda
+3. Instructions ~ Iva
+4. Menu graphics: - Design refinement ~ Iva
