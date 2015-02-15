@@ -24,11 +24,11 @@ Encrypt.Instructions.prototype  = {
         textLabel = this.game.add.text(this.game.width/2, this.game.height - 460, text, style);
         textLabel.anchor.set(0.5);
 
-        text = "FIND the key that would lead you to the space ship.\n" +
+        text = "FIND the KEY that would lead you to the space ship.\n" +
                 "The space ship will take you back home.\n" +
-                "The key is HIDDEN in one of the rooms.\n" +
+                "The key is HIDDEN in one of the ROOMS.\n" +
                 "While navigating through doors, you will SET UP PASSWORDS\n" +
-                "The aliens will try to BREAK YOUR PASSWORDS and catch you\n" +
+                "The aliens will try to BREAK YOUR PASSWORDS and catch you.\n" +
                 "You need to create as STRONG passwords as possible\n" +
                 "so it is hard for them to brake them and catch you.\n" +
                 "Collect the HINTS ICONS during the game.\n" +

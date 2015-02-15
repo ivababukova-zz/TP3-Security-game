@@ -26,7 +26,7 @@ Encrypt.GameLost.prototype = {
     textLabel.anchor.set(0.5);
 
     text = "Your score is: " + finalscore;
-    tyle = {font: "30px Serif", fill: "#fff", align: "center"};
+    style = {font: "30px Serif", fill: "#fff", align: "center"};
     textLabel = this.game.add.text(this.game.width / 2, this.game.height - 250 , text, style);
     textLabel.anchor.set(0.5);
 
@@ -35,7 +35,7 @@ Encrypt.GameLost.prototype = {
 
   actionInstructions: function(){
 
-    this.game.state.start('Game');
+    this.game.state.start('MainMenu');
   }
 
 
