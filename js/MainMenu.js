@@ -25,19 +25,23 @@ Encrypt.MainMenu.prototype = {
         this.foreground.autoScroll(0, 20);
 
         text = "WELCOME TO 3NCRYPT, PLAYA' \n HAI BRYAN, HEN xoxo";
-        style = {font: "35px Arial", fill: "#fff", align: "center"};
+        style = {font: "35px Serif", fill: "#fff", align: "center"};
         var welcomeLabel = this.game.add.text(this.game.width / 2, this.game.height - 500, text, style);
         welcomeLabel.anchor.set(0.5);
 
 
-        text = "Dun farget tae bring yer knife eh";
-        style = {font: "20px Arial", fill: "#fff", align: "center"};
-        var bestLabel = this.game.add.text(this.game.width / 2, this.game.height - 360, text, style);
+        text =  "You have just discovered that you are on a spaceship\n" +
+                "The cruel aliens kidnapped you here :(\n" +
+                "Don't worry, there is hope, you can ESCAPE\n" +
+                "See how on the instructions page\n" +
+                "And dun farget tae bring yer knife eh";
+        style = {font: "20px Serif", fill: "#fff", align: "center"};
+        var bestLabel = this.game.add.text(this.game.width / 2, this.game.height - 350, text, style);
         bestLabel.anchor.set(0.5);
 
 
-        var instructionsButton = this.game.add.button(this.game.width/2 -70, this.game.height - 340, 'instructionsButton', this.actionInstructions, this);
-        var startButton = this.game.add.button(this.game.width/2 -80, this.game.height - 200, 'startButton', this.startInstructions, this);
+        var instructionsButton = this.game.add.button(this.game.width/2 -70, this.game.height - 240, 'instructionsButton', this.actionInstructions, this);
+        var startButton = this.game.add.button(this.game.width/2 - 73, this.game.height - 150, 'startButton', this.startInstructions, this);
     },
 
     actionInstructions: function(){

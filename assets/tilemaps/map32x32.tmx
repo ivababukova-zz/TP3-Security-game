@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="61" height="80" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="62" height="80" tilewidth="32" tileheight="32" nextobjectid="90">
  <tileset firstgid="1" name="32x32TileSet1Encrypt" tilewidth="32" tileheight="32">
   <image source="../EncryptTileSets/32x32TileSet1Encrypt.png" width="3200" height="3200"/>
  </tileset>
@@ -34,134 +34,134 @@
   <image source="../images/winkey.png" width="32" height="32"/>
  </tileset>
  <objectgroup name="doorBlocks">
-  <object gid="6116" x="160" y="426">
+  <object id="1" gid="6116" x="192" y="426">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="576" y="685">
+  <object id="2" gid="6116" x="608" y="685">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="512" y="192">
+  <object id="3" gid="6116" x="544" y="192">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="1216" y="192">
+  <object id="4" gid="6116" x="1248" y="192">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="1216" y="800">
+  <object id="5" gid="6116" x="1248" y="800">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="1440" y="928">
+  <object id="6" gid="6116" x="1472" y="928">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="960" y="1536">
+  <object id="7" gid="6116" x="992" y="1536">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="736" y="1632">
+  <object id="8" gid="6116" x="768" y="1632">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="128" y="896">
+  <object id="9" gid="6116" x="160" y="896">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="736" y="2176">
+  <object id="10" gid="6116" x="768" y="2176">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="352" y="1966">
+  <object id="11" gid="6116" x="384" y="1966">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="1248" y="1995">
+  <object id="12" gid="6116" x="1280" y="1995">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="1504" y="1804">
+  <object id="13" gid="6116" x="1536" y="1804">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="352" y="1451">
+  <object id="14" gid="6116" x="384" y="1451">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="608" y="1259">
+  <object id="15" gid="6116" x="640" y="1259">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="1632" y="685">
+  <object id="16" gid="6116" x="1664" y="685">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="1600" y="1387">
+  <object id="17" gid="6116" x="1632" y="1387">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object gid="6116" x="1056" y="427">
+  <object id="18" gid="6116" x="1088" y="427">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
  </objectgroup>
- <layer name="backgroundLayer" width="61" height="80">
+ <layer name="backgroundLayer" width="62" height="80">
   <data encoding="base64" compression="zlib">
-   eJztmkFOwzAQRYtYV5SySG/CkgMAS06CgEXoCrriQNwCjgA7wi1wRC0Fkzie8R9nnPpLX43S1J4XTyftJNtqcVDaVr8+JB0a75BOV+Ee++zN8q9DxmyPC4nJHdvnMdl8D7GrlwrjmJhC4owZ/2R/ztfGZyscszuuJuZbE8+d8b3xA5DZHVcTc733I4i1aztuHckrwfxh/CnAbMfVxuwq1xpmZXMrlTjzoZltbqUSZz6Jda4TrzNnPi7z2/q/bQx970mYMh+CObZGpDRqnafmKMyFOQVzjCSu6SHxc2JAMUtc06nMoTEgeFtJXdOp6xwSw9B4F0c02/mon3NNYQ6JgcKssU5xYizMOpl9vaG5Mvt6Q3Nl7vac3D4Jmhndb4xhHuoNoZnR/UaufVycdfEx+3JKCzNnXcaYkf1GCWbOuviYfXNpYqauS+7MnBgLc2EuzDxJ90p8703FLN0r8b035TqjeyWSzOfH8T0OVK/E+n0ty5yDfaLUEm2xcxVaS6jfPdR9YgmF1hIqM+o+MULtf8qQWhIrxH1iV9z6hvoeoeoyhXnq2iE1z6Ezp+67aWBO3XfTwJy675aK2Ze/qftuqZjR9yJyYEbfi8iFOfReRIwQPQqpcyvFjOhR5MaM6FGkYH5d4noK1B7FVMxTmiNuzZiaNYY59XPd6N4xhzv1c93oc9zHLPX/masU5/jJjP9svKvitl1N2Tse05cZvzH+ruK2XWmuW5ebxeLK+HoTt50TMyef64Dc1sxMzWH7uqvyzu027r687e63203Vv1/Ls2ahud305Kq73243A/u1PGsmldtX+/V1j9HwrBk1t7s8vtweOkbDs2aU3G7dze2hHLas7jGuNDNz67bdl2vdLr9JML+3NTOX39slt+ea20Xz1A8coM94
+   eJztmkFSwzAMRcOw7lDKor0JSw4ALDkJAywSVsCKA3ELOALsgFvgDPWMMa0iyZIjJ/4zf5pp0tgvVpRUdtM0zf26mZU871y5q351vMR76LdXi7/GnLM/DtOn+NyQMerjAOtYz2sZp/QJ089U7qPttV85nyzluOPzWuO+dn26cb51vhPkjs9rjbvduhPiDe3P2yYya3G/O38ocPvzWuSOVXJe8/Jxlkuc9jS4fZzlEqc9rfFuM483p70U7tfVf/t+7NqnYUp7EtydQL7MaanxrtxluHLLcqdI45mPYeD0QZJb45lP5cb2oRNi7qX1zKeON6YPEPfZAc2+TervYlO4MX2gclvMXZw+Vm7b3FCdacrcUJ1pytxh/Squt2hwS9cxU7j31Zk0uKXrmFxDbJyxGeKG4ssKN2dsMNySdUwNbs7YDHFD7Vnipo7NFLg5fazclbty795PlXbNBdo3Jrd2zQXaN/Z4S9dctLlPD9NrJVI1F++3lT53CYZEyS1jcWuIkluo96LUPLWGKLmFyi01Ty2h/v8oJrdISGKeOhY350neU1L5msJtIZdotVW589fxrHDnruNZ4c5dx8vJDcVy7jpeTm7pOY9SuKXnPErixs55pEiqzqF1jbW4peocpXFL1TlycL8s5OoS1DrHmNxjmituHhmbN5U797p06bo0lz33unTp67yPW+v/N1e5rvODa+PR+Wmdth1rzLo0Rp+ujS/n73Xadizruex80zQXzpebtO3SuMNY7QJDsd0i4tw6dxirIfe+eA6PLTnOudxP0fdW1sJxuMO4hbh3fW9lLRyHG7MdfsbHWFgLx+GGmIaO6XO7hbVwVO5d+Qrijo+JVQp33/f+Odxtx25ovEvnDt89wnwOvav4z6m8t0i+n1vnru/n830/n1OcV01XPzvJ8JE=
   </data>
  </layer>
- <layer name="blockedLayer" width="61" height="80">
+ <layer name="blockedLayer" width="62" height="80">
   <data encoding="base64" compression="zlib">
-   eJztnDtOAzEQQBNQRBE+UhqUtJyACiiAgoKCmjMAokDUCFFwDCqqlBwDIUQV5QQUXIN1MWJ22J14du1Z7+48yRIfe+wngj+zTg6Gg97x0kNnzHHmfyIoZ0O+7eVWvvjEdPVWxS2KzRUcj/Iq/JvPUX1pW824cybGaE0Wa5zVv5sOBvdTedtVcRdZzGWguGMmRshxp4Q55zHn7sA5v+3IYy0iz2E3keewzaksFq4vbasZl3M+nMli4frStppxqfPVJHv9FBSg6Hcxim9/bk8Fe4ILz/9F6vw5Ka6XKnhPVdX5YTfceDQ4R57mXI45m3MbwM6+azet12Zn37Wb1sPOLh7sJV1+4lRYAGk7WtwaDOPYIGspdnZj/FjLFwD/jOZJqDMQMu8hBa/BnLPvGGmepMw5xN6+KnjO4Zx9zzXcHJaSs89ru0vOHObs12aVM7ym+uLcBpyzNL/cBmduDqsaD5OqM2DO9eM5UpzDtJ2BVJ1Dz2FtcQbM2S+ew5z/vg75XEIK7lvTOeRzCSm479jO7pnGdc0C1I0D5Taycxvou3Nf8p54/FXznk/b4cajAYz/aOaX8yzKe3434Iz3j0X5Wt/iC817wrli6ZnTBiQ56r3R/z4BjZwyd88g1l0+zlnj3g7nHHK/ifspco5xf9BnLBQtZ23MOU9o57I5TBst55RIwbmrcxhHV9cqDu3cBNeH1hymnZvg+tBaq94r7q+5Pbdv/S/i2NX1GbO/nv++D86PJF8Q6w52ys6x7mA3mTemPJN8QejzM9Bk3pjyQ5xjnZ+r3K8Lec+Ou+ceaw5r8n6dg3vvYCznps8uTZyfzVkf7ZxBqPeF1R1LGU2PLRbmnMecu4PNYXlsrQrXjznrY855zDlcPyk7p/yZBHXg+k/5MwnqQPv/Bdrg+EA=
+   eJztnDtOAzEQQJegiCJ8pDRR0nICKqAACgoKas4AiALRgyg4BhUVJcdACFEhTkDBNVjLGmlwjO2J7bE3O09yQ7yzfhDG9qyT20nT7K40veO29X7sqTfmoP0dHBLa8Yr72rONvy0kpurni2uL7Wo4ns37ifi3f0b9qddyxn32eA8HtHijtv/1tGlupvRrfXE/25hfieKOjBix3l1BvDXiremr98sWPd5n5rx2yZDX1qe0eLg/9VrOuD7vvRktHu5PvZYzrs37fNy+lywNsL2Wo4XeT629YM1wGvh/afN+H9v71gpee8V4d40T5CrebsRbI97dAXuHzu1mv657h87tZj/TW8WEdaeqcxwRG0C9zmxqjoZxrI3nxwioMb4N/jYA/8xXb8ExU9ZPqOA52uUdOkZfvQXHTLEfWBSch1zeoXshX16ryTvkfb5s3i7EO603vL/65N0FlDe1dt0Vb1deWzQepmZvQLzTxFPUmtdKeAO1eufIa13xBsQ7PJ5CvOdjpnz+QQXfm9s75fMPKvjeHN7q2clFZANi40C7YvDuAuLdr3oqdoipp95vphsTB+CwPwurpf5XT/0u4I3XmrZacGgLxVZPhb3IV2DNHKDUwLeH894AR73al9dynTl0eXOcJfJ5p1yb4nvZvHOccwwZi6KUNzfircnt/V9e44bTuyZq8V7mvOZimecxF9z1Dd++hCuvcdc3fOc8uOax1wXX4641emj/j0F/5m/Mzmo/ve8m8efPXeBYtXvnOkNesiZt8rBp/7xgyv03ULImbfJj8c61/17kDGDKs4DmWX2uvFbyDKDCd24vl3fp/U6p/bd4l6FE3SHVZ99ix4KRuoNGvJcL8dZIXtPIPJb2XuJdBvHWiLemr941f0dDDL7nBjV/R0MM5v1/AVZEFkc=
   </data>
  </layer>
  <objectgroup name="objectsLayer">
-  <object gid="10667" x="1088" y="416">
+  <object id="19" gid="10667" x="1120" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object gid="10667" x="1088" y="416">
+  <object id="20" gid="10667" x="1120" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="red"/>
@@ -169,7 +169,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10667" x="192" y="416">
+  <object id="21" gid="10667" x="224" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="blue"/>
@@ -177,7 +177,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10667" x="640" y="1248">
+  <object id="22" gid="10667" x="672" y="1248">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -185,7 +185,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10667" x="1632" y="1375.5">
+  <object id="23" gid="10667" x="1664" y="1375.5">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="red"/>
@@ -193,14 +193,15 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10667" x="1536" y="1792">
+  <object id="24" gid="10667" x="1568" y="1792">
    <properties>
     <property name="password" value="null"/>
+    <property name="policy" value="green"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10667" x="1664" y="672">
+  <object id="25" gid="10667" x="1696" y="672">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="blue"/>
@@ -208,7 +209,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10667" x="608" y="672">
+  <object id="26" gid="10667" x="640" y="672">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -216,7 +217,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10667" x="384" y="1440">
+  <object id="27" gid="10667" x="416" y="1440">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -224,7 +225,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10667" x="384" y="1952">
+  <object id="28" gid="10667" x="416" y="1952">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -232,14 +233,14 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10667" x="1279.88" y="1982.88">
+  <object id="29" gid="10667" x="1311.88" y="1982.88">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10667" x="1280" y="1984">
+  <object id="30" gid="10667" x="1312" y="1984">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -247,61 +248,61 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object gid="10734" x="376" y="864">
+  <object id="31" gid="10734" x="408" y="864">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="clue"/>
    </properties>
   </object>
-  <object gid="10734" x="1022.67" y="1044">
+  <object id="32" gid="10734" x="1054.67" y="1044">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="clue"/>
    </properties>
   </object>
-  <object gid="10734" x="1684.85" y="960.606">
+  <object id="33" gid="10734" x="1716.85" y="960.606">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="clue"/>
    </properties>
   </object>
-  <object gid="10734" x="1363.64" y="1572.73">
+  <object id="34" gid="10734" x="1395.64" y="1572.73">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="clue"/>
    </properties>
   </object>
-  <object gid="10734" x="584.848" y="1706.06">
+  <object id="35" gid="10734" x="616.848" y="1706.06">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="clue"/>
    </properties>
   </object>
-  <object gid="10734" x="157.576" y="1545.45">
+  <object id="36" gid="10734" x="189.576" y="1545.45">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="clue"/>
    </properties>
   </object>
-  <object gid="10734" x="1433.33" y="212.121">
+  <object id="37" gid="10734" x="1465.33" y="212.121">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="clue"/>
    </properties>
   </object>
-  <object gid="10734" x="1393.94" y="2230.3">
+  <object id="38" gid="10734" x="1425.94" y="2230.3">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object gid="10734" x="221.212" y="2381.82">
+  <object id="39" gid="10734" x="253.212" y="2381.82">
    <properties>
     <property name="sprite" value="clue"/>
     <property name="type" value="item"/>
    </properties>
   </object>
-  <object gid="10735" x="486" y="512">
+  <object id="40" gid="10735" x="518" y="512">
    <properties>
     <property name="colour" value="blue"/>
     <property name="minLength" value="8"/>
@@ -312,7 +313,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object gid="10735" x="884" y="518">
+  <object id="41" gid="10735" x="916" y="518">
    <properties>
     <property name="colour" value="red"/>
     <property name="minLength" value="10"/>
@@ -323,7 +324,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object gid="10735" x="1116" y="530">
+  <object id="42" gid="10735" x="1148" y="530">
    <properties>
     <property name="colour" value="yellow"/>
     <property name="minLength" value="10"/>
@@ -334,7 +335,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object gid="10735" x="1244" y="524">
+  <object id="43" gid="10735" x="1276" y="524">
    <properties>
     <property name="colour" value="magenta"/>
     <property name="minLength" value="10"/>
@@ -345,7 +346,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object gid="10736" x="95.75" y="895.25">
+  <object id="44" gid="10736" x="127.75" y="895.25">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -353,7 +354,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object gid="10736" x="95.75" y="895.25">
+  <object id="46" gid="10736" x="1215.64" y="799.091">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -361,7 +362,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object gid="10736" x="1183.64" y="799.091">
+  <object id="47" gid="10736" x="511.909" y="192">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -369,7 +370,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object gid="10736" x="479.909" y="192">
+  <object id="48" gid="10736" x="1215.91" y="191.909">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -377,7 +378,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object gid="10736" x="1183.91" y="191.909">
+  <object id="49" gid="10736" x="1440" y="928">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -385,7 +386,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object gid="10736" x="1408" y="928">
+  <object id="50" gid="10736" x="960" y="1536">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -393,7 +394,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object gid="10736" x="928" y="1536">
+  <object id="51" gid="10736" x="736" y="1631.94">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -401,97 +402,97 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object gid="10736" x="704" y="1631.94">
-   <properties>
-    <property name="password" value="null"/>
-    <property name="policy" value="green"/>
-    <property name="sprite" value="sideDoor"/>
-    <property name="type" value="sideDoor"/>
-   </properties>
-  </object>
-  <object gid="11008" x="852" y="241">
+  <object id="52" gid="11008" x="884" y="241">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object gid="11008" x="238" y="228">
+  <object id="53" gid="11008" x="270" y="228">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object gid="11008" x="1082" y="2430">
+  <object id="54" gid="11008" x="1114" y="2430">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object gid="11008" x="1788" y="1460">
+  <object id="55" gid="11008" x="1820" y="1460">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object gid="11009" x="509.333" y="1612.67">
+  <object id="56" gid="11009" x="541.333" y="1612.67">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
-  <object gid="11009" x="1090.91" y="775.758">
+  <object id="57" gid="11009" x="1122.91" y="775.758">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
-  <object gid="11010" x="553.697" y="2097.82">
+  <object id="58" gid="11010" x="585.697" y="2097.82">
    <properties>
     <property name="isActivated" value="false"/>
     <property name="sprite" value="firewall"/>
     <property name="type" value="firewall"/>
    </properties>
   </object>
-  <object gid="11010" x="1718.18" y="2139.39">
+  <object id="59" gid="11010" x="1750.18" y="2139.39">
    <properties>
     <property name="isActivated" value="false"/>
     <property name="sprite" value="firewall"/>
     <property name="type" value="firewall"/>
    </properties>
   </object>
-  <object gid="11010" x="642.424" y="1072.73">
+  <object id="60" gid="11010" x="674.424" y="1072.73">
    <properties>
     <property name="isActivated" value="false"/>
     <property name="sprite" value="firewall"/>
     <property name="type" value="firewall"/>
    </properties>
   </object>
-  <object gid="11011" x="728" y="536">
+  <object id="61" gid="11011" x="760" y="536">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object gid="11011" x="884" y="894">
+  <object id="62" gid="11011" x="916" y="894">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object gid="11011" x="336" y="1744">
+  <object id="63" gid="11011" x="368" y="1744">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object gid="11012" x="476" y="2186">
+  <object id="64" gid="11012" x="508" y="2186">
    <properties>
     <property name="sprite" value="winkey"/>
     <property name="type" value="winkey"/>
    </properties>
   </object>
+  <object id="89" gid="10776" x="736" y="2175.94">
+   <properties>
+    <property name="password" value="null"/>
+    <property name="policy" value="green"/>
+    <property name="sprite" value="sideDoor"/>
+    <property name="type" value="sideDoor"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup name="RoomLayer">
+ <objectgroup name="RoomLayer" visible="0">
   <properties>
    <property name="idx" value="3"/>
    <property name="state" value="1"/>
@@ -501,14 +502,14 @@
    <property name="vx" value="44"/>
    <property name="vy" value="2"/>
   </properties>
-  <object x="1280" y="32" width="576" height="288">
+  <object id="65" x="1312" y="32" width="576" height="288">
    <properties>
     <property name="idx" value="3"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="576" y="32" width="640" height="352">
+  <object id="66" x="608" y="32" width="640" height="352">
    <properties>
     <property name="idx" value="2"/>
     <property name="infected" value="true"/>
@@ -516,35 +517,35 @@
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="32" y="32" width="544" height="352">
+  <object id="67" x="64" y="32" width="544" height="352">
    <properties>
     <property name="idx" value="1"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="1504" y="320" width="352" height="320">
+  <object id="68" x="1536" y="320" width="352" height="320">
    <properties>
     <property name="idx" value="3"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="800" y="2016" width="1056" height="480">
+  <object id="69" x="832" y="2016" width="1056" height="480">
    <properties>
     <property name="idx" value="4"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="96" y="1984" width="640" height="544">
+  <object id="70" x="128" y="1984" width="640" height="544">
    <properties>
     <property name="idx" value="5"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="96" y="1472" width="640" height="448">
+  <object id="71" x="128" y="1472" width="640" height="448">
    <properties>
     <property name="idx" value="6"/>
     <property name="infected" value="false"/>
@@ -552,91 +553,91 @@
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="192" y="704" width="1024" height="512">
+  <object id="72" x="224" y="704" width="1024" height="512">
    <properties>
     <property name="idx" value="7"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="1504" y="704" width="352" height="640">
+  <object id="73" x="1536" y="704" width="352" height="640">
    <properties>
     <property name="idx" value="8"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="1056" y="1408" width="800" height="352">
+  <object id="74" x="1088" y="1408" width="800" height="352">
    <properties>
     <property name="idx" value="9"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="800" y="1824" width="1152" height="128">
+  <object id="75" x="832" y="1824" width="1152" height="128">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="800" y="1280" width="160" height="544">
+  <object id="76" x="832" y="1280" width="160" height="544">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="960" y="1280" width="480" height="96">
+  <object id="77" x="992" y="1280" width="480" height="96">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="1280" y="448" width="160" height="832">
+  <object id="78" x="1312" y="448" width="160" height="832">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="0" y="448" width="1280" height="192">
+  <object id="79" x="32" y="448" width="1280" height="192">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="0" y="640" width="128" height="768">
+  <object id="80" x="32" y="640" width="128" height="768">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="128" y="1280" width="672" height="128">
+  <object id="81" x="160" y="1280" width="672" height="128">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="192" y="704" width="1024" height="512">
+  <object id="82" x="224" y="704" width="1024" height="512">
    <properties>
     <property name="idx" value="7"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="192" y="704" width="1024" height="512">
+  <object id="83" x="224" y="704" width="1024" height="512">
    <properties>
     <property name="idx" value="7"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="96" y="1472" width="640" height="448">
+  <object id="84" x="128" y="1472" width="640" height="448">
    <properties>
     <property name="idx" value="6"/>
     <property name="state" value="1"/>
@@ -644,9 +645,9 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="overPlayerLayer" width="61" height="80">
+ <layer name="overPlayerLayer" width="62" height="80">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
 </map>
