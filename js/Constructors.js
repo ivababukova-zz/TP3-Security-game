@@ -191,7 +191,7 @@ Player.prototype = {
  *  Enemy area
  * */
 
-Enemy = function(currentX, currentY, game, player) {
+Enemy = function(currentX, currentY, game, player, backgroundLayer) {
 
     // x,y coordinates
     this.currentX = currentX;
@@ -199,6 +199,7 @@ Enemy = function(currentX, currentY, game, player) {
 
     this.game = game;
     this.player =player;
+    this.backgroundLayer = backgroundLayer;
 
     // visibility - set to true?
     this.isVisible = true;
@@ -212,6 +213,15 @@ Enemy = function(currentX, currentY, game, player) {
     this.loggerChance = 0.1;
     // room infection chance set to 0.1 by default -  set to private as not used outside of object
     this.virusChance = 0.1;
+    // an array that stores the path to the player
+    this.pathToPlayer = [];
+    //variable to keep track of how often the path-finding algorithm is called
+    this.countsToFindPath = 30;
+    // variable to keep track of whether a new path has been given
+    this.newPath = false;
+    //variable to keep track of the position in the path array
+    this.pathPosition = 0;
+
 
     //add its sprite
     this.sprite = game.add.sprite(currentX, currentY, 'enemy');
@@ -227,8 +237,65 @@ Enemy.prototype = {
 
     update: function(){
 
+       // console.log(this.backgroundLayer.data);
+        if( !this.newPath && this.pathPosition < this.pathToPlayer.length){
 
-        this.sprite.body.velocity.x = 10;
+
+            var next = this.pathToPlayer[this.pathPosition];
+            var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
+            var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
+
+            console.log(next.x + " " + next.y +
+                        "Sprite: " + this.sprite.x + ", " + this.sprite.y);
+            // go down and right
+            if( next.x > enemyTileX && next.y > enemyTileY ){
+                this.sprite.body.velocity.x += 32;
+                this.sprite.body.velocity.y += 32;
+            }
+
+            // go down and left
+            else if( next.x < enemyTileX && next.y > enemyTileY ){
+                this.sprite.body.velocity.x -= 32;
+                this.sprite.body.velocity.y += 32;
+            }
+
+            // go up and left
+            else if( next.x < enemyTileX && next.y < enemyTileY ){
+                this.sprite.body.velocity.x -= 32;
+                this.sprite.body.velocity.y -= 32;
+            }
+
+            // go up and right
+            else if( next.x > enemyTileX && next.y < enemyTileY ){
+                this.sprite.body.velocity.x += 32;
+                this.sprite.body.velocity.y -= 32;
+            }
+
+            // go right
+            else if( next.x > enemyTileX && next.y === enemyTileY){
+                this.sprite.body.velocity.x += 32;
+            }
+            // go left
+            else if( next.x < enemyTileX && next.y === enemyTileY) {
+                this.sprite.body.velocity.x -= 32;
+            }
+            // go up
+            else if( next.x === enemyTileX && next.y < enemyTileY) {
+                this.sprite.body.velocity.y -= 32;
+            }
+            // go down
+            else if( next.x === enemyTileX && next.y > enemyTileY) {
+                this.sprite.body.velocity.x += 32;
+            }
+
+            this.pathPosition++;
+        }
+        else if ( this.pathPosition == this.pathToPlayer.length) {
+            this.newPath = true;
+            this.pathPosition = 0;
+        }
+
+       // this.sprite.body.velocity.x = 10;
     },
 
     putKeyLogger: function(door){

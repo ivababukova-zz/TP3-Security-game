@@ -75,12 +75,16 @@ Encrypt.Game.prototype = {
 	doorSound = this.game.add.audio('doorSound');
 	pickupSound = this.game.add.audio('pickUpSound');
 
-
     // path-finding algorithm set up
-    var walkables = [6013];
+
+    /*Andi: Set-up of the path finding algorithm
+     * walkables is an array of the indexes of the walkable tiles
+     * */
+    var walkables = [319, 823, 3413, 3511, 4111, 4113, 4114, 4115, 4211, 4213, 4214, 4215, 4814, 4815,
+      6011, 6012, 6013, 6019, 6020, 6021, 6027, 6111, 6112, 6119, 6120, 6121, 6219, 6220, 6221, -1];
+
     this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
     this.pathfinder.setGrid(this.map.layers[0].data, walkables);
-    //console.log(this.map.layers);
 
   },
 
@@ -115,30 +119,19 @@ Encrypt.Game.prototype = {
     this.scoreLabel.text = "Score:" + this.scoreSystem.score; // Andi: update the score
     this.game.world.bringToTop(this.scoreLabel);              // and bring it to top of the rendered objects
 
-    //functionality for the path-finding algorithm
-    //this.marker.x = this.backgroundlayer.getTileX(this.game.input.activePointer.worldX) *32 ;
-    //this.marker.y = this.backgroundlayer.getTileY(this.game.input.activePointer.worldY) *32;
-
-    //if (this.game.input.mousePointer.isDown)
-    //{
-    //  this.findPathTo(this.backgroundlayer.getTileX(this.marker.x), this.backgroundlayer.getTileY(this.marker.y));
-    //}
-
+    //add a variable to let
     this.enemy.update();
-    this.moveEnemy();
-  },
-
-  findPathTo: function(enemyX, enemyY, playerX, playerY) {
-
-    this.pathfinder.setCallbackFunction(function (path) {
-      path = path || [];
-      console.log(path);
-      //for (var i = 0, ilen = path.length; i < ilen; i++) {
-        //this.map.putTile('yellowpolicy', path[i].x, path[i].y);
-      //}
-    });
-    this.pathfinder.preparePathCalculation([enemyX, enemyY], [playerX,playerY]);
-    this.pathfinder.calculatePath();
+    // if the time given hasn't expired, or the current path has been exhausted
+    if( this.enemy.countsToFindPath > 0 || !this.enemy.newPath)
+      this.enemy.countsToFindPath--;
+    else{
+      //reset the count
+      this.enemy.countsToFindPath = 30;
+      this.enemy.newPath = false;
+      this.enemy.pathPosition = 0;
+      this.moveEnemy();
+      console.log(this.enemy.pathToPlayer);
+    }
   },
 
   //create player
@@ -161,7 +154,7 @@ Encrypt.Game.prototype = {
   //create an enemy
   createEnemy: function() {
 
-    this.enemy = new Enemy(350, 500, this.game, this.player);
+    this.enemy = new Enemy(350, 500, this.game, this.player, this.backgroundlayer);
   },
 
   // create items
@@ -859,6 +852,26 @@ getEntropy: function (pwdFeed) {
     this.findPathTo(currentTileX, currentTileY, playerTileX, playerTileY);
 
   },
+
+  /**
+   * Andi: function called in the callback function of the find path algorithm
+   * Sets the enemy's path to the player to that of the path just found
+   * */
+  setNewPath: function(path){
+    this.enemy.pathToPlayer = path;
+  },
+
+  findPathTo: function(enemyX, enemyY, playerX, playerY) {
+
+    var self = this;
+    this.pathfinder.setCallbackFunction(function (path) {
+      path = path || [];
+      self.setNewPath(path);
+    });
+
+    this.pathfinder.preparePathCalculation([enemyX, enemyY], [playerX,playerY]);
+    this.pathfinder.calculatePath();
+  },
  /***************************** UNUSED METHODS ***********************************
 **************** function that changes the door tile with the the player sprite, i.e. simulates opened door
   openDoor: function (object1, object2) {
@@ -885,5 +898,24 @@ getEntropy: function (pwdFeed) {
   setDoorInvisible: function (door) {
     door.renderable = false;  // this doesn't work, because this.doors is about all door objects, not only one of them.
                                     // so the engine doesn't know which one to make invisible
+  },
+
+  // function previously used to get all they indexes of the walkables tiles on the map/ DO NOT DELETE
+  getWalkablesFromMap: function() {
+
+    // path-finding algorithm set up
+    var walkables = {};
+    //store all the walkable tile id into walkables
+    for (var i = 0; i < this.map.layers[0].data.length; i++) {
+
+      for (var j = 0; j < this.map.layers[0].data[i].length; j++)
+        if (this.map.layers[0].data[i][j] !== 0) {
+
+          walkables[this.map.layers[0].data[i][j].index] = 0;
+        }
+
+
+      console.log(Object.keys(walkables));
+    }
   }
  };
