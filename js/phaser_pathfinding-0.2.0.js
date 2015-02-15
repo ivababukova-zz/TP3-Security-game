@@ -75,7 +75,7 @@ EasyStar.PriorityQueue = function(criteria,heapType) {
 		queue.push(value);
 		this.length++;
 		bubbleUp(this.length-1);
-	}
+	};
 
 	/**
 	* Peeks at the highest priority element.
@@ -84,7 +84,7 @@ EasyStar.PriorityQueue = function(criteria,heapType) {
 	**/
 	this.getHighestPriorityElement = function() {
 		return queue[0];
-	}
+	};
 
 	/**
 	* Removes and returns the highest priority element from the queue.
@@ -106,7 +106,7 @@ EasyStar.PriorityQueue = function(criteria,heapType) {
 		queue[0] = newRoot;
 		swapUntilQueueIsCorrect(0);
 		return oldRoot;
-	}
+	};
 
 	var bubbleUp = function(index) {
 		if (index===0) {
@@ -119,7 +119,7 @@ EasyStar.PriorityQueue = function(criteria,heapType) {
 		} else {
 			return;
 		}
-	}
+	};
 
 	var swapUntilQueueIsCorrect = function(value) {
 		var left = getLeftOf(value);
@@ -135,13 +135,13 @@ EasyStar.PriorityQueue = function(criteria,heapType) {
 		} else {
 			swapUntilQueueIsCorrect(0);
 		}
-	}
+	};
 
 	var swap = function(self,target) {
 		var placeHolder = queue[self];
 		queue[self] = queue[target];
 		queue[target] = placeHolder;
-	}
+	};
 
 	var evaluate = function(self,target) {
 		if (queue[target]===undefined||queue[self]===undefined) {
@@ -173,15 +173,15 @@ EasyStar.PriorityQueue = function(criteria,heapType) {
 				return false;
 			}
 		}
-	}
+	};
 
 	var getParentOf = function(index) {
 		return Math.floor(index/2)-1;
-	}
+	};
 
 	var getLeftOf = function(index) {
 		return index*2 + 1;
-	}
+	};
 
 	var getRightOf = function(index) {
 		return index*2 + 2;
@@ -248,14 +248,14 @@ EasyStar.js = function() {
 	 */
 	this.enableDiagonals = function() {
 		diagonalsEnabled = true;
-	}
+	};
 
 	/**
 	 * Disable diagonal pathfinding.
 	 */
 	this.disableDiagonals = function() {
 		diagonalsEnabled = false;
-	}
+	};
 
 	/**
 	* Sets the collision grid that EasyStar uses.
@@ -338,6 +338,7 @@ EasyStar.js = function() {
 	* 
 	**/
 	this.findPath = function(startX, startY ,endX, endY, callback) {
+
 		//No acceptable tiles were set
 		if (acceptableTiles === undefined) {
 			throw "You can't set a path without first calling setAcceptableTiles() on EasyStar.";
@@ -552,7 +553,7 @@ EasyStar.js = function() {
 	var getDistance = function(x1,y1,x2,y2) {
 		return Math.sqrt(Math.abs(x2-x1)*Math.abs(x2-x1) + Math.abs(y2-y1)*Math.abs(y2-y1)) * STRAIGHT_COST;
 	};
-}
+};
 /*
  * PathFinderPlugin License: MIT.
  * Copyright (c) 2013 appsbu-de
@@ -593,18 +594,21 @@ Phaser.Plugin.PathFinderPlugin.prototype.constructor = Phaser.Plugin.PathFinderP
 Phaser.Plugin.PathFinderPlugin.prototype.setGrid = function (grid, walkables, iterationsPerCount) {
     iterationsPerCount = iterationsPerCount || null;
 
-    this._grid = [];
-    for (var i = 0; i < grid.length; i++)
-    {
-        this._grid[i] = [];
-        for (var j = 0; j < grid[i].length; j++)
-        {
-            if (grid[i][j])
-                this._grid[i][j] = grid[i][j].index;
-            else
-                this._grid[i][j] = 0
-        }
-    }
+	this._grid = [];
+
+	for (var i = 0; i < grid.length; i++)
+	{
+		this._grid[i] = [];
+		for (var j = 0; j < grid[i].length; j++)
+		{
+			if (grid[i][j]){
+				this._grid[i][j] = grid[i][j].index;
+			}
+			else{
+				this._grid[i][j] = 0
+			}
+		}
+	}
     this._walkables = walkables;
 
     this._easyStar.setGrid(this._grid);
