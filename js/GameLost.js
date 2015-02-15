@@ -17,7 +17,7 @@ Encrypt.GameLost.prototype = {
 
     text = "Your passwords for the doors weren't strong enough\n" +
             "and the aliens managed to brake them.\n" +
-            "Hackers try brake through your accounts in real world just like the\n" +
+            "Hackers can brake through your accounts in real world just like the\n" +
             "aliens here, using similar techniques.\n" +
             "This is why it is important to set up passwords that are hard to break.\n" +
             "If you want to try again, press the button below.";

@@ -608,9 +608,8 @@ getEntropy: function (pwdFeed) {
    * @param string : animation to be played
    * This function changes the current state of the doorObject to new one, specified by the string parameter
    */
-   changeDoorState: function(doorObject, string) {
-    var currFrame = doorObject.animations.play(string);
-    // console.log('frame number: ' + currFrame.frame + ' ' + string);
+  changeDoorState: function(doorObject, string) {
+    doorObject.animations.play(string);
   },
   /** Method stops moveable entities from moving
    */
@@ -716,22 +715,23 @@ getEntropy: function (pwdFeed) {
     // change the current display of the hints as the current one is quite ugly
   showHint: function(player, collectable) {
     var array = [];
-    array.push("Don't share\n your passwords\n with anyone");
-    array.push("Use combination of \nsmall and big letters, \nnumbers and special characters");
-    array.push("Don't ever use\n same passwords on\n multiple websites");
-    array.push("Don't include\n personal information\n in your passwords");
-    array.push("Create passwords\n easy to remember\n but hard to guess");
-    array.push("Make your passwords \nat least \n8 characters long");
-    array.push("Don't let your \nbrowser remember \nthe password for you");
-    array.push("Always log off if \nyou leave your device \nand anyone is around");
+    array.push ("Don't share\n your passwords\n with anyone");
+    array.push ("Use combination of \nsmall and big letters, \nnumbers and special characters");
+    array.push ("Don't ever use\n same passwords on\n multiple websites");
+    array.push ("Don't include\n personal information\n in your passwords");
+    array.push ("Create passwords\n easy to remember\n but hard to guess");
+    array.push ("Make your passwords \nat least \n8 characters long");
+    array.push ("Don't let your \nbrowser remember \nthe password for you");
+    array.push ("Always log off if \nyou leave your device \nand anyone is around");
     var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
     var hint = array[randomIndex];
 
     // var input = confirm(hint);
     // display hint:
-    var style = { font: "20px Serif", fill: "#000000", align: "center" };
-    text = this.game.add.text(this.player.sprite.x,  this.player.sprite.y, hint, style);
-    collectable.destroy();
+    var style = { font: "30px Serif", fill: "#000000", align: "center" };
+    var text2 = this.game.add.text (this.player.sprite.x, this.player.sprite.y, hint, style);
+    this.time.events.add(4000, text2.destroy, text2);  // makes the text disappear after some time
+    collectable.destroy ();
   },
   /** Function deals with entering through the doors
    * @param player
@@ -749,15 +749,17 @@ getEntropy: function (pwdFeed) {
       // password not set yet
       if (door.password === 'null') {
         document.getElementById("titlePwd").innerHTML = "Setup password";
-      } else {
+      }
+      else {
         document.getElementById("titlePwd").innerHTML = "Input password";
       }
       // Check if player has the right policy for the door
-      if(this.player.policies[door.policy] === undefined){
+      if (this.player.policies[door.policy] === undefined) {
         document.getElementById("mainLayer").style.display = "block";
         document.getElementById("noPolicyField").style.display = "block";
         document.getElementById("noPolicyLabel").innerHTML = "YOU NEED TO HAVE " + door.policy + " POLICY.";
-      }else {
+      }
+      else {
         document.getElementById("policyTitle").style.color = door.policy;
         document.getElementById("policyRules").innerHTML = this.retrievePolicyRules(door.policy);
         // display password pop up
@@ -835,16 +837,16 @@ getEntropy: function (pwdFeed) {
     /*If player becomes static/stops, use last known direction to keep them facing that way*/
     else {
       character.animations.stop();
-      if (lastKnownPlayerDirection[0] === 'up') {
+      if (lastKnownPlayerDirection [0] === 'up') {
         character.frame = 36; /* leave player facing up*/
       }
-      else if (lastKnownPlayerDirection[0] === 'down') {
+      else if (lastKnownPlayerDirection [0] === 'down') {
         character.frame = 1; /* leave player facing down*/
       }
-      else if (lastKnownPlayerDirection[0] === 'left') {
+      else if (lastKnownPlayerDirection [0] === 'left') {
         character.frame = 23; /* leave player facing left*/
       }
-      else if (lastKnownPlayerDirection[0] === 'right') {
+      else if (lastKnownPlayerDirection [0] === 'right') {
         character.frame = 35; /* leave player facing right*/
       }
     }
