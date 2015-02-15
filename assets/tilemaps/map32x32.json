@@ -447,6 +447,7 @@
                  "properties":
                     {
                      "password":"null",
+                     "policy":"green",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
