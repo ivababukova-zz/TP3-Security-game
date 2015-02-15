@@ -25,13 +25,13 @@ Encrypt.MainMenu.prototype = {
         this.foreground.autoScroll(0, 20);
 
         text = "WELCOME TO 3NCRYPT, PLAYA' \n HAI BRYAN, HEN xoxo";
-        style = {font: "35px Arial", fill: "#fff", align: "center"};
+        style = {font: "35px Serif", fill: "#fff", align: "center"};
         var welcomeLabel = this.game.add.text(this.game.width / 2, this.game.height - 500, text, style);
         welcomeLabel.anchor.set(0.5);
 
 
         text = "Dun farget tae bring yer knife eh";
-        style = {font: "20px Arial", fill: "#fff", align: "center"};
+        style = {font: "20px Serif", fill: "#fff", align: "center"};
         var bestLabel = this.game.add.text(this.game.width / 2, this.game.height - 360, text, style);
         bestLabel.anchor.set(0.5);
 
