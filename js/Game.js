@@ -432,6 +432,7 @@ Encrypt.Game.prototype = {
             document.getElementById("feedbackField").style.display = "none";
             document.getElementById("mainLayer").style.display= "none";
             fPause = false;
+            doorSound.play();
             /*BMDK: call to function to open door when password is successful*/
             self.changeDoorState(currentDoor,'opening');
             doorsCollidable = false;
