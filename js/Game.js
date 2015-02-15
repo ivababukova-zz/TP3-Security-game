@@ -663,37 +663,36 @@ getEntropy: function (pwdFeed) {
   
     pickupSound.play(); //play sound when object is picked up
 	
-    if (collectable.type === "clue"  || (collectable.type === "info") ) {
+    if (collectable.type === "clue"  || (collectable.type === "info") )
       this.showHint(player, collectable);
-    }
 
-    else if (collectable.type === "policy") {
-      this.addPolicy(collectable);
-      this.scoreSystem.scorePolicyPickUp();
-    }
+    else
+      if (collectable.type === "policy") {
+        this.addPolicy(collectable);
+        this.scoreSystem.scorePolicyPickUp();
+      }
 
-    // added by @iva 07.02.2015
-    else if ( collectable.type === "firewall" ) {
-      this.player.addItem(1);
-      collectable.destroy();
-      // console.log ("just collected antivirus wohohohooooo!");
-    }
+      // added by @iva 07.02.2015
+      else if (collectable.type === "firewall") {
+        this.player.addItem(1);
+        collectable.destroy();
+        // console.log ("just collected antivirus wohohohooooo!");
+      }
 
-    // added by @iva 07.02.2015
-    else if ( collectable.type === "antivirus" ) {
-      this.player.addItem(2);
-      this.state.start('GameLost');
-      collectable.destroy();
-      // console.log ("just collected antivirus wohohohooooo!");
-    }
+      // added by @iva 07.02.2015
+      else if (collectable.type === "antivirus") {
+        this.player.addItem(2);
+        this.state.start('GameLost');
+        collectable.destroy();
+        // console.log ("just collected antivirus wohohohooooo!");
+      }
 
-    // added by @iva 07.02.2015
-    else if ( collectable.type === "AntiKeyLog" ) {
-      this.player.addItem(3);
-      collectable.destroy();
-      // console.log ("just collected antivirus wohohohooooo!");
-    }
-
+      // added by @iva 07.02.2015
+      else if (collectable.type === "AntiKeyLog") {
+        this.player.addItem(3);
+        collectable.destroy();
+        // console.log ("just collected antivirus wohohohooooo!");
+      }
     // calls the win page @iva
     else if (collectable.type === "winkey" ) {
       this.state.start('GameWon');

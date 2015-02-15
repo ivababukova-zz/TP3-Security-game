@@ -527,7 +527,6 @@ MetricsSystem.prototype = {
 
     addPassword: function(password){
 
-        console.log("I was called!" + password);
         //first check if the parameter is actually a string
         if(typeof(password) === "string") {
 
