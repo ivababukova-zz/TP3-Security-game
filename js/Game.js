@@ -15,7 +15,8 @@ var doorJustOpened = false;
 var doorsCollidable = true;
 var doorSound = null;
 var pickupSound = null;
-var finalscore;
+var finalscore; // @iva: variable that hold the value of the final score. Used for displaying the score on the gamewin/lost pages.
+var pickedHints = []; // @iva: stores the pickedHints collected by the player so far
 
 Encrypt.Game.prototype = {
   create: function () {
@@ -66,6 +67,11 @@ Encrypt.Game.prototype = {
     this.scoreLabel.fixedToCamera = true;
     this.scoreLabel.cameraOffset.setTo(25,25);
 
+    // create a button for viewing the pickedHints and tips collected so far;
+    var hintsButton = this.game.add.button (530, 10, 'hintsButton', this.displayHintsCollected, this );
+    hintsButton.fixedToCamera = true;
+
+
     //add the W key to the keyboard to serve as a 'write' option for the player
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
     //ESC key is used for closing pop ups
@@ -88,6 +94,12 @@ Encrypt.Game.prototype = {
 
   },
 
+  displayHintsCollected: function () {
+    // this.pressedHintsButton = this.game.add.button(530, 10, 'pressedHintsButton', this.hidePressedHintsButton, this);
+    var style = { font: "30px Serif", fill: "#000000", align: "center" };
+    var text2 = this.game.add.text (this.player.sprite.x, this.player.sprite.y, pickedHints, style);
+    this.time.events.add(4000, text2.destroy, text2);  // makes the text disappear after some time
+  },
   // UPDATE STATE:
   update: function () {
     var self = this;
@@ -620,7 +632,7 @@ getEntropy: function (pwdFeed) {
   changeDoorState: function(doorObject, string) {
     doorObject.animations.play(string);
   },
-  /** Method stops moveable entities from moving
+  /** Method stops movable entities from moving
    */
   stopMotion: function(){
     var self = this;
@@ -709,25 +721,37 @@ getEntropy: function (pwdFeed) {
   },
 
 
-  /** function that outputs a random hint from an array of hints
+  /** function that outputs a random hint from an array of pickedHints
    *  called when the player collects a clue object
    * @param player
    * @param collectable
    */
   showHint: function(player, collectable) {
+    var found = false; // false if the user has picked hint for first time
     var array = [];
-    array.push ("Don't share\n your passwords\n with anyone");
-    array.push ("Use combination of \nsmall and big letters, \nnumbers and special characters");
-    array.push ("Don't ever use\n same passwords on\n multiple websites");
-    array.push ("Don't include\n personal information\n in your passwords");
-    array.push ("Create passwords\n easy to remember\n but hard to guess");
-    array.push ("Make your passwords \nat least \n8 characters long");
-    array.push ("Don't let your \nbrowser remember \nthe password for you");
-    array.push ("Always log off if \nyou leave your device \nand anyone is around");
+    array.push ("Don't share\n your passwords\n with anyone\n");
+    array.push ("Use combination of \nsmall and big letters, \nnumbers and special characters\n");
+    array.push ("Don't ever use\n same passwords on\n multiple websites\n");
+    array.push ("Don't include\n personal information\n in your passwords\n");
+    array.push ("Create passwords\n easy to remember\n but hard to guess\n");
+    array.push ("Make your passwords \nat least \n8 characters long\n");
+    array.push ("Don't let your \nbrowser remember \nthe password for you\n");
+    array.push ("Always log off if \nyou leave your device \nand anyone is around\n");
+
     var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
     var hint = array[randomIndex];
 
-    // var input = confirm(hint);
+    for (var i = 0; i<pickedHints.length; i++) {
+      if (pickedHints[i] === hint) {
+        found = true;
+        break;
+      }
+    }
+    // if the user hasn't picked the same hint, store it in pickedHints:
+    if (!found) {
+      pickedHints.push(hint); // put the found hint in the picked pickedHints array
+    }
+
     // display hint:
     var style = { font: "30px Serif", fill: "#000000", align: "center" };
     var text2 = this.game.add.text (this.player.sprite.x, this.player.sprite.y, hint, style);

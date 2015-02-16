@@ -44,12 +44,15 @@ Encrypt.Preload.prototype = {
     this.load.image ('space2', 'assets/images/MLetters.png');
 
     // buttons:
-    this.load.image('backButton', 'assets/images/gobackButtonIva.png');
-    this.load.image('instructionsButton', 'assets/images/instrButton.png');
-    this.load.image('restartButton', 'assets/images/restart_button.png');
-    this.load.image('startButton', 'assets/images/startButton.png');
-	
-	  //music
+    this.load.image ('backButton', 'assets/images/gobackButtonIva.png');
+    this.load.image ('instructionsButton', 'assets/images/instrButton.png');
+    this.load.image ('restartButton', 'assets/images/restart_button.png');
+    this.load.image ('startButton', 'assets/images/startButton.png');
+    this.load.image ('hintsButton', 'assets/images/hintsButton.png');
+    this.load.image ('pressedHintsButton', 'assets/images/pressedHintsButton.png');
+
+
+    //music
     this.load.audio('music', 'assets/sounds/main_music.ogg');
     //this.load.audio('passwordSound', 'assets/sounds/door_sound.wav');
     this.load.audio('pickUpSound', 'assets/sounds/pickup_sound.ogg');
