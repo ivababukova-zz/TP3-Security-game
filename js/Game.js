@@ -684,7 +684,6 @@ getEntropy: function (pwdFeed) {
     else if (collectable.type === "winkey" ) {
       // this.scoreSystem.setScore(this.score);
         finalscore = this.scoreSystem.score;
-        console.log("scoooore: " + finalscore);
         this.state.start('GameWon');
         collectable.destroy();
     }
@@ -696,8 +695,6 @@ getEntropy: function (pwdFeed) {
    * @param player
    * @param collectable
    */
-    // TODO: update the array with real hints
-    // change the current display of the hints as the current one is quite ugly
   showHint: function(player, collectable) {
     var array = [];
     array.push ("Don't share\n your passwords\n with anyone");
@@ -883,22 +880,6 @@ getEntropy: function (pwdFeed) {
       this.showNextFrame = this.showNextFrame.concat([object2]);
     }
   }, ***********/
-  // function to open a new window in the middle of the screen
-  // used for the doors interface
-  popup: function (url, title, w, h) {
-    var left = (screen.width / 2) - (w / 2);
-    var top = (screen.height / 2) - (h / 2);
-    return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-  },
-
-  setPlayerInvisible: function () {
-    this.player.sprite.renderable = false;
-  },
-
-  setDoorInvisible: function (door) {
-    door.renderable = false;  // this doesn't work, because this.doors is about all door objects, not only one of them.
-                                    // so the engine doesn't know which one to make invisible
-  },
 
   // function previously used to get all they indexes of the walkables tiles on the map/ DO NOT DELETE
   getWalkablesFromMap: function() {
