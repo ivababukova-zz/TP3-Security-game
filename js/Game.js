@@ -372,6 +372,8 @@ Encrypt.Game.prototype = {
    ************************************************************
   ********************ALL ABOUT THE INPUT**********************/
   createInput: function () {
+    var notes = "";
+    var i = 0;
     var self = this;
     var input = new CanvasInput({
       canvas: document.getElementById('pwdCanvas'),
@@ -388,10 +390,15 @@ Encrypt.Game.prototype = {
       placeHolder: 'password',
       onsubmit: function () {
         // Password note is open
-        if(document.getElementById("titlePwd").innerHTML === "Go on, I dare you!"){
+        if(document.getElementById("titlePwd").innerHTML === "Type in passwords you want to save:"){
           // write it to the note
           self.player.note.write(this._value);
+          notes += self.player.note.passwords[i] + "<br>"
+          i++;
           document.getElementById("inputPwd").style.display = "none";
+          document.getElementById("mainLayer").style.display = "none";
+          document.getElementById("policyField").style.display= "none";
+          document.getElementById("feedbackField").style.display = "none";
           this._hiddenInput.value = '';
           self.game.input.keyboard.enabled = true;
           return;
@@ -451,8 +458,20 @@ Encrypt.Game.prototype = {
         }// if W key is pressed, then open note pop up
         if(self.writeKey.justDown){
           self.game.input.keyboard.enabled = false;
+          
+          document.getElementById("mainLayer").style.display = "block";
+          document.getElementById("feedbackField").style.display = "none";
+          //document.getElementById("mainCanvas").context.fillStyle = 'blue';
           document.getElementById("inputPwd").style.display = "block";
-          document.getElementById("titlePwd").innerHTML = "Go on, I dare you!";
+          document.getElementById("titlePwd").innerHTML = "Type in passwords you want to save:";
+          document.getElementById("policyField").style.display = "block";
+          
+          console.log(notes + " hello");
+          document.getElementById("policyTitle").innerHTML = "Your notes :";
+          document.getElementById("policyRules").innerHTML = notes;
+              
+          
+          
         }
         // first check if main layer is open and then check if it's not a noPolicy pop up
         if (document.getElementById("mainLayer").style.display === "block" && document.getElementById("inputPwd").style.display === "block") {
@@ -747,6 +766,7 @@ getEntropy: function (pwdFeed) {
         // display password pop up
         document.getElementById("mainLayer").style.display = "block";
         document.getElementById("policyField").style.display = "block";
+        document.getElementById("policyTitle").innerHTML = "Policy Rules:";
         document.getElementById("inputPwd").style.display = "block";
       }
     }
