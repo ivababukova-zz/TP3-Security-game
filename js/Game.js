@@ -100,18 +100,31 @@ Encrypt.Game.prototype = {
 
   displayHintsCollected: function () {
     // this.pressedHintsButton = this.game.add.button(530, 10, 'pressedHintsButton', this.hidePressedHintsButton, this);
-    document.getElementById("mainLayer").style.display = "block";
-    document.getElementById("feedbackField").style.display = "none";
-    //document.getElementById("mainCanvas").context.fillStyle = 'blue';
-    //document.getElementById("inputPwd").style.display = "block";
-    document.getElementById("policyField").style.display = "block";
+
+    document.getElementById("hintsLayer").style.display = "block";
+    document.getElementById("hintsWindow").style.display = "block";
 
     console.log(pickedHints + " hello");
-    document.getElementById("policyTitle").innerHTML = "Hints collected so far :";
-    document.getElementById("policyRules").innerHTML = pickedHints;
-    //var style = { font: "30px Serif", fill: "#000000", align: "center" };
-    //var text2 = this.game.add.text (this.player.sprite.x, this.player.sprite.y, pickedHints, style);
-    //this.time.events.add(4000, text2.destroy, text2);  // makes the text disappear after some time
+    document.getElementById("hintsTitle").style.display = "block";
+    var i = 0;
+    while (i<pickedHints.length) {
+      document.getElementById("hintsDisplay").innerHTML = pickedHints[i] + "\n";
+      i++;
+    }
+
+    /*
+    var i = 0;
+    var j = 0;
+    var text2, style;
+
+    while (i < pickedHints.length) {
+      style = { font: "30px Serif", fill: "#ffffff", align: "left" };
+      text2 = this.game.add.text(this.player.sprite.x, this.player.sprite.y + j, pickedHints[i], style);
+      this.time.events.add(7000, text2.destroy, text2);  // makes the text disappear after some time
+      i++;
+      j = j + 30;
+    }
+    */
   },
   // UPDATE STATE:
   update: function () {
@@ -757,27 +770,27 @@ getEntropy: function (pwdFeed) {
   showHint: function(player, collectable) {
     var found = false; // false if the user has picked hint for first time
     var array = [];
-    array.push ("Don't share\n your passwords\n with anyone\n");
-    array.push ("Use combination of \nsmall and big letters, \nnumbers and special characters\n");
-    array.push ("Don't ever use\n same passwords on\n multiple websites\n");
-    array.push ("Don't include\n personal information\n in your passwords\n");
-    array.push ("Create passwords\n easy to remember\n but hard to guess\n");
-    array.push ("Make your passwords \nat least \n8 characters long\n");
-    array.push ("Don't let your \nbrowser remember \nthe password for you\n");
-    array.push ("Always log off if \nyou leave your device \nand anyone is around\n");
+    array.push ("Don't share your passwords with anyone");
+    array.push ("Use combination of small and big letters, numbers and special characters");
+    array.push ("Don't ever use same passwords on multiple websites");
+    array.push ("Don't include personal information in your passwords");
+    array.push ("Create passwords easy to remember but hard to guess");
+    array.push ("Make your passwords at least 8 characters long");
+    array.push ("Don't let your browser remember the password for you");
+    array.push ("Always log off if you leave your device and anyone is around");
 
     var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
     var hint = array[randomIndex];
 
     for (var i = 0; i<pickedHints.length; i++) {
-      if (pickedHints[i] === hint) {
+      if (pickedHints[i] === "* " + hint + "\n") {
         found = true;
         break;
       }
     }
     // if the user hasn't picked the same hint, store it in pickedHints:
     if (!found) {
-      pickedHints.push(hint); // put the found hint in the picked pickedHints array
+      pickedHints.push("* " + hint + "\n"); // put the found hint in the picked pickedHints array
     }
 
     // display hint:
