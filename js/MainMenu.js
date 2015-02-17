@@ -40,15 +40,15 @@ Encrypt.MainMenu.prototype = {
         bestLabel.anchor.set(0.5);
 
 
-        var instructionsButton = this.game.add.button(this.game.width/2 -70, this.game.height - 240, 'instructionsButton', this.actionInstructions, this);
-        var startButton = this.game.add.button(this.game.width/2 - 73, this.game.height - 150, 'startButton', this.startInstructions, this);
+        var instructionsButton = this.game.add.button(this.game.width/2 -70, this.game.height - 240, 'instructionsButton', this.showInstructions, this);
+        var startButton = this.game.add.button(this.game.width/2 - 73, this.game.height - 150, 'startButton', this.startGame, this);
     },
 
-    actionInstructions: function(){
+    showInstructions: function(){
         this.game.state.start('Instructions');
     },
 
-    startInstructions: function(){
+    startGame: function(){
 		this.music.stop();
         this.game.state.start('Game');
     }

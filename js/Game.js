@@ -185,6 +185,7 @@ Encrypt.Game.prototype = {
     this.scoreLabel.text = "Score:" + this.scoreSystem.score; // Andi: update the score
     this.game.world.bringToTop(this.scoreLabel);              // and bring it to top of the rendered objects
     this.game.world.bringToTop(this.hintsButton);  // @iva: bring the hints button to be always at the top
+    this.game.world.bringToTop(this.pressedHintsButton);  // @iva: bring the hints button to be always at the top
 
     //add a variable to let
     this.enemy.update();
