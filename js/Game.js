@@ -57,20 +57,20 @@ Encrypt.Game.prototype = {
     //resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld();
 
+
     this.createItems();
     this.loadRooms();
     this.createInput();
+
+    // create a button for viewing the pickedHints and tips collected so far; @iva
+    this.hintsButton = this.game.add.button (530, 10, 'hintsButton', this.displayHintsCollected, this );
+    this.hintsButton.fixedToCamera = true;
 
     // create the score label
     this.scoreString = "Score: " + this.scoreSystem.score;
     this.scoreLabel = this.game.add.text(0, 0, this.scoreString, { font: "32px Arial", fill: "#ffffff", align: "center"});
     this.scoreLabel.fixedToCamera = true;
     this.scoreLabel.cameraOffset.setTo(25,25);
-
-    // create a button for viewing the pickedHints and tips collected so far;
-    var hintsButton = this.game.add.button (530, 10, 'hintsButton', this.displayHintsCollected, this );
-    hintsButton.fixedToCamera = true;
-
 
     //add the W key to the keyboard to serve as a 'write' option for the player
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -96,9 +96,19 @@ Encrypt.Game.prototype = {
 
   displayHintsCollected: function () {
     // this.pressedHintsButton = this.game.add.button(530, 10, 'pressedHintsButton', this.hidePressedHintsButton, this);
-    var style = { font: "30px Serif", fill: "#000000", align: "center" };
-    var text2 = this.game.add.text (this.player.sprite.x, this.player.sprite.y, pickedHints, style);
-    this.time.events.add(4000, text2.destroy, text2);  // makes the text disappear after some time
+    document.getElementById("mainLayer").style.display = "block";
+    document.getElementById("feedbackField").style.display = "none";
+    //document.getElementById("mainCanvas").context.fillStyle = 'blue';
+    document.getElementById("inputPwd").style.display = "block";
+    document.getElementById("titlePwd").innerHTML = "Type in passwords you want to save:";
+    document.getElementById("policyField").style.display = "block";
+
+    console.log(pickedHints + " hello");
+    document.getElementById("policyTitle").innerHTML = "Your notes :";
+    document.getElementById("policyRules").innerHTML = pickedHints;
+    //var style = { font: "30px Serif", fill: "#000000", align: "center" };
+    //var text2 = this.game.add.text (this.player.sprite.x, this.player.sprite.y, pickedHints, style);
+    //this.time.events.add(4000, text2.destroy, text2);  // makes the text disappear after some time
   },
   // UPDATE STATE:
   update: function () {
@@ -130,6 +140,8 @@ Encrypt.Game.prototype = {
 
     this.scoreLabel.text = "Score:" + this.scoreSystem.score; // Andi: update the score
     this.game.world.bringToTop(this.scoreLabel);              // and bring it to top of the rendered objects
+    this.game.world.bringToTop(this.hintsButton);  // @iva: bring the hints button to be always at the top
+
 
     //add a variable to let
     this.enemy.update();
@@ -411,6 +423,7 @@ Encrypt.Game.prototype = {
           document.getElementById("mainLayer").style.display = "none";
           document.getElementById("policyField").style.display= "none";
           document.getElementById("feedbackField").style.display = "none";
+          document.getElementById ("hintsWindow").style.display = "none";
           this._hiddenInput.value = '';
           self.game.input.keyboard.enabled = true;
           return;
@@ -425,7 +438,7 @@ Encrypt.Game.prototype = {
           document.getElementById("feedbackField").style.display = "none";
           document.getElementById("mainLayer").style.display= "none";
           self.changeDoorState(currentDoor,'opening');
-		  doorSound.play();
+		      doorSound.play();
           doorsCollidable = false;
           doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
@@ -753,7 +766,7 @@ getEntropy: function (pwdFeed) {
     }
 
     // display hint:
-    var style = { font: "30px Serif", fill: "#000000", align: "center" };
+    var style = { font: "25px Serif", fill: "#000000", align: "center" };
     var text2 = this.game.add.text (this.player.sprite.x, this.player.sprite.y, hint, style);
     this.time.events.add(4000, text2.destroy, text2);  // makes the text disappear after some time
     collectable.destroy ();
