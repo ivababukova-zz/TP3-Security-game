@@ -103,12 +103,11 @@ Encrypt.Game.prototype = {
     document.getElementById("mainLayer").style.display = "block";
     document.getElementById("feedbackField").style.display = "none";
     //document.getElementById("mainCanvas").context.fillStyle = 'blue';
-    document.getElementById("inputPwd").style.display = "block";
-    document.getElementById("titlePwd").innerHTML = "Type in passwords you want to save:";
+    //document.getElementById("inputPwd").style.display = "block";
     document.getElementById("policyField").style.display = "block";
 
     console.log(pickedHints + " hello");
-    document.getElementById("policyTitle").innerHTML = "Your notes :";
+    document.getElementById("policyTitle").innerHTML = "Hints collected so far :";
     document.getElementById("policyRules").innerHTML = pickedHints;
     //var style = { font: "30px Serif", fill: "#000000", align: "center" };
     //var text2 = this.game.add.text (this.player.sprite.x, this.player.sprite.y, pickedHints, style);
