@@ -68,8 +68,8 @@ Encrypt.Game.prototype = {
     this.scoreLabel.cameraOffset.setTo(25,25);
 
     // create a button for viewing the pickedHints and tips collected so far;
-    var hintsButton = this.game.add.button (530, 10, 'hintsButton', this.displayHintsCollected, this );
-    hintsButton.fixedToCamera = true;
+    this.hintsButton = this.game.add.button (530, 10, 'hintsButton', this.displayHintsCollected, this );
+    this.hintsButton.fixedToCamera = true; //BMDK: - Changed from var to this. as it needs to be referenced globally
 
 
     //add the W key to the keyboard to serve as a 'write' option for the player
@@ -140,7 +140,7 @@ Encrypt.Game.prototype = {
 
     this.scoreLabel.text = "Score:" + this.scoreSystem.score; // Andi: update the score
     this.game.world.bringToTop(this.scoreLabel);              // and bring it to top of the rendered objects
-
+    this.game.world.bringToTop(this.hintsButton);             //BMDK: - moved hints button to top layer
     //add a variable to let
     this.enemy.update();
     // if the time given hasn't expired, or the current path has been exhausted

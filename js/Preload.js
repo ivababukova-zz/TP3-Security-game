@@ -48,7 +48,7 @@ Encrypt.Preload.prototype = {
     this.load.image ('instructionsButton', 'assets/images/instrButton.png');
     this.load.image ('restartButton', 'assets/images/restart_button.png');
     this.load.image ('startButton', 'assets/images/startButton.png');
-    this.load.image ('hintsButton', 'assets/images/hintsButton.png');
+    this.load.image ('hintsButton', 'assets/images/GameIcons/Info.png');
     this.load.image ('pressedHintsButton', 'assets/images/pressedHintsButton.png');
 
 
