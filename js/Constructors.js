@@ -223,8 +223,12 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.pathPosition = 0;
 
 
-    //add its sprite
+    //add its spriteSheet
     this.sprite = game.add.sprite(currentX, currentY, 'enemy');
+    //BMDK: - Set sprite to first frame
+    this.sprite.frame = 0;
+    //BMDK: - Add animation loop for alien
+    this.sprite.animations.add('any', [0, 1, 2, 3, 4], 15,true, true);
 
     game.physics.enable(this.sprite, Phaser.ARCADE);
     this.sprite.body.immovable = false;
@@ -234,9 +238,8 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
 };
 
 Enemy.prototype = {
-
     update: function(){
-
+        this.sprite.frame = enemyFrame%5;
        // console.log(this.backgroundLayer.data);
         if( !this.newPath && this.pathPosition < this.pathToPlayer.length){
 
