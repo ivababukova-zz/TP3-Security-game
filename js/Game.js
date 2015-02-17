@@ -17,7 +17,8 @@ var doorSound = null;
 var pickupSound = null;
 var finalscore; // @iva: variable that hold the value of the final score. Used for displaying the score on the gamewin/lost pages.
 var pickedHints = []; // @iva: stores the pickedHints collected by the player so far
-
+var enemyFrame = 0; //this tracks the current frame of animation for the enemy
+var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
 Encrypt.Game.prototype = {
   create: function () {
 
@@ -45,7 +46,6 @@ Encrypt.Game.prototype = {
     this.createDoors(); //BMDK, moved here as was rendering over the player ... might want to set invisible after door opens instead
     this.createPlayer();
     this.createEnemy(); // Andi: create the enemy
-
     this.blockedLayer = this.map.createLayer('blockedLayer');
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer'); //collision on blockedLayer
     
@@ -103,6 +103,15 @@ Encrypt.Game.prototype = {
   // UPDATE STATE:
   update: function () {
     var self = this;
+
+    /*This code was added to control frame rates for the enemy.
+    * In the enemy update, the next frame is loaded when cond
+    * is satisfied ~BMDK
+    */
+    enemyFrameRate += 1;
+    if (enemyFrameRate%3 === 0){
+      enemyFrame +=1;
+    }
     //collision
     if (fPause === true) {
       self.stopMotion();
@@ -115,6 +124,7 @@ Encrypt.Game.prototype = {
 
     this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
     this.game.physics.arcade.collide(this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
+    this.game.physics.arcade.collide(this.enemy.sprite, this.player.sprite); // BMDK: Added collision between enemy and player 
     this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
 
     this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
@@ -138,6 +148,7 @@ Encrypt.Game.prototype = {
       this.enemy.countsToFindPath--;
     else{
       //reset the count
+
       this.enemy.countsToFindPath = 30;
       this.enemy.newPath = false;
       this.enemy.pathPosition = 0;
@@ -167,6 +178,7 @@ Encrypt.Game.prototype = {
   createEnemy: function() {
 
     this.enemy = new Enemy(350, 500, this.game, this.player, this.backgroundlayer);
+    
   },
 
   // create items
@@ -636,6 +648,7 @@ getEntropy: function (pwdFeed) {
    */
   stopMotion: function(){
     var self = this;
+    //self.enemy.sprite.animations.stop(); // not needed yet as can't get enemy animation to loop
     self.enemy.sprite.body.velocity.y = 0;/* Andi: stopping the enemy first */
     self.enemy.sprite.body.velocity.x = 0;
 
