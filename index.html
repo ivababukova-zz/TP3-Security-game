@@ -44,16 +44,16 @@
 </div>
 
 // Hints and tips pop up window:
-<div id="hintsLayer" align="center" style="display: none; position: absolute; top:calc(50% - 250px); left:calc(50% - 670px);">
-	<canvas id="mainCanvas1" width="400" height="600"></canvas>
+<div id="hintsLayer" align="center" style="display: none; position: absolute; top:calc(50% - 220px); left:calc(50% - 670px);">
+	<canvas id="mainCanvas1" width="400" height="450"></canvas>
 	<script>
 		var canvas = document.getElementById("mainCanvas1");
 		var context = canvas.getContext('2d');
 		context.fillStyle = '#00141F';
 		context.lineWidth = "5";
 		context.strokeStyle = "blue";
-		context.fillRect(0, 0, 400, 400);
-		context.strokeRect(0, 0, 400, 400);
+		context.fillRect(0, 0, 400, 450);
+		context.strokeRect(0, 0, 400, 450);
 	</script>
 </div>
 
@@ -81,9 +81,9 @@
 </div>
 
 // VIEW HINTS FIELD
-<div id="hintsWindow" class="'passwordPopUp" align="'center" style="display: none; position: absolute; top:calc(50% - 240px); left:calc(50% - 600px);" >
-	<p id="hintsTitle" align="'center" style="color: #fff;font-size: 30px;width: 480px;margin: 15px 0px 0px">Hints collected so far:</p>
-	<p id="hintsDisplay" align="left"  style="color: #fff; font-size: 20px" ></p>
+<div id="hintsWindow" class="'passwordPopUp" style="display: none; position: absolute; top:calc(50% - 215px); left:calc(50% - 600px);" >
+	<p id="hintsTitle" align="'center" style="color: #fff;font-size: 25px;width: 480px;margin: 15px 0px 0px;">Hints collected so far:</p>
+	<p id="hintsDisplay" align="left"  style="color: #fff; font-size: 20px;" ></p>
 	<canvas id="'pwdCanvas" width="360" height="'50"></canvas>
 </div>
 </body>

@@ -74,7 +74,11 @@ Encrypt.Game.prototype = {
 
     // create a button for viewing the pickedHints and tips collected so far;
     this.hintsButton = this.game.add.button (530, 10, 'hintsButton', this.displayHintsCollected, this );
+    this.pressedHintsButton = this.game.add.button(530, 10, 'pressedHintsButton', this.hideHintsCollected, this);
+    this.pressedHintsButton.inputEnabled = false;
+    this.pressedHintsButton.renderable = false;
     this.hintsButton.fixedToCamera = true; //BMDK: - Changed from var to this. as it needs to be referenced globally
+    this.pressedHintsButton.fixedToCamera = true;
 
     //add the W key to the keyboard to serve as a 'write' option for the player
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -98,19 +102,19 @@ Encrypt.Game.prototype = {
 
   },
 
+  /* @iva */
+  // note: I will move these methods down as soon as I finish implementing this functionality, so they comply with the order.
   displayHintsCollected: function () {
-    // this.pressedHintsButton = this.game.add.button(530, 10, 'pressedHintsButton', this.hidePressedHintsButton, this);
+    this.pressedHintsButton.inputEnabled = true;
+    this.pressedHintsButton.renderable = true;
+    this.hintsButton.inputEnabled = false;
+    this.hintsButton.renderable = false;
 
-    document.getElementById("hintsLayer").style.display = "block";
-    document.getElementById("hintsWindow").style.display = "block";
+    document.getElementById ("hintsLayer").style.display = "block";
+    document.getElementById ("hintsWindow").style.display = "block";
+    document.getElementById ("hintsTitle").style.display = "block";
+    document.getElementById ("hintsDisplay").innerHTML = pickedHints;
 
-    console.log(pickedHints + " hello");
-    document.getElementById("hintsTitle").style.display = "block";
-    var i = 0;
-    while (i<pickedHints.length) {
-      document.getElementById("hintsDisplay").innerHTML = pickedHints[i] + "\n";
-      i++;
-    }
 
     /*
     var i = 0;
@@ -126,6 +130,20 @@ Encrypt.Game.prototype = {
     }
     */
   },
+
+  /* @iva hides the window with the hints */
+  hideHintsCollected: function () {
+    console.log("hello, in hideHintsCollected");
+    this.hintsButton.inputEnabled = true;
+    this.hintsButton.renderable = true;
+    this.pressedHintsButton.inputEnabled = false;
+    this.pressedHintsButton.renderable = false;
+    document.getElementById("hintsLayer").style.display = "none";
+    document.getElementById("hintsWindow").style.display = "none";
+    document.getElementById("hintsTitle").style.display = "none";
+  },
+
+
   // UPDATE STATE:
   update: function () {
     var self = this;
