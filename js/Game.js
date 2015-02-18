@@ -17,9 +17,6 @@ var doorSound = null;
 var pickupSound = null;
 var finalscore; // @iva: variable that hold the value of the final score. Used for displaying the score on the gamewin/lost pages.
 var pickedHints = []; // @iva: stores the pickedHints collected by the player so far
-var bigHintString = "Don't ever use same passwords on multiple websites\n" +
-  "Don't include personal information in your passwords\nCreate passwords easy to remember but hard to guess\n" +
-  "Make your passwords at least 8 characters long";
 var enemyFrame = 0; //this tracks the current frame of animation for the enemy
 var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
 Encrypt.Game.prototype = {
@@ -798,7 +795,7 @@ getEntropy: function (pwdFeed) {
     var found = false; // false if the user has picked hint for first time
     var array = [];
     array.push ("Don't share your passwords with anyone");
-    // array.push ("Use combination of small and big letters, numbers and special characters");
+    //array.push ("Use combination of small and big letters, numbers and special characters"); too huge for the current display
     array.push ("Don't ever use same passwords on multiple websites");
     array.push ("Don't include personal information in your passwords");
     array.push ("Create passwords easy to remember but hard to guess");
