@@ -17,6 +17,9 @@ var doorSound = null;
 var pickupSound = null;
 var finalscore; // @iva: variable that hold the value of the final score. Used for displaying the score on the gamewin/lost pages.
 var pickedHints = []; // @iva: stores the pickedHints collected by the player so far
+var bigHintString = "Don't ever use same passwords on multiple websites\n" +
+  "Don't include personal information in your passwords\nCreate passwords easy to remember but hard to guess\n" +
+  "Make your passwords at least 8 characters long";
 var enemyFrame = 0; //this tracks the current frame of animation for the enemy
 var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
 Encrypt.Game.prototype = {
@@ -113,7 +116,12 @@ Encrypt.Game.prototype = {
     document.getElementById ("hintsLayer").style.display = "block";
     document.getElementById ("hintsWindow").style.display = "block";
     document.getElementById ("hintsTitle").style.display = "block";
-    document.getElementById ("hintsDisplay").innerHTML = pickedHints;
+
+    var i = 0;
+    while (i < pickedHints.length) {
+      document.getElementById(i.toString()).innerHTML = (i+1).toString() + ". " + pickedHints[i];
+      i ++;
+    }
 
 
     /*
@@ -790,7 +798,7 @@ getEntropy: function (pwdFeed) {
     var found = false; // false if the user has picked hint for first time
     var array = [];
     array.push ("Don't share your passwords with anyone");
-    array.push ("Use combination of small and big letters, numbers and special characters");
+    // array.push ("Use combination of small and big letters, numbers and special characters");
     array.push ("Don't ever use same passwords on multiple websites");
     array.push ("Don't include personal information in your passwords");
     array.push ("Create passwords easy to remember but hard to guess");
@@ -802,14 +810,14 @@ getEntropy: function (pwdFeed) {
     var hint = array[randomIndex];
 
     for (var i = 0; i<pickedHints.length; i++) {
-      if (pickedHints[i] === "* " + hint + "\n") {
+      if (pickedHints[i] === hint) {
         found = true;
         break;
       }
     }
     // if the user hasn't picked the same hint, store it in pickedHints:
     if (!found) {
-      pickedHints.push("* " + hint + "\n"); // put the found hint in the picked pickedHints array
+      pickedHints.push(hint); // put the found hint in the picked pickedHints array
     }
 
     // display hint:

@@ -37,7 +37,6 @@ Encrypt.MainMenu.prototype = {
         welcomeLabel = this.game.add.text(this.game.width / 2, this.game.height - 350, text, style);
         welcomeLabel.anchor.set(0.5);
 
-
         this.pressedInstrButton = this.game.add.button (this.game.width/2 -70, this.game.height - 240, 'pressedInstrButton', this.unpress, this);
         // this.pressedInstrButton.inputEnabled = false;
         this.instrButton = this.game.add.button (this.game.width/2 -70, this.game.height - 240, 'instructionsButton', this.showInstructions, this);
@@ -49,7 +48,7 @@ Encrypt.MainMenu.prototype = {
     showInstructions: function () {
         this.instrButton.renderable = false;
         this.instrButton.inputEnabled = false;
-        //this.time.events.add(10000, this.instrButton.renderable = true);
+        //this.time.events.loop(1000, this.instrButton.renderable = true, this);
         //this.game.state.start ('Instructions');
         //this.instrButton.renderable = true;
     },

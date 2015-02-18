@@ -29,6 +29,7 @@
 <body bgcolor="#000">
 <div id="game-area"></div>
 <script src="js/main.js"></script>
+
 // Main password pop up canvas
 <div id="mainLayer" align="center" style="display: none; position: absolute; top:calc(50% - 250px); left:calc(50% - 350px);">
 	<canvas id="mainCanvas" width="700" height="500"></canvas>
@@ -44,21 +45,21 @@
 </div>
 
 // Hints and tips pop up window:
-<div id="hintsLayer" align="center" style="display: none; position: absolute; top:calc(50% - 220px); left:calc(50% - 670px);">
-	<canvas id="mainCanvas1" width="500" height="450"></canvas>
+<div id="hintsLayer" align="center" style="display: none; position: absolute; top:calc(50% - 220px); left:calc(50% - 610px);">
+	<canvas id="mainCanvas1" width="520" height="420"></canvas>
 	<script>
 		var canvas = document.getElementById("mainCanvas1");
 		var context = canvas.getContext('2d');
 		context.fillStyle = '#00141F';
 		context.lineWidth = "5";
 		context.strokeStyle = "blue";
-		context.fillRect(0, 0, 500, 450);
-		context.strokeRect(0, 0, 500, 450);
+		context.fillRect(0, 0, 520, 420);
+		context.strokeRect(0, 0, 520, 420);
 	</script>
 </div>
 
 // POLICY FIELD
-<div id="policyField" class="passwordPopUp" align="center" style="display: none; position: absolute; top:calc(50% - 240px); left:calc(50% - 240px);">
+<div id="policyField" class="passwordPopUp" align="left" style="display: none; position: absolute; top:calc(50% - 240px); left:calc(50% - 240px);">
 	<p id="policyTitle" align="center"  style="color: #fff;font-size: 40px;width: 480px;margin: 15px 0px 0px">Policy Rules</p>
 	<p id="policyRules" align="left"  style="color: #fff;font-size: 25px">MIN LENGTH: 5<br>MIN #NUMBERS: 2<br>MIN #PUNCTUATION SIGNS:1<br>MIN #SPECIAL CHARACTERS: 1</p>
 </div>
@@ -83,7 +84,15 @@
 // VIEW HINTS FIELD
 <div id="hintsWindow" class="'passwordPopUp" style="display: none; position: absolute; top:calc(50% - 215px); left:calc(50% - 600px);" >
 	<p id="hintsTitle" align="'center" style="color: #fff;font-size: 25px;width: 480px;margin: 15px 0px 0px;">Hints collected so far:</p>
-	<p id="hintsDisplay" align="left"  style="color: #fff; font-size: 20px;" ></p>
+
+	<p id="0" align="left"  style="color: #fff; font-size: 18px;" ></p>
+	<p id="1" align="left"  style="color: #fff; font-size: 18px;" ></p>
+	<p id="2" align="left"  style="color: #fff; font-size: 18px;" ></p>
+	<p id="3" align="left"  style="color: #fff; font-size: 18px;" ></p>
+	<p id="4" align="left"  style="color: #fff; font-size: 18px;" ></p>
+	<p id="5" align="left"  style="color: #fff; font-size: 18px;" ></p>
+	<p id="6" align="left"  style="color: #fff; font-size: 18px;" ></p>
+
 	<canvas id="'pwdCanvas" width="360" height="'50"></canvas>
 </div>
 </body>
