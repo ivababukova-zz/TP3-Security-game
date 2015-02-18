@@ -350,7 +350,7 @@ Encrypt.Game.prototype = {
   retrievePolicyRules: function(colour){
     var policy = this.player.policies[colour];
     var str = "MIN LENGTH: " + policy.minLength + "<br>MIN #NUMBERS: " + policy.minNums
-        + "<br>MIN #PUNCTUATION SIGNS:" + policy.minPunct + "<br>MIN #SPECIAL CHARACTERS: " + policy.minSpeChar;
+        + "<br>MIN #PUNCTUATION SIGNS: " + policy.minPunct + "<br>MIN #SPECIAL CHARACTERS: " + policy.minSpeChar;
     return str;
   },/**
 **********************************************************************/
