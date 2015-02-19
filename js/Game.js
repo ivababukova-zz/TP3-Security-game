@@ -212,10 +212,10 @@ Encrypt.Game.prototype = {
   createPlayer: function () {
     this.player = new Player(300,500, this.game);
 
-    this.player.sprite.animations.add('down', [0,1,2,3,4,5,6,7,8,9,10,11], 12, true, true);
-    this.player.sprite.animations.add('left',  [12,13,14,15,16,17,18,19,20,21,22,23], 12, true, true);
-    this.player.sprite.animations.add('right', [24,25,26,27,28,29,30,31,32,33,34,35], 12, true, true);
-    this.player.sprite.animations.add('up',    [36,37,38,39,40,41,42,43,44,45,46,47], 12, true, true);
+    this.player.sprite.animations.add('down', [1,2,3,4,5,6,7,8], 8, true, true);
+    this.player.sprite.animations.add('left',  [1,2,3,4,5,6,7,8], 8, true, true);
+    this.player.sprite.animations.add('right', [1,2,3,4,5,6,7,8], 8, true, true);
+    this.player.sprite.animations.add('up',    [1,2,3,4,5,6,7,8], 8, true, true);
     //this.player.animations.add('static', [0], 1, true, true);
 
     // made player centered, which fixes room highlighting problems. A.M.

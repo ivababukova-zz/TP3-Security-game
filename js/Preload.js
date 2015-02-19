@@ -32,7 +32,7 @@ Encrypt.Preload.prototype = {
     this.load.image ('sideBlock', 'assets/images/GameIcons/sidewaysDoorBlock.png');
 
     // player, enemy and door animations
-    this.load.spritesheet ('player', 'assets/images/32x32ExampleSprite.png', 64, 64, 30);
+    this.load.spritesheet ('player', 'assets/images/Animations/PlayaFront.png', 32, 64, 9);
     this.load.spritesheet ('frontDoor','assets/images/Animations/DoorAnimations/FrontDoorAnimationFrames.png', 64, 64, 17, 0, 0 );
     this.load.spritesheet ('sideDoor', 'assets/images/Animations/DoorAnimations/SideDoorAnimationFrames.png', 128, 128, 17, 0, 0);
     this.load.spritesheet ('enemy', 'assets/images/Animations/EnemySpriteSheet.png', 64, 64, 5); // BMDK: - Added enemy spritesheet
