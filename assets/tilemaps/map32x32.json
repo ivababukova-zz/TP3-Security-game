@@ -542,6 +542,7 @@
                  "properties":
                     {
                      "password":"null",
+                     "policy":"green",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -551,25 +552,6 @@
                  "width":0,
                  "x":1311.88,
                  "y":1982.88
-                }, 
-                {
-                 "gid":10667,
-                 "height":0,
-                 "id":30,
-                 "name":"",
-                 "properties":
-                    {
-                     "password":"null",
-                     "policy":"green",
-                     "sprite":"frontDoor",
-                     "type":"frontDoor"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":1312,
-                 "y":1984
                 }, 
                 {
                  "gid":10734,
@@ -1186,7 +1168,7 @@
                  "visible":true,
                  "width":0,
                  "x":736,
-                 "y":2175.9375
+                 "y":2175.94
                 }],
          "opacity":1,
          "type":"objectgroup",

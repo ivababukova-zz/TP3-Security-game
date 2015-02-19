@@ -58,6 +58,20 @@
 	</script>
 </div>
 
+//small hints and tips window:
+<div id="smallHintsLayer" align="center" style="display: none; position: absolute; top:calc(50% - 220px); left:calc(50% - 300px);">
+	<canvas id="mainCanvas2" width="500" height="200"></canvas>
+	<script>
+		var canvas = document.getElementById("mainCanvas2");
+		var context = canvas.getContext('2d');
+		context.fillStyle = '#472424';
+		context.lineWidth = "5";
+		context.strokeStyle = "#B25A5A";
+		context.fillRect(0, 0, 500, 200);
+		context.strokeRect(0, 0, 500, 200);
+	</script>
+</div>
+
 // POLICY FIELD
 <div id="policyField" class="passwordPopUp" align="left" style="display: none; position: absolute; top:calc(50% - 240px); left:calc(50% - 240px);">
 	<p id="policyTitle" align="center"  style="color: #fff;font-size: 40px;width: 480px;margin: 15px 0px 0px">Policy Rules</p>
@@ -84,7 +98,6 @@
 // VIEW HINTS FIELD
 <div id="hintsWindow" class="'passwordPopUp" style="display: none; position: absolute; top:calc(50% - 215px); left:calc(50% - 600px);" >
 	<p id="hintsTitle" align="'center" style="color: #fff;font-size: 25px;width: 480px;margin: 15px 0px 0px;">Hints collected so far:</p>
-
 	<p id="0" align="left"  style="color: #fff; font-size: 17px;" ></p>
 	<p id="1" align="left"  style="color: #fff; font-size: 17px;" ></p>
 	<p id="2" align="left"  style="color: #fff; font-size: 17px;" ></p>
@@ -92,8 +105,13 @@
 	<p id="4" align="left"  style="color: #fff; font-size: 17px;" ></p>
 	<p id="5" align="left"  style="color: #fff; font-size: 17px;" ></p>
 	<p id="6" align="left"  style="color: #fff; font-size: 17px;" ></p>
-
 	<canvas id="'pwdCanvas" width="360" height="'50"></canvas>
+</div>
+
+//VIEW 1 HINT/TIP FIELD
+<div id="smallHintsWindow" class="'passwordPopUp" style="display: none; position: absolute; top:calc(50% - 215px); left:calc(50% - 250px);" >
+	<p id="smallHintsTitle" align="'center" style="color: #fff;font-size: 25px;width: 480px;margin: 15px 0px 0px;">How to make your passwords stronger:</p>
+	<p id="smallHintsText" align="left"  style="color: #fff; font-size: 17px;" ></p>
 </div>
 </body>
 

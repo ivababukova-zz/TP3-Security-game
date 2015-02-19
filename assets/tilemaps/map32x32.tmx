@@ -236,13 +236,6 @@
   <object id="29" gid="10667" x="1311.88" y="1982.88">
    <properties>
     <property name="password" value="null"/>
-    <property name="sprite" value="frontDoor"/>
-    <property name="type" value="frontDoor"/>
-   </properties>
-  </object>
-  <object id="30" gid="10667" x="1312" y="1984">
-   <properties>
-    <property name="password" value="null"/>
     <property name="policy" value="green"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="frontDoor"/>

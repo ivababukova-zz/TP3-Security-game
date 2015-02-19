@@ -3,8 +3,6 @@ var Encrypt = Encrypt || {};
 //title screen
 Encrypt.Game = function(){};
 
-var hook;
-
 var currentRoom = 0;
 var currentDoor = null;
 var text = null;
@@ -19,6 +17,7 @@ var finalscore; // @iva: variable that hold the value of the final score. Used f
 var pickedHints = []; // @iva: stores the pickedHints collected by the player so far
 var enemyFrame = 0; //this tracks the current frame of animation for the enemy
 var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
+
 Encrypt.Game.prototype = {
   create: function () {
 
@@ -48,46 +47,41 @@ Encrypt.Game.prototype = {
     this.createEnemy(); // Andi: create the enemy
     this.blockedLayer = this.map.createLayer('blockedLayer');
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer'); //collision on blockedLayer
-    
-
     this.overPlayerLayer = this.map.createLayer('overPlayerLayer');
-
-
-
-    //resizes the game world to match the layer dimensions
-    this.backgroundlayer.resizeWorld();
-
+    this.backgroundlayer.resizeWorld(); //resizes the game world to match the layer dimensions
 
     this.createItems();
     this.loadRooms();
     this.createInput();
 
-    // create a button for viewing the pickedHints and tips collected so far; @iva
-    this.hintsButton = this.game.add.button (530, 10, 'hintsButton', this.displayHintsCollected, this );
+    /* create a button for viewing the pickedHints and tips collected so far; @iva */
+    this.hintsButton = this.game.add.button (535, 10, 'hintsButton', this.displayHintsCollected, this );
     this.hintsButton.fixedToCamera = true;
+    this.pressedHintsButton = this.game.add.button(535, 10, 'pressedHintsButton', this.hideHintsCollected, this);
+    this.pressedHintsButton.inputEnabled = false;
+    this.pressedHintsButton.renderable = false;
+    this.pressedHintsButton.fixedToCamera = true;
 
-    // create the score label
+    /* create a button for making a new note or reviewing saved passwords: @iva */
+    this.noteButton = this.game.add.button (470, 10, 'noteButton', this.displayNote, this);
+    this.noteButton.fixedToCamera = true;
+    this.pressedNoteButton = this.game.add.button (470, 10, 'pressedNoteButton', this.hideNote, this);
+    this.pressedNoteButton.fixedToCamera = true;
+    this.pressedNoteButton.renderable = false;
+    this.pressedNoteButton.inputEnabled = false;
+
+    /* create the score label */
     this.scoreString = "Score: " + this.scoreSystem.score;
     this.scoreLabel = this.game.add.text(0, 0, this.scoreString, { font: "32px Arial", fill: "#ffffff", align: "center"});
     this.scoreLabel.fixedToCamera = true;
     this.scoreLabel.cameraOffset.setTo(25,25);
 
-    // create a button for viewing the pickedHints and tips collected so far;
-    this.hintsButton = this.game.add.button (530, 10, 'hintsButton', this.displayHintsCollected, this );
-    this.pressedHintsButton = this.game.add.button(530, 10, 'pressedHintsButton', this.hideHintsCollected, this);
-    this.pressedHintsButton.inputEnabled = false;
-    this.pressedHintsButton.renderable = false;
-    this.hintsButton.fixedToCamera = true; //BMDK: - Changed from var to this. as it needs to be referenced globally
-    this.pressedHintsButton.fixedToCamera = true;
-
-    //add the W key to the keyboard to serve as a 'write' option for the player
-    this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
-    //ESC key is used for closing pop ups
-    this.escapeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+    this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W); //add the W key to the keyboard to serve as a 'write' option for the player
+    this.escapeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC); //ESC key is used for closing pop ups
 	
-	//create sounds used elsewhere in the game
-	doorSound = this.game.add.audio('doorSound');
-	pickupSound = this.game.add.audio('pickUpSound');
+	  //create sounds used elsewhere in the gam
+	  doorSound = this.game.add.audio('doorSound');
+	  pickupSound = this.game.add.audio('pickUpSound');
 
     // path-finding algorithm set up
 
@@ -102,52 +96,35 @@ Encrypt.Game.prototype = {
 
   },
 
-  /* @iva */
-  // note: I will move these methods down as soon as I finish implementing this functionality, so they comply with the order.
-  displayHintsCollected: function () {
-    this.pressedHintsButton.inputEnabled = true;
-    this.pressedHintsButton.renderable = true;
-    this.hintsButton.inputEnabled = false;
-    this.hintsButton.renderable = false;
+  displayNote: function () {
 
-    document.getElementById ("hintsLayer").style.display = "block";
-    document.getElementById ("hintsWindow").style.display = "block";
-    document.getElementById ("hintsTitle").style.display = "block";
-
-    var i = 0;
-    while (i < pickedHints.length) {
-      document.getElementById(i.toString()).innerHTML = (i+1).toString() + ". " + pickedHints[i];
-      i ++;
-    }
-
-
-    /*
-    var i = 0;
-    var j = 0;
-    var text2, style;
-
-    while (i < pickedHints.length) {
-      style = { font: "30px Serif", fill: "#ffffff", align: "left" };
-      text2 = this.game.add.text(this.player.sprite.x, this.player.sprite.y + j, pickedHints[i], style);
-      this.time.events.add(7000, text2.destroy, text2);  // makes the text disappear after some time
-      i++;
-      j = j + 30;
-    }
+    this.pressedNoteButton.inputEnabled = true;
+    this.pressedNoteButton.renderable = true;
+    this.noteButton.inputEnabled = false;
+    this.noteButton.renderable = false;
+    /* do not delete
+    document.getElementById("mainLayer").style.display = "block";
+    document.getElementById("feedbackField").style.display = "none";
+    document.getElementById("inputPwd").style.display = "block";
+    document.getElementById("titlePwd").innerHTML = "Type in passwords you want to save:";
+    document.getElementById("policyField").style.display = "block";
+    document.getElementById("policyTitle").innerHTML = "Your notes :";
+    document.getElementById("policyRules").innerHTML = this.notes;
     */
   },
 
-  /* @iva hides the window with the hints */
-  hideHintsCollected: function () {
-    console.log("hello, in hideHintsCollected");
-    this.hintsButton.inputEnabled = true;
-    this.hintsButton.renderable = true;
-    this.pressedHintsButton.inputEnabled = false;
-    this.pressedHintsButton.renderable = false;
-    document.getElementById("hintsLayer").style.display = "none";
-    document.getElementById("hintsWindow").style.display = "none";
-    document.getElementById("hintsTitle").style.display = "none";
+  hideNote: function () {
+    this.noteButton.inputEnabled = true;
+    this.noteButton.renderable = true;
+    this.pressedNoteButton.inputEnabled = false;
+    this.pressedNoteButton.renderable = false;
+    /* do not delete
+    document.getElementById("mainLayer").style.display = "none";
+    document.getElementById("feedbackField").style.display = "none";
+    document.getElementById("inputPwd").style.display = "none";
+    document.getElementById("policyField").style.display = "none";
+    */
   },
-
 
   // UPDATE STATE:
   update: function () {
@@ -191,6 +168,8 @@ Encrypt.Game.prototype = {
     this.game.world.bringToTop(this.scoreLabel);              // and bring it to top of the rendered objects
     this.game.world.bringToTop(this.hintsButton);  // @iva: bring the hints button to be always at the top
     this.game.world.bringToTop(this.pressedHintsButton);  // @iva: bring the hints button to be always at the top
+    this.game.world.bringToTop(this.noteButton);
+    this.game.world.bringToTop(this.pressedNoteButton);
 
     //add a variable to let
     this.enemy.update();
@@ -447,7 +426,7 @@ Encrypt.Game.prototype = {
    ************************************************************
   ********************ALL ABOUT THE INPUT**********************/
   createInput: function () {
-    var notes = "";
+    this.notes = "";
     var i = 0;
     var self = this;
     var input = new CanvasInput({
@@ -532,6 +511,7 @@ Encrypt.Game.prototype = {
           this._hiddenInput.value = '';
           fPause = false;
         }// if W key is pressed, then open note pop up
+
         if(self.writeKey.justDown){
           self.game.input.keyboard.enabled = false;
           
@@ -545,10 +525,9 @@ Encrypt.Game.prototype = {
           console.log(notes + " hello");
           document.getElementById("policyTitle").innerHTML = "Your notes :";
           document.getElementById("policyRules").innerHTML = notes;
-              
-          
-          
         }
+
+
         // first check if main layer is open and then check if it's not a noPolicy pop up
         if (document.getElementById("mainLayer").style.display === "block" && document.getElementById("inputPwd").style.display === "block") {
           console.log(self.getEntropy(this._hiddenInput.value)[0]);//BMDK testing
@@ -785,6 +764,35 @@ getEntropy: function (pwdFeed) {
     }
   },
 
+  /* @iva */
+  displayHintsCollected: function () {
+    this.pressedHintsButton.inputEnabled = true;
+    this.pressedHintsButton.renderable = true;
+    this.hintsButton.inputEnabled = false;
+    this.hintsButton.renderable = false;
+
+    document.getElementById ("hintsLayer").style.display = "block";
+    document.getElementById ("hintsWindow").style.display = "block";
+    document.getElementById ("hintsTitle").style.display = "block";
+
+    var i = 0;
+    while (i < pickedHints.length) {
+      document.getElementById(i.toString()).innerHTML = (i+1).toString() + ". " + pickedHints[i];
+      i ++;
+    }
+  },
+
+  /* @iva hides the window with the hints */
+  hideHintsCollected: function () {
+    this.hintsButton.inputEnabled = true;
+    this.hintsButton.renderable = true;
+    this.pressedHintsButton.inputEnabled = false;
+    this.pressedHintsButton.renderable = false;
+
+    document.getElementById("hintsLayer").style.display = "none";
+    document.getElementById("hintsWindow").style.display = "none";
+    document.getElementById("hintsTitle").style.display = "none";
+  },
 
   /** function that outputs a random hint from an array of pickedHints
    *  called when the player collects a clue object
@@ -794,6 +802,7 @@ getEntropy: function (pwdFeed) {
   showHint: function(player, collectable) {
     var found = false; // false if the user has picked hint for first time
     var array = [];
+    var self = this;
     array.push ("Don't share your passwords with anyone");
     //array.push ("Use combination of small and big letters, numbers and special characters"); too huge for the current display
     array.push ("Don't ever use same passwords on multiple websites");
@@ -818,10 +827,19 @@ getEntropy: function (pwdFeed) {
     }
 
     // display hint:
-    var style = { font: "25px Serif", fill: "#000000", align: "center" };
-    var text2 = this.game.add.text (this.player.sprite.x, this.player.sprite.y, hint, style);
+    var style = { font: "20px Serif", fill: "#000000", align: "center" };
+    var text2 = this.game.add.text (this.player.sprite.x - 200, this.player.sprite.y, hint, style);
     this.time.events.add(4000, text2.destroy, text2);  // makes the text disappear after some time
+
     collectable.destroy ();
+
+  },
+
+  removeHint: function () {
+    document.getElementById ("smallHintsLayer").style.display = "none";
+    document.getElementById ("smallHintsWindow").style.display = "none";
+    document.getElementById ("smallHintsTitle").style.display = "none";
+
   },
   /** Function deals with entering through the doors
    * @param player
@@ -847,7 +865,7 @@ getEntropy: function (pwdFeed) {
       if (this.player.policies[door.policy] === undefined) {
         document.getElementById("mainLayer").style.display = "block";
         document.getElementById("noPolicyField").style.display = "block";
-        document.getElementById("noPolicyLabel").innerHTML = "YOU NEED TO HAVE " + door.policy + " POLICY.";
+        document.getElementById("noPolicyLabel").innerHTML = "You can't enter here. You need to collect the policy for this door first.";
       }
       else {
         document.getElementById("policyTitle").style.color = door.policy;
@@ -1003,8 +1021,6 @@ getEntropy: function (pwdFeed) {
 
           walkables[this.map.layers[0].data[i][j].index] = 0;
         }
-
-
       console.log(Object.keys(walkables));
     }
   }
