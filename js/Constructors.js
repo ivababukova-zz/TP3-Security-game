@@ -132,18 +132,18 @@ Player.prototype = {
     * */
     // modified by Iva 07.02.2015
       addItem: function (numb) {
-        console.log ("just collected item wohohohooooo!");
+        //console.log ("just collected item wohohohooooo!");
          if (numb === 1) {
              this.bagFirewall.push(this.bagFirewall.length + 1);  // increment the firewall bag
-             console.log("number of items in the firewall bag now: " + this.bagFirewall.length);
+             //console.log("number of items in the firewall bag now: " + this.bagFirewall.length);
          }
         else if (numb === 2) {
              this.bagAntivirus.push(this.bagAntivirus.length + 1);
-             console.log("number of items in the antivirus bag now: " + this.bagAntivirus.length);
+             //console.log("number of items in the antivirus bag now: " + this.bagAntivirus.length);
          }
         else if (numb === 3) {
              this.bagAntikeyLogger.push(this.bagAntikeyLogger.length + 1);
-             console.log("number of items in the antikeylog bag now: " + this.bagAntikeyLogger.length);
+             //console.log("number of items in the antikeylog bag now: " + this.bagAntikeyLogger.length);
          }
     },
 
@@ -165,7 +165,7 @@ Player.prototype = {
             var chance = Math.random();
 
             if (chance > this.looseNoteChance) {
-                console.log("oh no, you're losing yer paper");
+                //console.log("oh no, you're losing yer paper");
                 //drop the note in the current position;
                 this.note.dropPaper(currentX, currentY);
             }
@@ -248,8 +248,8 @@ Enemy.prototype = {
             var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
             var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
 
-            console.log(next.x + " " + next.y +
-                        "Sprite: " + this.sprite.x + ", " + this.sprite.y);
+            //console.log(next.x + " " + next.y +
+            //            "Sprite: " + this.sprite.x + ", " + this.sprite.y);
             // go down and right
             if( next.x > enemyTileX && next.y > enemyTileY ){
                 this.sprite.body.velocity.x += 32;
@@ -783,7 +783,7 @@ ScoreSystem.prototype = {
             this.disinfections = 0; // set this variable back to 0, to reset the streak
         }
         else{
-            console.log("Tie fuck? This is naething I canne disinfect!");
+            //console.log("Tie fuck? This is naething I canne disinfect!");
         }
         // give a bonus for a streak of successful disinfections
         if( this.disinfections > 0 )

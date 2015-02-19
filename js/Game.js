@@ -191,10 +191,10 @@ Encrypt.Game.prototype = {
   createPlayer: function () {
     this.player = new Player(300,500, this.game);
 
-    this.player.sprite.animations.add('down', [1,2,3,4,5,6,7,8], 8, true, true);
-    this.player.sprite.animations.add('left',  [1,2,3,4,5,6,7,8], 8, true, true);
-    this.player.sprite.animations.add('right', [1,2,3,4,5,6,7,8], 8, true, true);
-    this.player.sprite.animations.add('up',    [1,2,3,4,5,6,7,8], 8, true, true);
+    this.player.sprite.animations.add('down', [1,2,3,4,5,6,7,8], 14, true, true);
+    this.player.sprite.animations.add('up',  [10,11,12,13,14,15,16,17], 14, true, true);
+    this.player.sprite.animations.add('right', [19,20,21,22,23,24,25,26], 14, true, true);
+    this.player.sprite.animations.add('left',    [28,29,30,31,32,33,34,35], 14, true, true);
     //this.player.animations.add('static', [0], 1, true, true);
 
     // made player centered, which fixes room highlighting problems. A.M.
@@ -947,16 +947,16 @@ getEntropy: function (pwdFeed) {
     else {
       character.animations.stop();
       if (lastKnownPlayerDirection [0] === 'up') {
-        character.frame = 36; /* leave player facing up*/
+        character.frame = 9; /* leave player facing up*/
       }
       else if (lastKnownPlayerDirection [0] === 'down') {
-        character.frame = 1; /* leave player facing down*/
+        character.frame = 0; /* leave player facing down*/
       }
       else if (lastKnownPlayerDirection [0] === 'left') {
-        character.frame = 23; /* leave player facing left*/
+        character.frame = 27; /* leave player facing left*/
       }
       else if (lastKnownPlayerDirection [0] === 'right') {
-        character.frame = 35; /* leave player facing right*/
+        character.frame = 18; /* leave player facing right*/
       }
     }
   },
