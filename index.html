@@ -24,94 +24,89 @@
 			margin: 0px;
 		}
 	</style>
+	<script>
+		function resize_popup(){
+			resize_canvas("mainCanvas", "mainLayer", "black", "10", "red");
+			resize_canvas("hintsCanvas", "hintsLayer", '#00141F', "5", "blue");
+		}
+		function resize_canvas(canvasId, layerId, fillColour, lineW, strokeColour){
+			var mainCanvas = document.getElementById(canvasId);
+			var context = mainCanvas.getContext('2d');
+			context.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+			var canvases = document.getElementsByTagName("canvas");
+			for(var i=0;i<canvases.length;i++){
+				if(canvases[i].id === ""){
+					var gameCanvas = canvases[i];
+				}
+			}
+			var offsetX =  parseInt(gameCanvas.style.width.replace(/px/,"")) * 0.1;
+			var offsetY =  parseInt(gameCanvas.style.height.replace(/px/,"")) * 0.1;
+			mainCanvas.style.width = (parseInt(gameCanvas.style.width.replace(/px/,"")) -2*offsetX ) + "px";
+			mainCanvas.width = parseInt(gameCanvas.style.width.replace(/px/,"")) -2*offsetX;
+			mainCanvas.style.height = (parseInt(gameCanvas.style.height.replace(/px/,"")) -2*offsetY ) + "px";
+			mainCanvas.height = parseInt(gameCanvas.style.height.replace(/px/,"")) -2*offsetY;
+			drawMainLayer(canvasId, layerId, parseInt(mainCanvas.style.width.replace(/px/,"")),parseInt(mainCanvas.style.height.replace(/px/,"")),
+			fillColour, lineW, strokeColour);
+		}
+		function drawMainLayer(canvasId, layerId, w, h, fill, lineW, borderColour){
+			var canvas = document.getElementById(canvasId);
+			var mainLayer = document.getElementById(layerId);
+			mainLayer.style.left = 0.5*(window.innerWidth - w) + "px";
+			mainLayer.style.top = 0.5*(window.innerHeight - h) + "px";
+			var context = canvas.getContext('2d');
+			context.fillStyle = fill;
+			context.lineWidth = lineW;
+			context.strokeStyle = borderColour;
+			context.fillRect(0, 0, w, h);
+			context.strokeRect(0, 0, w, h);
+		}
+	</script>
+	<style>
+		button{
+			width: 80px;
+			height: 80px;
+			background-color: #4D4D4D;
+			color: #ffffff;
+			font-size: 1vw;
+			position: absolute;
+		}
+		.centeredElements{
+			left:0;
+			right:0;
+			margin: 0 auto;
+			position:absolute;
+		}
+	</style>
 </head>
 
-<body bgcolor="#000">
+<body onresize="resize_popup()" bgcolor="#000">
 <div id="game-area"></div>
 <script src="js/main.js"></script>
-
-// Main password pop up canvas
-<div id="mainLayer" align="center" style="display: none; position: absolute; top:calc(50% - 250px); left:calc(50% - 350px);">
-	<canvas id="mainCanvas" width="700" height="500"></canvas>
+<!--Main password pop up canvas-->
+<div id="mainLayer" align="center" style="position:absolute; display: none;">
+	<canvas id="mainCanvas" width="600" height="600" style="position: relative;"></canvas>
 	<script>
-		var canvas = document.getElementById("mainCanvas");
-		var context = canvas.getContext('2d');
-		context.fillStyle = '#303030';
-		context.lineWidth = "15";
-		context.strokeStyle = "#1D1D1D";
-		context.fillRect(0, 0, 700, 500);
-		context.strokeRect(0, 0, 700, 500);
+		drawMainLayer("mainCanvas", "mainLayer", 600, 600, "black", "10", "red");
 	</script>
+	<button id="esc" style="top: 0px; left:0px;">ESC</button>
+	<p id="policyTitle" style="position:absolute; display:none; top:5%; left:20%; color:#fff; font-size:40px">Policy Rules</p>
+	<p id="policyRules" align="left" style="position:absolute;top:20%; left:10%;overflow-y: auto; width: 400px; height:150px;color: #fff;font-size: 25px"></p>
+	<div id="inputPwd" class="centeredElements" style="display: none; top:60%;">
+		<p id="titlePwd" style="color: #fff;font-size: 25px;">Setup Password</p>
+		<canvas id="pwdCanvas" width="360" height="50"></canvas>
+	</div>
+	<button id="resetPassword" style="display: none;top: 70%;left:85%;">RESET</button>
+	<p id="feedback" class="centeredElements" style="display: none;top:85%;color: #fff;font-size: 25px"></p>
 </div>
 
-// Hints and tips pop up window:
-<div id="hintsLayer" align="center" style="display: none; position: absolute; top:calc(50% - 220px); left:calc(50% - 620px);">
-	<canvas id="mainCanvas1" width="530" height="340"></canvas>
+<!--Hints and tips pop up window:-->
+<div id="hintsLayer" align="center" style="position:absolute;display: none;">
+	<canvas id="hintsCanvas" width="400" height="450" style="position: relative"></canvas>
 	<script>
-		var canvas = document.getElementById("mainCanvas1");
-		var context = canvas.getContext('2d');
-		context.fillStyle = '#00141F';
-		context.lineWidth = "5";
-		context.strokeStyle = "blue";
-		context.fillRect(0, 0, 530, 340);
-		context.strokeRect(0, 0, 530, 340);
+		drawMainLayer("hintsCanvas", "hintsLayer",400,450, '#00141F', "5", "blue");
 	</script>
-</div>
-
-//small hints and tips window:
-<div id="smallHintsLayer" align="center" style="display: none; position: absolute; top:calc(50% - 220px); left:calc(50% - 300px);">
-	<canvas id="mainCanvas2" width="500" height="200"></canvas>
-	<script>
-		var canvas = document.getElementById("mainCanvas2");
-		var context = canvas.getContext('2d');
-		context.fillStyle = '#472424';
-		context.lineWidth = "5";
-		context.strokeStyle = "#B25A5A";
-		context.fillRect(0, 0, 500, 200);
-		context.strokeRect(0, 0, 500, 200);
-	</script>
-</div>
-
-// POLICY FIELD
-<div id="policyField" class="passwordPopUp" align="left" style="display: none; position: absolute; top:calc(50% - 240px); left:calc(50% - 240px);">
-	<p id="policyTitle" align="center"  style="color: #fff;font-size: 40px;width: 480px;margin: 15px 0px 0px">Policy Rules</p>
-	<p id="policyRules" align="left"  style="color: #fff;font-size: 25px">MIN LENGTH: 5<br>MIN #NUMBERS: 2<br>MIN #PUNCTUATION SIGNS:1<br>MIN #SPECIAL CHARACTERS: 1</p>
-</div>
-
-// NO POLICY LABEL
-<div id="noPolicyField" align="center" style="display: none; position: absolute; top:calc(50% - 240px); left:calc(50% - 240px);">
-	<p id="noPolicyLabel" align="center"  style="color: #fff;font-size: 40px;width: 480px;margin: 15px 0px 0px">YOU NEED POLICY TO ENTER</p>
-	<button></button>
-</div>
-
-// LIVE FEEDBACK FIELD
-<div id="feedbackField" class="passwordPopUp" align="center" style="display: none; position: absolute; top:calc(50% + 135px); left:calc(50% - 250px);">
-	<p id="feedback" align="center"  style="color: #fff;width: 500px;font-size: 25px">Feedback</p>
-</div>
-
-// PASSWORD FIELD
-<div id="inputPwd" class="passwordPopUp" align="center" style="display: none; position: absolute; top:calc(50% + 35px); left:calc(50% - 180px);">
-	<p id="titlePwd" align="center"  style="color: #fff;font-size: 25px;padding:0px 0px 5px;margin:0px 0px 0px 0px;">Setup Password</p>
-	<canvas id="pwdCanvas" width="360" height="50"></canvas>
-</div>
-
-// VIEW HINTS FIELD
-<div id="hintsWindow" class="'passwordPopUp" style="display: none; position: absolute; top:calc(50% - 215px); left:calc(50% - 600px);" >
-	<p id="hintsTitle" align="'center" style="color: #fff;font-size: 25px;width: 480px;margin: 15px 0px 0px;">Hints collected so far:</p>
-	<p id="0" align="left"  style="color: #fff; font-size: 17px;" ></p>
-	<p id="1" align="left"  style="color: #fff; font-size: 17px;" ></p>
-	<p id="2" align="left"  style="color: #fff; font-size: 17px;" ></p>
-	<p id="3" align="left"  style="color: #fff; font-size: 17px;" ></p>
-	<p id="4" align="left"  style="color: #fff; font-size: 17px;" ></p>
-	<p id="5" align="left"  style="color: #fff; font-size: 17px;" ></p>
-	<p id="6" align="left"  style="color: #fff; font-size: 17px;" ></p>
-	<canvas id="'pwdCanvas" width="360" height="'50"></canvas>
-</div>
-
-//VIEW 1 HINT/TIP FIELD
-<div id="smallHintsWindow" class="'passwordPopUp" style="display: none; position: absolute; top:calc(50% - 215px); left:calc(50% - 250px);" >
-	<p id="smallHintsTitle" align="'center" style="color: #fff;font-size: 25px;width: 480px;margin: 15px 0px 0px;">How to make your passwords stronger:</p>
-	<p id="smallHintsText" align="left"  style="color: #fff; font-size: 17px;" ></p>
+	<p id="hintsTitle" align="'center" style="position:absolute;top: 5%;left: 5%;color: #fff;font-size: 25px;">Hints collected so far:</p>
+	<p id="hintsDisplay" align="left"  style="position:absolute;top: 20%;left: 5%;color: #fff; font-size: 20px;"></p>
 </div>
 </body>
 

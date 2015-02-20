@@ -17,7 +17,6 @@ var finalscore; // @iva: variable that hold the value of the final score. Used f
 var pickedHints = []; // @iva: stores the pickedHints collected by the player so far
 var enemyFrame = 0; //this tracks the current frame of animation for the enemy
 var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
-
 Encrypt.Game.prototype = {
   create: function () {
 
@@ -77,7 +76,6 @@ Encrypt.Game.prototype = {
     this.scoreLabel.cameraOffset.setTo(25,25);
 
     this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W); //add the W key to the keyboard to serve as a 'write' option for the player
-    this.escapeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC); //ESC key is used for closing pop ups
 	
 	  //create sounds used elsewhere in the gam
 	  doorSound = this.game.add.audio('doorSound');
@@ -94,6 +92,9 @@ Encrypt.Game.prototype = {
     this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
     this.pathfinder.setGrid(this.map.layers[0].data, walkables);
 
+    // Esc and password reset buttons
+    document.getElementById("esc").addEventListener("click", this.closePopup.bind(this));
+    document.getElementById("resetPassword").addEventListener("click", this.resetPassword.bind(this));
   },
 
   displayNote: function () {
@@ -129,7 +130,6 @@ Encrypt.Game.prototype = {
   // UPDATE STATE:
   update: function () {
     var self = this;
-
     /*This code was added to control frame rates for the enemy.
     * In the enemy update, the next frame is loaded when cond
     * is satisfied ~BMDK
@@ -422,14 +422,41 @@ Encrypt.Game.prototype = {
       graphics.drawRect(x, y, w, h);
       graphics.endFill();
     }, this);
-  },/**
+  },
+  resetPassword: function(){
+    if(currentDoor.password === 'null'){
+      document.getElementById("feedback").innerHTML = "Password is not set for this door.";
+      return;
+    }else if(this.player.passwordResetsAvailable === 0){
+      document.getElementById("feedback").innerHTML = "You are out of password resets.";
+      return
+    }
+
+    this.player.passwordResetsAvailable -= 1;
+    this.metricsSystem.addResetPassword(currentDoor.password);
+    currentDoor.password = 'null';
+    document.getElementById("feedback").innerHTML = "Password reset completed.";
+    document.getElementById("titlePwd").innerHTML = "Setup a password.";
+    this.input.focus();
+  },
+  closePopup: function() {
+    document.getElementById("inputPwd").style.display = "none";
+    document.getElementById("policyTitle").style.display = "none";
+    document.getElementById("feedback").style.display = "none";
+    document.getElementById("mainLayer").style.display = "none";
+    document.getElementById("resetPassword").style.display = "none";
+    this.game.input.keyboard.enabled = true;
+    this.input.focus();
+    fPause = false;
+  },
+  /**
    ************************************************************
   ********************ALL ABOUT THE INPUT**********************/
   createInput: function () {
     this.notes = "";
     var i = 0;
     var self = this;
-    var input = new CanvasInput({
+    this.input = new CanvasInput({
       canvas: document.getElementById('pwdCanvas'),
       fontSize: 18,
       fontFamily: 'Arial',
@@ -447,15 +474,10 @@ Encrypt.Game.prototype = {
         if(document.getElementById("titlePwd").innerHTML === "Type in passwords you want to save:"){
           // write it to the note
           self.player.note.write(this._value);
-          notes += self.player.note.passwords[i] + "<br>"
+          self.notes += self.player.note.passwords[i] + "<br>";
           i++;
-          document.getElementById("inputPwd").style.display = "none";
-          document.getElementById("mainLayer").style.display = "none";
-          document.getElementById("policyField").style.display= "none";
-          document.getElementById("feedbackField").style.display = "none";
-          document.getElementById ("hintsWindow").style.display = "none";
           this._hiddenInput.value = '';
-          self.game.input.keyboard.enabled = true;
+          self.closePopup();
           return;
         }
         // when the user input password and enter 'Enter' key
@@ -463,10 +485,6 @@ Encrypt.Game.prototype = {
           return;
         }
         if (currentDoor.password === 'null') {
-          document.getElementById("inputPwd").style.display = "none";
-          document.getElementById("policyField").style.display= "none";
-          document.getElementById("feedbackField").style.display = "none";
-          document.getElementById("mainLayer").style.display= "none";
           self.changeDoorState(currentDoor,'opening');
 		      doorSound.play();
           doorsCollidable = false;
@@ -475,15 +493,9 @@ Encrypt.Game.prototype = {
           self.scoreSystem.scorePassword(self.getEntropy(this._value)); /*Andi: adding the password to the score & metrics systems*/
           self.metricsSystem.addPassword(this._value);
           this._hiddenInput.value = '';
-          fPause = false;
+          self.closePopup();
         } else { // if password was already set, then compare.
-
           if (currentDoor.password === this._value) {
-            document.getElementById("inputPwd").style.display = "none";
-            document.getElementById("policyField").style.display= "none";
-            document.getElementById("feedbackField").style.display = "none";
-            document.getElementById("mainLayer").style.display= "none";
-            fPause = false;
             doorSound.play();
             /*BMDK: call to function to open door when password is successful*/
             self.changeDoorState(currentDoor,'opening');
@@ -493,6 +505,7 @@ Encrypt.Game.prototype = {
             self.scoreSystem.scorePassingThroughDoorWithoutResetting(this._value, self.getEntropy(this._value), self.player); //Andi: added scoring for this scenario to scoring system
 
             doorJustOpened = true; //BMDK: track that door opened
+            self.closePopup();
           } else {
             document.getElementById("titlePwd").innerHTML = "Incorrect. Input again!";
           }
@@ -501,35 +514,26 @@ Encrypt.Game.prototype = {
       },
       // Feedback generated within each key-press
       onkeyup: function() {
-        // if ESC button is pressed, then hide all elements
-        if(self.escapeKey.justDown){
-          document.getElementById("inputPwd").style.display = "none";
-          document.getElementById("noPolicyField").style.display= "none";
-          document.getElementById("policyField").style.display= "none";
-          document.getElementById("feedbackField").style.display = "none";
-          document.getElementById("mainLayer").style.display = "none";
-          this._hiddenInput.value = '';
-          fPause = false;
-        }// if W key is pressed, then open note pop up
-
+        // if W key is pressed, then open note pop up
         if(self.writeKey.justDown){
+          fPause = true;
+          self.game.input.keyboard.reset(false);
           self.game.input.keyboard.enabled = false;
-          
           document.getElementById("mainLayer").style.display = "block";
-          document.getElementById("feedbackField").style.display = "none";
           //document.getElementById("mainCanvas").context.fillStyle = 'blue';
           document.getElementById("inputPwd").style.display = "block";
+          document.getElementById("titlePwd").style.display = "block";
+          document.getElementById("policyTitle").style.display = "block";
           document.getElementById("titlePwd").innerHTML = "Type in passwords you want to save:";
-          document.getElementById("policyField").style.display = "block";
           
-          console.log(notes + " hello");
+          console.log(self.notes + " hello");
           document.getElementById("policyTitle").innerHTML = "Your notes :";
-          document.getElementById("policyRules").innerHTML = notes;
+          console.log(document.getElementById("policyTitle").innerHTML);
+          document.getElementById("policyRules").innerHTML = self.notes;
         }
 
-
         // first check if main layer is open and then check if it's not a noPolicy pop up
-        if (document.getElementById("mainLayer").style.display === "block" && document.getElementById("inputPwd").style.display === "block") {
+        if (document.getElementById("feedback").style.display === "block"){
           console.log(self.getEntropy(this._hiddenInput.value)[0]);//BMDK testing
           var policy = self.player.policies[currentDoor.policy];
           var feedback = "";
@@ -557,12 +561,11 @@ Encrypt.Game.prototype = {
             document.getElementById("feedback").style.color = "red";
           }
           document.getElementById("feedback").innerHTML = feedback;
-          document.getElementById("feedbackField").style.display = "block";
         }
       }
     });
-    input.focus();
-    return input;
+    this.input.focus();
+    return this.input;
   },
   /* BMDK: - Function for calculation of password entropy*/
 getEntropy: function (pwdFeed) {
@@ -772,14 +775,14 @@ getEntropy: function (pwdFeed) {
     this.hintsButton.renderable = false;
 
     document.getElementById ("hintsLayer").style.display = "block";
-    document.getElementById ("hintsWindow").style.display = "block";
-    document.getElementById ("hintsTitle").style.display = "block";
 
-    var i = 0;
+    var hintsToDisplay = pickedHints[0] === undefined ? "" : ("1. " + pickedHints[0]);
+    var i = 1;
     while (i < pickedHints.length) {
-      document.getElementById(i.toString()).innerHTML = (i+1).toString() + ". " + pickedHints[i];
+      hintsToDisplay +="<br>" + (i+1).toString() + ". " + pickedHints[i];
       i ++;
     }
+    document.getElementById("hintsDisplay").innerHTML = hintsToDisplay;
   },
 
   /* @iva hides the window with the hints */
@@ -789,9 +792,8 @@ getEntropy: function (pwdFeed) {
     this.pressedHintsButton.inputEnabled = false;
     this.pressedHintsButton.renderable = false;
 
-    document.getElementById("hintsLayer").style.display = "none";
-    document.getElementById("hintsWindow").style.display = "none";
-    document.getElementById("hintsTitle").style.display = "none";
+    document.getElementById("hintsLayer").style.display = "none"
+    this.input.focus();
   },
 
   /** function that outputs a random hint from an array of pickedHints
@@ -845,7 +847,7 @@ getEntropy: function (pwdFeed) {
    * @param player
    * @param door
    */
-  enterDoor: function (player, door) {
+  enterDoor: function(player, door) {
 
     if(this.flagEnter === false){
 
@@ -853,7 +855,9 @@ getEntropy: function (pwdFeed) {
       currentDoor = door;
       this.flagEnter = true;
       fPause = true;
-
+      this.game.input.keyboard.reset(false);
+      this.game.input.keyboard.enabled = false;
+      this.input.focus();
       // password not set yet
       if (door.password === 'null') {
         document.getElementById("titlePwd").innerHTML = "Setup password";
@@ -864,17 +868,18 @@ getEntropy: function (pwdFeed) {
       // Check if player has the right policy for the door
       if (this.player.policies[door.policy] === undefined) {
         document.getElementById("mainLayer").style.display = "block";
-        document.getElementById("noPolicyField").style.display = "block";
-        document.getElementById("noPolicyLabel").innerHTML = "You can't enter here. You need to collect the policy for this door first.";
+        document.getElementById("policyRules").innerHTML = "You can't enter here. You need to collect the policy for this door first.";
       }
       else {
         document.getElementById("policyTitle").style.color = door.policy;
         document.getElementById("policyRules").innerHTML = this.retrievePolicyRules(door.policy);
         // display password pop up
-        document.getElementById("mainLayer").style.display = "block";
-        document.getElementById("policyField").style.display = "block";
         document.getElementById("policyTitle").innerHTML = "Policy Rules:";
+        document.getElementById("mainLayer").style.display = "block";
+        document.getElementById("policyTitle").style.display = "block";
         document.getElementById("inputPwd").style.display = "block";
+        document.getElementById("resetPassword").style.display = "block";
+        document.getElementById("feedback").style.display = "block";
       }
     }
   },

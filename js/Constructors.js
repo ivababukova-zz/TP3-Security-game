@@ -81,6 +81,7 @@ Player = function (currentX, currentY, game, metrics, score) {
     this.note = new Note();
     this.metrics = metrics;
     this.score = score;
+    this.passwordResetsAvailable = 5;
 
     // policies dictionary: keeps track of what policies the player has access to
     this.policies = {};
