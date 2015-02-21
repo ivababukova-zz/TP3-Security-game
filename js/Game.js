@@ -71,8 +71,8 @@ Encrypt.Game.prototype = {
 
     /* a cross over the player's head: */
     this.cross = "_";
-    this.cross_style = {font: "30px Serif", fill: "#000", align: "center"};
-    this.welcomeLabel = this.game.add.text(this.player.sprite.x - 10, this.player.sprite.y - 70, this.cross, this.cross_style);
+    this.cross_style = {font: "40px Serif", fill: "#000", align: "center"};
+    this.welcomeLabel = this.game.add.text(this.player.sprite.x - 10, this.player.sprite.y - 80, this.cross, this.cross_style);
     this.welcomeLabel.anchor.set(0.5);
 
     /* create the score label */
@@ -101,6 +101,7 @@ Encrypt.Game.prototype = {
     // Esc and password reset buttons
     document.getElementById("esc").addEventListener("click", this.closePopup.bind(this));
     document.getElementById("resetPassword").addEventListener("click", this.resetPassword.bind(this));
+    document.getElementById ("showAllHints").addEventListener ("click", this.displayHintsCollected.bind (this));
   },
 
   displayNote: function () {
@@ -181,6 +182,7 @@ Encrypt.Game.prototype = {
     this.game.world.bringToTop(this.pressedHintsButton);  // @iva: bring the hints button to be always at the top
     this.game.world.bringToTop(this.noteButton);
     this.game.world.bringToTop(this.pressedNoteButton);
+    this.game.world.bringToTop(this.cross);
 
     //add a variable to let
     this.enemy.update();
@@ -792,33 +794,40 @@ getEntropy: function (pwdFeed) {
     document.getElementById("showAllHints").style.display = "block";
 
     if (this.lastHint === undefined) {
-      document.getElementById ("hintsDisplay").innerHTML = "You haven't collected any hints yet";
+      document.getElementById ("hintsDisplay").innerHTML = "<br>" + "You haven't collected any hints yet";
     }
     else {
-      document.getElementById("hintsDisplay").innerHTML = this.lastHint;
+      document.getElementById("hintsDisplay").innerHTML = "<br>" + this.lastHint;
     }
   },
 
   /* @iva */
   displayHintsCollected: function () {
+
     this.pressedHintsButton.inputEnabled = true;
     this.pressedHintsButton.renderable = true;
     this.hintsButton.inputEnabled = false;
     this.hintsButton.renderable = false;
 
+    // document.getElementById ("showAllHints").style.display = "none";
+    document.getElementById ("hintsTitle").innerHTML = "Hints collected so far:";
+    document.getElementById ("hintsDisplay").innerHTML = ""; // remove the lastHintCollected display
     document.getElementById ("hintsLayer").style.display = "block";
 
-    var hintsToDisplay = pickedHints[0] === undefined ? "" : ("1. " + pickedHints[pickedHints.length - 1]);
-
-    var i = 1;
-    while (i < pickedHints.length) {
-      hintsToDisplay +="<br>" + (i+1).toString() + ". " + pickedHints[i];
-      i ++;
+    if (this.lastHint === undefined) {
+      document.getElementById ("hintsDisplay").innerHTML = "<br>" + "You haven't collected any hints yet";
     }
 
-    document.getElementById("hintsDisplay").innerHTML = hintsToDisplay;
+    else {
+      var hintsToDisplay = pickedHints[0] === undefined ? "" : ("1. " + pickedHints[pickedHints.length - 1]);
 
-
+      var i = 1;
+      while (i < pickedHints.length) {
+        hintsToDisplay += "<br>" + (i + 1).toString() + ". " + pickedHints[i];
+        i++;
+      }
+      document.getElementById("hintsDisplay").innerHTML = hintsToDisplay;
+    }
   },
 
   /* @iva hides the window with the hints */
@@ -828,6 +837,7 @@ getEntropy: function (pwdFeed) {
     this.pressedHintsButton.inputEnabled = false;
     this.pressedHintsButton.renderable = false;
 
+    document.getElementById ("hintsTitle").innerHTML = "Last hint collected:"; // the right title when the hints menu is opened again;
     document.getElementById("hintsLayer").style.display = "none"
   },
 
@@ -997,7 +1007,7 @@ getEntropy: function (pwdFeed) {
       }
     }
     this.welcomeLabel.destroy();
-    this.welcomeLabel = this.game.add.text(this.player.sprite.x - 10, this.player.sprite.y - 70, this.cross, this.cross_style);
+    this.welcomeLabel = this.game.add.text(this.player.sprite.x - 10, this.player.sprite.y - 80, this.cross, this.cross_style);
   },
 
   /**

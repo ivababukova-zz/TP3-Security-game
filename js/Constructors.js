@@ -73,9 +73,10 @@ Player = function (currentX, currentY, game, metrics, score) {
     this.isCollidable = true;
     this.speed = 10.0;
 
-    this.bagFirewall = [];  // stores: firewall objects collected from the map @iva
-    this.bagAntivirus = []; // stores: antivirus objects collected from the map @iva
-    this.bagAntikeyLogger = []; // stores: antikeylogger objects from the map @iva
+    this.firewallBag = [];  // stores: firewall objects collected from the map @iva
+    this.antivirusBag = []; // stores: antivirus objects collected from the map @iva
+    this.antikeyLoggerBag = []; // stores: antikeylogger objects from the map @iva
+    this.hintsBag = []; // stores the hints and tips collected by the player @iva
 
     this.looseNoteChance = 0.25;
     this.note = new Note();
@@ -104,20 +105,20 @@ Player.prototype = {
 
         switch (item) {
             case 'antivirus':
-                if (this.bagAntivirus != null) {
-                    this.bagAntivirus [this.bagAntivirus.length - 1].use();  //antivirus will hold position 0
+                if (this.antivirusBag != null) {
+                    this.antivirusBag [this.antivirusBag.length - 1].use();  //antivirus will hold position 0
                 }
                 //do nothing if the player doesn't have the object; potentially play a sound to let him know what's going awn.
                 break;
 
             case 'AntiKeyLog':
-                if (this.bagAntikeyLogger [this.bagAntikeyLogger.length - 1] != null)
-                    this.bagAntikeyLogger [this.bagAntikeyLogger.length - 1].use();
+                if (this.antikeyLoggerBag [this.antikeyLoggerBag.length - 1] != null)
+                    this.antikeyLoggerBag [this.antikeyLoggerBag.length - 1].use();
                 break;
 
             case 'firewall':
-                if (this.bagFirewall [this.bagFirewall.length - 1] != null) {
-                    this.bagFirewall [this.bagFirewall.length - 1].use();
+                if (this.firewallBag [this.firewallBag.length - 1] != null) {
+                    this.firewallBag [this.firewallBag.length - 1].use();
                 }
                 break;
         }
@@ -135,16 +136,16 @@ Player.prototype = {
       addItem: function (numb) {
         //console.log ("just collected item wohohohooooo!");
          if (numb === 1) {
-             this.bagFirewall.push(this.bagFirewall.length + 1);  // increment the firewall bag
-             //console.log("number of items in the firewall bag now: " + this.bagFirewall.length);
+             this.firewallBag.push(this.firewallBag.length + 1);  // increment the firewall bag
+             //console.log("number of items in the firewall bag now: " + this.firewallBag.length);
          }
         else if (numb === 2) {
-             this.bagAntivirus.push(this.bagAntivirus.length + 1);
-             //console.log("number of items in the antivirus bag now: " + this.bagAntivirus.length);
+             this.antivirusBag.push(this.antivirusBag.length + 1);
+             //console.log("number of items in the antivirus bag now: " + this.antivirusBag.length);
          }
         else if (numb === 3) {
-             this.bagAntikeyLogger.push(this.bagAntikeyLogger.length + 1);
-             //console.log("number of items in the antikeylog bag now: " + this.bagAntikeyLogger.length);
+             this.antikeyLoggerBag.push(this.antikeyLoggerBag.length + 1);
+             //console.log("number of items in the antikeylog bag now: " + this.antikeyLoggerBag.length);
          }
     },
 

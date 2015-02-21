@@ -62,7 +62,7 @@
 		}
 	</script>
 	<style>
-		button{
+		.passwBtn{
 			width: 80px;
 			height: 80px;
 			background-color: #4D4D4D;
@@ -88,26 +88,26 @@
 	<script>
 		drawMainLayer("mainCanvas", "mainLayer", 600, 600, "black", "10", "red");
 	</script>
-	<button id="esc" style="top: 0px; left:0px;">ESC</button>
+	<button  class="passwBtn" id="esc" style="top: 0px; left:0px;">ESC</button>
 	<p id="policyTitle" style="position:absolute; display:none; top:5%; left:20%; color:#fff; font-size:40px">Policy Rules</p>
 	<p id="policyRules" align="left" style="position:absolute;top:20%; left:10%;overflow-y: auto; width: 400px; height:150px;color: #fff;font-size: 25px"></p>
 	<div id="inputPwd" class="centeredElements" style="display: none; top:60%;">
 		<p id="titlePwd" style="color: #fff;font-size: 25px;">Setup Password</p>
 		<canvas id="pwdCanvas" width="360" height="50"></canvas>
 	</div>
-	<button id="resetPassword" style="display: none;top: 70%;left:85%;">RESET</button>
+	<button class="passwBtn" id="resetPassword" style="display: none;top: 70%;left:85%;">RESET</button>
 	<p id="feedback" class="centeredElements" style="display: none;top:85%;color: #fff;font-size: 25px"></p>
 </div>
 
 <!--Hints and tips pop up window:-->
-<div id="hintsLayer" align="center" style="position:absolute;display: none;">
-	<canvas id="hintsCanvas" width="400" height="450" style="position: relative"></canvas>
+<div id="hintsLayer" align="center" style="position:absolute; display: none;">
+	<canvas id="hintsCanvas" width="400" height="550" style="position: relative"></canvas>
 	<script>
-		drawMainLayer("hintsCanvas", "hintsLayer",400,450, '#00141F', "5", "blue");
+		drawMainLayer("hintsCanvas", "hintsLayer",400,550, '#00141F', "5", "blue");
 	</script>
-	<p id="hintsTitle" align="'center" style="position:absolute;top: 5%;left: 5%;color: #fff;font-size: 25px;">Last hint collected:</p>
-	<p id="hintsDisplay" align="left"  style="position:absolute;top: 20%;left: 5%;color: #fff; font-size: 20px;"></p>
-	<button id="showAllHints" style="display: none;top: 70%;left:85%;">See All</button>
+	<p id="hintsTitle" align="'center" style="position: absolute; top: 3%; left: 5%; color: #fff; font-size: 25px;">Last hint collected:</p>
+	<p id="hintsDisplay" align="left"  style="position: absolute; top: 17%; left: 5%; color: #fff; font-size: 20px;"></p>
+	<button class="passwBtn" id="showAllHints" style="display: none; top: 80%; left: 40%; color: #ffffff">SEE ALL</button>
 </div>
 </body>
 
