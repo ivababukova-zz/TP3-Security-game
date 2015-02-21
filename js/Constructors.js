@@ -76,7 +76,7 @@ Player = function (currentX, currentY, game, metrics, score) {
     this.firewallBag = [];  // stores: firewall objects collected from the map @iva
     this.antivirusBag = []; // stores: antivirus objects collected from the map @iva
     this.antikeyLoggerBag = []; // stores: antikeylogger objects from the map @iva
-    this.hintsBag = []; // stores the hints and tips collected by the player @iva
+    this.hintsBag = pickedHints; // stores the hints and tips collected by the player @iva
 
     this.looseNoteChance = 0.25;
     this.note = new Note();
@@ -146,6 +146,13 @@ Player.prototype = {
         else if (numb === 3) {
              this.antikeyLoggerBag.push(this.antikeyLoggerBag.length + 1);
              //console.log("number of items in the antikeylog bag now: " + this.antikeyLoggerBag.length);
+         }
+        else if (numb === 4) {
+             var i = 0;
+             while (i < pickedHints.length) {
+                 console.log("PICKEDITEMS: " + pickedHints[i]);
+                 i++;
+             }
          }
     },
 
