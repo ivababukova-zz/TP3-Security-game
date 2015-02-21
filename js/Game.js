@@ -93,7 +93,7 @@ Encrypt.Game.prototype = {
      * walkables is an array of the indexes of the walkable tiles
      * */
     var walkables = [319, 823, 3413, 3511, 4111, 4113, 4114, 4115, 4211, 4213, 4214, 4215, 4814, 4815,
-      6011, 6012, 6013, 6019, 6020, 6021, 6027, 6111, 6112, 6119, 6120, 6121, 6219, 6220, 6221, -1];
+      6011, 6012, 6013, 6019, 6020, 6021, 6027, 6111, 6112, 6119, 6120, 6121, 6219, 6220, 6221];
 
     this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
     this.pathfinder.setGrid(this.map.layers[0].data, walkables);
