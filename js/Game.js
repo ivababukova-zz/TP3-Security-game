@@ -15,6 +15,7 @@ var doorSound = null;
 var pickupSound = null;
 var finalscore = 0; // @iva: variable that hold the value of the final score. Used for displaying the score on the gamewin/lost pages.
 var pickedHints = []; // @iva: stores the pickedHints collected by the player so far
+var lastHint = "";
 var enemyFrame = 0; //this tracks the current frame of animation for the enemy
 var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
 
@@ -747,8 +748,10 @@ getEntropy: function (pwdFeed) {
   
     pickupSound.play(); //play sound when object is picked up
 	
-    if (collectable.type === "clue"  || (collectable.type === "info") )
-      this.showHint(player, collectable);
+    if (collectable.type === "clue"  || (collectable.type === "info") ) {
+      this.player.addItem(4);
+        this.showHint(player, collectable);
+    }
 
     else
       if (collectable.type === "policy") {
@@ -796,11 +799,11 @@ getEntropy: function (pwdFeed) {
     document.getElementById ("hintsLayer").style.display = "block";
     document.getElementById("showAllHints").style.display = "block";
 
-    if (this.lastHint === undefined) {
+    if (lastHint === undefined) {
       document.getElementById ("hintsDisplay").innerHTML = "<br>" + "You haven't collected any hints yet";
     }
     else {
-      document.getElementById("hintsDisplay").innerHTML = "<br>" + this.lastHint;
+      document.getElementById("hintsDisplay").innerHTML = "<br>" + lastHint;
     }
   },
 
@@ -817,7 +820,7 @@ getEntropy: function (pwdFeed) {
     document.getElementById ("hintsDisplay").innerHTML = ""; // remove the lastHintCollected display
     document.getElementById ("hintsLayer").style.display = "block";
 
-    if (this.lastHint === undefined) {
+    if (lastHint === undefined) {
       document.getElementById ("hintsDisplay").innerHTML = "<br>" + "You haven't collected any hints yet";
     }
 
@@ -875,7 +878,7 @@ getEntropy: function (pwdFeed) {
     if (!found) {
       pickedHints.push(hint); // put the found hint in the picked pickedHints array
     }
-    this.lastHint = hint;
+    lastHint = hint;
     // display hint:
     var style = { font: "20px Serif", fill: "#000000", align: "center" };
     var text2 = this.game.add.text (this.player.sprite.x - 200, this.player.sprite.y, hint, style);
