@@ -13,14 +13,14 @@ var doorJustOpened = false;
 var doorsCollidable = true;
 var doorSound = null;
 var pickupSound = null;
-var finalscore; // @iva: variable that hold the value of the final score. Used for displaying the score on the gamewin/lost pages.
+var finalscore = 0; // @iva: variable that hold the value of the final score. Used for displaying the score on the gamewin/lost pages.
 var pickedHints = []; // @iva: stores the pickedHints collected by the player so far
 var enemyFrame = 0; //this tracks the current frame of animation for the enemy
 var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
+
 Encrypt.Game.prototype = {
   create: function () {
 
-    finalscore = 0;
     // array to hold rooms' graphics
     this.roomGraphs = [];
     // when the player touches the door, this.flagEnter is true, otherwise false.
@@ -54,7 +54,7 @@ Encrypt.Game.prototype = {
     this.createInput();
 
     /* create a button for viewing the pickedHints and tips collected so far; @iva */
-    this.hintsButton = this.game.add.button (535, 10, 'hintsButton', this.displayHintsCollected, this );
+    this.hintsButton = this.game.add.button (535, 10, 'hintsButton', this.displayLastHintCollected, this );
     this.hintsButton.fixedToCamera = true;
     this.pressedHintsButton = this.game.add.button(535, 10, 'pressedHintsButton', this.hideHintsCollected, this);
     this.pressedHintsButton.inputEnabled = false;
@@ -68,6 +68,12 @@ Encrypt.Game.prototype = {
     this.pressedNoteButton.fixedToCamera = true;
     this.pressedNoteButton.renderable = false;
     this.pressedNoteButton.inputEnabled = false;
+
+    /* a cross over the player's head: */
+    this.cross = "_";
+    this.cross_style = {font: "30px Serif", fill: "#000", align: "center"};
+    this.welcomeLabel = this.game.add.text(this.player.sprite.x - 10, this.player.sprite.y - 70, this.cross, this.cross_style);
+    this.welcomeLabel.anchor.set(0.5);
 
     /* create the score label */
     this.scoreString = "Score: " + this.scoreSystem.score;
@@ -749,6 +755,7 @@ getEntropy: function (pwdFeed) {
       // added by @iva 07.02.2015
       else if (collectable.type === "antivirus") {
         this.player.addItem(2);
+        finalscore = this.scoreSystem.score;
         this.state.start('GameLost');
         collectable.destroy();
       }
@@ -767,6 +774,26 @@ getEntropy: function (pwdFeed) {
     }
   },
 
+  /**************************************** HINTS AREA ****************************************/
+  /* displays the last hint that the player has collected @iva */
+  displayLastHintCollected: function () {
+
+    this.pressedHintsButton.inputEnabled = true;
+    this.pressedHintsButton.renderable = true;
+    this.hintsButton.inputEnabled = false;
+    this.hintsButton.renderable = false;
+
+    document.getElementById ("hintsLayer").style.display = "block";
+    document.getElementById("showAllHints").style.display = "block";
+
+    if (this.lastHint === undefined) {
+      document.getElementById ("hintsDisplay").innerHTML = "You haven't collected any hints yet";
+    }
+    else {
+      document.getElementById("hintsDisplay").innerHTML = this.lastHint;
+    }
+  },
+
   /* @iva */
   displayHintsCollected: function () {
     this.pressedHintsButton.inputEnabled = true;
@@ -776,13 +803,17 @@ getEntropy: function (pwdFeed) {
 
     document.getElementById ("hintsLayer").style.display = "block";
 
-    var hintsToDisplay = pickedHints[0] === undefined ? "" : ("1. " + pickedHints[0]);
+    var hintsToDisplay = pickedHints[0] === undefined ? "" : ("1. " + pickedHints[pickedHints.length - 1]);
+
     var i = 1;
     while (i < pickedHints.length) {
       hintsToDisplay +="<br>" + (i+1).toString() + ". " + pickedHints[i];
       i ++;
     }
+
     document.getElementById("hintsDisplay").innerHTML = hintsToDisplay;
+
+
   },
 
   /* @iva hides the window with the hints */
@@ -806,7 +837,7 @@ getEntropy: function (pwdFeed) {
     var array = [];
     var self = this;
     array.push ("Don't share your passwords with anyone");
-    //array.push ("Use combination of small and big letters, numbers and special characters"); too huge for the current display
+    array.push ("Use combination of small and big letters, numbers and special characters");
     array.push ("Don't ever use same passwords on multiple websites");
     array.push ("Don't include personal information in your passwords");
     array.push ("Create passwords easy to remember but hard to guess");
@@ -827,7 +858,7 @@ getEntropy: function (pwdFeed) {
     if (!found) {
       pickedHints.push(hint); // put the found hint in the picked pickedHints array
     }
-
+    this.lastHint = hint;
     // display hint:
     var style = { font: "20px Serif", fill: "#000000", align: "center" };
     var text2 = this.game.add.text (this.player.sprite.x - 200, this.player.sprite.y, hint, style);
@@ -837,12 +868,8 @@ getEntropy: function (pwdFeed) {
 
   },
 
-  removeHint: function () {
-    document.getElementById ("smallHintsLayer").style.display = "none";
-    document.getElementById ("smallHintsWindow").style.display = "none";
-    document.getElementById ("smallHintsTitle").style.display = "none";
+  /**************************************** END OF HINTS AREA ****************************************/
 
-  },
   /** Function deals with entering through the doors
    * @param player
    * @param door
@@ -964,6 +991,8 @@ getEntropy: function (pwdFeed) {
         character.frame = 18; /* leave player facing right*/
       }
     }
+    this.welcomeLabel.destroy();
+    this.welcomeLabel = this.game.add.text(this.player.sprite.x - 10, this.player.sprite.y - 70, this.cross, this.cross_style);
   },
 
   /**
