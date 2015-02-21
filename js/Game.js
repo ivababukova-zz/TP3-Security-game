@@ -198,6 +198,8 @@ Encrypt.Game.prototype = {
       this.moveEnemy();
       console.log(this.enemy.pathToPlayer);
     }
+
+    console.log("Player room:" + this.player.currentRoom + " Enemy room: " + this.enemy.currentRoom);
   },
 
   //create player
@@ -220,7 +222,7 @@ Encrypt.Game.prototype = {
   //create an enemy
   createEnemy: function() {
 
-    this.enemy = new Enemy(350, 500, this.game, this.player, this.backgroundlayer);
+    this.enemy = new Enemy(1350, 1500, this.game, this.player, this.backgroundlayer);
     
   },
 
@@ -352,14 +354,14 @@ Encrypt.Game.prototype = {
     // Get all room objects
     this.rooms = this.findObjectsByType('room', this.map, 'RoomLayer');
     // find in which room(if any) the player is located
-    this.getCurrentRoom();
+    this.getCurrentRoom(this.player);
+    this.getCurrentRoom(this.enemy);
     // draw rooms
     this.drawRooms();
   },
   /** Update the global variable currentRoom to store the current room's ID */
-  getCurrentRoom: function () {
-    // Initialisation
-    currentRoom = 0;
+  getCurrentRoom: function (entity) {
+
     // Checking each room
     this.rooms.forEach(function(element){
       // Getting room's dimensions and coordinates
@@ -371,8 +373,9 @@ Encrypt.Game.prototype = {
 
       // check if a player is in a room. If yes,
       // then memorise its ID and finish searching
-      if (rect.contains(this.player.sprite.x, this.player.sprite.y)){
-        currentRoom = parseInt(element.properties.idx);
+
+      if (rect.contains(entity.sprite.x, entity.sprite.y)){
+        entity.currentRoom = parseInt(element.properties.idx);
         return;
       }
     }, this);
@@ -411,7 +414,7 @@ Encrypt.Game.prototype = {
 
       var color = 0xCCCCCC;
       var opacity;
-      if (currentRoom === parseInt(element.properties.idx)) { // player in the room
+      if (this.player.currentRoom === parseInt(element.properties.idx)) { // player in the room
         element.properties.state = "0"; // Change to visited
         if(element.properties.infected){ // Infected
           color = 0x16E91D;
