@@ -72,6 +72,7 @@ Player = function (currentX, currentY, game, metrics, score) {
     this.isVisible = true;
     this.isCollidable = true;
     this.speed = 10.0;
+    this.currentRoom = 0;
 
     this.firewallBag = [];  // stores: firewall objects collected from the map @iva
     this.antivirusBag = []; // stores: antivirus objects collected from the map @iva
@@ -209,6 +210,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.game = game;
     this.player =player;
     this.backgroundLayer = backgroundLayer;
+    this.currentRoom = 0;
 
     // visibility - set to true?
     this.isVisible = true;
