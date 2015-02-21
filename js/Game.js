@@ -150,6 +150,11 @@ Encrypt.Game.prototype = {
       return;
     }
 
+    if (this.game.input.activePointer.justReleased())
+    {
+      this.input.focus();
+    }
+
     if(doorsCollidable){
       this.game.physics.arcade.collide(this.player.sprite, this.doorBlocks);
     }
@@ -443,7 +448,6 @@ Encrypt.Game.prototype = {
     currentDoor.password = 'null';
     document.getElementById("feedback").innerHTML = "Password reset completed.";
     document.getElementById("titlePwd").innerHTML = "Setup a password.";
-    this.input.focus();
   },
   closePopup: function() {
     document.getElementById("inputPwd").style.display = "none";
@@ -523,6 +527,7 @@ Encrypt.Game.prototype = {
         // if W key is pressed, then open note pop up
         if(self.writeKey.justDown){
           fPause = true;
+          this._hiddenInput.value = '';
           self.game.input.keyboard.reset(false);
           self.game.input.keyboard.enabled = false;
           document.getElementById("mainLayer").style.display = "block";
@@ -824,7 +829,6 @@ getEntropy: function (pwdFeed) {
     this.pressedHintsButton.renderable = false;
 
     document.getElementById("hintsLayer").style.display = "none"
-    this.input.focus();
   },
 
   /** function that outputs a random hint from an array of pickedHints
@@ -885,19 +889,20 @@ getEntropy: function (pwdFeed) {
       this.game.input.keyboard.reset(false);
       this.game.input.keyboard.enabled = false;
       this.input.focus();
-      // password not set yet
-      if (door.password === 'null') {
-        document.getElementById("titlePwd").innerHTML = "Setup password";
-      }
-      else {
-        document.getElementById("titlePwd").innerHTML = "Input password";
-      }
+      this.input._hiddenInput.value = '';
       // Check if player has the right policy for the door
       if (this.player.policies[door.policy] === undefined) {
         document.getElementById("mainLayer").style.display = "block";
         document.getElementById("policyRules").innerHTML = "You can't enter here. You need to collect the policy for this door first.";
       }
       else {
+        // password not set yet
+        if (door.password === 'null') {
+          document.getElementById("titlePwd").innerHTML = "Setup password";
+        }
+        else {
+          document.getElementById("titlePwd").innerHTML = "Input password";
+        }
         document.getElementById("policyTitle").style.color = door.policy;
         document.getElementById("policyRules").innerHTML = this.retrievePolicyRules(door.policy);
         // display password pop up
