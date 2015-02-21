@@ -461,6 +461,8 @@ Encrypt.Game.prototype = {
     document.getElementById("feedback").style.display = "none";
     document.getElementById("mainLayer").style.display = "none";
     document.getElementById("resetPassword").style.display = "none";
+    document.getElementById("passwordStrengthBar").style.display = "none";
+    document.getElementById("passStr").style.display = "none";
     this.game.input.keyboard.enabled = true;
     this.input.focus();
     fPause = false;
@@ -571,7 +573,8 @@ Encrypt.Game.prototype = {
             this.approved = true;
             feedback = "Policy requirements met.";
           }
-
+          self.displayPasswordStrength(self.getEntropy(this._hiddenInput.value));
+          console.log(self.getEntropy(this._hiddenInput.value));
           if (this.approved) {
             document.getElementById("feedback").style.color = "green";
           } else {
@@ -600,7 +603,6 @@ getEntropy: function (pwdFeed) {
   /* the length of the password */
   var pwdLength = pwd.length;
   /* possible feedback for the user */
-  var possibleEntropyResults = ['weak', 'moderate','strong', 'very strong'];
 
 
   /* increase range if numbers are present*/
@@ -623,13 +625,28 @@ getEntropy: function (pwdFeed) {
   /*bit strength calculated by log2(rangeOfChars)*lengthOfPassword*/
   var tempLogVal = Math.log(range) / Math.log(2);
   /*Array to hold entropy @ index 0 and user feedback at index 1 */
-  var entropy = [(pwdLength*tempLogVal), ''] ;
+  var entropy = pwdLength*tempLogVal;
   /* Stop from returning NaN value*/
-  if (entropy[0] > 0) {
-    return Math.floor(entropy[0]); //Andi: returning the floor from here so that it doesn't need to get done everywhere else
+  if (entropy > 0) {
+    return Math.floor(entropy); //Andi: returning the floor from here so that it doesn't need to get done everywhere else
   }
-  return [0,possibleEntropyResults[0]];
+  return 0;
 },
+  displayPasswordStrength: function(entropy){
+    if(entropy<20){
+      document.getElementById("passwordStrengthBar").style.backgroundColor = "red";
+      document.getElementById("passwordStrengthBar").style.width = "10%";
+      document.getElementById("passwordStrengthBar").innerHTML = "Weak";
+    }else if(entropy<100){
+      document.getElementById("passwordStrengthBar").style.backgroundColor = "yellow";
+      document.getElementById("passwordStrengthBar").style.width = "20%";
+      document.getElementById("passwordStrengthBar").innerHTML = "Medium";
+    }else{
+      document.getElementById("passwordStrengthBar").style.backgroundColor = "green";
+      document.getElementById("passwordStrengthBar").style.width = "30%";
+      document.getElementById("passwordStrengthBar").innerHTML = "Strong";
+    }
+  },
   /****************HELPER METHODS TO CREATE*******************
    * find objects in a Tiled layer that contain a property called "type" equal to a certain value
    * @param type
@@ -928,6 +945,8 @@ getEntropy: function (pwdFeed) {
         document.getElementById("inputPwd").style.display = "block";
         document.getElementById("resetPassword").style.display = "block";
         document.getElementById("feedback").style.display = "block";
+        document.getElementById("passwordStrengthBar").style.display = "block";
+        document.getElementById("passStr").style.display = "block";
       }
     }
   },
