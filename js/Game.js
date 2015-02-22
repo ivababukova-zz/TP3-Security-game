@@ -82,7 +82,6 @@ Encrypt.Game.prototype = {
     this.scoreLabel.fixedToCamera = true;
     this.scoreLabel.cameraOffset.setTo(25,25);
 
-    this.writeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W); //add the W key to the keyboard to serve as a 'write' option for the player
 	
 	  //create sounds used elsewhere in the gam
 	  doorSound = this.game.add.audio('doorSound');
@@ -111,15 +110,21 @@ Encrypt.Game.prototype = {
     this.pressedNoteButton.renderable = true;
     this.noteButton.inputEnabled = false;
     this.noteButton.renderable = false;
-    /* do not delete
+
+    fPause = true;
+    this.input.focus();
+    this.game.input.keyboard.reset(false);
+    this.game.input.keyboard.enabled = false;
     document.getElementById("mainLayer").style.display = "block";
-    document.getElementById("feedbackField").style.display = "none";
+    //document.getElementById("mainCanvas").context.fillStyle = 'blue';
     document.getElementById("inputPwd").style.display = "block";
+    document.getElementById("titlePwd").style.display = "block";
+    document.getElementById("policyTitle").style.display = "block";
+    document.getElementById("esc").style.display = "none";
     document.getElementById("titlePwd").innerHTML = "Type in passwords you want to save:";
-    document.getElementById("policyField").style.display = "block";
+
     document.getElementById("policyTitle").innerHTML = "Your notes :";
     document.getElementById("policyRules").innerHTML = this.notes;
-    */
   },
 
   hideNote: function () {
@@ -127,12 +132,8 @@ Encrypt.Game.prototype = {
     this.noteButton.renderable = true;
     this.pressedNoteButton.inputEnabled = false;
     this.pressedNoteButton.renderable = false;
-    /* do not delete
-    document.getElementById("mainLayer").style.display = "none";
-    document.getElementById("feedbackField").style.display = "none";
-    document.getElementById("inputPwd").style.display = "none";
-    document.getElementById("policyField").style.display = "none";
-    */
+    document.getElementById("esc").style.display = "block";
+    this.closePopup();
   },
 
   // UPDATE STATE:
@@ -199,7 +200,13 @@ Encrypt.Game.prototype = {
       this.moveEnemy();
       console.log(this.enemy.pathToPlayer);
     }
-
+    if(this.player.currentRoom !== this.enemy.currentRoom){
+      this.enemy.sprite.body.enable = false;
+      this.enemy.sprite.body.isVisible = false;
+      console.log(this.enemy.sprite.body.renderable+"invisible");
+    }else{
+      this.enemy.sprite.body.isVisible = true;
+    }
     console.log("Player room:" + this.player.currentRoom + " Enemy room: " + this.enemy.currentRoom);
   },
 
@@ -345,7 +352,7 @@ Encrypt.Game.prototype = {
   retrievePolicyRules: function(colour){
     var policy = this.player.policies[colour];
     var str = "MIN LENGTH: " + policy.minLength + "<br>MIN #NUMBERS: " + policy.minNums
-        + "<br>MIN #PUNCTUATION SIGNS: " + policy.minPunct + "<br>MIN #SPECIAL CHARACTERS: " + policy.minSpeChar;
+        + "<br>MIN # of PUNCTUATION or SPEC SIGNS: " + policy.minPunctOrSpecChar;
     return str;
   },/**
 **********************************************************************/
@@ -495,7 +502,7 @@ Encrypt.Game.prototype = {
           self.notes += self.player.note.passwords[i] + "<br>";
           i++;
           this._hiddenInput.value = '';
-          self.closePopup();
+          self.hideNote();
           return;
         }
         // when the user input password and enter 'Enter' key
@@ -532,25 +539,6 @@ Encrypt.Game.prototype = {
       },
       // Feedback generated within each key-press
       onkeyup: function() {
-        // if W key is pressed, then open note pop up
-        if(self.writeKey.justDown){
-          fPause = true;
-          this._hiddenInput.value = '';
-          self.game.input.keyboard.reset(false);
-          self.game.input.keyboard.enabled = false;
-          document.getElementById("mainLayer").style.display = "block";
-          //document.getElementById("mainCanvas").context.fillStyle = 'blue';
-          document.getElementById("inputPwd").style.display = "block";
-          document.getElementById("titlePwd").style.display = "block";
-          document.getElementById("policyTitle").style.display = "block";
-          document.getElementById("titlePwd").innerHTML = "Type in passwords you want to save:";
-          
-          console.log(self.notes + " hello");
-          document.getElementById("policyTitle").innerHTML = "Your notes :";
-          console.log(document.getElementById("policyTitle").innerHTML);
-          document.getElementById("policyRules").innerHTML = self.notes;
-        }
-
         // first check if main layer is open and then check if it's not a noPolicy pop up
         if (document.getElementById("feedback").style.display === "block"){
           console.log(self.getEntropy(this._hiddenInput.value)[0]);//BMDK testing
@@ -564,11 +552,8 @@ Encrypt.Game.prototype = {
           } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/\D/g, '').length < policy.minNums) {
             feedback = "Need more numbers.";
             // CHECK PUNCTUATION
-          } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/[^\.,-\/!?\^&\*;:{}\-_`'"~()]/g,'').length < policy.minPunct) {
+          } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/[a-zA-Z 0-9]+/g,'').length < policy.minPunctOrSpecChar) {
             feedback = "Need more punctuation signs.";
-            // CHECK SPECIAL CHARACTERS
-          } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/[^\%$#&@=]/g,'').length < policy.minSpeChar) {
-            feedback = "Need more special characters.";
           } else if(this._hiddenInput.value.length > 0){ // If policy requirements are met, approve
             this.approved = true;
             feedback = "Policy requirements met.";
