@@ -263,51 +263,65 @@ Enemy.prototype = {
         }
 
         else if (!this.newPath && this.pathPosition < this.pathToPlayer.length) {
+
+            this.sprite.body.velocity.x = 0;
+            this.sprite.body.velocity.y = 0;
+
             var next = this.pathToPlayer[this.pathPosition];
             var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
             var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
+            //console.log("X:" + enemyTileX + " Y:" + enemyTileY);
 
             //console.log(next.x + " " + next.y +
             //            "Sprite: " + this.sprite.x + ", " + this.sprite.y);
             // go down and right
-            if (next.x > enemyTileX && next.y > enemyTileY) {
-                this.sprite.body.velocity.x += 32;
-                this.sprite.body.velocity.y += 32;
+
+
+            // go right
+            if( next.x > enemyTileX && next.y === enemyTileY){
+                this.sprite.body.velocity.x += this.speed;
+                //console.log("right");
+            }
+            // go left
+            else if( next.x < enemyTileX && next.y === enemyTileY) {
+                this.sprite.body.velocity.x -= this.speed;
+                //console.log("left");
+            }
+            // go up
+            else if( next.x === enemyTileX && next.y < enemyTileY) {
+                this.sprite.body.velocity.y -= this.speed;
+                //console.log("up");
+            }
+            // go down
+            else if( next.x === enemyTileX && next.y > enemyTileY) {
+                this.sprite.body.velocity.x += this.speed;
+                //console.log("down");
+            }
+            else if( next.x > enemyTileX && next.y > enemyTileY ){
+                this.sprite.body.velocity.x += this.speed;
+                this.sprite.body.velocity.y += this.speed;
+                //console.log("down and right");
             }
 
             // go down and left
-            else if (next.x < enemyTileX && next.y > enemyTileY) {
-                this.sprite.body.velocity.x -= 32;
-                this.sprite.body.velocity.y += 32;
+            else if( next.x < enemyTileX && next.y > enemyTileY ){
+                this.sprite.body.velocity.x -= this.speed;
+                this.sprite.body.velocity.y += this.speed;
+               // console.log("down and left");
             }
 
             // go up and left
-            else if (next.x < enemyTileX && next.y < enemyTileY) {
-                this.sprite.body.velocity.x -= 32;
-                this.sprite.body.velocity.y -= 32;
+            else if( next.x < enemyTileX && next.y < enemyTileY ){
+                this.sprite.body.velocity.x -= this.speed;
+                this.sprite.body.velocity.y -= this.speed;
+                //console.log("up and left");
             }
 
             // go up and right
-            else if (next.x > enemyTileX && next.y < enemyTileY) {
-                this.sprite.body.velocity.x += 32;
-                this.sprite.body.velocity.y -= 32;
-            }
-
-            // go right
-            else if (next.x > enemyTileX && next.y === enemyTileY) {
-                this.sprite.body.velocity.x += 32;
-            }
-            // go left
-            else if (next.x < enemyTileX && next.y === enemyTileY) {
-                this.sprite.body.velocity.x -= 32;
-            }
-            // go up
-            else if (next.x === enemyTileX && next.y < enemyTileY) {
-                this.sprite.body.velocity.y -= 32;
-            }
-            // go down
-            else if (next.x === enemyTileX && next.y > enemyTileY) {
-                this.sprite.body.velocity.x += 32;
+            else if( next.x > enemyTileX && next.y < enemyTileY ){
+                this.sprite.body.velocity.x += this.speed;
+                this.sprite.body.velocity.y -= this.speed;
+                //console.log("up and right");
             }
 
             this.pathPosition++;
@@ -594,6 +608,9 @@ MetricsSystem = function( game, approval ){
     /* the array of passwords used on more than one door, as set by function getPasswordsMultipleDoors*/
     this.passwordsOnMultipleDoors = [];
 
+    /*an associative array to keep track of the passwords input on doors, but rejected by the checker*/
+    this.rejectedPasswords = {};
+
     /*another associative array to keep track of what objects were used, how many times, and how*/
     this.toolsUsed = {};
     this.toolsUsed["firewall"] = [];            // initialised three fields, where each array holds booleans
@@ -689,6 +706,26 @@ MetricsSystem.prototype = {
         }
     },
 
+    /**
+     * Method to be called when a password input by the user on a door is rejected.
+     * @param password: the actual string that was attempted
+     * @param doorID: the door on which it was tried
+     * @param: reason: the reason why it was rejected, i.e. not matching a password already set, or not matching policy
+     * */
+    addRejectedPassword: function(password, doorID, reason){
+
+        if( typeof(password) === "string"){
+
+            if( this.rejectedPasswords.hasOwnProperty(password))
+            // add an array representing the id of the door and the reason
+                this.rejectedPasswords[password].push([doorID, reason ]);
+        }
+        else
+        // initialise it to hold the first attempt
+            this.rejectedPasswords[password] = [doorID, reason];
+
+
+    },
     /**
      * Method that returns the most used password in the array of passwords used. Returns the password, if there is one,
      * or null, if not.

@@ -208,19 +208,11 @@ Encrypt.Game.prototype = {
       this.enemy.countsToFindPath = 30;
       this.enemy.newPath = false;
       this.enemy.pathPosition = 0;
-      this.moveEnemy();
-      // console.log(this.enemy.pathToPlayer);
-    }
-    /*
-    if(this.player.currentRoom !== this.enemy.currentRoom){
-      this.enemy.sprite.body.enable = false;
-      this.enemy.sprite.body.isVisible = false;
-      console.log(this.enemy.sprite.body.renderable+"invisible");
-    }
-    */
-    this.enemy.sprite.body.isVisible = true;
 
-    // console.log("Player room:" + this.player.currentRoom + " Enemy room: " + this.enemy.currentRoom);
+      this.getEnemyPath();
+      console.log(this.enemy.pathToPlayer);
+    }
+
   },
 
   //create player
@@ -534,14 +526,15 @@ Encrypt.Game.prototype = {
             /*BMDK: call to function to open door when password is successful*/
             self.changeDoorState(currentDoor,'opening');
             doorsCollidable = false;
-
-            self.metricsSystem.addUsedPassword(this._value, 0); //Andi: adding the already set up password to the metrics system; TODO: add the door id
+            //TODO: Confirm that currentDoor.z is the door id & add refusal of passwords not conforming with door policy
+            self.metricsSystem.addUsedPassword(this._value, currentDoor.z); //Andi: adding the already set up password to the metrics system;
             self.scoreSystem.scorePassingThroughDoorWithoutResetting(this._value, self.getEntropy(this._value), self.player); //Andi: added scoring for this scenario to scoring system
 
             doorJustOpened = true; //BMDK: track that door opened
             self.closePopup();
           } else {
             document.getElementById("titlePwd").innerHTML = "Incorrect. Input again!";
+            self.metricsSystem.addRejectedPassword(this._value, currentDoor.z, "rejected"); //Andi: adding the rejected password to the metrics system
           }
           this._hiddenInput.value = '';
         }
@@ -1029,9 +1022,9 @@ getEntropy: function (pwdFeed) {
   },
 
   /**
-   * Andi: method to move the enemy
+   * Andi: method to get a path for the enemy
    * */
-  moveEnemy: function( ){
+  getEnemyPath: function( ){
 
     //get its tiles
     var currentTileX = this.backgroundlayer.getTileX(this.enemy.sprite.x);
