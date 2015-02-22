@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Encrypt</title>
-
+	<link rel="stylesheet" type="text/css" href="css/indexStyle.css">
 	<script type="text/javascript" src="js/phaser.js"></script>
 	<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript" src="js/CanvasInput.js"></script>
@@ -19,12 +19,6 @@
 	<script type="text/javascript" src="js/phaser_pathfinding-0.2.0.js"></script>
 	<script type="text/javascript" src="js/phaser_pathfinding-0.2.0.min.js"></script>
 
-	<style>
-		body {
-			padding: 0px;
-			margin: 0px;
-		}
-	</style>
 	<script>
 		function resize_popup(){
 			resize_canvas("mainCanvas", "mainLayer", "black", "10", "red");
@@ -62,55 +56,39 @@
 			context.strokeRect(0, 0, w, h);
 		}
 	</script>
-	<style>
-		.passwBtn{
-			width: 80px;
-			height: 80px;
-			background-color: #4D4D4D;
-			color: #ffffff;
-			font-size: 1vw;
-			position: absolute;
-		}
-		.centeredElements{
-			left:0;
-			right:0;
-			margin: 0 auto;
-			position:absolute;
-		}
-	</style>
 </head>
 
 <body onresize="resize_popup()" bgcolor="#000">
 <div id="game-area"></div>
 <script src="js/main.js"></script>
 <!--Main password pop up canvas-->
-<div id="mainLayer" align="center" style="position:absolute; display: none;">
-	<canvas id="mainCanvas" width="600" height="600" style="position: relative;"></canvas>
+<div id="mainLayer" align="center" class="layers">
+	<canvas id="mainCanvas" width="600" height="600" class="canvases"></canvas>
 	<script>
 		drawMainLayer("mainCanvas", "mainLayer", 600, 600, "black", "10", "red");
 	</script>
-	<button  class="passwBtn" id="esc" style="top: 0px; left:0px;">ESC</button>
-	<p id="policyTitle" style="position:absolute; display:none; top:5%; left:20%; color:#fff; font-size:40px">Policy Rules</p>
-	<p id="policyRules" align="left" style="position:absolute;top:20%; left:10%;overflow-y: auto; width: 500px; height:150px;color: #fff;font-size: 25px"></p>
-	<div id="inputPwd" class="centeredElements" style="display: none; top:60%;">
-		<p id="titlePwd" style="color: #fff;font-size: 25px;">Setup Password</p>
+	<button  class="passwBtn" id="esc">ESC</button>
+	<p id="policyTitle">Policy Rules</p>
+	<p id="policyRules" align="left"></p>
+	<div id="inputPwd" class="centeredElements">
+		<p id="titlePwd">Setup Password</p>
 		<canvas id="pwdCanvas" width="360" height="50"></canvas>
 	</div>
-	<button class="passwBtn" id="resetPassword" style="display: none;top: 70%;left:85%;">RESET</button>
-	<p id="feedback" class="centeredElements" style="display: none;top:85%;color: #fff;font-size: 25px"></p>
-	<p id="passStr" style="display: none;position: absolute;top:88%;left:5%;color: #fff;font-size: 25px">Password Strength: </p>
-	<div id="passwordStrengthBar" style="position:absolute; display: none; top: 92%;left: 40%;color: #FFF;font-size: 25px";></div>
+	<button class="passwBtn" id="resetPassword">RESET</button>
+	<p id="feedback" class="centeredElements"></p>
+	<p id="passStr">Password Strength: </p>
+	<div id="passwordStrengthBar"></div>
 </div>
 
 <!--Hints and tips pop up window:-->
-<div id="hintsLayer" align="center" style="position:absolute; display: none;">
-	<canvas id="hintsCanvas" width="400" height="550" style="position: relative"></canvas>
+<div id="hintsLayer" align="center" class="layers">
+	<canvas id="hintsCanvas" width="400" height="550" class="canvases"></canvas>
 	<script>
 		drawMainLayer("hintsCanvas", "hintsLayer",400,550, '#00141F', "5", "blue");
 	</script>
-	<p id="hintsTitle" align="'center" style="position: absolute; top: 3%; left: 5%; color: #fff; font-size: 25px;">Last hint collected:</p>
-	<p id="hintsDisplay" align="left"  style="position: absolute; top: 17%; left: 5%; color: #fff; font-size: 20px;"></p>
-	<button class="passwBtn" id="showAllHints" style="display: none; top: 80%; left: 40%; color: #ffffff">SEE ALL</button>
+	<p id="hintsTitle" align="'center">Last hint collected:</p>
+	<p id="hintsDisplay" align="left"></p>
+	<button class="passwBtn" id="showAllHints">SEE ALL</button>
 </div>
 </body>
 
