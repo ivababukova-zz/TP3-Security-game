@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+
+<head><title>Welcome to 3NCRYPT</title>
+
+    <script type="text/javascript" src="userIdentityResponse.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+</head>
+
+<body>
+<div class="container">
+    <div class="jumbotron">
+<p align="center"><h1>Welcome to 3NCRYPT!</h1></p>
+<p align="center">
+    Hey. We're Team R and we made an educational game about passwords for you.<br>
+    We've prepared 2 questionnaires to examine whether education through<br>
+    a game is sufficient to change users' security behaviour.<br>
+    Hope you'll enjoy playing the game. Please fill out first questionnaire,<br>
+    play the game and then fill out second questionnaire!<br>
+    Have fun!</p>
+    </div>
+
+
+
+<br>
+
+<!--GET NAME AND EMAIL-->
+<div id="Question1And2Before" class="text-short">
+    <h6>Your name: </h6><input type="text" name="username" id="userName"><br>
+    <h6>Your email: </h6><input type="text" name="email" id="userEmail"><br>
+    <br>
+</div>
+
+<br>
+
+<p>
+    If you're playing 3NCRYPT for the first time<br>
+    you'll be redirected to the evaluation questionnaire<br>
+    before you'll play the game<br><br>
+    Click Submit button.</p>
+<br>
+
+
+<button type="button" class="btn btn-default btn-lg" onclick="generateUserIdentity(); location.href='questionnaireBefore.html'">
+
+        <!--CHECK WITH DATABASE IF USER EXISTS
+
+        onclick="generateUserIdentity();
+        if(userIdentity.exists()){
+            location.href='index.html';
+        }else{
+            location.href='questionnaireBefore.html';
+        }">
+
+        -->
+
+    SUBMIT</button>
+
+    </div>
+
+<br>
+
+</body>
+
+</html>
