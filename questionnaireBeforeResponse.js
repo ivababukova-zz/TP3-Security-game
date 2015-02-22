@@ -1,10 +1,6 @@
 function generateBeforeResponse() {
 
-	var response = []
-
-	var Q1 = document.getElementById("Q1").value;
-
-	var Q2 = document.getElementById("Q2").value;
+	var responseBefore = []
 
 	var Q3RadioButtons = document.getElementsByName('Q3');
 
@@ -98,25 +94,15 @@ function generateBeforeResponse() {
 		}
 	}
 
-	response = [Q1, Q2, Q3, Q4, Q5a, Q5b, Q5c, Q5d, Q5e, 
+	responseBefore = [Q3, Q4, Q5a, Q5b, Q5c, Q5d, Q5e,
 				Q6a, Q6b, Q6c, Q6d, Q6e, Q6f, Q6g,
 				Q7a, Q7b, Q7c, Q7d, Q7e];
 
-
-	for(var i = 0; i < response.length; i++){
-		console.log(response[i])
+	for(var i = 0; i < responseBefore.length; i++){
+		console.log(responseBefore[i])
 //		if(response[i] === null || response[i] === undefined){
 //			alert("ANSWER MISSING\ngo back to the questionnaire");
 //		}
 	}
-	//return response;
-	//if (window.XMLHttpRequest) {
-    //        // code for IE7+, Firefox, Chrome, Opera, Safari
-    //        xmlhttp = new XMLHttpRequest();
-    //    } else {
-    //        // code for IE6, IE5
-    //        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    //    }
-    //    xmlhttp.open("GET","beforegame.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
-    //    xmlhttp.send();
+	//return responseBefore;
 }
