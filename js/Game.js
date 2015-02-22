@@ -1183,7 +1183,7 @@ getEntropy: function (pwdFeed) {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&pid="+pid+"&sid="+sid+"&did="+did+"&scorereceived="+scorereceived,true);
+        xmlhttp.open("GET","storepasswordsentered.php?uid="+uid+"&pid="+pid+"&sid="+sid+"&did="+did+"&scorereceived="+scorereceived,true);
         xmlhttp.send();
     }
 };
@@ -1200,7 +1200,7 @@ getEntropy: function (pwdFeed) {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&polid="+polid,true);
+        xmlhttp.open("GET","storeuserpoliciescollected.php?uid="+uid+"&sid="+sid+"&polid="+polid,true);
         xmlhttp.send();
     }
 };
@@ -1217,7 +1217,7 @@ getEntropy: function (pwdFeed) {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
+        xmlhttp.open("GET","storeusertoolscollected.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
         xmlhttp.send();
     }
 };
@@ -1234,7 +1234,7 @@ getEntropy: function (pwdFeed) {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
+        xmlhttp.open("GET","storeusertoolsused.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
         xmlhttp.send();
     }
 };
