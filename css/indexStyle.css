@@ -1,0 +1,102 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+.passwBtn{
+    width: 80px;
+    height: 80px;
+    background-color: #4D4D4D;
+    color: #ffffff;
+    font-size: 1vw;
+    position: absolute;
+}
+.centeredElements{
+    left:0;
+    right:0;
+    margin: 0 auto;
+    position:absolute;
+}
+.layers{
+    position:absolute;
+    display: none;
+}
+.canvases{
+    position: relative;
+}
+#esc{
+    top: 0px;
+    left:0px;
+}
+#resetPassword{
+    display: none;
+    top: 70%;
+    left:85%;
+}
+#showAllHints{
+    display: none;
+    top: 80%;
+    left: 40%;
+    color: #ffffff;
+}
+#policyTitle{
+    position:absolute;
+    display:none;
+    top:5%;
+    left:20%;
+    color:#fff;
+    font-size:40px;
+}
+#policyRules{
+    position:absolute;
+    top:20%;
+    left:10%;
+    overflow-y: auto;
+    width: 500px;
+    height:150px;
+    color: #fff;
+    font-size: 25px
+}
+#inputPwd{
+    display: none;
+    top:60%;
+}
+#titlePwd{
+    color: #fff;
+    font-size: 25px
+}
+#feedback{
+    display: none;
+    top:85%;
+    color: #fff;
+    font-size: 25px;
+}
+#passStr{
+    display: none;
+    position: absolute;
+    top:88%;
+    left:5%;
+    color: #fff;
+    font-size: 25px;
+}
+#passwordStrengthBar{
+    position:absolute;
+    display: none;
+    top: 92%;
+    left: 40%;
+    color: #FFF;
+    font-size: 25px;
+}
+#hintsTitle{
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    color: #fff;
+    font-size: 25px;
+}
+#hintsDisplay{
+    position: absolute;
+    top: 17%;
+    left: 5%;
+    color: #fff;
+    font-size: 20px;
+}
