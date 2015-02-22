@@ -249,7 +249,7 @@ Encrypt.Game.prototype = {
     //this.player.animations.add('static', [0], 1, true, true);
 
     // made player centered, which fixes room highlighting problems. A.M.
-    this.player.sprite.anchor.setTo(0.5, 0.5);git 
+    this.player.sprite.anchor.setTo(0.5, 0.5);
 
     //move player with cursor keys
     this.cursors = this.game.input.keyboard.createCursorKeys();
