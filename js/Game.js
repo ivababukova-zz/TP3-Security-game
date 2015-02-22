@@ -1083,10 +1083,11 @@ getEntropy: function (pwdFeed) {
       console.log(Object.keys(walkables));
     }
   }
+ };
 
-//Blank Section below by BMDK for DB function setup
+ //Blank Section below by BMDK for DB function setup
 
- function storePasswordToDB(pwd, entropy) {
+ function storePasswordToDB(pwd, entropy, length) {
     if (pwd === "") {
         return;
     } else {
@@ -1097,7 +1098,7 @@ getEntropy: function (pwdFeed) {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storepassword.php?p="+pwd+"&ent="+entropy,true);
+        xmlhttp.open("GET","storepassword.php?p="+pwd+"&ent="+entropy+"&len="+length,true);
         xmlhttp.send();
     }
 }
@@ -1157,4 +1158,19 @@ getEntropy: function (pwdFeed) {
 
 
 
- };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
