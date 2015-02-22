@@ -9,8 +9,11 @@ var text = null;
 var fPause = false;
 var lastKnownPlayerDirection = ['',0]; /*BMDK: for the purpose of tracking what animation frame to end on and lastKnownPlayerDirection*/
 var doorPass = ''; /*BMDK: for the purpose of being able to eventually close a door via animation*/
+var doorPassEnemy = ''; /* @iva: the same as doorPass */
 var doorJustOpened = false;
+var doorJustOpenedEnemy = false;
 var doorsCollidable = true;
+var doorsCollidableEnemy = true;
 var doorSound = null;
 var pickupSound = null;
 var finalscore = 0; // @iva: variable that hold the value of the final score. Used for displaying the score on the gamewin/lost pages.
@@ -158,11 +161,13 @@ Encrypt.Game.prototype = {
       this.input.focus();
     }
 
-    if(doorsCollidable){
+    if (doorsCollidable) {
       this.game.physics.arcade.collide(this.player.sprite, this.doorBlocks);
     }
 
-    // this.game.physics.arcade.collide (this.enemy.sprite, this.enemy.breakDoor);
+    if (doorsCollidableEnemy) {
+      this.game.physics.arcade.collide (this.enemy.sprite, this.enemy.breakDoor);
+    }
 
     this.game.physics.arcade.collide (this.player.sprite, this.blockedLayer);   // set up collision with this layer
     this.game.physics.arcade.collide (this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
@@ -170,7 +175,7 @@ Encrypt.Game.prototype = {
     this.game.physics.arcade.overlap (this.player.sprite, this.items, this.pickupItem, null, this);
 
     this.flagEnter = this.game.physics.arcade.overlap (this.player.sprite, this.doors, this.enterDoor, null, this);
-    // flagEnemyOnDoor = this.game.physics.arcade.overlap (this.enemy.sprite, this.doors, this.enterDoor, null, this);
+    flagEnemyOnDoor = this.game.physics.arcade.overlap (this.enemy.sprite, this.doors, this.enterDoorEnemy, null, this);
 
     // when come out the door, check the room.
     this.updateRoomHighlighting();
@@ -182,8 +187,6 @@ Encrypt.Game.prototype = {
 
     if (flagEnemyOnDoor) {
 
-        console.log("flagEnemy on door is true");
-        // the enemy needs to start moving again
         console.log("flagEnemy on door is true");
         //  Create our Timer
         timer = this.game.time.create(false);
@@ -217,7 +220,7 @@ Encrypt.Game.prototype = {
       this.enemy.newPath = false;
       this.enemy.pathPosition = 0;
       this.getEnemyPath();
-      console.log(this.enemy.pathToPlayer);
+      //console.log(this.enemy.pathToPlayer);
     }
   },
 
@@ -241,7 +244,7 @@ Encrypt.Game.prototype = {
   //create an enemy
   createEnemy: function() {
 
-    this.enemy = new Enemy(1350, 1500, this.game, this.player, this.backgroundlayer);
+    this.enemy = new Enemy(350, 500, this.game, this.player, this.backgroundlayer);
     
   },
 
@@ -365,10 +368,7 @@ Encrypt.Game.prototype = {
     return "MIN LENGTH: " + policy.minLength + "<br>MIN UPPER CASE LETTERS: " + policy.minUpper +  "<br>MIN LOWER CASE LETTERS: " + policy.minLower +
         "<br>MIN #NUMBERS: " + policy.minNums  + "<br>MIN # of PUNCTUATION or SPEC SIGNS: " + policy.minPunctOrSpecChar;
   }, /**
-=======
-    return str;
-  },/**
->>>>>>> FETCH_HEAD
+
 **********************************************************************/
 /*****************METHODS TO MANAGE ROOM OBJECTS**********************
   /** Preload all room objects */
@@ -738,16 +738,26 @@ getEntropy: function (pwdFeed) {
       /*BMDK:- update doorPass to track last door action*/
       doorPass = 'in front of a door';
     }
-    else
-    {
-        /*BMDK:- if player was in front of an open door but goes away from it: close the door*/
-      if (doorPass === 'in front of a door' && doorJustOpened){
+    else if (flagEnemyOnDoor === true) {
+      doorPassEnemy = 'enemy in front of a door';
+    }
+    else {
+      /*BMDK:- if player was in front of an open door but goes away from it: close the door*/
+      if (doorPass === 'in front of a door' && doorJustOpened) {
         this.changeDoorState(currentDoor, 'closing');
         doorsCollidable = true;
         doorJustOpened = !doorJustOpened; // BMDK: set false as door is no longer open
       }
-       /*BMDK:- update doorPass to track last door action*/
+      /* @iva; same as the code above, but for the enemy */
+      // todo: the doorJustOpenedEnemy is not updated
+      if (doorPassEnemy === 'enemy in front of a door' && doorJustOpenedEnemy) {
+        doorsCollidableEnemy = true;
+        doorJustOpenedEnemy = !doorJustOpenedEnemy;
+      }
+
+       /* BMDK:- update doorPass to track last door action */
       doorPass = 'went away from the door';
+      doorPassEnemy = 'enemy went away from the door';
     }
   },
   /** Method deals with redrawing of the rooms
@@ -915,13 +925,20 @@ getEntropy: function (pwdFeed) {
 
   /**************************************** END OF HINTS AREA ****************************************/
 
+  enterDoorEnemy: function (enemy, door) {
+    if (flagEnemyOnDoor === false) {
+      console.log("in enterDoorEnemy function");
+      currentDoor = door;
+      flagEnemyOnDoor = true;
+    }
+  },
+
   /** Function deals with entering through the doors
    * @param player
    * @param door
    */
-  enterDoor: function(player, door) {
-
-    if(this.flagEnter === false){
+  enterDoor: function (player, door) {
+    if (this.flagEnter === false) {
 
       // update global variables
       currentDoor = door;

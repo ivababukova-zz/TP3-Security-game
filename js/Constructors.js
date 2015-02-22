@@ -225,8 +225,8 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.newPath = false;
     //variable to keep track of the position in the path array
     this.pathPosition = 0;
-    this.isMovable = true;
-    this.movingHistory = "1";
+    this.isMovable = true; /* @iva: is the enemy disabled to move.NOTE: this variable is used only for testing.
+                                     As soon as the door breaking functionality is ready, I will delete it */
 
 
     //add its spriteSheet
@@ -250,16 +250,10 @@ Enemy.prototype = {
         console.log ("isMoving: " + this.isMovable);
 
         if (flagEnemyOnDoor === true && this.isMovable === true) {
-            if (this.movingHistory === "101") {
-                console.log("the enemy will still move, because it was just disabled");
-                this.movingHistory = "1";
-            }
-            else {
-                this.setEnemyUnmovable();
-            }
+            this.setEnemyUnmovable();
+
         }
 
-        // if ()
 
         if (!this.newPath && this.pathPosition < this.pathToPlayer.length) {
 
@@ -344,18 +338,16 @@ Enemy.prototype = {
     // this function is used in Game.js update
     setEnemyMovable: function () {
         this.enemy.isMovable = true;
-        this.enemy.movingHistory = this.enemy.movingHistory + "1";
         this.enemy.sprite.body.enable = true;
         this.enemy.sprite.body.isVisible = true;
-        console.log("enemy is moving! " + this.enemy.movingHistory);
+        doorJustOpenedEnemy = true;  // @iva: the enemy doesn't get stuck in front of a door for ever
+        doorsCollidableEnemy = false;  // @iva: the enemy doesn't get stuck on a door for ever
     },
 
     setEnemyUnmovable: function () {
         this.isMovable = false;
-        this.movingHistory = this.movingHistory + "0";
         this.sprite.body.enable = false;
         this.sprite.body.isVisible = false;
-        console.log("enemy is not moving! " + this.movingHistory);
     },
 
     breakDoor: function () {

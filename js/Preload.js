@@ -17,7 +17,7 @@ Encrypt.Preload.prototype = {
 
     // policies:
     this.load.image ('redPolicy', 'assets/images/GameIcons/PasswordPolicySheetRed.png');
-    this.load.image ('blackPolicy', 'assets/images/GameIcons/PasswordPolicySheetBlack.png');
+    this.load.image ('blackPolicy', 'assets/images/GameIcons/FirewallSelected.png');
     this.load.image ('yellowPolicy', 'assets/images/GameIcons/PasswordPolicySheetYellow.png');
     // others:
     this.load.image ('clue', 'assets/images/GameIcons/Clue.png');
