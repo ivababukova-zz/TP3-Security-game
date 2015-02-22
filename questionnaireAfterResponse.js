@@ -1,6 +1,6 @@
 function generateAfterResponse() {
 
-    var responseAfter = []
+    var responseAfter = [];
 
     var Q1ARadioButtons = document.getElementsByName('Q1a');
     var Q1BRadioButtons = document.getElementsByName('Q1b');
@@ -9,7 +9,6 @@ function generateAfterResponse() {
     var Q1ERadioButtons = document.getElementsByName('Q1e');
     var Q1FRadioButtons = document.getElementsByName('Q1f');
     var Q1GRadioButtons = document.getElementsByName('Q1g');
-    var Q1HRadioButtons = document.getElementsByName('Q1h');
 
     for(var i = 0; i < Q1ARadioButtons.length; i++){
         if(Q1ARadioButtons[i].checked) {
@@ -53,13 +52,10 @@ function generateAfterResponse() {
         }
     }
 
-    for(var i = 0; i < Q1HRadioButtons.length; i++){
-        if(Q1HRadioButtons[i].checked) {
-            var Q1h = Q1HRadioButtons[i].value;
-        }
-    }
 
-    responseAfter = [Q1a, Q1b, Q1c, Q1d, Q1e, Q1f, Q1g, Q1h];
+    var Q2 = document.getElementById('Q2').value;
+
+    responseAfter = [Q1a, Q1b, Q1c, Q1d, Q1e, Q1f, Q1g, Q2];
 
     for(var i = 0; i < responseAfter.length; i++){
         console.log(responseAfter[i])

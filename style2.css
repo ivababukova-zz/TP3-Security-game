@@ -2,9 +2,7 @@
     width: auto;
 }
 
-.fieldgroup.label
-{
-    display: inline;
-    float: none;
-    width: 100px;
+table {
+    font-family: Calibri;
+    font-size: 16px;
 }
