@@ -1157,7 +1157,7 @@ getEntropy: function (pwdFeed) {
 
 
 //Storage of non-conforming password entry to UserFailedPasswordAttempts
- function storeBadPasswordToDB(stringrep, uid, did, sid, leng, reason) {
+ function storeNonConformingPasswordToDB(stringrep, uid, did, sid, leng, reason) {
     if (stringrep === "") {
         return;
     } else {
