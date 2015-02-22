@@ -87,7 +87,7 @@ Player = function (currentX, currentY, game, metrics, score) {
 
     // policies dictionary: keeps track of what policies the player has access to
     this.policies = {};
-    this.policies["green"] = new Policy(-1, -1, this.game, 5, 0, 0, "green" );
+    this.policies["green"] = new Policy(-1, -1, this.game, 5, 0, 0, 0, 0, "green" );
 
     this.sprite = game.add.sprite(currentX, currentY, 'player');
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
@@ -511,13 +511,17 @@ AntiKeyLogger.prototype = {
  * Policy object constructor. Used for enabling the user to go through doors of belonging to a particular policy;
  * defines the policy of a door; can be found on map; is pickable
  * */
-Policy = function( currentX, currentY, game, minLength, minNums, minPunctOrSpecChar, colour) {
+Policy = function( currentX, currentY, game, minLength, minUpper, minLower, minNums, minPunctOrSpecChar, colour) {
     // the attributes of the policy object should be the specifications for how passwords should look like
     this.game = game;
     //minimum length of a password
     this.minLength = minLength;
     // maximum length of a password set to a default of 15; should be changed
     this.maxLength = 15;
+    // minimum number of upper case letters
+    this.minUpper = minUpper;
+    // minimum number of lower case letters
+    this.minLower = minLower;
     // minimum number of numbers
     this.minNums = minNums;
     // minimum number of punctuation signs

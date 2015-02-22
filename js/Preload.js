@@ -16,10 +16,8 @@ Encrypt.Preload.prototype = {
     this.load.image ('32x32TileSet1Encrypt', 'assets/EncryptTileSets/32x32TileSet1Encrypt.png');
 
     // policies:
-    this.load.image ('bluePolicy', 'assets/images/GameIcons/PasswordPolicySheetBlue.png');
     this.load.image ('redPolicy', 'assets/images/GameIcons/PasswordPolicySheetRed.png');
-    this.load.image ('greenPolicy', 'assets/images/GameIcons/PasswordPolicySheetGreen.png');
-    this.load.image ('magentaPolicy', 'assets/images/GameIcons/PasswordPolicySheetMagenta.png');
+    this.load.image ('blackPolicy', 'assets/images/GameIcons/PasswordPolicySheetBlack.png');
     this.load.image ('yellowPolicy', 'assets/images/GameIcons/PasswordPolicySheetYellow.png');
     // others:
     this.load.image ('clue', 'assets/images/GameIcons/Clue.png');

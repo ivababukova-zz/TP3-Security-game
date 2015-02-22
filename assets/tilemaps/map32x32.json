@@ -351,7 +351,7 @@
                  "properties":
                     {
                      "password":"null",
-                     "policy":"red",
+                     "policy":"green",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -369,7 +369,7 @@
                  "properties":
                     {
                      "password":"null",
-                     "policy":"blue",
+                     "policy":"green",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -441,7 +441,7 @@
                  "properties":
                     {
                      "password":"null",
-                     "policy":"blue",
+                     "policy":"red",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -477,7 +477,7 @@
                  "properties":
                     {
                      "password":"null",
-                     "policy":"green",
+                     "policy":"yellow",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -495,7 +495,7 @@
                  "properties":
                     {
                      "password":"null",
-                     "policy":"green",
+                     "policy":"black",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -513,7 +513,7 @@
                  "properties":
                     {
                      "password":"null",
-                     "policy":"green",
+                     "policy":"yellow",
                      "sprite":"frontDoor",
                      "type":"frontDoor"
                     },
@@ -674,30 +674,12 @@
                  "name":"",
                  "properties":
                     {
-                     "colour":"blue",
-                     "minLength":"8",
-                     "minNums":"2",
-                     "minPunctOrSpecChar":"1",
-                     "sprite":"bluePolicy",
-                     "type":"policy"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":518,
-                 "y":512
-                }, 
-                {
-                 "gid":10735,
-                 "height":0,
-                 "name":"",
-                 "properties":
-                    {
                      "colour":"red",
-                     "minLength":"10",
-                     "minNums":"3",
-                     "minPunctOrSpecChar":"2",
+                     "minLength":"8",
+                     "minLower":"0",
+                     "minNums":"1",
+                     "minPunctOrSpecChar":"1",
+                     "minUpper":"1",
                      "sprite":"redPolicy",
                      "type":"policy"
                     },
@@ -705,8 +687,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":916,
-                 "y":518
+                 "x":1335,
+                 "y":2252
                 }, 
                 {
                  "gid":10735,
@@ -715,9 +697,11 @@
                  "properties":
                     {
                      "colour":"yellow",
-                     "minLength":"10",
-                     "minNums":"3",
+                     "minLength":"7",
+                     "minLower":"1",
+                     "minNums":"0",
                      "minPunctOrSpecChar":"1",
+                     "minUpper":"0",
                      "sprite":"yellowPolicy",
                      "type":"policy"
                     },
@@ -725,8 +709,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1148,
-                 "y":530
+                 "x":706,
+                 "y":989
                 }, 
                 {
                  "gid":10735,
@@ -734,19 +718,21 @@
                  "name":"",
                  "properties":
                     {
-                     "colour":"magenta",
+                     "colour":"black",
                      "minLength":"10",
-                     "minNums":"3",
-                     "minPunctOrSpecChar":"0",
-                     "sprite":"magentaPolicy",
+                     "minLower":"1",
+                     "minNums":"2",
+                     "minPunctOrSpecChar":"2",
+                     "minUpper":"1",
+                     "sprite":"blackPolicy",
                      "type":"policy"
                     },
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1276,
-                 "y":524
+                 "x":1738,
+                 "y":1032
                 }, 
                 {
                  "gid":10736,
@@ -827,7 +813,7 @@
                  "properties":
                     {
                      "password":"null",
-                     "policy":"green",
+                     "policy":"red",
                      "sprite":"sideDoor",
                      "type":"sideDoor"
                     },
@@ -863,7 +849,7 @@
                  "properties":
                     {
                      "password":"null",
-                     "policy":"green",
+                     "policy":"yellow",
                      "sprite":"sideDoor",
                      "type":"sideDoor"
                     },
@@ -1092,7 +1078,7 @@
                  "properties":
                     {
                      "password":"null",
-                     "policy":"green",
+                     "policy":"black",
                      "sprite":"sideDoor",
                      "type":"sideDoor"
                     },

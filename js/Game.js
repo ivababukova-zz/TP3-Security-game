@@ -343,7 +343,8 @@ Encrypt.Game.prototype = {
    */
   retrievePolicyRules: function(colour){
     var policy = this.player.policies[colour];
-    var str = "MIN LENGTH: " + policy.minLength + "<br>MIN #NUMBERS: " + policy.minNums
+    var str = "MIN LENGTH: " + policy.minLength + "<br>MIN UPPER CASE LETTERS: " + policy.minUpper +  "<br>MIN LOWER CASE LETTERS: " + policy.minLower +
+        "<br>MIN #NUMBERS: " + policy.minNums
         + "<br>MIN # of PUNCTUATION or SPEC SIGNS: " + policy.minPunctOrSpecChar;
     return str;
   },/**
@@ -499,6 +500,7 @@ Encrypt.Game.prototype = {
         }
         // when the user input password and enter 'Enter' key
         if(!this.approved){
+          self.metricsSystem.addRejectedPassword(this._value, currentDoor.z, "inapproprate"); //Andi: adding the rejected password to the metrics system
           return;
         }
         if (currentDoor.password === 'null') {
@@ -541,12 +543,18 @@ Encrypt.Game.prototype = {
           // CHECK LENGTH
           if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.length < policy.minLength) {
             feedback = "Too short";
+            // CHECK UPPER CASE LETTERS
+          } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/[^A-Z]+/g, "").length < policy.minUpper) {
+            feedback = "Need more upper case letters.";
+            // CHECK LOWER CASE LETTERS
+          } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/[^a-z]+/g, "").length < policy.minLower) {
+            feedback = "Need more lower case letters.";
             // CHECK NUMERICALS
           } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/\D/g, '').length < policy.minNums) {
             feedback = "Need more numbers.";
             // CHECK PUNCTUATION
           } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/[a-zA-Z 0-9]+/g,'').length < policy.minPunctOrSpecChar) {
-            feedback = "Need more punctuation signs.";
+            feedback = "Need more punctuation or special character signs.";
           } else if(this._hiddenInput.value.length > 0){ // If policy requirements are met, approve
             this.approved = true;
             feedback = "Policy requirements met.";
@@ -667,7 +675,6 @@ getEntropy: function (pwdFeed) {
   createDoorFromTiledObject: function (element, group, doorID, spritesheet) {
     //frontDoorSprite = this.game.add.sprite(element.x, element.y, 'frontDoor');
     var sprite = group.create(element.x, element.y, spritesheet);
-
     // these animation options are valid for both types of doors
     sprite.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, false, true);
     sprite.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, false, true);
@@ -681,6 +688,7 @@ getEntropy: function (pwdFeed) {
     Object.keys(element.properties).forEach(function (key) {
       sprite[key] = element.properties[key];
     });
+    console.log(sprite.z + " " + sprite.policy);
   },
   /*************************METHODS CALLED BY UPDATE() **************************
    * @param doorObject
@@ -904,7 +912,7 @@ getEntropy: function (pwdFeed) {
       // Check if player has the right policy for the door
       if (this.player.policies[door.policy] === undefined) {
         document.getElementById("mainLayer").style.display = "block";
-        document.getElementById("policyRules").innerHTML = "You can't enter here. You need to collect the policy for this door first.";
+        document.getElementById("policyRules").innerHTML = "You can't enter here. You need to collect the " + door.policy + " policy for this door first.";
       }
       else {
         // password not set yet
