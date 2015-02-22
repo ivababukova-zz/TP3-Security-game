@@ -1102,9 +1102,10 @@ getEntropy: function (pwdFeed) {
         xmlhttp.send();
     }
 };
+
 //Storage of bad passwords to UsersBadPwdEntries
  function storeBadPasswordToDB(stringrep, uid, did, sid, leng) {
-    if (pwd === "") {
+    if (stringrep === "") {
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -1115,6 +1116,40 @@ getEntropy: function (pwdFeed) {
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.open("GET","storebadpassword.php?stringrep="+stringrep+"&uid="+uid+"&did="+did+"&sid="+sid+"&leng="+leng,true);
+        xmlhttp.send();
+    }
+};
+
+//Storage of User door visits
+ function storeDoorVisitsToDB(uid, sid, did) {
+    if (uid === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storedoorvisits.php?uid="+uid+"&sid="+sid+"&did="+did,true);
+        xmlhttp.send();
+    }
+};
+
+//Storage of User Password Resets
+ function storePasswordResetsToDB(uid, sid, did, oldpid, newpid, penalty) {
+    if (uid === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&did="+did+"&oldpid="+oldpid+"&newpid="+newpid+"&penalty="+penalty,true);
         xmlhttp.send();
     }
 };
