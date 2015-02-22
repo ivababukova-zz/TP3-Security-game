@@ -5,17 +5,22 @@
 <head><title>Questionaire After</title>
 
     <script type="text/javascript" src="questionnaireAfterResponse.js"></script>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
 </head>
 
 <body>
 
-<p><b>Questionnaire for Encrypt educational game</b></p>
+<div class="container">
+    <div class="jumbotron">
+        <p><b>Questionnaire "After"<br>3NCRYPT educational game</b></p>
+    </div>
 
 <!--YOUR ONLINE BEHAVIOUR:-->
-<div id="Question1After" class="array-flexible-row">
-    After I played the game:<br>
-    <table style="width:100%">
+<div id="Question1After" class="fieldgroup">
+    <b>After I played the game:</b><br>
+    <table class="table-striped" style="width:100%">
         <tr>
             <th> </th>
             <th>Strongly<br>disagree</th>
@@ -161,27 +166,28 @@
 
 <br>
 
-<div id="Question2After" class="text-long">
-    What do you think about 3NCRYPT overall?<br>
-    <tr>
-        <td class="answer">
-            <p class="text-item ">
-                <textarea class="textarea  empty" name="Q2Text" id="Q2" alt="Answer" rows="5" cols="40"></textarea></p>
-        </td>
-    </tr>
+<div id="Question2After">
+    <b>What do you think about 3NCRYPT overall?</b><br>
+    <textarea class="form-control" id="Q2" rows="5" cols="5"></textarea>
 </div>
 
 
 <br>
 
-<p>
-    Now please go back to the game and play it.<br>
-    Come back to the survey once you're finished.<br>
-    Good luck!</p>
+    <p align="center">
+        Thanks for your time!<br>
+        We hope you enjoyed our game.<br>
+        And remember:<br>
+        Get smarter or ...!
+        <br>
+        <br>
 
-<input type=button onclick="generateAfterResponse()" value='SUBMIT'/>
+        <button type="button" class="btn btn-default btn-lg" onclick="generateAfterResponse(); location.href='userIdentity.html'">
+            SUBMIT</button>
 
-    <!--location.href='finalScreen.html'-->
+    </p>
+
+</div>
 
 </body>
 
