@@ -208,20 +208,37 @@ Encrypt.Game.prototype = {
     this.game.world.bringToTop(this.pressedNoteButton);
     this.game.world.bringToTop(this.cross);
 
-    //add a variable to let
-    this.enemy.update();
-    // if the time given hasn't expired, or the current path has been exhausted
-    if( this.enemy.countsToFindPath > 0 || !this.enemy.newPath)
-      this.enemy.countsToFindPath--;
-    else{
-      //reset the count
-
-      this.enemy.countsToFindPath = 30;
-      this.enemy.newPath = false;
-      this.enemy.pathPosition = 0;
+    //this.enemy.update();
+    // if the enemy needs a path
+    if(this.enemy.needNewPath){
+      //get it
       this.getEnemyPath();
-      //console.log(this.enemy.pathToPlayer);
+      //and reset the value
+      this.enemy.needNewPath = false;
     }
+    this.enemy.update();
+    this.getCurrentRoom(this.enemy);
+
+    /*if( this.player.currentRoom !== this.enemy.currentRoom ) {
+
+     //console.log("Player: " + this.player.currentRoom + " Enemy: " + this.enemy.currentRoom);
+
+     }    // if the time given hasn't expired, or the current path has been exhausted
+
+     else {
+     //console.log("Player: " + this.player.currentRoom + " Enemy: " + this.enemy.currentRoom);
+     }
+     if( this.enemy.countsToFindPath > 0 || !this.enemy.newPath)
+     this.enemy.countsToFindPath--;
+     else{
+     //reset the count
+
+     this.enemy.countsToFindPath = 180;
+     this.enemy.newPath = false;
+     this.enemy.pathPosition = 0;
+     this.getEnemyPath();
+     console.log(this.enemy.pathToPlayer);
+     }*/
   },
 
   //create player
@@ -243,9 +260,8 @@ Encrypt.Game.prototype = {
 
   //create an enemy
   createEnemy: function() {
-
-    this.enemy = new Enemy(350, 500, this.game, this.player, this.backgroundlayer);
-    
+    this.enemy = new Enemy(600, 500, this.game, this.player, this.backgroundlayer);
+    this.enemy.sprite.anchor.setTo(0.5, 0.5);
   },
 
   // create items
@@ -377,7 +393,6 @@ Encrypt.Game.prototype = {
     this.rooms = this.findObjectsByType('room', this.map, 'RoomLayer');
     // find in which room(if any) the player is located
     this.getCurrentRoom(this.player);
-    this.getCurrentRoom(this.enemy);
     // draw rooms
     this.drawRooms();
   },
@@ -401,10 +416,7 @@ Encrypt.Game.prototype = {
         return;
       }
     }, this);
-    // added by @iva
-    console.log("in getCurrentRoom function ... current room: " + currentRoom);
     if (currentRoom == 2) {  // need better method to detet infected room
-      console.log("this room is infected!");
     }
     // 
   },
@@ -709,7 +721,6 @@ getEntropy: function (pwdFeed) {
     Object.keys(element.properties).forEach(function (key) {
       sprite[key] = element.properties[key];
     });
-    console.log(sprite.z + " " + sprite.policy);
   },
   /*************************METHODS CALLED BY UPDATE() **************************
    * @param doorObject
@@ -1162,7 +1173,7 @@ getEntropy: function (pwdFeed) {
 
 
 //Storage of non-conforming password entry to UserFailedPasswordAttempts
- function storeBadPasswordToDB(stringrep, uid, did, sid, leng, reason) {
+ function storeNonConformingPasswordToDB(stringrep, uid, did, sid, leng, reason) {
     if (stringrep === "") {
         return;
     } else {

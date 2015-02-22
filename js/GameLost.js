@@ -34,8 +34,7 @@ Encrypt.GameLost.prototype = {
   },
 
   actionInstructions: function(){
-
-    this.game.state.start('MainMenu');
+    window.location.href='questionnaireAfter.html';
   }
 
 
