@@ -148,13 +148,6 @@ Player.prototype = {
              this.antikeyLoggerBag.push(this.antikeyLoggerBag.length + 1);
              //console.log("number of items in the antikeylog bag now: " + this.antikeyLoggerBag.length);
          }
-        else if (numb === 4) {
-             var i = 0;
-             while (i < pickedHints.length) {
-                 console.log("PICKEDITEMS: " + pickedHints[i]);
-                 i++;
-             }
-         }
     },
 
     // TODO: refine to add password to a particular policy, or provide option to just write them down as they are
@@ -232,6 +225,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.newPath = false;
     //variable to keep track of the position in the path array
     this.pathPosition = 0;
+    this.isMovable = true;
 
 
     //add its spriteSheet
@@ -251,8 +245,24 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
 Enemy.prototype = {
     update: function(){
         this.sprite.frame = enemyFrame%5;
-       // console.log(this.backgroundLayer.data);
-        if( !this.newPath && this.pathPosition < this.pathToPlayer.length){
+
+        console.log ("isMoving: " + this.isMovable);
+        if (flagEnemyOnDoor === true) {
+            if (this.isMovable === true) {
+                this.setEnemyUnmovable();
+            }
+
+            /*
+             //  Create a Timer
+             this.timer = this.game.time.create(false);
+             //  Set a TimerEvent to occur after 6 seconds
+             this.timer.loop(6000, this.setEnemyMovable(), this);
+             //  Start the timer running
+             this.timer.start();
+             */
+        }
+
+        else if (!this.newPath && this.pathPosition < this.pathToPlayer.length) {
 
             this.sprite.body.velocity.x = 0;
             this.sprite.body.velocity.y = 0;
@@ -265,6 +275,7 @@ Enemy.prototype = {
             //console.log(next.x + " " + next.y +
             //            "Sprite: " + this.sprite.x + ", " + this.sprite.y);
             // go down and right
+
 
             // go right
             if( next.x > enemyTileX && next.y === enemyTileY){
@@ -315,7 +326,7 @@ Enemy.prototype = {
 
             this.pathPosition++;
         }
-        else if ( this.pathPosition == this.pathToPlayer.length) {
+        else if (this.pathPosition == this.pathToPlayer.length) {
             this.newPath = true;
             this.pathPosition = 0;
         }
@@ -331,7 +342,21 @@ Enemy.prototype = {
         //TODO: add implementation
     },
 
-    breakDoor: function(door){
+    setEnemyMovable: function () {
+        this.isMovable = true;
+        this.enemy.sprite.body.enable = true;
+        this.enemy.sprite.body.isVisible = true;
+        console.log("enemy is moving!");
+    },
+
+    setEnemyUnmovable: function () {
+        this.isMovable = false;
+        this.sprite.body.enable = false;
+        this.sprite.body.isVisible = false;
+        console.log("enemy is not moving!");
+    },
+
+    breakDoor: function () {
 
         // test for door proximity when calling this function; door should be tied to the room, i.e. the room you're passing to
 
@@ -339,14 +364,8 @@ Enemy.prototype = {
         var passwordStrength = 10;
         //make enemy wait for a set amount of time, according to the strength of the password
         //would be neat if we could implement a waiting bar for when this happens
+        console.log("enemy is in front of a door");
 
-        // calculated according to passwordStrength
-        var timeRemaining = 100;
-
-        while(timeRemaining > 0){
-            // wait - look up wait function in Phaser
-            timeRemaining--;
-        }
 
         // now let's see if either the door or the room get infected; arguable if we need two separate chances for each
         var infectionChance = Math.random();
