@@ -221,10 +221,13 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.pathToPlayer = [];
     //variable to keep track of how often the path-finding algorithm is called
     this.countsToFindPath = 30;
-    // variable to keep track of whether a new path has been given
-    this.newPath = false;
     //variable to keep track of the position in the path array
     this.pathPosition = 0;
+    // variable to keep track of whether a new path is needed; default is true as we don't have a path yet
+    this.needNewPath = true;
+    //variable to keep track of how long it's taking the enemy to get to the next tile; when it gets to 0, a new path is requested
+    this.nextTileCounter = 15;
+
     this.isMovable = true;
     this.movingHistory = "1";
 
@@ -277,60 +280,130 @@ Enemy.prototype = {
 
 
             // go right
-            if( next.x > enemyTileX && next.y === enemyTileY){
-                this.sprite.body.velocity.x += this.speed;
-                //console.log("right");
-            }
-            // go left
-            else if( next.x < enemyTileX && next.y === enemyTileY) {
-                this.sprite.body.velocity.x -= this.speed;
-                //console.log("left");
-            }
-            // go up
-            else if( next.x === enemyTileX && next.y < enemyTileY) {
-                this.sprite.body.velocity.y -= this.speed;
-                //console.log("up");
-            }
-            // go down
-            else if( next.x === enemyTileX && next.y > enemyTileY) {
-                this.sprite.body.velocity.x += this.speed;
-                //console.log("down");
-            }
-            else if( next.x > enemyTileX && next.y > enemyTileY ){
-                this.sprite.body.velocity.x += this.speed;
-                this.sprite.body.velocity.y += this.speed;
-                //console.log("down and right");
-            }
+            if (this.pathToPlayer.length !== 0) {
+                // if the array is not empty or we've not reached the end of the array
+                if (this.pathPosition < this.pathToPlayer.length) {
+                    // if we've reached the next tile in the path
+                    //console.log("ENEMY - POSITION IN ARRAY:" + this.pathPosition);
+                    //console.log("ENEMY - LENGTH OF ARRAY:" + this.pathToPlayer.length);
+                    if (this._onNextTile()) {
 
-            // go down and left
-            else if( next.x < enemyTileX && next.y > enemyTileY ){
-                this.sprite.body.velocity.x -= this.speed;
-                this.sprite.body.velocity.y += this.speed;
-               // console.log("down and left");
-            }
 
-            // go up and left
-            else if( next.x < enemyTileX && next.y < enemyTileY ){
-                this.sprite.body.velocity.x -= this.speed;
-                this.sprite.body.velocity.y -= this.speed;
-                //console.log("up and left");
-            }
+                        console.log("INITIAL: " + this.pathPosition);
+                        //increment our position in the path
+                        this.pathPosition++;
+                        //re-initialise the counter when a new tile is move to
+                        this.nextTileCounter = 30;
+                        console.log("AFTER: " + this.pathPosition);
+                    }
+                    else {
+                        //otherwise, move in that direction
+                        this._moveInNextDirection();
+                        //decrement the tile counter at every move
+                        this.nextTileCounter--;
+                        console.log("________ \n I MOVED \n _______");
 
-            // go up and right
-            else if( next.x > enemyTileX && next.y < enemyTileY ){
-                this.sprite.body.velocity.x += this.speed;
-                this.sprite.body.velocity.y -= this.speed;
-                //console.log("up and right");
-            }
+                    }
 
-            this.pathPosition++;
-        }
-        else if (this.pathPosition == this.pathToPlayer.length) {
-            this.newPath = true;
-            this.pathPosition = 0;
+                    if (this.nextTileCounter === 0) {
+                        this.needNewPath = true;
+                        this.nextTileCounter = 30;
+                        console.log("TILE RESET!");
+                    }
+                }
+                else {
+                    // need a new path
+                    this.needNewPath = true;
+                    this.nextTileCounter = 30;
+                    //reset the position in the array
+                    this.pathPosition = 0;
+                }
+            }
+            else {
+                this.needNewPath = true;
+            }
         }
 
        // this.sprite.body.velocity.x = 10;
+    },
+
+    /**
+     * Private function that returns true if the enemy is on the next tile in the path or false if it is not
+     * */
+    _onNextTile: function(){
+
+        // current tile
+        var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
+        var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
+
+        var next = this.pathToPlayer[this.pathPosition];
+        var nextTileX = next.x;
+        var nextTileY = next.y;
+        console.log("The Next Tile is: x " + nextTileX + " y " + nextTileY);
+        console.log("The enemy tile is: x " + enemyTileX + " y " + enemyTileY);
+
+        if( enemyTileX === nextTileX && enemyTileY === nextTileY )
+            return true;
+        return false;
+    },
+
+    _moveInNextDirection: function(){
+
+        //the positions
+        var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
+        var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
+
+        var nextTileX = this.pathToPlayer[this.pathPosition].x;
+        var nextTileY = this.pathToPlayer[this.pathPosition].y;
+
+        this.sprite.body.velocity.x = 0;
+        this.sprite.body.velocity.y = 0;
+
+        // go right
+        if( nextTileX > enemyTileX && nextTileY === enemyTileY) {
+            this.sprite.body.velocity.x += this.speed;
+        }
+
+        // go left
+        else if( nextTileX < enemyTileX && nextTileY === enemyTileY) {
+            this.sprite.body.velocity.x -= this.speed;
+        }
+
+        // go up
+        else if( nextTileX === enemyTileX && nextTileY < enemyTileY) {
+            this.sprite.body.velocity.y -= this.speed;
+        }
+
+        // go down
+        else if( nextTileX === enemyTileX && nextTileY > enemyTileY) {
+            this.sprite.body.velocity.y += this.speed;
+        }
+        // go down and left
+        else if( nextTileX < enemyTileX && nextTileY  > enemyTileY ) {
+            this.sprite.body.velocity.x -= this.speed;
+            this.sprite.body.velocity.y += this.speed;
+        }
+        // down & right
+        else if( nextTileX > enemyTileX && nextTileY  > enemyTileY ) {
+            this.sprite.body.velocity.x += this.speed;
+            this.sprite.body.velocity.y += this.speed;
+        }
+        // go up and left
+        else if( nextTileX < enemyTileX && nextTileY  < enemyTileY ) {
+            this.sprite.body.velocity.x -= this.speed;
+            this.sprite.body.velocity.y -= this.speed;
+        }
+
+        // go up and right
+        else if( nextTileX > enemyTileX && nextTileY  < enemyTileY ) {
+            this.sprite.body.velocity.x += this.speed;
+            this.sprite.body.velocity.y -= this.speed;
+        }
+
+
+
+
+
     },
 
     putKeyLogger: function(door){

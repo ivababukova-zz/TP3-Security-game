@@ -205,20 +205,40 @@ Encrypt.Game.prototype = {
     this.game.world.bringToTop(this.pressedNoteButton);
     this.game.world.bringToTop(this.cross);
 
-    //add a variable to let
-    this.enemy.update();
-    // if the time given hasn't expired, or the current path has been exhausted
-    if( this.enemy.countsToFindPath > 0 || !this.enemy.newPath)
-      this.enemy.countsToFindPath--;
-    else{
-      //reset the count
-
-      this.enemy.countsToFindPath = 30;
-      this.enemy.newPath = false;
-      this.enemy.pathPosition = 0;
+    //this.enemy.update();
+    // if the enemy needs a path
+    if(this.enemy.needNewPath){
+      //get it
       this.getEnemyPath();
-      console.log(this.enemy.pathToPlayer);
+      //and reset the value
+      this.enemy.needNewPath = false;
+
+      //console.log("PATH:" + this.enemy.pathToPlayer);
+      //console.log("POSITION IN ARRAY:" + this.enemy.pathPosition);
     }
+    this.enemy.update();
+    //console.log("POSITION IN ARRAY:" + this.enemy.pathPosition);
+    //console.log("LENGTH OF ARRAY:" + this.enemy.pathToPlayer.length);
+    /*if( this.player.currentRoom !== this.enemy.currentRoom ) {
+
+     //console.log("Player: " + this.player.currentRoom + " Enemy: " + this.enemy.currentRoom);
+
+     }    // if the time given hasn't expired, or the current path has been exhausted
+
+     else {
+     //console.log("Player: " + this.player.currentRoom + " Enemy: " + this.enemy.currentRoom);
+     }
+     if( this.enemy.countsToFindPath > 0 || !this.enemy.newPath)
+     this.enemy.countsToFindPath--;
+     else{
+     //reset the count
+
+     this.enemy.countsToFindPath = 180;
+     this.enemy.newPath = false;
+     this.enemy.pathPosition = 0;
+     this.getEnemyPath();
+     console.log(this.enemy.pathToPlayer);
+     }*/
   },
 
   //create player
