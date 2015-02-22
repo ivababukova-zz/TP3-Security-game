@@ -1,0 +1,10 @@
+.fieldgroup{
+    width: auto;
+}
+
+.fieldgroup.label
+{
+    display: inline;
+    float: none;
+    width: 100px;
+}
