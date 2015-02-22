@@ -1154,6 +1154,93 @@ getEntropy: function (pwdFeed) {
     }
 };
 
+//Storage of User stats on educational information
+ function storeUserEducationalInfoToDB(uid, sid, cid, starttime, endtime) {
+    if (uid === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&cid="+cid+"&starttime="+starttime+"&endtime="+endtime,true);
+        xmlhttp.send();
+    }
+};
+
+//Storage of User Passwords entered
+ function storeUserEducationalInfoToDB(uid, pid, sid, did, scorereceived) {
+    if (uid === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&pid="+pid+"&sid="+sid+"&did="+did+"&scorereceived="+scorereceived,true);
+        xmlhttp.send();
+    }
+};
+
+//Storage of User Policies collected
+ function storeUserEducationalInfoToDB(uid, sid, polid) {
+    if (uid === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&polid="+polid,true);
+        xmlhttp.send();
+    }
+};
+
+//Storage of User Tools collected
+ function storeUserEducationalInfoToDB(uid, sid, tid) {
+    if (uid === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
+        xmlhttp.send();
+    }
+};
+
+//Storage of User Tools Used
+ function storeUserEducationalInfoToDB(uid, sid, tid) {
+    if (uid === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
+        xmlhttp.send();
+    }
+};
+
+
+
 
 
 
