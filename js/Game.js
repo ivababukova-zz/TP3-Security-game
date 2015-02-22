@@ -5,6 +5,7 @@ Encrypt.Game = function(){};
 
 var currentRoom = 0;
 var currentDoor = null;
+var currentDoorEnemy = null; // @iva: global variable to remember the door object the enemy is on, so we can close it
 var text = null;
 var fPause = false;
 var lastKnownPlayerDirection = ['',0]; /*BMDK: for the purpose of tracking what animation frame to end on and lastKnownPlayerDirection*/
@@ -21,7 +22,9 @@ var pickedHints = []; // @iva: stores the pickedHints collected by the player so
 var lastHint = "";
 var enemyFrame = 0; //this tracks the current frame of animation for the enemy
 var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
-var flagEnemyOnDoor;
+var flagEnemyOnDoor; // @iva: is the enemy in front of a door
+
+
 Encrypt.Game.prototype = {
   create: function () {
 
@@ -139,7 +142,7 @@ Encrypt.Game.prototype = {
     this.closePopup();
   },
 
-  // UPDATE STATE:
+  /* ************************************** UPDATE STATE: ************************************************* */
   update: function () {
     var self = this;
     /*This code was added to control frame rates for the enemy.
@@ -183,7 +186,6 @@ Encrypt.Game.prototype = {
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
     var speed = 260;  // setting up the speed of the player
-
 
     if (flagEnemyOnDoor) {
 
@@ -760,8 +762,8 @@ getEntropy: function (pwdFeed) {
         doorJustOpened = !doorJustOpened; // BMDK: set false as door is no longer open
       }
       /* @iva; same as the code above, but for the enemy */
-      // todo: the doorJustOpenedEnemy is not updated
       if (doorPassEnemy === 'enemy in front of a door' && doorJustOpenedEnemy) {
+        this.changeDoorState(currentDoorEnemy, 'closing');
         doorsCollidableEnemy = true;
         doorJustOpenedEnemy = !doorJustOpenedEnemy;
       }
@@ -939,8 +941,9 @@ getEntropy: function (pwdFeed) {
   enterDoorEnemy: function (enemy, door) {
     if (flagEnemyOnDoor === false) {
       console.log("in enterDoorEnemy function");
-      currentDoor = door;
+      currentDoorEnemy = door;
       flagEnemyOnDoor = true;
+      this.changeDoorState(currentDoorEnemy, 'opening');
     }
   },
 
