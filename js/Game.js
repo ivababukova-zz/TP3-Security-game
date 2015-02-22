@@ -162,13 +162,15 @@ Encrypt.Game.prototype = {
       this.game.physics.arcade.collide (this.player.sprite, this.doorBlocks);
     }
 
+    // this.game.physics.arcade.collide (this.enemy.sprite, this.enemy.breakDoor);
+
     this.game.physics.arcade.collide (this.player.sprite, this.blockedLayer);   // set up collision with this layer
     this.game.physics.arcade.collide (this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
     this.game.physics.arcade.collide (this.enemy.sprite, this.player.sprite); // BMDK: Added collision between enemy and player
     this.game.physics.arcade.overlap (this.player.sprite, this.items, this.pickupItem, null, this);
 
     this.flagEnter = this.game.physics.arcade.overlap (this.player.sprite, this.doors, this.enterDoor, null, this);
-    flagEnemyOnDoor = this.game.physics.arcade.overlap (this.enemy.sprite, this.doors, this.enemy.breakDoor, null, this);
+    // flagEnemyOnDoor = this.game.physics.arcade.overlap (this.enemy.sprite, this.doors, this.enterDoor, null, this);
     // when come out the door, check the room.
     this.updateRoomHighlighting ();
     this.changeDoorStates ();
@@ -177,6 +179,9 @@ Encrypt.Game.prototype = {
     var speed = 260;  // setting up the speed of the player
 
     if (flagEnemyOnDoor) {
+
+        console.log("flagEnemy on door is true");
+        // the enemy needs to start moving again
         console.log("flagEnemy on door is true");
         //  Create our Timer
         timer = this.game.time.create(false);
@@ -184,6 +189,7 @@ Encrypt.Game.prototype = {
         timer.loop(6000, this.enemy.setEnemyMovable, this);
         //  Start the timer running
         timer.start();
+
     }
 
     this.moveCharacter(this.player.sprite, speed);
@@ -352,9 +358,8 @@ Encrypt.Game.prototype = {
    */
   retrievePolicyRules: function (colour) {
     var policy = this.player.policies[colour];
-    var str = "MIN LENGTH: " + policy.minLength + "<br>MIN #NUMBERS: " + policy.minNums
+    return "MIN LENGTH: " + policy.minLength + "<br>MIN #NUMBERS: " + policy.minNums
         + "<br>MIN # of PUNCTUATION or SPEC SIGNS: " + policy.minPunctOrSpecChar;
-    return str;
   }, /**
 **********************************************************************/
 /*****************METHODS TO MANAGE ROOM OBJECTS**********************
@@ -802,7 +807,7 @@ getEntropy: function (pwdFeed) {
     document.getElementById ("hintsLayer").style.display = "block";
     document.getElementById("showAllHints").style.display = "block";
 
-    if (lastHint === undefined) {
+    if (lastHint === "") {
       document.getElementById ("hintsDisplay").innerHTML = "<br>" + "You haven't collected any hints yet";
     }
     else {
@@ -823,12 +828,12 @@ getEntropy: function (pwdFeed) {
     document.getElementById ("hintsDisplay").innerHTML = ""; // remove the lastHintCollected display
     document.getElementById ("hintsLayer").style.display = "block";
 
-    if (lastHint === undefined) {
+    if (lastHint === "") {
       document.getElementById ("hintsDisplay").innerHTML = "<br>" + "You haven't collected any hints yet";
     }
 
     else {
-      var hintsToDisplay = pickedHints[0] === undefined ? "" : ("1. " + pickedHints[pickedHints.length - 1]);
+       var hintsToDisplay = pickedHints[0] === undefined ? "" : ("1. " + pickedHints[0]);
 
       var i = 1;
       while (i < pickedHints.length) {
@@ -857,19 +862,19 @@ getEntropy: function (pwdFeed) {
    */
   showHint: function(player, collectable) {
     var found = false; // false if the user has picked hint for first time
-    var array = [];
+    var hintsArray = [];
     var self = this;
-    array.push ("Don't share your passwords with anyone");
-    array.push ("Use combination of small and big letters, numbers and special characters");
-    array.push ("Don't ever use same passwords on multiple websites");
-    array.push ("Don't include personal information in your passwords");
-    array.push ("Create passwords easy to remember but hard to guess");
-    array.push ("Make your passwords at least 8 characters long");
-    array.push ("Don't let your browser remember the password for you");
-    array.push ("Always log off if you leave your device and anyone is around");
+    hintsArray.push ("Don't share your passwords with anyone");
+    hintsArray.push ("Use combination of small and big letters, numbers and special characters");
+    hintsArray.push ("Don't ever use same passwords on multiple websites");
+    hintsArray.push ("Don't include personal information in your passwords");
+    hintsArray.push ("Create passwords easy to remember but hard to guess");
+    hintsArray.push ("Make your passwords at least 8 characters long");
+    hintsArray.push ("Don't let your browser remember the password for you");
+    hintsArray.push ("Always log off if you leave your device and anyone is around");
 
-    var randomIndex = Math.floor(Math.random() * (array.length) + 0); // gives random number between 0 and the length of the array
-    var hint = array[randomIndex];
+    var randomIndex = Math.floor(Math.random() * (hintsArray.length) + 0); // gives random number between 0 and the length of the array
+    var hint = hintsArray [randomIndex];
 
     for (var i = 0; i<pickedHints.length; i++) {
       if (pickedHints[i] === hint) {
@@ -882,6 +887,7 @@ getEntropy: function (pwdFeed) {
       pickedHints.push(hint); // put the found hint in the picked pickedHints array
     }
     lastHint = hint;
+
     // display hint:
     var style = { font: "20px Serif", fill: "#000000", align: "center" };
     var text2 = this.game.add.text (this.player.sprite.x - 200, this.player.sprite.y, hint, style);

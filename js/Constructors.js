@@ -210,7 +210,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     //collidable set to true
     this.isCollidable = true;
     // speed of the enemy - set to 10.0 by default
-    this.speed = 10.0;
+    this.speed = 30.0;
     // variable that'll keep track of whether the object is slowed down by firewall
     this.isSlowed = false;
     // logger chance - set to 0.1 by default - set to private as not used outside of object
@@ -226,6 +226,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     //variable to keep track of the position in the path array
     this.pathPosition = 0;
     this.isMovable = true;
+    this.movingHistory = "1";
 
 
     //add its spriteSheet
@@ -235,7 +236,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     //BMDK: - Add animation loop for alien
     this.sprite.animations.add('any', [0, 1, 2, 3, 4], 15,true, true);
 
-    game.physics.enable(this.sprite, Phaser.ARCADE);
+    game.physics.enable (this.sprite, Phaser.ARCADE);
     this.sprite.body.immovable = false;
     this.sprite.body.collideWorldBounds = true;
     this.sprite.enableBody = true;
@@ -243,26 +244,24 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
 };
 
 Enemy.prototype = {
-    update: function(){
+    update: function () {
         this.sprite.frame = enemyFrame%5;
 
         console.log ("isMoving: " + this.isMovable);
-        if (flagEnemyOnDoor === true) {
-            if (this.isMovable === true) {
+
+        if (flagEnemyOnDoor === true && this.isMovable === true) {
+            if (this.movingHistory === "101") {
+                console.log("the enemy will still move, because it was just disabled");
+                this.movingHistory = "1";
+            }
+            else {
                 this.setEnemyUnmovable();
             }
-
-            /*
-             //  Create a Timer
-             this.timer = this.game.time.create(false);
-             //  Set a TimerEvent to occur after 6 seconds
-             this.timer.loop(6000, this.setEnemyMovable(), this);
-             //  Start the timer running
-             this.timer.start();
-             */
         }
 
-        else if (!this.newPath && this.pathPosition < this.pathToPlayer.length) {
+        // if ()
+
+        if (!this.newPath && this.pathPosition < this.pathToPlayer.length) {
 
             this.sprite.body.velocity.x = 0;
             this.sprite.body.velocity.y = 0;
@@ -342,18 +341,21 @@ Enemy.prototype = {
         //TODO: add implementation
     },
 
+    // this function is used in Game.js update
     setEnemyMovable: function () {
-        this.isMovable = true;
+        this.enemy.isMovable = true;
+        this.enemy.movingHistory = this.enemy.movingHistory + "1";
         this.enemy.sprite.body.enable = true;
         this.enemy.sprite.body.isVisible = true;
-        console.log("enemy is moving!");
+        console.log("enemy is moving! " + this.enemy.movingHistory);
     },
 
     setEnemyUnmovable: function () {
         this.isMovable = false;
+        this.movingHistory = this.movingHistory + "0";
         this.sprite.body.enable = false;
         this.sprite.body.isVisible = false;
-        console.log("enemy is not moving!");
+        console.log("enemy is not moving! " + this.movingHistory);
     },
 
     breakDoor: function () {
