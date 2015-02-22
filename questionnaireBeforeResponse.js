@@ -102,6 +102,7 @@ function generateBeforeResponse() {
 				Q6a, Q6b, Q6c, Q6d, Q6e, Q6f, Q6g,
 				Q7a, Q7b, Q7c, Q7d, Q7e];
 
+
 	for(var i = 0; i < response.length; i++){
 		console.log(response[i])
 //		if(response[i] === null || response[i] === undefined){
@@ -109,4 +110,13 @@ function generateBeforeResponse() {
 //		}
 	}
 	//return response;
+	//if (window.XMLHttpRequest) {
+    //        // code for IE7+, Firefox, Chrome, Opera, Safari
+    //        xmlhttp = new XMLHttpRequest();
+    //    } else {
+    //        // code for IE6, IE5
+    //        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    //    }
+    //    xmlhttp.open("GET","beforegame.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
+    //    xmlhttp.send();
 }
