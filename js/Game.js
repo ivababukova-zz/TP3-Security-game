@@ -19,7 +19,6 @@ var lastHint = "";
 var enemyFrame = 0; //this tracks the current frame of animation for the enemy
 var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
 var flagEnemyOnDoor;
-
 Encrypt.Game.prototype = {
   create: function () {
 
@@ -29,6 +28,7 @@ Encrypt.Game.prototype = {
     this.flagEnter = false;
     // flagSearch is used to update the currentRoom only when flagEnter goes from true to false.
     this.flagSearch = false;
+    hook = this;
 
     //creating the auxiliary systems
     this.scoreSystem = new ScoreSystem(this.game); // the score is initially 0
@@ -159,32 +159,21 @@ Encrypt.Game.prototype = {
     }
 
     if(doorsCollidable){
-      this.game.physics.arcade.collide (this.player.sprite, this.doorBlocks);
+      this.game.physics.arcade.collide(this.player.sprite, this.doorBlocks);
     }
 
-    this.game.physics.arcade.collide (this.player.sprite, this.blockedLayer);   // set up collision with this layer
-    this.game.physics.arcade.collide (this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
-    this.game.physics.arcade.collide (this.enemy.sprite, this.player.sprite); // BMDK: Added collision between enemy and player
-    this.game.physics.arcade.overlap (this.player.sprite, this.items, this.pickupItem, null, this);
+    this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
+    this.game.physics.arcade.collide(this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
+    this.game.physics.arcade.collide(this.enemy.sprite, this.player.sprite); // BMDK: Added collision between enemy and player 
+    this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
 
-    this.flagEnter = this.game.physics.arcade.overlap (this.player.sprite, this.doors, this.enterDoor, null, this);
-    flagEnemyOnDoor = this.game.physics.arcade.overlap (this.enemy.sprite, this.doors, this.enemy.breakDoor, null, this);
+    this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     // when come out the door, check the room.
-    this.updateRoomHighlighting ();
-    this.changeDoorStates ();
+    this.updateRoomHighlighting();
+    this.changeDoorStates();
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
     var speed = 260;  // setting up the speed of the player
-
-    if (flagEnemyOnDoor) {
-        console.log("flagEnemy on door is true");
-        //  Create our Timer
-        timer = this.game.time.create(false);
-        //  Set a TimerEvent to occur after 6 seconds
-        timer.loop(6000, this.enemy.setEnemyMovable, this);
-        //  Start the timer running
-        timer.start();
-    }
 
     this.moveCharacter(this.player.sprite, speed);
     /*BMDK: - Moved bringToTop here to allow the score to appear on top at all times*/
@@ -200,19 +189,17 @@ Encrypt.Game.prototype = {
     //add a variable to let
     this.enemy.update();
     // if the time given hasn't expired, or the current path has been exhausted
-    if( this.enemy.countsToFindPath > 0 || !this.enemy.newPath) {
+    if( this.enemy.countsToFindPath > 0 || !this.enemy.newPath)
       this.enemy.countsToFindPath--;
-    }
     else{
       //reset the count
+
       this.enemy.countsToFindPath = 30;
       this.enemy.newPath = false;
       this.enemy.pathPosition = 0;
-
       this.getEnemyPath();
       console.log(this.enemy.pathToPlayer);
     }
-
   },
 
   //create player
@@ -234,7 +221,9 @@ Encrypt.Game.prototype = {
 
   //create an enemy
   createEnemy: function() {
-    this.enemy = new Enemy(350, 500, this.game, this.player, this.backgroundlayer);
+
+    this.enemy = new Enemy(1350, 1500, this.game, this.player, this.backgroundlayer);
+    
   },
 
   // create items
@@ -293,6 +282,8 @@ Encrypt.Game.prototype = {
     result.forEach(function (element) {
       this.createFromTiledObject(element, this.items);
     }, this);
+
+
   },
 
   createDoorBlocks: function(){
@@ -342,29 +333,29 @@ Encrypt.Game.prototype = {
   /** When found add the new policy
    * @param {object} policy
    */
-  addPolicy: function (policy) {
-    this.player.addPolicy (policy);
+  addPolicy: function(policy){
+    this.player.addPolicy(policy);
     policy.destroy();
   },
   /** Take the color of a policy ang give back its rules
    * @param {string} the color of a policy
    * @return {string} rules policy contains
    */
-  retrievePolicyRules: function (colour) {
+  retrievePolicyRules: function(colour){
     var policy = this.player.policies[colour];
     var str = "MIN LENGTH: " + policy.minLength + "<br>MIN #NUMBERS: " + policy.minNums
         + "<br>MIN # of PUNCTUATION or SPEC SIGNS: " + policy.minPunctOrSpecChar;
     return str;
-  }, /**
+  },/**
 **********************************************************************/
 /*****************METHODS TO MANAGE ROOM OBJECTS**********************
   /** Preload all room objects */
-  loadRooms: function () {
+  loadRooms: function() {
     // Get all room objects
-    this.rooms = this.findObjectsByType ('room', this.map, 'RoomLayer');
+    this.rooms = this.findObjectsByType('room', this.map, 'RoomLayer');
     // find in which room(if any) the player is located
-    this.getCurrentRoom (this.player);
-    this.getCurrentRoom (this.enemy);
+    this.getCurrentRoom(this.player);
+    this.getCurrentRoom(this.enemy);
     // draw rooms
     this.drawRooms();
   },
@@ -372,13 +363,13 @@ Encrypt.Game.prototype = {
   getCurrentRoom: function (entity) {
 
     // Checking each room
-    this.rooms.forEach (function (element) {
+    this.rooms.forEach(function(element){
       // Getting room's dimensions and coordinates
-      var x = parseInt (element.x);
-      var y = parseInt (element.y+this.map.tileHeight);
-      var w = parseInt (element.width);
-      var h = parseInt (element.height);
-      var rect = new PIXI.Rectangle (x,y,w,h);
+      var x = parseInt(element.x);
+      var y = parseInt(element.y+this.map.tileHeight);
+      var w = parseInt(element.width);
+      var h = parseInt(element.height);
+      var rect = new PIXI.Rectangle(x,y,w,h);
 
       // check if a player is in a room. If yes,
       // then memorise its ID and finish searching
@@ -753,6 +744,7 @@ getEntropy: function (pwdFeed) {
     pickupSound.play(); //play sound when object is picked up
 	
     if (collectable.type === "clue"  || (collectable.type === "info") ) {
+      this.player.addItem(4);
         this.showHint(player, collectable);
     }
 
@@ -1104,7 +1096,7 @@ getEntropy: function (pwdFeed) {
     }
 };
 
-//Storage of bad passwords to UsersBadPwdEntries
+//Storage of bad passwords to UsersBadPwdEntries -forgotten passwords(potentially)
  function storeBadPasswordToDB(stringrep, uid, did, sid, leng) {
     if (stringrep === "") {
         return;
@@ -1117,6 +1109,24 @@ getEntropy: function (pwdFeed) {
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.open("GET","storebadpassword.php?stringrep="+stringrep+"&uid="+uid+"&did="+did+"&sid="+sid+"&leng="+leng,true);
+        xmlhttp.send();
+    }
+};
+
+
+//Storage of non-conforming password entry to UserFailedPasswordAttempts
+ function storeBadPasswordToDB(stringrep, uid, did, sid, leng, reason) {
+    if (stringrep === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storefailedpassword.php?stringrep="+stringrep+"&uid="+uid+"&did="+did+"&sid="+sid+"&leng="+leng+"&reason="+reason,true);
         xmlhttp.send();
     }
 };
