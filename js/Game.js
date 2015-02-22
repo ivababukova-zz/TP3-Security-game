@@ -212,13 +212,10 @@ Encrypt.Game.prototype = {
       this.getEnemyPath();
       //and reset the value
       this.enemy.needNewPath = false;
-
-      //console.log("PATH:" + this.enemy.pathToPlayer);
-      //console.log("POSITION IN ARRAY:" + this.enemy.pathPosition);
     }
     this.enemy.update();
-    //console.log("POSITION IN ARRAY:" + this.enemy.pathPosition);
-    //console.log("LENGTH OF ARRAY:" + this.enemy.pathToPlayer.length);
+    this.getCurrentRoom(this.enemy);
+
     /*if( this.player.currentRoom !== this.enemy.currentRoom ) {
 
      //console.log("Player: " + this.player.currentRoom + " Enemy: " + this.enemy.currentRoom);
@@ -252,7 +249,7 @@ Encrypt.Game.prototype = {
     //this.player.animations.add('static', [0], 1, true, true);
 
     // made player centered, which fixes room highlighting problems. A.M.
-    this.player.sprite.anchor.setTo(0.5, 0.5);
+    this.player.sprite.anchor.setTo(0.5, 0.5);git 
 
     //move player with cursor keys
     this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -261,8 +258,8 @@ Encrypt.Game.prototype = {
   //create an enemy
   createEnemy: function() {
 
-    this.enemy = new Enemy(1350, 1500, this.game, this.player, this.backgroundlayer);
-    
+    this.enemy = new Enemy(600, 500, this.game, this.player, this.backgroundlayer);
+    this.enemy.sprite.anchor.setTo(0.5, 0.5);
   },
 
   // create items
@@ -397,7 +394,6 @@ Encrypt.Game.prototype = {
     this.rooms = this.findObjectsByType('room', this.map, 'RoomLayer');
     // find in which room(if any) the player is located
     this.getCurrentRoom(this.player);
-    this.getCurrentRoom(this.enemy);
     // draw rooms
     this.drawRooms();
   },
@@ -421,10 +417,7 @@ Encrypt.Game.prototype = {
         return;
       }
     }, this);
-    // added by @iva
-    console.log("in getCurrentRoom function ... current room: " + currentRoom);
     if (currentRoom == 2) {  // need better method to detet infected room
-      console.log("this room is infected!");
     }
     // 
   },
@@ -729,7 +722,6 @@ getEntropy: function (pwdFeed) {
     Object.keys(element.properties).forEach(function (key) {
       sprite[key] = element.properties[key];
     });
-    console.log(sprite.z + " " + sprite.policy);
   },
   /*************************METHODS CALLED BY UPDATE() **************************
    * @param doorObject

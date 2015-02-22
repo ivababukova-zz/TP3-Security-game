@@ -210,7 +210,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     //collidable set to true
     this.isCollidable = true;
     // speed of the enemy - set to 10.0 by default
-    this.speed = 30.0;
+    this.speed = 64;
     // variable that'll keep track of whether the object is slowed down by firewall
     this.isSlowed = false;
     // logger chance - set to 0.1 by default - set to private as not used outside of object
