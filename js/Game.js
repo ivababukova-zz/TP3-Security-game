@@ -200,13 +200,13 @@ Encrypt.Game.prototype = {
       this.moveEnemy();
       console.log(this.enemy.pathToPlayer);
     }
-    if(this.player.currentRoom !== this.enemy.currentRoom){
+    /*if(this.player.currentRoom !== this.enemy.currentRoom){
       this.enemy.sprite.body.enable = false;
       this.enemy.sprite.body.isVisible = false;
       console.log(this.enemy.sprite.body.renderable+"invisible");
     }else{
       this.enemy.sprite.body.isVisible = true;
-    }
+    }*/
     console.log("Player room:" + this.player.currentRoom + " Enemy room: " + this.enemy.currentRoom);
   },
 
@@ -525,14 +525,15 @@ Encrypt.Game.prototype = {
             /*BMDK: call to function to open door when password is successful*/
             self.changeDoorState(currentDoor,'opening');
             doorsCollidable = false;
-
-            self.metricsSystem.addUsedPassword(this._value, 0); //Andi: adding the already set up password to the metrics system; TODO: add the door id
+            //TODO: Confirm that currentDoor.z is the door id
+            self.metricsSystem.addUsedPassword(this._value, currentDoor.z); //Andi: adding the already set up password to the metrics system;
             self.scoreSystem.scorePassingThroughDoorWithoutResetting(this._value, self.getEntropy(this._value), self.player); //Andi: added scoring for this scenario to scoring system
 
             doorJustOpened = true; //BMDK: track that door opened
             self.closePopup();
           } else {
             document.getElementById("titlePwd").innerHTML = "Incorrect. Input again!";
+            self.metricsSystem.addRejectedPassword(this._value, currentDoor.z, "rejected"); //Andi: adding the rejected password to the metrics system
           }
           this._hiddenInput.value = '';
         }
