@@ -1166,13 +1166,13 @@ getEntropy: function (pwdFeed) {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&cid="+cid+"&starttime="+starttime+"&endtime="+endtime,true);
+        xmlhttp.open("GET","storeuseredinfo.php?uid="+uid+"&sid="+sid+"&cid="+cid+"&starttime="+starttime+"&endtime="+endtime,true);
         xmlhttp.send();
     }
 };
 
 //Storage of User Passwords entered
- function storeUserEducationalInfoToDB(uid, pid, sid, did, scorereceived) {
+ function storeUserPasswordsEnteredToDB(uid, pid, sid, did, scorereceived) {
     if (uid === "") {
         return;
     } else {
@@ -1189,7 +1189,7 @@ getEntropy: function (pwdFeed) {
 };
 
 //Storage of User Policies collected
- function storeUserEducationalInfoToDB(uid, sid, polid) {
+ function storeUserPoliciesCollectedToDB(uid, sid, polid) {
     if (uid === "") {
         return;
     } else {
@@ -1206,7 +1206,7 @@ getEntropy: function (pwdFeed) {
 };
 
 //Storage of User Tools collected
- function storeUserEducationalInfoToDB(uid, sid, tid) {
+ function storeUserToolsCollectedToDB(uid, sid, tid) {
     if (uid === "") {
         return;
     } else {
@@ -1223,7 +1223,7 @@ getEntropy: function (pwdFeed) {
 };
 
 //Storage of User Tools Used
- function storeUserEducationalInfoToDB(uid, sid, tid) {
+ function storeUserToolsUsedToDB(uid, sid, tid) {
     if (uid === "") {
         return;
     } else {
