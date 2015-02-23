@@ -33,7 +33,7 @@ Encrypt.MainMenu.prototype = {
                 "Being the only survivor, you have to get back to Earth and warn everyone.\n" +
                 "Your only hope to ESCAPE is to get to the launch pad and fly back to Earth.\n" +
                 "See how on the instructions page.\n\n" +
-                "click twice one of the buttons below:\n";
+                "Note: For security reasons\nDO NOT USE YOUR PASSWORDS FROM REAL LIFE!\n";
         style = {font: "20px Serif", fill: "#fff", align: "center"};
         welcomeLabel = this.game.add.text(this.game.width / 2, this.game.height - 350, text, style);
         welcomeLabel.anchor.set(0.5);
