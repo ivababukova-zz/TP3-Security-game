@@ -63,12 +63,20 @@ Encrypt.Game.prototype = {
 
     /* create a button for viewing the pickedHints and tips collected so far; @iva */
     this.hintsButton = this.game.add.button (535, 10, 'hintButtons', this.manageHintsPopup, this, 0, 1, 0, 0);
+    //this.hintsButton = this.game.add.button (535, 10, 'hintsButton', this.displayLastHintCollected, this );
     this.hintsButton.fixedToCamera = true;
-    this.hintsButton.clicked = false;
+
+    this.pressedHintsButton = this.game.add.button(535, 10, 'pressedHintsButton', this.hideHintsCollected, this);
+    this.pressedHintsButton.inputEnabled = false;
+    this.pressedHintsButton.renderable = false;
+    this.pressedHintsButton.fixedToCamera = true;
+
+    //this.hintsButton.clicked = false; -- this code doesn't work
 
     /* create a button for making a new note or reviewing saved passwords: @iva */
     this.noteButton = this.game.add.button (470, 10, 'noteButtons', this.manageNote, this, 0, 1, 0, 0);
     this.noteButton.clicked = false;
+    // this.noteButton = this.game.add.button (470, 10, 'noteButton', this.displayNote, this);
     this.noteButton.fixedToCamera = true;
 
     /* a cross over the player's head: */
@@ -185,6 +193,7 @@ Encrypt.Game.prototype = {
 
     if (flagEnemyOnDoor) {
         this.getWaitOnDoorTime();
+        console.log("enemy is waiting: " + enemyWaitOnDoorTime + " secodns");
         //  Create our Timer
         timer = this.game.time.create(false);
         //  Set a TimerEvent to occur after 6 seconds
@@ -936,11 +945,27 @@ getEntropy: function (pwdFeed) {
   /* @iva: This function calculates how long the enemy should wait on a door */
   // the waiting time is the passw entrophy for the door multiplied by 4. The result is in seconds
   getWaitOnDoorTime: function () {
-    if (currentDoorEnemy.password === 'null') {
+    var found = 0;
+    console.log("enemy's dictionary: " + this.enemy.passwordsDictionary + " ********");
+    // see whether we have the password stored in the enemy dictionary:
+    for (var i = 0; i < this.enemy.passwordsDictionary.length; i++) {
+      console.log ("*** " + this.enemy.passwordsDictionary[i]);
+      if (currentDoorEnemy.password === this.enemy.passwordsDictionary[i]) {
+        enemyWaitOnDoorTime = 1000; // the enemy waits only 1 second if it has the right password
+        found = 1;
+      }
+      if (found) {
+        break;
+      }
+    }
+
+    if (currentDoorEnemy.password === 'null' && !found) {
       enemyWaitOnDoorTime = 10000; // the waiting time on doors without password is 10 seconds
     }
-    else {
+    else if (!found){
       enemyWaitOnDoorTime = this.getEntropy(currentDoorEnemy.password) * 2.5 * 1000; // wait time = entropy * 2500 seconds
+      this.enemy.passwordsDictionary.push(currentDoorEnemy.password); // add this password to the dictionary
+      console.log("enemy's dictionary after adding new password: " + this.enemy.passwordsDictionary + " ********");
     }
   },
 

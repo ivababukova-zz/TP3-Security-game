@@ -201,10 +201,12 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.currentY = currentY;
 
     this.game = game;
-    this.player =player;
+    this.player = player;
     this.backgroundLayer = backgroundLayer;
     this.currentRoom = 0;
 
+    // @iva: the enemy's dictionary with most used passwords:
+    this.passwordsDictionary = ["letmein", "00000000", "qwerty", "12345678", "12345", "monkey", "123123", "password", "abc123"];
     // visibility - set to true?
     this.isVisible = true;
     //collidable set to true
@@ -258,8 +260,6 @@ Enemy.prototype = {
             this.setEnemyUnmovable();
 
         }
-
-
         if (this.pathToPlayer.length !== 0) {
             // if the array is not empty or we've not reached the end of the array
             if (this.pathPosition < this.pathToPlayer.length) {
