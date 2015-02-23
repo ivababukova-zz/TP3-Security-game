@@ -260,64 +260,47 @@ Enemy.prototype = {
         }
 
 
-        if (!this.newPath && this.pathPosition < this.pathToPlayer.length) {
-
-            this.sprite.body.velocity.x = 0;
-            this.sprite.body.velocity.y = 0;
-
-            var next = this.pathToPlayer[this.pathPosition];
-            var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
-            var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
-            //console.log("X:" + enemyTileX + " Y:" + enemyTileY);
-
-            //console.log(next.x + " " + next.y +
-            //            "Sprite: " + this.sprite.x + ", " + this.sprite.y);
-            // go down and right
+        if (this.pathToPlayer.length !== 0) {
+            // if the array is not empty or we've not reached the end of the array
+            if (this.pathPosition < this.pathToPlayer.length) {
+                // if we've reached the next tile in the path
+                //console.log("ENEMY - POSITION IN ARRAY:" + this.pathPosition);
+                //console.log("ENEMY - LENGTH OF ARRAY:" + this.pathToPlayer.length);
+                if (this._onNextTile()) {
 
 
-            // go right
-            if (this.pathToPlayer.length !== 0) {
-                // if the array is not empty or we've not reached the end of the array
-                if (this.pathPosition < this.pathToPlayer.length) {
-                    // if we've reached the next tile in the path
-                    //console.log("ENEMY - POSITION IN ARRAY:" + this.pathPosition);
-                    //console.log("ENEMY - LENGTH OF ARRAY:" + this.pathToPlayer.length);
-                    if (this._onNextTile()) {
-
-
-                        console.log("INITIAL: " + this.pathPosition);
-                        //increment our position in the path
-                        this.pathPosition++;
-                        //re-initialise the counter when a new tile is move to
-                        this.nextTileCounter = 30;
-                        console.log("AFTER: " + this.pathPosition);
-                    }
-                    else {
-                        //otherwise, move in that direction
-                        this._moveInNextDirection();
-                        //decrement the tile counter at every move
-                        this.nextTileCounter--;
-                        console.log("________ \n I MOVED \n _______");
-
-                    }
-
-                    if (this.nextTileCounter === 0) {
-                        this.needNewPath = true;
-                        this.nextTileCounter = 30;
-                        console.log("TILE RESET!");
-                    }
+                    console.log("INITIAL: " + this.pathPosition);
+                    //increment our position in the path
+                    this.pathPosition++;
+                    //re-initialise the counter when a new tile is move to
+                    this.nextTileCounter = 30;
+                    console.log("AFTER: " + this.pathPosition);
                 }
                 else {
-                    // need a new path
+                    //otherwise, move in that direction
+                    this._moveInNextDirection();
+                    //decrement the tile counter at every move
+                    this.nextTileCounter--;
+                    console.log("________ \n I MOVED \n _______");
+
+                }
+
+                if (this.nextTileCounter === 0) {
                     this.needNewPath = true;
                     this.nextTileCounter = 30;
-                    //reset the position in the array
-                    this.pathPosition = 0;
+                    console.log("TILE RESET!");
                 }
             }
             else {
+                // need a new path
                 this.needNewPath = true;
+                this.nextTileCounter = 30;
+                //reset the position in the array
+                this.pathPosition = 0;
             }
+        }
+        else {
+            this.needNewPath = true;
         }
 
        // this.sprite.body.velocity.x = 10;
@@ -335,8 +318,9 @@ Enemy.prototype = {
         var next = this.pathToPlayer[this.pathPosition];
         var nextTileX = next.x;
         var nextTileY = next.y;
-        console.log("The Next Tile is: x " + nextTileX + " y " + nextTileY);
-        console.log("The enemy tile is: x " + enemyTileX + " y " + enemyTileY);
+        //console.log("The Next Tile is: x " + nextTileX + " y " + nextTileY);
+        //console.log("The enemy tile is: x " + enemyTileX + " y " + enemyTileY);
+        //console.log("The Next Tile is: x " + nextTileX + " y " + nextTileY + "| position in array " + this.pathPosition);
 
         if( enemyTileX === nextTileX && enemyTileY === nextTileY )
             return true;

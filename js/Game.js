@@ -217,6 +217,7 @@ Encrypt.Game.prototype = {
       this.getEnemyPath();
       //and reset the value
       this.enemy.needNewPath = false;
+      this.enemy.pathPosition = 0;
     }
     this.enemy.update();
     this.getCurrentRoom(this.enemy);
