@@ -38,29 +38,13 @@ Encrypt.MainMenu.prototype = {
         welcomeLabel = this.game.add.text(this.game.width / 2, this.game.height - 350, text, style);
         welcomeLabel.anchor.set(0.5);
 
-        this.pressedInstrButton = this.game.add.button (this.game.width/2 -70, this.game.height - 240, 'pressedInstrButton', this.unpress, this);
-        // this.pressedInstrButton.inputEnabled = false;
-        this.instrButton = this.game.add.button (this.game.width/2 -70, this.game.height - 240, 'instructionsButton', this.showInstructions, this);
+        this.instrButton = this.game.add.button (this.game.width/2 -70, this.game.height - 240, 'instrButtons', this.showInstructions, this, 1, 0);
 
-        this.pressedStartButton = this.game.add.button (this.game.width/2 - 73, this.game.height - 150, 'pressedStartButton', this.startGame, this);
-        this.startButton = this.game.add.button (this.game.width/2 - 73, this.game.height - 150, 'startButton', this.hidethisButton, this);
+        this.startButton = this.game.add.button (this.game.width/2 - 73, this.game.height - 150, 'startButtons', this.startGame, this, 1, 0);
     },
 
     showInstructions: function () {
-        this.instrButton.renderable = false;
-        this.instrButton.inputEnabled = false;
-        //this.time.events.loop(1000, this.instrButton.renderable = true, this);
-        //this.game.state.start ('Instructions');
-        //this.instrButton.renderable = true;
-    },
-
-    unpress: function () {
         this.game.state.start ('Instructions');
-    },
-
-    hidethisButton: function () {
-        this.startButton.renderable = false;
-        this.startButton.inputEnabled = false;
     },
 
     startGame: function () {

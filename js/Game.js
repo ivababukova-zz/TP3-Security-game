@@ -61,20 +61,14 @@ Encrypt.Game.prototype = {
     this.createInput();
 
     /* create a button for viewing the pickedHints and tips collected so far; @iva */
-    this.hintsButton = this.game.add.button (535, 10, 'hintsButton', this.displayLastHintCollected, this );
+    this.hintsButton = this.game.add.button (535, 10, 'hintButtons', this.manageHintsPopup, this, 0, 1, 0, 0);
     this.hintsButton.fixedToCamera = true;
-    this.pressedHintsButton = this.game.add.button(535, 10, 'pressedHintsButton', this.hideHintsCollected, this);
-    this.pressedHintsButton.inputEnabled = false;
-    this.pressedHintsButton.renderable = false;
-    this.pressedHintsButton.fixedToCamera = true;
+    this.hintsButton.clicked = false;
 
     /* create a button for making a new note or reviewing saved passwords: @iva */
-    this.noteButton = this.game.add.button (470, 10, 'noteButton', this.displayNote, this);
+    this.noteButton = this.game.add.button (470, 10, 'noteButtons', this.manageNote, this, 0, 1, 0, 0);
+    this.noteButton.clicked = false;
     this.noteButton.fixedToCamera = true;
-    this.pressedNoteButton = this.game.add.button (470, 10, 'pressedNoteButton', this.hideNote, this);
-    this.pressedNoteButton.fixedToCamera = true;
-    this.pressedNoteButton.renderable = false;
-    this.pressedNoteButton.inputEnabled = false;
 
     /* a cross over the player's head: */
     this.cross = "_";
@@ -109,14 +103,20 @@ Encrypt.Game.prototype = {
     document.getElementById("resetPassword").addEventListener("click", this.resetPassword.bind(this));
     document.getElementById ("showAllHints").addEventListener ("click", this.displayHintsCollected.bind (this));
   },
+  manageNote: function(){
+    // Switch
+    this.noteButton.clicked = !this.noteButton.clicked;
+    if(this.noteButton.clicked){
+      this.noteButton.setFrames(0, 0, 0, 0);
+      this.displayNote();
+    }else{
+      this.noteButton.setFrames(0, 1, 0, 0);
+      this.hideNote();
+      return;
+    }
+  },
 
   displayNote: function () {
-
-    this.pressedNoteButton.inputEnabled = true;
-    this.pressedNoteButton.renderable = true;
-    this.noteButton.inputEnabled = false;
-    this.noteButton.renderable = false;
-
     fPause = true;
     this.input.focus();
     this.game.input.keyboard.reset(false);
@@ -128,16 +128,11 @@ Encrypt.Game.prototype = {
     document.getElementById("policyTitle").style.display = "block";
     document.getElementById("esc").style.display = "none";
     document.getElementById("titlePwd").innerHTML = "Type in passwords you want to save:";
-
     document.getElementById("policyTitle").innerHTML = "Your notes :";
     document.getElementById("policyRules").innerHTML = this.notes;
   },
 
   hideNote: function () {
-    this.noteButton.inputEnabled = true;
-    this.noteButton.renderable = true;
-    this.pressedNoteButton.inputEnabled = false;
-    this.pressedNoteButton.renderable = false;
     document.getElementById("esc").style.display = "block";
     this.closePopup();
   },
@@ -205,9 +200,7 @@ Encrypt.Game.prototype = {
     this.scoreLabel.text = "Score:" + this.scoreSystem.score; // Andi: update the score
     this.game.world.bringToTop(this.scoreLabel);              // and bring it to top of the rendered objects
     this.game.world.bringToTop(this.hintsButton);  // @iva: bring the hints button to be always at the top
-    this.game.world.bringToTop(this.pressedHintsButton);  // @iva: bring the hints button to be always at the top
     this.game.world.bringToTop(this.noteButton);
-    this.game.world.bringToTop(this.pressedNoteButton);
     this.game.world.bringToTop(this.cross);
 
     //this.enemy.update();
@@ -531,7 +524,7 @@ Encrypt.Game.prototype = {
           self.notes += self.player.note.passwords[i] + "<br>";
           i++;
           this._hiddenInput.value = '';
-          self.hideNote();
+          self.manageNote();
           return;
         }
         // when the user input password and enter 'Enter' key
@@ -836,14 +829,18 @@ getEntropy: function (pwdFeed) {
   },
 
   /**************************************** HINTS AREA ****************************************/
+  manageHintsPopup: function(){
+    this.hintsButton.clicked = !this.hintsButton.clicked;
+    if(this.hintsButton.clicked){
+      this.hintsButton.setFrames(0, 0, 0, 0);
+      this.displayLastHintCollected();
+    }else{
+      this.hintsButton.setFrames(0, 1, 0, 0);
+      this.hideHintsCollected();
+    }
+  },
   /* displays the last hint that the player has collected @iva */
   displayLastHintCollected: function () {
-
-    this.pressedHintsButton.inputEnabled = true;
-    this.pressedHintsButton.renderable = true;
-    this.hintsButton.inputEnabled = false;
-    this.hintsButton.renderable = false;
-
     document.getElementById ("hintsLayer").style.display = "block";
     document.getElementById("showAllHints").style.display = "block";
 
@@ -857,11 +854,6 @@ getEntropy: function (pwdFeed) {
 
   /* @iva */
   displayHintsCollected: function () {
-
-    this.pressedHintsButton.inputEnabled = true;
-    this.pressedHintsButton.renderable = true;
-    this.hintsButton.inputEnabled = false;
-    this.hintsButton.renderable = false;
 
     // document.getElementById ("showAllHints").style.display = "none";
     document.getElementById ("hintsTitle").innerHTML = "Hints collected so far:";
@@ -886,11 +878,6 @@ getEntropy: function (pwdFeed) {
 
   /* @iva hides the window with the hints */
   hideHintsCollected: function () {
-    this.hintsButton.inputEnabled = true;
-    this.hintsButton.renderable = true;
-    this.pressedHintsButton.inputEnabled = false;
-    this.pressedHintsButton.renderable = false;
-
     document.getElementById ("hintsTitle").innerHTML = "Last hint collected:"; // the right title when the hints menu is opened again;
     document.getElementById("hintsLayer").style.display = "none"
   },
