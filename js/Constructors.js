@@ -252,7 +252,7 @@ Enemy.prototype = {
     update: function () {
         this.sprite.frame = enemyFrame%5;
 
-        console.log ("isMoving: " + this.isMovable);
+        //console.log ("isMoving: " + this.isMovable);
 
         if (flagEnemyOnDoor === true && this.isMovable === true) {
             this.setEnemyUnmovable();

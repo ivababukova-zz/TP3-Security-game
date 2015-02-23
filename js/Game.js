@@ -4,6 +4,7 @@ var Encrypt = Encrypt || {};
 Encrypt.Game = function(){};
 
 var currentRoom = 0;
+
 var currentDoor = null;
 var currentDoorEnemy = null; // @iva: global variable to remember the door object the enemy is on, so we can close it
 var text = null;
@@ -23,7 +24,7 @@ var lastHint = "";
 var enemyFrame = 0; //this tracks the current frame of animation for the enemy
 var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
 var flagEnemyOnDoor; // @iva: is the enemy in front of a door
-
+var enemyWaitOnDoorTime = 10; // @iva: the amount of time in seconds the enemy waits on particular door
 
 Encrypt.Game.prototype = {
   create: function () {
@@ -188,15 +189,13 @@ Encrypt.Game.prototype = {
     var speed = 260;  // setting up the speed of the player
 
     if (flagEnemyOnDoor) {
-
-        console.log("flagEnemy on door is true");
+        this.getWaitOnDoorTime();
         //  Create our Timer
         timer = this.game.time.create(false);
         //  Set a TimerEvent to occur after 6 seconds
-        timer.loop(6000, this.enemy.setEnemyMovable, this);
+        timer.loop(enemyWaitOnDoorTime, this.enemy.setEnemyMovable, this); // @iva: the waiting time is the entropy value mult by 4
         //  Start the timer running
         timer.start();
-
     }
 
     this.moveCharacter(this.player.sprite, speed);
@@ -815,8 +814,8 @@ getEntropy: function (pwdFeed) {
       // added by @iva 07.02.2015
       else if (collectable.type === "antivirus") {
         this.player.addItem(2);
-        finalscore = this.scoreSystem.score;
-        this.state.start('GameLost');
+        //finalscore = this.scoreSystem.score;
+        ///this.state.start('GameLost');
         collectable.destroy();
       }
 
@@ -940,10 +939,20 @@ getEntropy: function (pwdFeed) {
 
   enterDoorEnemy: function (enemy, door) {
     if (flagEnemyOnDoor === false) {
-      console.log("in enterDoorEnemy function");
       currentDoorEnemy = door;
       flagEnemyOnDoor = true;
       this.changeDoorState(currentDoorEnemy, 'opening');
+    }
+  },
+
+  /* @iva: This function calculates how long the enemy should wait on a door */
+  // the waiting time is the passw entrophy for the door multiplied by 4. The result is in seconds
+  getWaitOnDoorTime: function () {
+    if (currentDoorEnemy.password === 'null') {
+      enemyWaitOnDoorTime = 10000; // the waiting time on doors without password is 10 seconds
+    }
+    else {
+      enemyWaitOnDoorTime = this.getEntropy(currentDoorEnemy.password) * 2.5 * 1000; // wait time = entropy * 2500 seconds
     }
   },
 
