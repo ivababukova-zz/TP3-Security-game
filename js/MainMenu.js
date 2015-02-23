@@ -22,15 +22,16 @@ Encrypt.MainMenu.prototype = {
         //BMDK:- Letters are given other direction of scrolling
         this.foreground.autoScroll (0, 20);
 
-        text = "WELCOME TO 3NCRYPT, PLAYA' \n HAI BRYAN, HEN xoxo";
+        text = "WELCOME TO 3NCRYPT";
         style = {font: "35px Serif", fill: "#fff", align: "center"};
         var welcomeLabel = this.game.add.text(this.game.width / 2, this.game.height - 500, text, style);
         welcomeLabel.anchor.set(0.5);
 
 
-        text =  "You have just discovered that you are on a spaceship\n" +
-                "The cruel aliens kidnapped you here :(\n" +
-                "Don't worry, there is hope, you can ESCAPE\n" +
+        text =  "You are on a spaceship whose mission is to colonize Mars\n" +
+                "When you approach the planet the native aliens attack the spaceship.\n" +
+                "Being the only survivor, you have to get back to Earth and warn everyone.\n" +
+                "Your only hope to ESCAPE is to get to the launch pad and fly back to Earth.\n" +
                 "See how on the instructions page.\n\n" +
                 "click twice one of the buttons below:\n";
         style = {font: "20px Serif", fill: "#fff", align: "center"};
