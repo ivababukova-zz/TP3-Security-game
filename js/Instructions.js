@@ -44,7 +44,7 @@ Encrypt.Instructions.prototype  = {
         textLabel.anchor.set(0.5);
 
         this.game.stage.backgroundColor = '#000033';
-        var backButton = this.game.add.button(this.game.width/2 -70, this.game.height - 110, 'backButton', this.onActionClick, this);
+        var backButton = this.game.add.button(this.game.width/2 -70, this.game.height - 110, 'mainPageButtons', this.onActionClick, this, 1, 0);
     },
 
     onActionClick: function(){
