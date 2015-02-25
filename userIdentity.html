@@ -1,3 +1,7 @@
+<?php
+// Start the session
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8" />
@@ -11,7 +15,12 @@
 </head>
 
 <body>
-
+<?php
+// Set session variables
+$_SESSION["uid"] = "";
+$_SESSION["sid"] = "";
+$_SESSION["userstatus"] = "";
+?>
 <div class="container">
     <div class="jumbotron">
 <p align="center"><h1>Welcome to 3NCRYPT!</h1></p>

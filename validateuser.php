@@ -5,7 +5,6 @@ include_once("connect.php");
 $emailAdd = val($_GET['emailAdd']);
 
 //Generate SQL for results insert
-//$sql="INSERT INTO `teamr1415`.`AnswersBefore` (`a1`, `a2`, `a3`, `a4`)"." VALUES ('".$a1."', '".$a2."', '".$a3."', '".$a4."', '".$a5."', '".$a6."');";
 $sql="SELECT CASE WHEN ".$emailAdd." IN "
 		."(SELECT DISTINCT `emailadd` "
 			."FROM `teamr1415`.`Users`) THEN 'exists' "
@@ -15,5 +14,11 @@ $sql="SELECT CASE WHEN ".$emailAdd." IN "
 						."FROM `teamr1415`.`Users`) THEN (SELECT `uid` FROM `teamr1415`.`Users` WHERE emmailadd = ".$emailAdd.") "
 					."ELSE 0 END AS `uid`";
 $result = mysqli_query($conn,$sql);
+$row = mysqli_fetch_array($result);
+
+//update session variables
+$_SESSION["uid"] = $row['uid'];
+$_SESSION["userstatus"] = $row['userstatus'];
+
 mysqli_close($conn);
 ?>
