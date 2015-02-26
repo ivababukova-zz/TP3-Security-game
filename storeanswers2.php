@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once("connect.php");
 
 //Get questionnare results - NEED TO ADD IN WHAT TYPE THEY ARE: strval, intval, floatval ....

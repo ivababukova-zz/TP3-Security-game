@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once("connect.php");
 
 //$stringrep = strval($_GET['stringrep']);

@@ -1,3 +1,7 @@
+var xmlhttp;
+var userstatusphp;
+var convert = [""];
+
 function generateUserIdentity() {
 
     var userIdentity = [];
@@ -8,8 +12,6 @@ function generateUserIdentity() {
 
     userIdentity[0] = userName;
     userIdentity[1] = userEmail;
-
-
     /**
      * CHECK IF USER EXISTS IN THE DATABASE
      * IF IT DOES -> GO TO index.html
@@ -21,16 +23,20 @@ function generateUserIdentity() {
             return [];
         }else{
             checkUserDetails(userIdentity[0],userIdentity[1]);
-           // var userstatus = $.get('getuserstatus.php', function ( data ) {
-           //     alert(data)
-           //     });
-           // console.log(userstatus);
-            //if (userstatus === "newuser"){
-             //   window.location.href='questionnaireBefore.html';
-            //} else {
-                //window.location.href='index.html'
-           // }
-            return userIdentity;
+            // once response from server received, conditionally redirect users based on
+            //whether or not they are a new user or existing.
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var userstatusphp = String(xmlhttp.responseText);
+                    convert[0] = userstatusphp;
+                    if (convert[0].trim() === "newuser"){
+                        window.location.href='questionnaireBefore.html';
+                    }
+                    else {
+                        window.location.href='index.html';
+                    }
+                }
+            }
         }
     }
 
@@ -48,11 +54,6 @@ function generateUserIdentity() {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        //xmlhttp.onreadystatechange = function() {
-        //    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        //        document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-        //    }
-        
         xmlhttp.open("GET","validateuser.php?emailadd="+emailadd+"&username="+username,true);
         xmlhttp.send();
     }

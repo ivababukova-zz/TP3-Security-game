@@ -154,7 +154,7 @@ function generateBeforeResponse() {
             var Q9g = String(Q9GRadioButtons[i].value);
         }
     }
-
+    //required to ensure that string type is passed properly to the DB
 	responseBefore = [Q1, Q2, Q3a, Q3b, Q3c, Q3d, Q3e, Q4, Q5, Q6,
 				Q7a, Q7b, Q7c, Q7d, Q7e, Q7f, Q7g, Q7h, Q7i,
                 Q8a, Q8b, Q8c, Q8d, Q8e, Q8f,
@@ -166,10 +166,8 @@ function generateBeforeResponse() {
             return [];
 		}
 	}
-
+    //write responses to the database
     storeanswers1();
-    window.location.href = 'index.html';
-	return responseBefore;
 }
 
 //Function call to use php for finding if new user or existing
@@ -180,6 +178,11 @@ function generateBeforeResponse() {
         } else {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                window.location.href='index.html';
+            }
         }
         //Please do not replace with straight references to HTML objects as these will NOT
         //store properly in the database

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once("connect.php");
 
 //Get questionnare results - NEED TO ADD IN WHAT TYPE THEY ARE: strval, intval, floatval ....
@@ -15,7 +16,6 @@ $sql="SELECT CASE WHEN '".$emailadd."' IN "
 						."FROM `teamr1415`.`User`) THEN (SELECT `uid` FROM `teamr1415`.`User` WHERE emailadd = '".$emailadd."') "
 					."ELSE 0 END AS `uid`;";
 
-//$sql="SELECT CASE WHEN '".$emailadd."' IN (SELECT DISTINCT `emailadd` FROM `teamr1415`.`User`) THEN 'exists' ELSE 'newuser' END AS `userstatus`, CASE WHEN '".$emailadd."' IN (SELECT DISTINCT `emailadd` FROM `teamr1415`.`User`) THEN (SELECT `uid` FROM `teamr1415`.`User` WHERE `emailadd` = '".$emailadd."') ELSE 0 END AS `uid`; 
 $result = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($result);
 
@@ -33,11 +33,19 @@ if ($_SESSION["userstatus"] == "newuser") {
 	$result = mysqli_query($conn,$sql);
 	$row = mysqli_fetch_array($result);
 	$_SESSION["uid"] = $row['uid'];
-	$sql="INSERT INTO `teamr1415`.`UsersPasswords` "
-		."(`uid`, `pid`, `sid`, `did`, `scorereceived`) "
-		."VALUES ('".$_SESSION["uid"]."', '1', '4', '1', '1');";
-	mysqli_query($conn,$sql);
 }
+//Insert data into GameSessions table and create a new key for the session
+$sql="INSERT INTO `teamr1415`.`GameSessions` (`uid`, `starttime`) VALUES ('"
+	.$_SESSION["uid"]."', CURRENT_TIMESTAMP);";
+mysqli_query($conn,$sql);
+//Get the new session key for this user and set set as session variable(sid)
+$sql="SELECT MAX(`starttime`) AS `starttime`, `sid` FROM `teamr1415`.`GameSessions` WHERE `uid` = '"
+	.$_SESSION["uid"]."' GROUP BY `sid`, '".$_SESSION["uid"]."';";
+$result = mysqli_query($conn,$sql);
+$row = mysqli_fetch_array($result);
+$_SESSION["sid"] = $row['sid'];
 
+//send userstatus back for conditional redirect
+echo $_SESSION["userstatus"];
 mysqli_close($conn);
 ?>
