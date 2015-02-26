@@ -20,9 +20,40 @@ function generateUserIdentity() {
             alert("ANSWER MISSING\ngo back to the questionnaire");
             return [];
         }else{
-            window.location.href='questionnaireBefore.html';
+            checkUserDetails(userIdentity[0],userIdentity[1]);
+           // var userstatus = $.get('getuserstatus.php', function ( data ) {
+           //     alert(data)
+           //     });
+           // console.log(userstatus);
+            //if (userstatus === "newuser"){
+             //   window.location.href='questionnaireBefore.html';
+            //} else {
+                //window.location.href='index.html'
+           // }
             return userIdentity;
         }
     }
 
 }
+
+//Function call to use php for finding if new user or existing
+ function checkUserDetails(username, emailadd) {
+    if (emailadd === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        //xmlhttp.onreadystatechange = function() {
+        //    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        //        document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+        //    }
+        
+        xmlhttp.open("GET","validateuser.php?emailadd="+emailadd+"&username="+username,true);
+        xmlhttp.send();
+    }
+};
