@@ -1,3 +1,5 @@
+var responseAfter = [];
+
 function generateAfterResponse() {
 
     var Q1 = document.getElementById('Q1').value;
@@ -113,16 +115,42 @@ function generateAfterResponse() {
 
     var Q9 = document.getElementById('Q9').value;
 
-    var responseAfter = [Q1, Q2, Q3a, Q3b, Q3c, Q3d, Q4, Q5, Q6, Q7,
+    responseAfter = [Q1, Q2, Q3a, Q3b, Q3c, Q3d, Q4, Q5, Q6, Q7,
                         Q8a, Q8b, Q8c, Q8d, Q8e, Q8f, Q9];
 
     for(var i = 0; i < responseAfter.length; i++){
-        //console.log(responseAfter[i])
 		if(responseAfter[i] === null || responseAfter[i] === undefined){
 			alert("ANSWERS MISSING\ngo back to the questionnaire");
             return [];
 		}
     }
-    window.location.href = 'feedback.html';
-    return responseAfter;
+
+    //write responses to the database
+    storeanswers2();
+
 }
+
+//Function call to use php for finding if new user or existing
+ function storeanswers2() {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                window.location.href='feedback.html';
+            }
+        }
+        //Please do not replace with straight references to HTML objects as these will NOT
+        //store properly in the database
+        xmlhttp.open("GET","storeanswers2.php?a1="+responseAfter[0]+"&a2="+responseAfter[1]
+            +"&a3="+responseAfter[2]+"&a4="+responseAfter[3]+"&a5="+responseAfter[4]
+            +"&a6="+responseAfter[5]+"&a7="+responseAfter[6]+"&a8="+responseAfter[7]
+            +"&a9="+responseAfter[8]+"&a10="+responseAfter[9]+"&a11="+responseAfter[10]
+            +"&a12="+responseAfter[11]+"&a13="+responseAfter[12]+"&a14="+responseAfter[13]
+            +"&a15="+responseAfter[14]+"&a16="+responseAfter[15]+"&a17="+responseAfter[16],true);
+        xmlhttp.send();
+};

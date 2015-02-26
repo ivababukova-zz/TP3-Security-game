@@ -38,9 +38,10 @@ if ($_SESSION["userstatus"] == "newuser") {
 $sql="INSERT INTO `teamr1415`.`GameSessions` (`uid`, `starttime`) VALUES ('"
 	.$_SESSION["uid"]."', CURRENT_TIMESTAMP);";
 mysqli_query($conn,$sql);
+
 //Get the new session key for this user and set set as session variable(sid)
-$sql="SELECT MAX(`starttime`) AS `starttime`, `sid` FROM `teamr1415`.`GameSessions` WHERE `uid` = '"
-	.$_SESSION["uid"]."' GROUP BY `sid`, '".$_SESSION["uid"]."';";
+$sql="SELECT MAX(`sid`) AS `sid` FROM `teamr1415`.`GameSessions` WHERE `uid` = '"
+	.$_SESSION["uid"]."' GROUP BY `uid`;";
 $result = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($result);
 $_SESSION["sid"] = $row['sid'];
