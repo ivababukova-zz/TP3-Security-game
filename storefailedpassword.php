@@ -2,14 +2,11 @@
 session_start();
 include_once("connect.php");
 
-//$stringrep = strval($_GET['stringrep']);
-//$uid = intval($_GET['uid']);
-//$did = intval($_GET['did']);
-//$sid = intval($_GET['sid']);
-//$leng = intval($_GET['leng']);
-//
-//
-//$sql="INSERT INTO `teamr1415`.`UsersBadPwdEntries` (`bpwdid`, `uid`, `did`, `sid`, `stringrep`, `length`) VALUES (NULL, '".$uid."', '".//$did."', '".$sid."', '".$stringrep."', '".$leng."');";
+$did = intval($_GET['did']);
+
+//insert passwords that didn't conform to the door's policy
+$sql="INSERT INTO `teamr1415`.`UserFailedPasswordAttempts` (`pid`, `uid`, `did`, `sid`) VALUES ('"
+	.$_SESSION["currentpid"]."', '".$_SESSION["uid"]."', '".$did."', '".$_SESSION["sid"]."');";
 mysqli_query($conn,$sql);
 mysqli_close($conn);
 ?>

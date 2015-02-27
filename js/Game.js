@@ -91,10 +91,10 @@ Encrypt.Game.prototype = {
     this.scoreLabel.fixedToCamera = true;
     this.scoreLabel.cameraOffset.setTo(25,25);
 
-	
-	  //create sounds used elsewhere in the gam
-	  doorSound = this.game.add.audio('doorSound');
-	  pickupSound = this.game.add.audio('pickUpSound');
+  
+    //create sounds used elsewhere in the gam
+    doorSound = this.game.add.audio('doorSound');
+    pickupSound = this.game.add.audio('pickUpSound');
 
     // path-finding algorithm set up
 
@@ -173,7 +173,7 @@ Encrypt.Game.prototype = {
     }
 
     //if (doorsCollidableEnemy) {
-    //  this.game.physics.arcade.collide (this.enemy.sprite, this.doorBlocks);
+    //  this.game.physics.arcade.collide (this.enemy.sprite, this.enemy.breakDoor);
     //}
 
     this.game.physics.arcade.collide (this.player.sprite, this.blockedLayer);   // set up collision with this layer
@@ -537,17 +537,21 @@ Encrypt.Game.prototype = {
         }
         // when the user input password and enter 'Enter' key
         if(!this.approved){
-          self.metricsSystem.addRejectedPassword(this._value, currentDoor.z, "inapproprate"); //Andi: adding the rejected password to the metrics system
+          //Need to check this, bit of a hack, but it prevents users entering passwords to DB
+          // and to the metrics system when they type AND/OR hit enter during regular gameplay
+          if (document.getElementById("inputPwd").style.display !== "none") {
+            self.metricsSystem.addRejectedPassword(this._value, currentDoor.z, "inappropriate", self.getEntropy(this._value)); //Andi: adding the non-policy-conforming password to the metrics system
+          }
           return;
         }
         if (currentDoor.password === 'null') {
           self.changeDoorState(currentDoor,'opening');
-		      doorSound.play();
+          doorSound.play();
           doorsCollidable = false;
           doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
           self.scoreSystem.scorePassword(self.getEntropy(this._value)); /*Andi: adding the password to the score & metrics systems*/
-          self.metricsSystem.addPassword(this._value);
+          self.metricsSystem.addPassword(this._value, self.getEntropy(this._value), currentDoor.z, (self.getEntropy(this._value)*10));
           this._hiddenInput.value = '';
           self.closePopup();
         } else { // if password was already set, then compare.
@@ -564,7 +568,7 @@ Encrypt.Game.prototype = {
             self.closePopup();
           } else {
             document.getElementById("titlePwd").innerHTML = "Incorrect. Input again!";
-            self.metricsSystem.addRejectedPassword(this._value, currentDoor.z, "rejected"); //Andi: adding the rejected password to the metrics system
+            self.metricsSystem.addRejectedPassword(this._value, currentDoor.z, "rejected", self.getEntropy(this._value)); //Andi: adding the rejected password to the metrics system
           }
           this._hiddenInput.value = '';
         }
@@ -796,7 +800,7 @@ getEntropy: function (pwdFeed) {
   pickupItem: function(player, collectable){
   
     pickupSound.play(); //play sound when object is picked up
-	
+  
     if (collectable.type === "clue"  || (collectable.type === "info") ) {
       this.player.addItem(4);
         this.showHint(player, collectable);
@@ -1160,249 +1164,3 @@ getEntropy: function (pwdFeed) {
     }
   }
  };
-
- //Blank Section below by BMDK for DB function setup
-//Storage of successful passwords to Passwords table BMDK
- function storePasswordToDB(pwd, entropy, length) {
-    if (pwd === "") {
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storepassword.php?p="+pwd+"&ent="+entropy+"&len="+length,true);
-        xmlhttp.send();
-    }
-};
-
-//Storage of bad passwords to UsersBadPwdEntries -forgotten passwords(potentially)
- function storeBadPasswordToDB(stringrep, uid, did, sid, leng) {
-    if (stringrep === "") {
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storebadpassword.php?stringrep="+stringrep+"&uid="+uid+"&did="+did+"&sid="+sid+"&leng="+leng,true);
-        xmlhttp.send();
-    }
-};
-
-
-//Storage of non-conforming password entry to UserFailedPasswordAttempts
- function storeNonConformingPasswordToDB(stringrep, uid, did, sid, leng, reason) {
-    if (stringrep === "") {
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storefailedpassword.php?stringrep="+stringrep+"&uid="+uid+"&did="+did+"&sid="+sid+"&leng="+leng+"&reason="+reason,true);
-        xmlhttp.send();
-    }
-};
-
-//Storage of User door visits
- function storeDoorVisitsToDB(uid, sid, did) {
-    if (uid === "") {
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storedoorvisits.php?uid="+uid+"&sid="+sid+"&did="+did,true);
-        xmlhttp.send();
-    }
-};
-
-//Storage of User Password Resets
- function storePasswordResetsToDB(uid, sid, did, oldpid, newpid, penalty) {
-    if (uid === "") {
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&did="+did+"&oldpid="+oldpid+"&newpid="+newpid+"&penalty="+penalty,true);
-        xmlhttp.send();
-    }
-};
-
-//Storage of User stats on educational information
- function storeUserEducationalInfoToDB(uid, sid, cid, starttime, endtime) {
-    if (uid === "") {
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storeuseredinfo.php?uid="+uid+"&sid="+sid+"&cid="+cid+"&starttime="+starttime+"&endtime="+endtime,true);
-        xmlhttp.send();
-    }
-};
-
-//Storage of User Passwords entered
- function storeUserPasswordsEnteredToDB(uid, pid, sid, did, scorereceived) {
-    if (uid === "") {
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storepasswordsentered.php?uid="+uid+"&pid="+pid+"&sid="+sid+"&did="+did+"&scorereceived="+scorereceived,true);
-        xmlhttp.send();
-    }
-};
-
-//Storage of User Policies collected
- function storeUserPoliciesCollectedToDB(uid, sid, polid) {
-    if (uid === "") {
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storeuserpoliciescollected.php?uid="+uid+"&sid="+sid+"&polid="+polid,true);
-        xmlhttp.send();
-    }
-};
-
-//Storage of User Tools collected
- function storeUserToolsCollectedToDB(uid, sid, tid) {
-    if (uid === "") {
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storeusertoolscollected.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
-        xmlhttp.send();
-    }
-};
-
-//Storage of User Tools Used
- function storeUserToolsUsedToDB(uid, sid, tid) {
-    if (uid === "") {
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storeusertoolsused.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
-        xmlhttp.send();
-    }
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
