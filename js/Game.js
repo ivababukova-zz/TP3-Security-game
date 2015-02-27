@@ -172,9 +172,9 @@ Encrypt.Game.prototype = {
       this.game.physics.arcade.collide(this.player.sprite, this.doorBlocks);
     }
 
-    if (doorsCollidableEnemy) {
-      this.game.physics.arcade.collide (this.enemy.sprite, this.enemy.breakDoor);
-    }
+    //if (doorsCollidableEnemy) {
+    //  this.game.physics.arcade.collide (this.enemy.sprite, this.doorBlocks);
+    //}
 
     this.game.physics.arcade.collide (this.player.sprite, this.blockedLayer);   // set up collision with this layer
     this.game.physics.arcade.collide (this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
@@ -191,16 +191,16 @@ Encrypt.Game.prototype = {
 
     var speed = 260;  // setting up the speed of the player
 
-    if (flagEnemyOnDoor) {
-        this.getWaitOnDoorTime();
-        console.log("enemy is waiting: " + enemyWaitOnDoorTime + " secodns");
-        //  Create our Timer
-        timer = this.game.time.create(false);
-        //  Set a TimerEvent to occur after 6 seconds
-        timer.loop(enemyWaitOnDoorTime, this.enemy.setEnemyMovable, this); // @iva: the waiting time is the entropy value mult by 4
-        //  Start the timer running
-        timer.start();
-    }
+    //if (flagEnemyOnDoor) {
+    //    this.getWaitOnDoorTime();
+    //    console.log("enemy is waiting: " + enemyWaitOnDoorTime + " secodns");
+    //    //  Create our Timer
+    //    timer = this.game.time.create(false);
+    //    //  Set a TimerEvent to occur after 6 seconds
+    //    timer.loop(enemyWaitOnDoorTime, this.enemy.setEnemyMovable, this); // @iva: the waiting time is the entropy value mult by 4
+    //    //  Start the timer running
+    //    timer.start();
+    //}
 
     this.moveCharacter(this.player.sprite, speed);
     /*BMDK: - Moved bringToTop here to allow the score to appear on top at all times*/

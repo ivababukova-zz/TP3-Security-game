@@ -204,6 +204,10 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.player = player;
     this.backgroundLayer = backgroundLayer;
     this.currentRoom = 0;
+    this.lastKnownDirections = ["",""];
+    this.lastKnownY = 0;
+    this.lastKnownX = 0;
+    this.lastKnownDirection = "";
 
     // @iva: the enemy's dictionary with most used passwords:
     this.passwordsDictionary = ["letmein", "00000000", "qwerty", "12345678", "12345", "monkey", "123123", "password", "abc123"];
@@ -212,7 +216,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     //collidable set to true
     this.isCollidable = true;
     // speed of the enemy - set to 10.0 by default
-    this.speed = 64;
+    this.speed = 250;
     // variable that'll keep track of whether the object is slowed down by firewall
     this.isSlowed = false;
     // logger chance - set to 0.1 by default - set to private as not used outside of object
@@ -256,10 +260,10 @@ Enemy.prototype = {
 
         //console.log ("isMoving: " + this.isMovable);
 
-        if (flagEnemyOnDoor === true && this.isMovable === true) {
-            this.setEnemyUnmovable();
-
-        }
+        //if (flagEnemyOnDoor === true && this.isMovable === true) {
+        //    this.setEnemyUnmovable();
+//
+  //      }
         if (this.pathToPlayer.length !== 0) {
             // if the array is not empty or we've not reached the end of the array
             if (this.pathPosition < this.pathToPlayer.length) {
@@ -338,46 +342,119 @@ Enemy.prototype = {
 
         this.sprite.body.velocity.x = 0;
         this.sprite.body.velocity.y = 0;
-
+        console.log(this.lastKnownDirections);
         // go right
         if( nextTileX > enemyTileX && nextTileY === enemyTileY) {
-            this.sprite.body.velocity.x += this.speed;
+            if(this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up"){
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.y -= this.speed;
+                //this.sprite.body.velocity.y -= this.speed;
+            } else if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "down") {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.y += this.speed;
+                //this.sprite.body.velocity.y += this.speed;
+            } else {
+              this.lastKnownX = enemyTileX;
+              this.lastKnownY = enemyTileY;
+              this.sprite.body.velocity.x += this.speed;
+              this.lastKnownDirections[1] = "right";
+              this.lastKnownDirection = "right";
+            }
         }
 
         // go left
         else if( nextTileX < enemyTileX && nextTileY === enemyTileY) {
-            this.sprite.body.velocity.x -= this.speed;
+            if(this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up"){
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.y -= this.speed;
+               // this.sprite.body.velocity.y -= this.speed;
+            } else if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "down") {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.y += this.speed;
+                //this.sprite.body.velocity.y += this.speed;
+            } else {
+              this.lastKnownX = enemyTileX;
+              this.lastKnownY = enemyTileY;
+              this.sprite.body.velocity.x -= this.speed;
+              this.lastKnownDirections[1] = "left";
+              this.lastKnownDirection = "left";
+           }
         }
 
         // go up
         else if( nextTileX === enemyTileX && nextTileY < enemyTileY) {
-            this.sprite.body.velocity.y -= this.speed;
+            if(this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left"){
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.x -= this.speed;
+                //this.sprite.body.velocity.x -= this.speed;
+            } else if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "right") {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.x += this.speed;
+                //this.sprite.body.velocity.x += this.speed;
+            } else {
+              this.lastKnownX = enemyTileX;
+              this.lastKnownY = enemyTileY;
+              this.sprite.body.velocity.y -= this.speed;
+              this.lastKnownDirections[0] = "up";
+              this.lastKnownDirection = "up";
+            }
         }
 
         // go down
         else if( nextTileX === enemyTileX && nextTileY > enemyTileY) {
-            this.sprite.body.velocity.y += this.speed;
+            if(this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left"){
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.x -= this.speed;
+                //this.sprite.body.velocity.x -= this.speed;
+            } else if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "right") {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.x += this.speed;
+                //this.sprite.body.velocity.x += this.speed;
+            } else {
+                this.lastKnownX = enemyTileX;
+                this.lastKnownY = enemyTileY;
+                this.sprite.body.velocity.y += this.speed;
+                this.lastKnownDirections[0] = "down";
+                this.lastKnownDirection = "down";
+                console.log("happy");
+            }
         }
         // go down and left
         else if( nextTileX < enemyTileX && nextTileY  > enemyTileY ) {
             this.sprite.body.velocity.x -= this.speed;
             this.sprite.body.velocity.y += this.speed;
+            this.lastKnownDirections[0] = "down";
+            this.lastKnownDirections[1] = "left";
         }
         // down & right
         else if( nextTileX > enemyTileX && nextTileY  > enemyTileY ) {
             this.sprite.body.velocity.x += this.speed;
             this.sprite.body.velocity.y += this.speed;
+            this.lastKnownDirections[0] = "down";
+            this.lastKnownDirections[1] = "right";
         }
         // go up and left
         else if( nextTileX < enemyTileX && nextTileY  < enemyTileY ) {
             this.sprite.body.velocity.x -= this.speed;
             this.sprite.body.velocity.y -= this.speed;
+            this.lastKnownDirections[0] = "up";
+            this.lastKnownDirections[1] = "left";
         }
-
+        
         // go up and right
         else if( nextTileX > enemyTileX && nextTileY  < enemyTileY ) {
             this.sprite.body.velocity.x += this.speed;
             this.sprite.body.velocity.y -= this.speed;
+            this.lastKnownDirections[0] = "up";
+            this.lastKnownDirections[1] = "right";
         }
 
 
