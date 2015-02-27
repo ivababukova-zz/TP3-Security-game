@@ -208,6 +208,8 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.lastKnownY = 0;
     this.lastKnownX = 0;
     this.lastKnownDirection = "";
+    this.isstuck = false;
+    this.isstuckcount = 0;
 
     // @iva: the enemy's dictionary with most used passwords:
     this.passwordsDictionary = ["letmein", "00000000", "qwerty", "12345678", "12345", "monkey", "123123", "password", "abc123"];
@@ -342,19 +344,25 @@ Enemy.prototype = {
 
         this.sprite.body.velocity.x = 0;
         this.sprite.body.velocity.y = 0;
-        console.log(this.lastKnownDirections);
+
+        // properly stuck, increment count for how many cycles stuck
+        if (this.lastKnownX === enemyTileX && this.lastKnownY === enemyTileY){
+            this.isstuckcount++;
+        }
         // go right
         if( nextTileX > enemyTileX && nextTileY === enemyTileY) {
-            if(this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up"){
+            //If he is stuck and was last headed up, shift upwards
+            if(this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up" && this.isstuckcount>2){
                 this.lastKnownX = 0;
                 this.lastKnownY = 0;
                 this.sprite.body.velocity.y -= this.speed;
-                //this.sprite.body.velocity.y -= this.speed;
-            } else if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "down") {
+                this.isstuckcount = 0; //no longer stuck
+            } //If he is stuck and was last headed down, shift downwards
+            else if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "down" && this.isstuckcount>2) {
                 this.lastKnownX = 0;
                 this.lastKnownY = 0;
                 this.sprite.body.velocity.y += this.speed;
-                //this.sprite.body.velocity.y += this.speed;
+                this.isstuckcount = 0; //no longer stuck
             } else {
               this.lastKnownX = enemyTileX;
               this.lastKnownY = enemyTileY;
@@ -366,16 +374,18 @@ Enemy.prototype = {
 
         // go left
         else if( nextTileX < enemyTileX && nextTileY === enemyTileY) {
-            if(this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up"){
+            //If he is stuck and was last headed up, shift upwards
+            if(this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up" && this.isstuckcount>2){
                 this.lastKnownX = 0;
                 this.lastKnownY = 0;
                 this.sprite.body.velocity.y -= this.speed;
-               // this.sprite.body.velocity.y -= this.speed;
-            } else if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "down") {
+                this.isstuckcount = 0; //no longer stuck
+            } //If he is stuck and was last headed down, shift downwards
+            else if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "down" && this.isstuckcount>2) {
                 this.lastKnownX = 0;
                 this.lastKnownY = 0;
                 this.sprite.body.velocity.y += this.speed;
-                //this.sprite.body.velocity.y += this.speed;
+                this.isstuckcount = 0; //no longer stuck
             } else {
               this.lastKnownX = enemyTileX;
               this.lastKnownY = enemyTileY;
@@ -387,16 +397,18 @@ Enemy.prototype = {
 
         // go up
         else if( nextTileX === enemyTileX && nextTileY < enemyTileY) {
-            if(this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left"){
+            //If he is stuck and was last headed left, shift left to correct
+            if(this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left" && this.isstuckcount>2){
                 this.lastKnownX = 0;
                 this.lastKnownY = 0;
                 this.sprite.body.velocity.x -= this.speed;
-                //this.sprite.body.velocity.x -= this.speed;
-            } else if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "right") {
+                this.isstuckcount = 0; //no longer stuck
+            } //If he is stuck and was last headed right, shift right to correct
+            else if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "right" && this.isstuckcount>2) {
                 this.lastKnownX = 0;
                 this.lastKnownY = 0;
                 this.sprite.body.velocity.x += this.speed;
-                //this.sprite.body.velocity.x += this.speed;
+                this.isstuckcount = 0; //no longer stuck
             } else {
               this.lastKnownX = enemyTileX;
               this.lastKnownY = enemyTileY;
@@ -408,23 +420,24 @@ Enemy.prototype = {
 
         // go down
         else if( nextTileX === enemyTileX && nextTileY > enemyTileY) {
-            if(this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left"){
+            //If he is stuck and was last headed left, shift left to correct
+            if(this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left" && this.isstuckcount>2){
                 this.lastKnownX = 0;
                 this.lastKnownY = 0;
                 this.sprite.body.velocity.x -= this.speed;
-                //this.sprite.body.velocity.x -= this.speed;
-            } else if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "right") {
+                this.isstuckcount = 0; //no longer stuck
+            } //If he is stuck and was last headed right, shift right to correct
+            else if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "right" && this.isstuckcount>2) {
                 this.lastKnownX = 0;
                 this.lastKnownY = 0;
                 this.sprite.body.velocity.x += this.speed;
-                //this.sprite.body.velocity.x += this.speed;
+                this.isstuckcount = 0; //no longer stuck
             } else {
                 this.lastKnownX = enemyTileX;
                 this.lastKnownY = enemyTileY;
                 this.sprite.body.velocity.y += this.speed;
                 this.lastKnownDirections[0] = "down";
                 this.lastKnownDirection = "down";
-                console.log("happy");
             }
         }
         // go down and left
