@@ -487,7 +487,8 @@ Encrypt.Game.prototype = {
     }
 
     this.player.passwordResetsAvailable -= 1;
-    this.metricsSystem.addResetPassword(currentDoor.password);
+    //the last parameter equal to zero should be updated to the deduction in point received for resetting of a password
+    this.metricsSystem.addResetPassword(currentDoor.password, currentDoor.z, 0);
     currentDoor.password = 'null';
     document.getElementById("feedback").innerHTML = "Password reset completed.";
     document.getElementById("titlePwd").innerHTML = "Setup a password.";
@@ -551,7 +552,7 @@ Encrypt.Game.prototype = {
           doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
           self.scoreSystem.scorePassword(self.getEntropy(this._value)); /*Andi: adding the password to the score & metrics systems*/
-          self.metricsSystem.addPassword(this._value, self.getEntropy(this._value), currentDoor.z, (self.getEntropy(this._value)*10));
+          self.metricsSystem.addPassword(this._value, self.getEntropy(this._value), currentDoor.z);
           this._hiddenInput.value = '';
           self.closePopup();
         } else { // if password was already set, then compare.
@@ -810,17 +811,20 @@ getEntropy: function (pwdFeed) {
       if (collectable.type === "policy") {
         this.addPolicy(collectable);
         this.scoreSystem.scorePolicyPickUp();
+        this.metricsSystem.addPolicyCollected(collectable.colour);
       }
 
       // added by @iva 07.02.2015
       else if (collectable.type === "firewall") {
         this.player.addItem(1);
+        this.metricsSystem.addToolCollected(1);
         collectable.destroy();
       }
 
       // added by @iva 07.02.2015
       else if (collectable.type === "antivirus") {
         this.player.addItem(2);
+        this.metricsSystem.addToolCollected(2);
         //finalscore = this.scoreSystem.score;
         ///this.state.start('GameLost');
         collectable.destroy();
@@ -829,11 +833,13 @@ getEntropy: function (pwdFeed) {
       // added by @iva 07.02.2015
       else if (collectable.type === "AntiKeyLog") {
         this.player.addItem(3);
+        this.metricsSystem.addToolCollected(3);
         collectable.destroy();
       }
     // calls the win page @iva
     else if (collectable.type === "winkey" ) {
       // this.scoreSystem.setScore(this.score);
+        this.metricsSystem.addToolCollected(4);
         finalscore = this.scoreSystem.score;
         this.state.start('GameWon');
         collectable.destroy();
@@ -931,7 +937,7 @@ getEntropy: function (pwdFeed) {
     var style = { font: "20px Serif", fill: "#000000", align: "center" };
     var text2 = this.game.add.text (this.player.sprite.x - 200, this.player.sprite.y, hint, style);
     this.time.events.add(4000, text2.destroy, text2);  // makes the text disappear after some time
-
+    this.metricsSystem.addHintCollected(randomIndex); // added by Bryan to store the fact that ed info was collected
     collectable.destroy ();
 
   },
@@ -988,6 +994,7 @@ getEntropy: function (pwdFeed) {
       this.game.input.keyboard.enabled = false;
       this.input.focus();
       this.input._hiddenInput.value = '';
+      this.metricsSystem.addUserDoorVisit(currentDoor.z);
       // Check if player has the right policy for the door
       if (this.player.policies[door.policy] === undefined) {
         document.getElementById("mainLayer").style.display = "block";

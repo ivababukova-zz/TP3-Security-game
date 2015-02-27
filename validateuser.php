@@ -46,6 +46,11 @@ $result = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($result);
 $_SESSION["sid"] = $row['sid'];
 
+//put entry in user games sessions table
+$sql="INSERT INTO `teamr1415`.`UsersGameSessions` (`uid`, `sid`) VALUES ('"
+	.$_SESSION["uid"]."', '".$_SESSION["sid"]."');";
+mysqli_query($conn,$sql);
+
 //send userstatus back for conditional redirect
 echo $_SESSION["userstatus"];
 mysqli_close($conn);
