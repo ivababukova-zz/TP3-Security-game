@@ -172,9 +172,9 @@ Encrypt.Game.prototype = {
       this.game.physics.arcade.collide(this.player.sprite, this.doorBlocks);
     }
 
-    //if (doorsCollidableEnemy) {
-    //  this.game.physics.arcade.collide (this.enemy.sprite, this.enemy.breakDoor);
-    //}
+    if (doorsCollidableEnemy === true) {
+      this.game.physics.arcade.collide (this.enemy.sprite, this.doorBlocks);
+    }
 
     this.game.physics.arcade.collide (this.player.sprite, this.blockedLayer);   // set up collision with this layer
     this.game.physics.arcade.collide (this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
@@ -190,18 +190,11 @@ Encrypt.Game.prototype = {
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
     var speed = 260;  // setting up the speed of the player
-
-    //if (flagEnemyOnDoor) {
-    //    this.getWaitOnDoorTime();
-    //    console.log("enemy is waiting: " + enemyWaitOnDoorTime + " secodns");
-    //    //  Create our Timer
-    //    timer = this.game.time.create(false);
-    //    //  Set a TimerEvent to occur after 6 seconds
-    //    timer.loop(enemyWaitOnDoorTime, this.enemy.setEnemyMovable, this); // @iva: the waiting time is the entropy value mult by 4
-    //    //  Start the timer running
-    //    timer.start();
-    //}
-
+/*
+    if (doorsCollidableEnemy === true && flagEnemyOnDoor === true) {
+      this.setEnemyUnmovable();
+    }
+*/
     this.moveCharacter(this.player.sprite, speed);
     /*BMDK: - Moved bringToTop here to allow the score to appear on top at all times*/
 
@@ -243,6 +236,39 @@ Encrypt.Game.prototype = {
      this.getEnemyPath();
      console.log(this.enemy.pathToPlayer);
      }*/
+  },
+/*
+  enemyWaitsOnDoor: function () {
+    this.setEnemyUnmovable();
+    this.getWaitOnDoorTime();
+    console.log("enemyondoor flag: " + flagEnemyOnDoor);
+    console.log("enemy is waiting: " + enemyWaitOnDoorTime + " seconds");
+    //  Create our Timer
+    timer = this.game.time.create(false);
+    //  Set a TimerEvent to occur after 6 seconds
+    timer.loop(enemyWaitOnDoorTime, this.setEnemyMovable(), this); // @iva: the waiting time is the entropy value mult by 4
+    //  Start the timer running
+    timer.start();
+    this.changeDoorState(currentDoorEnemy, 'opening');
+  },
+*/
+  // this function is used in Game.js update
+  setEnemyMovable: function () {
+    this.enemy.isMovable = true;
+    this.enemy.sprite.body.enable = true;
+    this.enemy.sprite.body.isVisible = true;
+    this.changeDoorState(currentDoorEnemy, 'opening');
+    doorJustOpenedEnemy = true;  // @iva: the enemy doesn't get stuck in front of a door for ever
+    doorsCollidableEnemy = false;
+    // doorsCollidableEnemy = false;  // @iva: the enemy doesn't get stuck on a door for ever
+    console.log("enemy is movable now");
+  },
+
+  setEnemyUnmovable: function () {
+    this.enemy.isMovable = false;
+    this.enemy.sprite.body.enable = false;
+    this.enemy.sprite.body.isVisible = false;
+    console.log("enemy is not movable now");
   },
 
   //create player
@@ -769,6 +795,7 @@ getEntropy: function (pwdFeed) {
       }
       /* @iva; same as the code above, but for the enemy */
       if (doorPassEnemy === 'enemy in front of a door' && doorJustOpenedEnemy) {
+        console.log("door is closing now;");
         this.changeDoorState(currentDoorEnemy, 'closing');
         doorsCollidableEnemy = true;
         doorJustOpenedEnemy = !doorJustOpenedEnemy;
@@ -939,10 +966,13 @@ getEntropy: function (pwdFeed) {
   /**************************************** END OF HINTS AREA ****************************************/
 
   enterDoorEnemy: function (enemy, door) {
-    if (flagEnemyOnDoor === false) {
+    if (doorsCollidableEnemy === true && flagEnemyOnDoor === true) {
+      this.setEnemyUnmovable();
+      console.log("in enter door enemy function.");
       currentDoorEnemy = door;
       flagEnemyOnDoor = true;
-      this.changeDoorState(currentDoorEnemy, 'opening');
+      this.getWaitOnDoorTime();
+      this.game.time.events.add(enemyWaitOnDoorTime, this.setEnemyMovable, this); // @iva: the waiting time is the entropy value mult by 4
     }
   },
 
@@ -967,7 +997,7 @@ getEntropy: function (pwdFeed) {
       enemyWaitOnDoorTime = 10000; // the waiting time on doors without password is 10 seconds
     }
     else if (!found){
-      enemyWaitOnDoorTime = this.getEntropy(currentDoorEnemy.password) * 2.5 * 1000; // wait time = entropy * 2500 seconds
+      enemyWaitOnDoorTime = this.getEntropy(currentDoorEnemy.password) * 1.5 * 1000; // wait time = entropy * 2500 seconds
       this.enemy.passwordsDictionary.push(currentDoorEnemy.password); // add this password to the dictionary
       console.log("enemy's dictionary after adding new password: " + this.enemy.passwordsDictionary + " ********");
     }
