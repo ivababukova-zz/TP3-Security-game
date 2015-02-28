@@ -315,9 +315,6 @@ _onNextTile: function(){
     var next = this.pathToPlayer[this.pathPosition];
     var nextTileX = next.x;
     var nextTileY = next.y;
-    //console.log("The Next Tile is: x " + nextTileX + " y " + nextTileY);
-    //console.log("The enemy tile is: x " + enemyTileX + " y " + enemyTileY);
-    //console.log("The Next Tile is: x " + nextTileX + " y " + nextTileY + "| position in array " + this.pathPosition);
 
     if( enemyTileX === nextTileX && enemyTileY === nextTileY ) {
         return true;

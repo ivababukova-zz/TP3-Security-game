@@ -125,27 +125,6 @@ Encrypt.Game.prototype = {
     }
   },
 
-  displayNote: function () {
-    fPause = true;
-    this.input.focus();
-    this.game.input.keyboard.reset(false);
-    this.game.input.keyboard.enabled = false;
-    document.getElementById("mainLayer").style.display = "block";
-    //document.getElementById("mainCanvas").context.fillStyle = 'blue';
-    document.getElementById("inputPwd").style.display = "block";
-    document.getElementById("titlePwd").style.display = "block";
-    document.getElementById("policyTitle").style.display = "block";
-    document.getElementById("esc").style.display = "none";
-    document.getElementById("titlePwd").innerHTML = "Type in passwords you want to save:";
-    document.getElementById("policyTitle").innerHTML = "Your notes :";
-    document.getElementById("policyRules").innerHTML = this.notes;
-  },
-
-  hideNote: function () {
-    document.getElementById("esc").style.display = "block";
-    this.closePopup();
-  },
-
   /* ************************************** UPDATE STATE: ************************************************* */
   update: function () {
     var self = this;
@@ -1159,6 +1138,28 @@ getEntropy: function (pwdFeed) {
     this.pathfinder.preparePathCalculation([enemyX, enemyY], [playerX,playerY]);
     this.pathfinder.calculatePath();
   },
+
+  displayNote: function () {
+    fPause = true;
+    this.input.focus();
+    this.game.input.keyboard.reset(false);
+    this.game.input.keyboard.enabled = false;
+    document.getElementById("mainLayer").style.display = "block";
+    //document.getElementById("mainCanvas").context.fillStyle = 'blue';
+    document.getElementById("inputPwd").style.display = "block";
+    document.getElementById("titlePwd").style.display = "block";
+    document.getElementById("policyTitle").style.display = "block";
+    document.getElementById("esc").style.display = "none";
+    document.getElementById("titlePwd").innerHTML = "Type in passwords you want to save:";
+    document.getElementById("policyTitle").innerHTML = "Your notes :";
+    document.getElementById("policyRules").innerHTML = this.notes;
+  },
+
+  hideNote: function () {
+    document.getElementById("esc").style.display = "block";
+    this.closePopup();
+  },
+
  /***************************** UNUSED METHODS ***********************************
 **************** function that changes the door tile with the the player sprite, i.e. simulates opened door
   openDoor: function (object1, object2) {
