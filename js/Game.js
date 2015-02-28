@@ -190,11 +190,6 @@ Encrypt.Game.prototype = {
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
     var speed = 260;  // setting up the speed of the player
-/*
-    if (doorsCollidableEnemy === true && flagEnemyOnDoor === true) {
-      this.setEnemyUnmovable();
-    }
-*/
     this.moveCharacter(this.player.sprite, speed);
     /*BMDK: - Moved bringToTop here to allow the score to appear on top at all times*/
 
@@ -260,15 +255,12 @@ Encrypt.Game.prototype = {
     this.changeDoorState(currentDoorEnemy, 'opening');
     doorJustOpenedEnemy = true;  // @iva: the enemy doesn't get stuck in front of a door for ever
     doorsCollidableEnemy = false;
-    // doorsCollidableEnemy = false;  // @iva: the enemy doesn't get stuck on a door for ever
-    console.log("enemy is movable now");
   },
 
   setEnemyUnmovable: function () {
     this.enemy.isMovable = false;
     this.enemy.sprite.body.enable = false;
     this.enemy.sprite.body.isVisible = false;
-    console.log("enemy is not movable now");
   },
 
   //create player
@@ -796,7 +788,6 @@ getEntropy: function (pwdFeed) {
       }
       /* @iva; same as the code above, but for the enemy */
       if (doorPassEnemy === 'enemy in front of a door' && doorJustOpenedEnemy) {
-        console.log("door is closing now;");
         this.changeDoorState(currentDoorEnemy, 'closing');
         doorsCollidableEnemy = true;
         doorJustOpenedEnemy = !doorJustOpenedEnemy;
@@ -974,7 +965,6 @@ getEntropy: function (pwdFeed) {
   enterDoorEnemy: function (enemy, door) {
     if (doorsCollidableEnemy === true && flagEnemyOnDoor === true) {
       this.setEnemyUnmovable();
-      console.log("in enter door enemy function.");
       currentDoorEnemy = door;
       flagEnemyOnDoor = true;
       this.getWaitOnDoorTime();
@@ -986,10 +976,8 @@ getEntropy: function (pwdFeed) {
   // the waiting time is the passw entrophy for the door multiplied by 4. The result is in seconds
   getWaitOnDoorTime: function () {
     var found = 0;
-    console.log("enemy's dictionary: " + this.enemy.passwordsDictionary + " ********");
     // see whether we have the password stored in the enemy dictionary:
     for (var i = 0; i < this.enemy.passwordsDictionary.length; i++) {
-      console.log ("*** " + this.enemy.passwordsDictionary[i]);
       if (currentDoorEnemy.password === this.enemy.passwordsDictionary[i]) {
         enemyWaitOnDoorTime = 1000; // the enemy waits only 1 second if it has the right password
         found = 1;
@@ -1005,7 +993,6 @@ getEntropy: function (pwdFeed) {
     else if (!found){
       enemyWaitOnDoorTime = this.getEntropy(currentDoorEnemy.password) * 1.5 * 1000; // wait time = entropy * 2500 seconds
       this.enemy.passwordsDictionary.push(currentDoorEnemy.password); // add this password to the dictionary
-      console.log("enemy's dictionary after adding new password: " + this.enemy.passwordsDictionary + " ********");
     }
   },
 

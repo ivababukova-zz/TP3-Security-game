@@ -260,12 +260,6 @@ Enemy.prototype = {
 update: function () {
     this.sprite.frame = enemyFrame%5;
 
-    console.log ("isMoving: " + this.isMovable);
-/*
-    if (flagEnemyOnDoor === true && this.isMovable === true) {
-        this.setEnemyUnmovable();
-    }
-    */
     if (this.pathToPlayer.length !== 0) {
         // if the array is not empty or we've not reached the end of the array
         if (this.pathPosition < this.pathToPlayer.length) {
