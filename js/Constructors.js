@@ -1090,6 +1090,105 @@ ScoreSystem.prototype = {
 
 };
 
+/**
+ * Function used to match a string written down on the note against all the passwords the user has set.
+ * If the string written down is very similar to a password, the points awarded to the player for that password are deducted
+ * Code courtesy of: Andrew Hedges
+ * Link: http://andrew.hedges.name/experiments/levenshtein/levenshtein.js
+ * http://andrew.hedges.name/experiments/levenshtein/
+ * Algorithm: http://en.wikipedia.org/wiki/Levenshtein_distance
+ *
+ * @param: stringToMatch - the string that needs to be teste
+ * @param: targetedMatches - an array of potential matches
+ * */
+
+StringMatcher = function(){
+
+};
+
+StringMatcher.prototype = {
+
+    match: function(stringToMatch, targetedMatches){
+
+        // preliminary check if the given parameter is an array or not
+        if( targetedMatches.constructor === Array ){
+
+            var resultArray = [];
+            var foundMatch = false;
+            var i = 0;
+
+            // while we've not found a complete match
+            while( !foundMatch ){
+
+                // get the computed matrix for the given strings
+                var distArray = this.levenshteinenator(stringToMatch, targetedMatches[i]);
+                //get the distance for the current element
+                var dist = distArray[ distArray.length - 1 ][ distArray[ distArray.length - 1 ].length - 1 ];
+
+                // if the distance is 0, 1, or 2, then this is a very close match so we return true
+                if( dist === 0 || dist === 1 || dist === 2 ){
+                    foundMatch = true;
+                    return true;
+                }
+
+                resultArray.push(dist);
+
+            }
+
+            // reached this point, return false as we've not found a close enough match
+            return false;
+
+        }
+
+    },
+
+    levenshteinenator: function( a, b ){
+        var cost;
+        var m = a.length;
+        var n = b.length;
+
+        // make sure a.length >= b.length to use O(min(n,m)) space, whatever that is
+        if (m < n) {
+            var c = a;
+            a = b;
+            b = c;
+            var o = m;
+            m = n;
+            n = o;
+        }
+
+        var r = [];
+        r[0] = [];
+        for (var c = 0; c < n + 1; ++c) {
+            r[0][c] = c;
+        }
+
+        for (var i = 1; i < m + 1; ++i) {
+            r[i] = [];
+            r[i][0] = i;
+            for (var j = 1; j < n + 1; ++j) {
+                cost = a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1;
+                r[i][j] = this.minimator(r[i - 1][j] + 1, r[i][j - 1] + 1, r[i - 1][j - 1] + cost);
+            }
+        }
+
+        return r;
+    },
+
+/**
+ * Return the smallest of the three numbers passed in
+ * @param Number x
+ * @param Number y
+ * @param Number z
+ * @return Number
+ */
+    minimator: function(x, y, z) {
+        if (x < y && x < z) return x;
+        if (y < x && y < z) return y;
+        return z;
+        }
+};
+
  //Blank Section below by BMDK for DB function setup
 //Storage of successful passwords to Passwords table BMDK - DONE
  function storePasswordToDB(pwd, entropy, length) {
