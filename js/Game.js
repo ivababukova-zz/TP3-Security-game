@@ -3,8 +3,6 @@ var Encrypt = Encrypt || {};
 //title screen
 Encrypt.Game = function(){};
 
-var currentRoom = 0;
-
 var currentDoor = null;
 var currentDoorEnemy = null; // @iva: global variable to remember the door object the enemy is on, so we can close it
 var text = null;
@@ -169,7 +167,9 @@ Encrypt.Game.prototype = {
     // if the enemy is in a different room than the player is
     if( this.enemy.currentRoom !== this.player.currentRoom){
       // keep going on the path previously had
-      console.log("We're in the same room! Me: " + this.player.currentRoom + " and Him: " + this.enemy.currentRoom);
+      // the enemy can collide with a door when he's not in the same room as the player
+      if(!doorJustOpenedEnemy)
+        doorsCollidableEnemy = true;
       if(this.enemy.needNewPath){
         //get it
         this.getEnemyPath();
@@ -182,35 +182,16 @@ Encrypt.Game.prototype = {
     //if he is in the same room
     else{
         // update his path on every tick - less efficient in terms of computation, but gets to player faster
+      /*Andi: set to false so that the enemy won't attempt to go through doors when they're in the same room*/
+        doorsCollidableEnemy = false;
         this.getEnemyPath();
         // make sure he's at the first element in the path
         this.enemy.pathPosition = 1;
     }
     // if the enemy needs a path
-
     this.enemy.update();
     this.getCurrentRoom(this.enemy);
 
-    /*if( this.player.currentRoom !== this.enemy.currentRoom ) {
-
-     //console.log("Player: " + this.player.currentRoom + " Enemy: " + this.enemy.currentRoom);
-
-     }    // if the time given hasn't expired, or the current path has been exhausted
-
-     else {
-     //console.log("Player: " + this.player.currentRoom + " Enemy: " + this.enemy.currentRoom);
-     }
-     if( this.enemy.countsToFindPath > 0 || !this.enemy.newPath)
-     this.enemy.countsToFindPath--;
-     else{
-     //reset the count
-
-     this.enemy.countsToFindPath = 180;
-     this.enemy.newPath = false;
-     this.enemy.pathPosition = 0;
-     this.getEnemyPath();
-     console.log(this.enemy.pathToPlayer);
-     }*/
   },
 /*
   enemyWaitsOnDoor: function () {
@@ -961,7 +942,7 @@ getEntropy: function (pwdFeed) {
     // see whether we have the password stored in the enemy dictionary:
     for (var i = 0; i < this.enemy.passwordsDictionary.length; i++) {
       if (currentDoorEnemy.password === this.enemy.passwordsDictionary[i]) {
-        enemyWaitOnDoorTime = 1000; // the enemy waits only 1 second if it has the right password
+        enemyWaitOnDoorTime = 100; // the enemy waits only 1 second if it has the right password
         found = 1;
       }
       if (found) {
@@ -970,10 +951,10 @@ getEntropy: function (pwdFeed) {
     }
 
     if (currentDoorEnemy.password === 'null' && !found) {
-      enemyWaitOnDoorTime = 10000; // the waiting time on doors without password is 10 seconds
+      enemyWaitOnDoorTime = 500; // the waiting time on doors without password is 10 seconds
     }
     else if (!found){
-      enemyWaitOnDoorTime = this.getEntropy(currentDoorEnemy.password) * 1.5 * 1000; // wait time = entropy * 2500 seconds
+      enemyWaitOnDoorTime = this.getEntropy(currentDoorEnemy.password) * 1.5 * 100; // wait time = entropy * 2500 seconds
       this.enemy.passwordsDictionary.push(currentDoorEnemy.password); // add this password to the dictionary
     }
   },
