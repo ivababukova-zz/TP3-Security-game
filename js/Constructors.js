@@ -763,9 +763,15 @@ MetricsSystem.prototype = {
         return Object.keys(this.passwords).length;
     },
 
-    addPassword: function(password, entropy, doorID, scorereceived){
+    addPolicyCollected: function(colour){
+        storeUserPoliciesCollectedToDB(colour);
+    },
+
+    addPassword: function(password, entropy, doorID){
         storePasswordToDB(password, entropy, password.length);
-        storeUserPasswordsEnteredToDB(doorID, scorereceived);
+        var score12 = entropy*10;
+        console.log(score12 + " Score Bitches " + typeof(score12));
+        storeUserPasswordsEnteredToDB(doorID, score12);
         //first check if the parameter is actually a string
         if(typeof(password) === "string") {
 
@@ -796,8 +802,8 @@ MetricsSystem.prototype = {
     /**
      * Function to be called only when a password is reset on a door; will add the password to be replaced to an array
      * */
-    addResetPassword: function(password){
-
+    addResetPassword: function(password, doorID, penalty){
+        storePasswordResetsToDB(doorID, penalty);
         if( typeof(password) === "string"){
             //we'll use the same rationale as in the normal password array; if a password was reset more than once, take note
 
@@ -817,7 +823,7 @@ MetricsSystem.prototype = {
      * This can be used to determine which passwords were used on more than one door
      * */
     addUsedPassword: function(password, doorID){
-
+        storeUsersSuccessfulPasswordUse(doorID);
         if( typeof(password) === "string"){
 
             // check if it's in the password array or not
@@ -830,6 +836,19 @@ MetricsSystem.prototype = {
             //NOTE: this does not include the time when the user set the password the first time around
                 this.passwordsUsed[password] = [doorID];
         }
+    },
+
+    //Log whenever the user goes up to a door - added by BMDK
+    addUserDoorVisit: function (doorID){
+        storeDoorVisitsToDB(doorID);
+    },
+    //Log whenever the user collects a tool - added by BMDK
+    addToolCollected: function (tid){
+        storeUserToolsCollectedToDB(tid);
+    },
+    //Log whenever the user collects a hint - added by BMDK
+    addHintCollected: function (cid){
+        storeUserEducationalInfoCollectToDB(cid);
     },
 
     /**
@@ -1114,24 +1133,9 @@ ScoreSystem.prototype = {
     
 };
 
-//Storage of User Passwords entered -- DOING
- function storeUserPasswordsEnteredToDB(did, scorereceived) {
-    
-    if (window.XMLHttpRequest) {
-        // code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp = new XMLHttpRequest();
-    } else {
-        // code for IE6, IE5
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.open("GET","storepasswordsentered.php?did="+did+"&scorereceived="+scorereceived,true);
-    xmlhttp.send();
-    
-};
-
-//Storage of User Password Resets
- function storePasswordResetsToDB(uid, sid, did, oldpid, newpid, penalty) {
-    if (uid === "") {
+//Storage of User Passwords entered -- DONE
+ function storeUserPasswordsEnteredToDB(did, score) {
+    if (did === ""){
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -1141,14 +1145,14 @@ ScoreSystem.prototype = {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storepasswordresets.php?uid="+uid+"&sid="+sid+"&did="+did+"&oldpid="+oldpid+"&newpid="+newpid+"&penalty="+penalty,true);
+        xmlhttp.open("GET","storepasswordsentered.php?did="+did+"&score="+score,true);
         xmlhttp.send();
     }
 };
 
-//Storage of User door visits
- function storeDoorVisitsToDB(uid, sid, did) {
-    if (uid === "") {
+//Storage of User Password Resets -- DONE
+ function storePasswordResetsToDB(did, penalty) {
+    if (did === "") {
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -1158,14 +1162,14 @@ ScoreSystem.prototype = {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storedoorvisits.php?uid="+uid+"&sid="+sid+"&did="+did,true);
+        xmlhttp.open("GET","storepasswordresets.php?did="+did+"&penalty="+penalty,true);
         xmlhttp.send();
     }
 };
 
-//Storage of User stats on educational information
- function storeUserEducationalInfoToDB(uid, sid, cid, starttime, endtime) {
-    if (uid === "") {
+//Store successful password use
+function storeUsersSuccessfulPasswordUse(did){
+    if (did === "") {
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -1175,14 +1179,13 @@ ScoreSystem.prototype = {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storeuseredinfo.php?uid="+uid+"&sid="+sid+"&cid="+cid+"&starttime="+starttime+"&endtime="+endtime,true);
+        xmlhttp.open("GET","storesuccpwduse.php?did="+did,true);
         xmlhttp.send();
     }
 };
-
-//Storage of User Policies collected
- function storeUserPoliciesCollectedToDB(uid, sid, polid) {
-    if (uid === "") {
+//Storage of User door visits -- DONE
+ function storeDoorVisitsToDB(did) {
+    if (did === "") {
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -1192,14 +1195,14 @@ ScoreSystem.prototype = {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storeuserpoliciescollected.php?uid="+uid+"&sid="+sid+"&polid="+polid,true);
+        xmlhttp.open("GET","storedoorvisits.php?did="+did,true);
         xmlhttp.send();
     }
 };
 
-//Storage of User Tools collected
- function storeUserToolsCollectedToDB(uid, sid, tid) {
-    if (uid === "") {
+//Storage of User hints collected -- DONE
+ function storeUserEducationalInfoCollectToDB(cid) {
+    if (cid === "") {
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -1209,12 +1212,46 @@ ScoreSystem.prototype = {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storeusertoolscollected.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
+        xmlhttp.open("GET","storeuseredinfo.php?cid="+cid,true);
         xmlhttp.send();
     }
 };
 
-//Storage of User Tools Used
+//Storage of User Policies collected -- DONE
+ function storeUserPoliciesCollectedToDB(colour) {
+    if (colour === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storeuserpoliciescollected.php?colour="+colour,true);
+        xmlhttp.send();
+    }
+};
+
+//Storage of User Tools collected --DONE
+ function storeUserToolsCollectedToDB(tid) {
+    if (tid === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storeusertoolscollected.php?tid="+tid,true);
+        xmlhttp.send();
+    }
+};
+
+//Storage of User Tools Used -- Will implement once there are actually tools that you can use
  function storeUserToolsUsedToDB(uid, sid, tid) {
     if (uid === "") {
         return;

@@ -40,3 +40,30 @@ Encrypt.GameLost.prototype = {
 
 
 };
+
+//Function call to use php for finding if new user or existing
+ function checkUserStatus() {
+        var won = "no";
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var userstatusphp = String(xmlhttp.responseText);
+                    convert[0] = userstatusphp;
+                    if (convert[0].trim() === "newuser"){
+                        window.location.href='questionnaireAfter.html';
+                    }
+                    else {
+                        window.location.href='userIdentity.html';
+                    }
+                }
+            }
+        xmlhttp.open("GET","getuserstatus.php?won="+won+"&finalscore="+finalscore,true);
+        xmlhttp.send();
+    
+};

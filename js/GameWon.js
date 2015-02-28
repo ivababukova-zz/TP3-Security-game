@@ -54,7 +54,7 @@ Encrypt.GameWon.prototype = {
 
 //Function call to use php for finding if new user or existing
  function checkUserStatus() {
-    
+        var won = "yes";
         if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp = new XMLHttpRequest();
@@ -74,7 +74,7 @@ Encrypt.GameWon.prototype = {
                     }
                 }
             }
-        xmlhttp.open("GET","getuserstatus.php",true);
+        xmlhttp.open("GET","getuserstatus.php?won="+won+"&finalscore="+finalscore,true);
         xmlhttp.send();
     
 };

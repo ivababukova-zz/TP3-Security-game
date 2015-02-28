@@ -2,6 +2,21 @@
 session_start();
 include_once("connect.php");
 
+$won = strval($_GET['won']);
+$finalscore = intval($_GET['finalscore']);
+
+if ($won = "yes"){
+	//Update user game session table with final score and successful result
+	$sql="UPDATE `teamr1415`.`UsersGameSessions` SET `overallscore` = '".$finalscore."', `success` = 1 WHERE `uid` = '".$_SESSION["uid"]."' AND `sid` = '".$_SESSION["sid"]."';";
+	mysqli_query($conn,$sql);
+} else {
+	//Update user game session table with final score and unsuccessful result
+	$sql="UPDATE `teamr1415`.`UsersGameSessions` SET `overallscore` = '".$finalscore."', `success` = 0 WHERE `uid` = '".$_SESSION["uid"]."' AND `sid` = '".$_SESSION["sid"]."';";
+	mysqli_query($conn,$sql);
+}
+
+
+
 if ($_SESSION['userstatus'] == "exists"){
 
 	$sql="UPDATE `teamr1415`.`GameSessions` SET `endtime` = CURRENT_TIMESTAMP WHERE `sid` = '"
