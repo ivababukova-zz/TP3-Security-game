@@ -112,18 +112,6 @@ Encrypt.Game.prototype = {
     document.getElementById("resetPassword").addEventListener("click", this.resetPassword.bind(this));
     document.getElementById ("showAllHints").addEventListener ("click", this.displayHintsCollected.bind (this));
   },
-  manageNote: function(){
-    // Switch
-    this.noteButton.clicked = !this.noteButton.clicked;
-    if(this.noteButton.clicked){
-      this.noteButton.setFrames(0, 0, 0, 0);
-      this.displayNote();
-    }else{
-      this.noteButton.setFrames(0, 1, 0, 0);
-      this.hideNote();
-      return;
-    }
-  },
 
   /* ************************************** UPDATE STATE: ************************************************* */
   update: function () {
@@ -178,15 +166,28 @@ Encrypt.Game.prototype = {
     this.game.world.bringToTop(this.noteButton);
     this.game.world.bringToTop(this.cross);
 
-    //this.enemy.update();
-    // if the enemy needs a path
-    if(this.enemy.needNewPath){
-      //get it
-      this.getEnemyPath();
-      //and reset the value
-      this.enemy.needNewPath = false;
-      this.enemy.pathPosition = 0;
+    // if the enemy is in a different room than the player is
+    if( this.enemy.currentRoom !== this.player.currentRoom){
+      // keep going on the path previously had
+      console.log("We're in the same room! Me: " + this.player.currentRoom + " and Him: " + this.enemy.currentRoom);
+      if(this.enemy.needNewPath){
+        //get it
+        this.getEnemyPath();
+        //and reset the value
+        this.enemy.needNewPath = false;
+        this.enemy.pathPosition = 1;
+      }
+
     }
+    //if he is in the same room
+    else{
+        // update his path on every tick - less efficient in terms of computation, but gets to player faster
+        this.getEnemyPath();
+        // make sure he's at the first element in the path
+        this.enemy.pathPosition = 1;
+    }
+    // if the enemy needs a path
+
     this.enemy.update();
     this.getCurrentRoom(this.enemy);
 
@@ -417,9 +418,7 @@ Encrypt.Game.prototype = {
         return;
       }
     }, this);
-    if (currentRoom == 2) {  // need better method to detet infected room
-    }
-    // 
+
   },
   /** Draws the rooms */
   drawRooms: function() {
@@ -474,6 +473,7 @@ Encrypt.Game.prototype = {
       graphics.endFill();
     }, this);
   },
+
   resetPassword: function(){
     if(currentDoor.password === 'null'){
       document.getElementById("feedback").innerHTML = "Password is not set for this door.";
@@ -490,6 +490,7 @@ Encrypt.Game.prototype = {
     document.getElementById("feedback").innerHTML = "Password reset completed.";
     document.getElementById("titlePwd").innerHTML = "Setup a password.";
   },
+
   closePopup: function() {
     document.getElementById("inputPwd").style.display = "none";
     document.getElementById("policyTitle").style.display = "none";
@@ -657,6 +658,7 @@ getEntropy: function (pwdFeed) {
   }
   return 0;
 },
+
   displayPasswordStrength: function(entropy){
     if(entropy<20){
       document.getElementById("passwordStrengthBar").style.backgroundColor = "red";
@@ -854,6 +856,7 @@ getEntropy: function (pwdFeed) {
       this.hideHintsCollected();
     }
   },
+
   /* displays the last hint that the player has collected @iva */
   displayLastHintCollected: function () {
     document.getElementById ("hintsLayer").style.display = "block";
@@ -1160,32 +1163,17 @@ getEntropy: function (pwdFeed) {
     this.closePopup();
   },
 
- /***************************** UNUSED METHODS ***********************************
-**************** function that changes the door tile with the the player sprite, i.e. simulates opened door
-  openDoor: function (object1, object2) {
-    //object2.visible = false;
-    object2.texture = this.player.texture;
-    this.showNextFrame = this.showNextFrame || [];
-    //object2.
-    if (this.showNextFrame.indexOf(object2) === -1) {
-      this.showNextFrame = this.showNextFrame.concat([object2]);
-    }
-  }, ***********/
-
-  // function previously used to get all they indexes of the walkables tiles on the map/ DO NOT DELETE
-  getWalkablesFromMap: function() {
-
-    // path-finding algorithm set up
-    var walkables = {};
-    //store all the walkable tile id into walkables
-    for (var i = 0; i < this.map.layers[0].data.length; i++) {
-
-      for (var j = 0; j < this.map.layers[0].data[i].length; j++)
-        if (this.map.layers[0].data[i][j] !== 0) {
-
-          walkables[this.map.layers[0].data[i][j].index] = 0;
-        }
-      console.log(Object.keys(walkables));
+  manageNote: function(){
+    // Switch
+    this.noteButton.clicked = !this.noteButton.clicked;
+    if(this.noteButton.clicked){
+      this.noteButton.setFrames(0, 0, 0, 0);
+      this.displayNote();
+    }else{
+      this.noteButton.setFrames(0, 1, 0, 0);
+      this.hideNote();
+      return;
     }
   }
+
  };

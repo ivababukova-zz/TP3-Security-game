@@ -203,7 +203,7 @@ this.currentY = currentY;
 this.game = game;
 this.player = player;
 this.backgroundLayer = backgroundLayer;
-this.currentRoom = 0;
+this.currentRoom = 2;               // TODO: decide default value to be initialised - currently instantiated in room 2
 this.lastKnownDirections = ["",""];
 this.lastKnownY = 0;
 this.lastKnownX = 0;
@@ -218,7 +218,7 @@ this.isVisible = true;
 //collidable set to true
 this.isCollidable = true;
 // speed of the enemy - set to 10.0 by default
-this.speed = 100;
+this.speed = 164;
 // variable that'll keep track of whether the object is slowed down by firewall
 this.isSlowed = false;
 // logger chance - set to 0.1 by default - set to private as not used outside of object
@@ -229,8 +229,8 @@ this.virusChance = 0.1;
 this.pathToPlayer = [];
 //variable to keep track of how often the path-finding algorithm is called
 this.countsToFindPath = 30;
-//variable to keep track of the position in the path array
-this.pathPosition = 0;
+//variable to keep track of the position in the path array; set to 1 as the first element is the enemy's position
+this.pathPosition = 1;
 
 this.isMovable = true; /* @iva: is the enemy disabled to move.NOTE: this variable is used only for testing.
 As soon as the door breaking functionality is ready, I will delete it */
@@ -270,7 +270,7 @@ update: function () {
                 console.log("INITIAL: " + this.pathPosition);
                 //increment our position in the path
                 this.pathPosition++;
-                //re-initialise the counter when a new tile is move to
+                //re-initialise the counter when a new tile is moved to
                 this.nextTileCounter = 30;
                 console.log("AFTER: " + this.pathPosition);
             }
