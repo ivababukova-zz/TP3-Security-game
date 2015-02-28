@@ -218,7 +218,7 @@ this.isVisible = true;
 //collidable set to true
 this.isCollidable = true;
 // speed of the enemy - set to 10.0 by default
-this.speed = 164;
+this.speed = 260;
 // variable that'll keep track of whether the object is slowed down by firewall
 this.isSlowed = false;
 // logger chance - set to 0.1 by default - set to private as not used outside of object
@@ -733,6 +733,8 @@ MetricsSystem = function( game, approval ){
     this.toolsUsed["antivirus"] = [];           // one entry in the array will serve as a time when that tools was used
     this.toolsUsed["antikeylogger"] = [];       // it will be true if the operation was successful; false if not
 
+    /*an array to keep track of what notes the player took*/
+    this.notesTaken = [];
 
     //a variable to keep track of the average length of passwords employed
     this.avgPassLen = 0;
@@ -864,6 +866,15 @@ MetricsSystem.prototype = {
         else
         // initialise it to hold the first attempt
             this.rejectedPasswords[password] = [doorID, reason];
+    },
+
+    /**
+     * Method to update the field of notes taken by the player for sending to the database
+     * @param: notesArray is the array stored in the notes object owned by the player
+     * */
+    updateNotesTaken: function( notesArray ){
+        this.notesTaken =  notesArray;
+        console.log(this.notesTaken);
     },
     /**
      * Method that returns the most used password in the array of passwords used. Returns the password, if there is one,
@@ -1033,6 +1044,8 @@ ScoreSystem.prototype = {
     scoreReset: function(entropy){
 
         this.score -= 0.5 * (entropy *10);
+        //returning for the purpose of storing in the database
+        return 0.5 * (entropy * 10);
     },
 
     /**
@@ -1040,7 +1053,7 @@ ScoreSystem.prototype = {
      * */
     scorePasswordWriteDown: function(){
 
-        this.score -= 1;
+        this.score -= 10;
     },
 
     /**

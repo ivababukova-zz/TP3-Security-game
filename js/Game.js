@@ -465,8 +465,9 @@ Encrypt.Game.prototype = {
     }
 
     this.player.passwordResetsAvailable -= 1;
-    //the last parameter equal to zero should be updated to the deduction in point received for resetting of a password
-    this.metricsSystem.addResetPassword(currentDoor.password, currentDoor.z, 0);
+
+    //last parameter in function call below calls the score system for a reset and returns the value of the penalty
+    this.metricsSystem.addResetPassword(currentDoor.password, currentDoor.z, this.scoreSystem.scoreReset());
     currentDoor.password = 'null';
     document.getElementById("feedback").innerHTML = "Password reset completed.";
     document.getElementById("titlePwd").innerHTML = "Setup a password.";
@@ -513,6 +514,11 @@ Encrypt.Game.prototype = {
           i++;
           this._hiddenInput.value = '';
           self.manageNote();
+
+          //Andi: call the score system to penalise player for writing down passwords
+          self.scoreSystem.scorePasswordWriteDown();
+          //Andi: call to metrics system to update the notes the player has taken
+          self.metricsSystem.updateNotesTaken(self.player.note.passwords);
           return;
         }
         // when the user input password and enter 'Enter' key
@@ -595,7 +601,7 @@ Encrypt.Game.prototype = {
     return this.input;
   },
   /* BMDK: - Function for calculation of password entropy*/
-getEntropy: function (pwdFeed) {
+  getEntropy: function (pwdFeed) {
   /* ints to represent how many characters are in each set
   *  Note: not consistent with password policies that split into special & punctuation characters
   */
