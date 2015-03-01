@@ -125,6 +125,24 @@ Player.prototype = {
         }
 
     },
+
+    /**
+     * Method used to disinfect a room
+     * @param: room - the room to disinfect
+     * */
+    disinfect: function(){
+        console.log("Called!");
+        console.log(currentPlayerRoom.properties.infected + " " + this.antivirusBag.length )
+        if( currentPlayerRoom.properties.infected && this.antivirusBag.length > 0 ){
+
+            currentPlayerRoom.properties.infected = false;
+            console.log("Before: " + this.antivirusBag);
+            this.antivirusBag.splice(this.antivirusBag.length-1, 1 );
+            console.log("After: " + this.antivirusBag);
+        }
+
+
+    },
     /*
      * method to add an item to the player's bag; assume item is a string saying what type of item we're adding
      * */

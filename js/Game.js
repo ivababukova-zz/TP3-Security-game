@@ -25,6 +25,7 @@ var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for n
 var flagEnemyOnDoor; // @iva: is the enemy in front of a door
 var enemyWaitOnDoorTime = 10; // @iva: the amount of time in seconds the enemy waits on particular door
 var currentEnemyRoom = null; // Andi: global variable to keep track of where the enemy is
+var currentPlayerRoom = null; // Andi: global var to track where the player is
 
 Encrypt.Game.prototype = {
   create: function () {
@@ -411,6 +412,8 @@ Encrypt.Game.prototype = {
         if( entity instanceof Enemy ) {
           currentEnemyRoom = element;
         }
+        else if( entity instanceof Player)
+              currentPlayerRoom = element;
         return;
       }
     }, this);
