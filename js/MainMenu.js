@@ -30,6 +30,7 @@ Encrypt.MainMenu.prototype = {
         // ad logo here
         this.logo = this.game.add.sprite(this.game.width- 525 ,this.game.height - 575, 'logo');
 
+        //TODO format better; add disclaimer saying that if you play the game, you agree to us storing your passwords
         text =  "You are on a spaceship whose mission is to colonize Mars\n" +
                 "When you approach the planet the native aliens attack the spaceship.\n" +
                 "Being the only survivor, you have to get back to Earth and warn everyone.\n" +

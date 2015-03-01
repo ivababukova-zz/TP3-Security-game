@@ -74,10 +74,10 @@ Encrypt.Game.prototype = {
     this.noteButton.clicked = false;
     this.noteButton.fixedToCamera = true;
 
-    /* create button to activate antikey logger: @iva */
-    this.keylogButton = this.game.add.button (200, 10, 'keyLogButtons', this.manageKeylogger, this, 0, 1, 0, 0);
-    this.keylogButton.clicked = false;
-    this.keylogButton.fixedToCamera = false;
+    /* create button to activate antivirus: @iva */
+    this.antivirusButton = this.game.add.button (200, 10, 'icons', this.manageKeylogger, this, 0, 1, 0, 0);
+    this.antivirusButton.clicked = false;
+    this.antivirusButton.fixedToCamera = true;
 
     /* a cross over the player's head: */
     this.cross = "_";
@@ -116,12 +116,12 @@ Encrypt.Game.prototype = {
   },
 
   manageKeylogger: function(){
-    this.keylogButton.clicked = !this.keylogButton.clicked;
-    if(this.keylogButton.clicked){
-      this.keylogButton.setFrames(0, 0, 0, 0);
+    this.antivirusButton.clicked = !this.antivirusButton.clicked;
+    if(this.antivirusButton.clicked){
+      this.antivirusButton.setFrames(0, 0, 0, 0);
       this.player.disinfect();
     }else{
-      this.keylogButton.setFrames(0, 1, 0, 0);
+      this.antivirusButton.setFrames(0, 1, 0, 0);
     }
   },
 
@@ -176,7 +176,7 @@ Encrypt.Game.prototype = {
     this.game.world.bringToTop(this.scoreLabel);              // and bring it to top of the rendered objects
     this.game.world.bringToTop(this.hintsButton);  // @iva: bring the hints button to be always at the top
     this.game.world.bringToTop(this.noteButton);
-    this.game.world.bringToTop(this.keylogButton);
+    this.game.world.bringToTop(this.antivirusButton);
     this.game.world.bringToTop(this.cross);
 
     // if the enemy is in a different room than the player is
