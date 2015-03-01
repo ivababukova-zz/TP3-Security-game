@@ -490,6 +490,17 @@ Enemy.prototype = {
     },
 
     /**
+     * Method that returns true if the enemy is going to keylog a door, and false if not
+     * */
+    willInfect: function(){
+
+        var infectionChance = Math.random();
+
+        if( infectionChance < this.virusChance)
+            return true;
+        return false;
+    },
+    /**
      * Method used to keep track of whether the enemy has gone into a new room or not.
      * If it has, it calls infect and updates the field.
      * */
@@ -497,7 +508,9 @@ Enemy.prototype = {
 
         if(this.currentRoom != this.previousRoom){
             this.previousRoom = this.currentRoom;
-            this.infect(currentEnemyRoom);
+
+            if( this.willInfect() )
+                this.infect(currentEnemyRoom);
         }
 
     },
