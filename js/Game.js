@@ -75,7 +75,7 @@ Encrypt.Game.prototype = {
     this.noteButton.fixedToCamera = true;
 
     /* create button to activate antivirus: @iva */
-    this.antivirusButton = this.game.add.button (200, 10, 'icons', this.manageKeylogger, this, 0, 1, 0, 0);
+    this.antivirusButton = this.game.add.button (200, 10, 'icons', this.manageAntivirus, this, null, 2, 3, null);
     this.antivirusButton.clicked = false;
     this.antivirusButton.fixedToCamera = true;
 
@@ -113,16 +113,6 @@ Encrypt.Game.prototype = {
     document.getElementById ("showAllHints").addEventListener ("click", this.displayHintsCollected.bind (this));
 
     console.log();
-  },
-
-  manageKeylogger: function(){
-    this.antivirusButton.clicked = !this.antivirusButton.clicked;
-    if(this.antivirusButton.clicked){
-      this.antivirusButton.setFrames(0, 0, 0, 0);
-      this.player.disinfect();
-    }else{
-      this.antivirusButton.setFrames(0, 1, 0, 0);
-    }
   },
 
   /* ************************************** UPDATE STATE: ************************************************* */
@@ -168,7 +158,13 @@ Encrypt.Game.prototype = {
     this.changeDoorStates();
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
-    var speed = 260;  // setting up the speed of the player
+    //Andi: slowing player down in infected rooms
+    if( currentPlayerRoom.properties.infected ) {
+      var speed = 200;
+    }
+    else {
+      var speed = 260;  // setting up the speed of the player
+    }
     this.moveCharacter(this.player.sprite, speed);
     /*BMDK: - Moved bringToTop here to allow the score to appear on top at all times*/
 
@@ -1217,6 +1213,16 @@ Encrypt.Game.prototype = {
       this.noteButton.setFrames(0, 1, 0, 0);
       this.hideNote();
       return;
+    }
+  },
+
+  manageAntivirus: function(){
+    this.antivirusButton.clicked = !this.antivirusButton.clicked;
+    if(this.antivirusButton.clicked){
+      this.antivirusButton.setFrames(0, 3, 0, 0);
+      this.player.disinfect();
+    }else{
+      this.antivirusButton.setFrames(0, 2, 0, 0);
     }
   }
 

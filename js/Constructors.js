@@ -132,6 +132,7 @@ Player.prototype = {
      * */
     disinfect: function(){
         console.log("Called!");
+        console.log(currentPlayerRoom);
         console.log(currentPlayerRoom.properties.infected + " " + this.antivirusBag.length )
         if( currentPlayerRoom.properties.infected && this.antivirusBag.length > 0 ){
 
