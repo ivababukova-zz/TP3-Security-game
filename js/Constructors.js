@@ -190,277 +190,283 @@ Player.prototype = {
 
 Enemy = function(currentX, currentY, game, player, backgroundLayer) {
 
-// x,y coordinates
-this.currentX = currentX;
-this.currentY = currentY;
+    // x,y coordinates
+    this.currentX = currentX;
+    this.currentY = currentY;
 
-this.game = game;
-this.player = player;
-this.backgroundLayer = backgroundLayer;
-this.currentRoom = 2;               // TODO: decide default value to be initialised - currently instantiated in room 2
-this.lastKnownDirections = ["",""];
-this.lastKnownY = 0;
-this.lastKnownX = 0;
-this.lastKnownDirection = "";
-this.isstuck = false;
-this.isstuckcount = 0;
+    this.game = game;
+    this.player = player;
+    this.backgroundLayer = backgroundLayer;
+    this.currentRoom = 10;               // TODO: decide default value to be initialised - currently instantiated in room 2
+    this.previousRoom = this.currentRoom; // Andi: a variable used for infecting rooms; set to the default room upon creation
+    this.lastKnownDirections = ["",""];
+    this.lastKnownY = 0;
+    this.lastKnownX = 0;
+    this.lastKnownDirection = "";
+    this.isstuck = false;
+    this.isstuckcount = 0;
 
-// @iva: the enemy's dictionary with most used passwords:
-this.passwordsDictionary = {
-    letmein:1,
-    00000000:1,
-    qwerty:1,
-    12345678:1,
-    12345:1,
-    monkey:1,
-    123123:1,
-    password:1,
-    abc123: 1};
-// visibility - set to true?
-this.isVisible = true;
-//collidable set to true
-this.isCollidable = true;
-// speed of the enemy - set to 10.0 by default
-this.speed = 260;
-// variable that'll keep track of whether the object is slowed down by firewall
-this.isSlowed = false;
-// logger chance - set to 0.1 by default - set to private as not used outside of object
-this.loggerChance = 0.1;
-// room infection chance set to 0.1 by default - set to private as not used outside of object
-this.virusChance = 0.1;
-// an array that stores the path to the player
-this.pathToPlayer = [];
-//variable to keep track of how often the path-finding algorithm is called
-this.countsToFindPath = 30;
-//variable to keep track of the position in the path array; set to 1 as the first element is the enemy's position
-this.pathPosition = 1;
+    // @iva: the enemy's dictionary with most used passwords:
+    this.passwordsDictionary = {
+        letmein:1,
+        00000000:1,
+        qwerty:1,
+        12345678:1,
+        12345:1,
+        monkey:1,
+        123123:1,
+        password:1,
+        abc123: 1};
+    // visibility - set to true?
+    this.isVisible = true;
+    //collidable set to true
+    this.isCollidable = true;
+    // speed of the enemy - set to 10.0 by default
+    this.speed = 260;
+    // variable that'll keep track of whether the object is slowed down by firewall
+    this.isSlowed = false;
+    // logger chance - set to 0.1 by default - set to private as not used outside of object
+    this.loggerChance = 0.1;
+    // room infection chance set to 0.1 by default - set to private as not used outside of object
+    this.virusChance = 0.1;
+    // an array that stores the path to the player
+    this.pathToPlayer = [];
+    //variable to keep track of how often the path-finding algorithm is called
+    this.countsToFindPath = 30;
+    //variable to keep track of the position in the path array; set to 1 as the first element is the enemy's position
+    this.pathPosition = 1;
 
-this.isMovable = true; /* @iva: is the enemy disabled to move.NOTE: this variable is used only for testing.
-As soon as the door breaking functionality is ready, I will delete it */
+    this.isMovable = true; /* @iva: is the enemy disabled to move.NOTE: this variable is used only for testing.
+    As soon as the door breaking functionality is ready, I will delete it */
 
-// variable to keep track of whether a new path is needed; default is true as we don't have a path yet
-this.needNewPath = true;
-//variable to keep track of how long it's taking the enemy to get to the next tile; when it gets to 0, a new path is requested
-this.nextTileCounter = 15;
+    // variable to keep track of whether a new path is needed; default is true as we don't have a path yet
+    this.needNewPath = true;
+    //variable to keep track of how long it's taking the enemy to get to the next tile; when it gets to 0, a new path is requested
+    this.nextTileCounter = 15;
 
 
 
-//add its spriteSheet
-this.sprite = game.add.sprite(currentX, currentY, 'enemy');
-//BMDK: - Set sprite to first frame
-this.sprite.frame = 0;
-//BMDK: - Add animation loop for alien
-this.sprite.animations.add('any', [0, 1, 2, 3, 4], 15,true, true);
+    //add its spriteSheet
+    this.sprite = game.add.sprite(currentX, currentY, 'enemy');
+    //BMDK: - Set sprite to first frame
+    this.sprite.frame = 0;
+    //BMDK: - Add animation loop for alien
+    this.sprite.animations.add('any', [0, 1, 2, 3, 4], 15,true, true);
 
-game.physics.enable (this.sprite, Phaser.ARCADE);
-this.sprite.body.immovable = false;
-this.sprite.body.collideWorldBounds = true;
-this.sprite.enableBody = true;
+    game.physics.enable (this.sprite, Phaser.ARCADE);
+    this.sprite.body.immovable = false;
+    this.sprite.body.collideWorldBounds = true;
+    this.sprite.enableBody = true;
 
 };
 
 Enemy.prototype = {
-update: function () {
-    this.sprite.frame = enemyFrame%5;
 
-    if (this.pathToPlayer.length !== 0) {
-        // if the array is not empty or we've not reached the end of the array
-        if (this.pathPosition < this.pathToPlayer.length) {
-            // if we've reached the next tile in the path
-            if (this._onNextTile()) {
-                //increment our position in the path
-                this.pathPosition++;
-                //re-initialise the counter when a new tile is moved to
-                this.nextTileCounter = 30;
+    update: function () {
+        this.sprite.frame = enemyFrame%5;
+        this.hasChangedRoom();
+
+        if (this.pathToPlayer.length !== 0) {
+            // if the array is not empty or we've not reached the end of the array
+            if (this.pathPosition < this.pathToPlayer.length) {
+                // if we've reached the next tile in the path
+                if (this._onNextTile()) {
+                    //increment our position in the path
+                    this.pathPosition++;
+                    //re-initialise the counter when a new tile is moved to
+                    this.nextTileCounter = 30;
+                }
+                else {
+                     //otherwise, move in that direction
+                    this._moveInNextDirection();
+                    //decrement the tile counter at every move
+                    this.nextTileCounter--;
+                  //  console.log("________ \n I MOVED \n _______");
+                }
+
+                if (this.nextTileCounter === 0) {
+                    this.needNewPath = true;
+                    this.nextTileCounter = 30;
+                 //   console.log("TILE RESET!");
+                }
             }
             else {
-                 //otherwise, move in that direction
-                this._moveInNextDirection();
-                //decrement the tile counter at every move
-                this.nextTileCounter--;
-              //  console.log("________ \n I MOVED \n _______");
-            }
-
-            if (this.nextTileCounter === 0) {
+                // need a new path
                 this.needNewPath = true;
                 this.nextTileCounter = 30;
-             //   console.log("TILE RESET!");
+                //reset the position in the array
+                this.pathPosition = 0;
             }
         }
         else {
-            // need a new path
             this.needNewPath = true;
-            this.nextTileCounter = 30;
-            //reset the position in the array
-            this.pathPosition = 0;
         }
-    }
-    else {
-        this.needNewPath = true;
-    }
 
-    // this.sprite.body.velocity.x = 10;
-},
+        // this.sprite.body.velocity.x = 10;
+    },
 
-/**
-* Private function that returns true if the enemy is on the next tile in the path or false if it is not
-* */
-_onNextTile: function(){
+    /**
+    * Private function that returns true if the enemy is on the next tile in the path or false if it is not
+    * */
+    _onNextTile: function(){
 
-    // current tile
-    var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
-    var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
+        // current tile
+        var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
+        var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
 
-    var next = this.pathToPlayer[this.pathPosition];
-    var nextTileX = next.x;
-    var nextTileY = next.y;
+        var next = this.pathToPlayer[this.pathPosition];
+        var nextTileX = next.x;
+        var nextTileY = next.y;
 
-    if( enemyTileX === nextTileX && enemyTileY === nextTileY ) {
-        return true;
-    }
-    return false;
-},
-
-_moveInNextDirection: function(){
-
-    //the positions
-    var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
-    var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
-
-    var nextTileX = this.pathToPlayer[this.pathPosition].x;
-    var nextTileY = this.pathToPlayer[this.pathPosition].y;
-
-    this.sprite.body.velocity.x = 0;
-    this.sprite.body.velocity.y = 0;
-
-    // properly stuck, increment count for how many cycles stuck
-    if (this.lastKnownX === enemyTileX && this.lastKnownY === enemyTileY){
-        this.isstuckcount++;
-    }
-    // go right
-    if( nextTileX > enemyTileX && nextTileY === enemyTileY) {
-         //If he is stuck and was last headed up, shift upwards
-        if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up" && this.isstuckcount > 2) {
-            this.lastKnownX = 0;
-            this.lastKnownY = 0;
-            this.sprite.body.velocity.y -= this.speed;
-            this.isstuckcount = 0; //no longer stuck
-        } //If he is stuck and was last headed down, shift downwards
-        else if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "down" && this.isstuckcount > 2) {
-            this.lastKnownX = 0;
-            this.lastKnownY = 0;
-            this.sprite.body.velocity.y += this.speed;
-            this.isstuckcount = 0; //no longer stuck
-        } else {
-            this.lastKnownX = enemyTileX;
-            this.lastKnownY = enemyTileY;
-            this.sprite.body.velocity.x += this.speed;
-            this.lastKnownDirections[1] = "right";
-            this.lastKnownDirection = "right";
+        if( enemyTileX === nextTileX && enemyTileY === nextTileY ) {
+            return true;
         }
-    }
+        return false;
+    },
 
-    // go left
-    else if( nextTileX < enemyTileX && nextTileY === enemyTileY) {
-        //If he is stuck and was last headed up, shift upwards
-        if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up" && this.isstuckcount > 2) {
-            this.lastKnownX = 0;
-            this.lastKnownY = 0;
-            this.sprite.body.velocity.y -= this.speed;
-            this.isstuckcount = 0; //no longer stuck
-        } //If he is stuck and was last headed down, shift downwards
-        else if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "down" && this.isstuckcount > 2) {
-            this.lastKnownX = 0;
-            this.lastKnownY = 0;
-            this.sprite.body.velocity.y += this.speed;
-            this.isstuckcount = 0; //no longer stuck
-        } else {
-            this.lastKnownX = enemyTileX;
-            this.lastKnownY = enemyTileY;
+    _moveInNextDirection: function(){
+
+        //the positions
+        var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
+        var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
+
+        var nextTileX = this.pathToPlayer[this.pathPosition].x;
+        var nextTileY = this.pathToPlayer[this.pathPosition].y;
+
+        this.sprite.body.velocity.x = 0;
+        this.sprite.body.velocity.y = 0;
+
+        // properly stuck, increment count for how many cycles stuck
+        if (this.lastKnownX === enemyTileX && this.lastKnownY === enemyTileY){
+            this.isstuckcount++;
+        }
+        // go right
+        if( nextTileX > enemyTileX && nextTileY === enemyTileY) {
+             //If he is stuck and was last headed up, shift upwards
+            if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up" && this.isstuckcount > 2) {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.y -= this.speed;
+                this.isstuckcount = 0; //no longer stuck
+            } //If he is stuck and was last headed down, shift downwards
+            else if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "down" && this.isstuckcount > 2) {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.y += this.speed;
+                this.isstuckcount = 0; //no longer stuck
+            } else {
+                this.lastKnownX = enemyTileX;
+                this.lastKnownY = enemyTileY;
+                this.sprite.body.velocity.x += this.speed;
+                this.lastKnownDirections[1] = "right";
+                this.lastKnownDirection = "right";
+            }
+        }
+
+        // go left
+        else if( nextTileX < enemyTileX && nextTileY === enemyTileY) {
+            //If he is stuck and was last headed up, shift upwards
+            if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up" && this.isstuckcount > 2) {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.y -= this.speed;
+                this.isstuckcount = 0; //no longer stuck
+            } //If he is stuck and was last headed down, shift downwards
+            else if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "down" && this.isstuckcount > 2) {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.y += this.speed;
+                this.isstuckcount = 0; //no longer stuck
+            } else {
+                this.lastKnownX = enemyTileX;
+                this.lastKnownY = enemyTileY;
+                this.sprite.body.velocity.x -= this.speed;
+                this.lastKnownDirections[1] = "left";
+                this.lastKnownDirection = "left";
+            }
+        }
+
+    // go up
+        else if( nextTileX === enemyTileX && nextTileY < enemyTileY) {
+            //If he is stuck and was last headed left, shift left to correct
+            if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left" && this.isstuckcount > 2) {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.x -= this.speed;
+                this.isstuckcount = 0; //no longer stuck
+            } //If he is stuck and was last headed right, shift right to correct
+            else if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "right" && this.isstuckcount > 2) {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.x += this.speed;
+                this.isstuckcount = 0; //no longer stuck
+            } else {
+                this.lastKnownX = enemyTileX;
+                this.lastKnownY = enemyTileY;
+                this.sprite.body.velocity.y -= this.speed;
+                this.lastKnownDirections[0] = "up";
+                this.lastKnownDirection = "up";
+            }
+        }
+
+    // go down
+        else if( nextTileX === enemyTileX && nextTileY > enemyTileY) {
+            //If he is stuck and was last headed left, shift left to correct
+            if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left" && this.isstuckcount > 2) {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.x -= this.speed;
+                this.isstuckcount = 0; //no longer stuck
+            } //If he is stuck and was last headed right, shift right to correct
+            else if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "right" && this.isstuckcount > 2) {
+                this.lastKnownX = 0;
+                this.lastKnownY = 0;
+                this.sprite.body.velocity.x += this.speed;
+                this.isstuckcount = 0; //no longer stuck
+            } else {
+                this.lastKnownX = enemyTileX;
+                this.lastKnownY = enemyTileY;
+                this.sprite.body.velocity.y += this.speed;
+                this.lastKnownDirections[0] = "down";
+                this.lastKnownDirection = "down";
+            }
+        }
+        // go down and left
+        else if( nextTileX < enemyTileX && nextTileY > enemyTileY ) {
             this.sprite.body.velocity.x -= this.speed;
-            this.lastKnownDirections[1] = "left";
-            this.lastKnownDirection = "left";
-        }
-    }
-
-// go up
-    else if( nextTileX === enemyTileX && nextTileY < enemyTileY) {
-        //If he is stuck and was last headed left, shift left to correct
-        if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left" && this.isstuckcount > 2) {
-            this.lastKnownX = 0;
-            this.lastKnownY = 0;
-            this.sprite.body.velocity.x -= this.speed;
-            this.isstuckcount = 0; //no longer stuck
-        } //If he is stuck and was last headed right, shift right to correct
-        else if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "right" && this.isstuckcount > 2) {
-            this.lastKnownX = 0;
-            this.lastKnownY = 0;
-            this.sprite.body.velocity.x += this.speed;
-            this.isstuckcount = 0; //no longer stuck
-        } else {
-            this.lastKnownX = enemyTileX;
-            this.lastKnownY = enemyTileY;
-            this.sprite.body.velocity.y -= this.speed;
-            this.lastKnownDirections[0] = "up";
-            this.lastKnownDirection = "up";
-        }
-    }
-
-// go down
-    else if( nextTileX === enemyTileX && nextTileY > enemyTileY) {
-        //If he is stuck and was last headed left, shift left to correct
-        if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left" && this.isstuckcount > 2) {
-            this.lastKnownX = 0;
-            this.lastKnownY = 0;
-            this.sprite.body.velocity.x -= this.speed;
-            this.isstuckcount = 0; //no longer stuck
-        } //If he is stuck and was last headed right, shift right to correct
-        else if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "right" && this.isstuckcount > 2) {
-            this.lastKnownX = 0;
-            this.lastKnownY = 0;
-            this.sprite.body.velocity.x += this.speed;
-            this.isstuckcount = 0; //no longer stuck
-        } else {
-            this.lastKnownX = enemyTileX;
-            this.lastKnownY = enemyTileY;
             this.sprite.body.velocity.y += this.speed;
             this.lastKnownDirections[0] = "down";
-            this.lastKnownDirection = "down";
+            this.lastKnownDirections[1] = "left";
         }
-    }
-    // go down and left
-    else if( nextTileX < enemyTileX && nextTileY > enemyTileY ) {
-        this.sprite.body.velocity.x -= this.speed;
-        this.sprite.body.velocity.y += this.speed;
-        this.lastKnownDirections[0] = "down";
-        this.lastKnownDirections[1] = "left";
-    }
-    // down & right
-    else if( nextTileX > enemyTileX && nextTileY > enemyTileY ) {
-        this.sprite.body.velocity.x += this.speed;
-        this.sprite.body.velocity.y += this.speed;
-        this.lastKnownDirections[0] = "down";
-        this.lastKnownDirections[1] = "right";
-    }
-    // go up and left
-    else if( nextTileX < enemyTileX && nextTileY < enemyTileY ) {
-        this.sprite.body.velocity.x -= this.speed;
-        this.sprite.body.velocity.y -= this.speed;
-        this.lastKnownDirections[0] = "up";
-        this.lastKnownDirections[1] = "left";
-    }
+        // down & right
+        else if( nextTileX > enemyTileX && nextTileY > enemyTileY ) {
+            this.sprite.body.velocity.x += this.speed;
+            this.sprite.body.velocity.y += this.speed;
+            this.lastKnownDirections[0] = "down";
+            this.lastKnownDirections[1] = "right";
+        }
+        // go up and left
+        else if( nextTileX < enemyTileX && nextTileY < enemyTileY ) {
+            this.sprite.body.velocity.x -= this.speed;
+            this.sprite.body.velocity.y -= this.speed;
+            this.lastKnownDirections[0] = "up";
+            this.lastKnownDirections[1] = "left";
+        }
 
-    // go up and right
-    else if( nextTileX > enemyTileX && nextTileY < enemyTileY ) {
-        this.sprite.body.velocity.x += this.speed;
-        this.sprite.body.velocity.y -= this.speed;
-        this.lastKnownDirections[0] = "up";
-        this.lastKnownDirections[1] = "right";
-    }
-},
+        // go up and right
+        else if( nextTileX > enemyTileX && nextTileY < enemyTileY ) {
+            this.sprite.body.velocity.x += this.speed;
+            this.sprite.body.velocity.y -= this.speed;
+            this.lastKnownDirections[0] = "up";
+            this.lastKnownDirections[1] = "right";
+        }
+    },
 
+    /**
+     * Method used to put a keylogger on a door. Called when the enemy breaks a door
+     * @param: door - the door to keylog
+     * */
     putKeyLogger: function(door){
-        //TODO: add implementation
         //add property to the door object
         door.hasKeylogger = true;
 
@@ -483,8 +489,22 @@ _moveInNextDirection: function(){
         return false;
     },
 
+    /**
+     * Method used to keep track of whether the enemy has gone into a new room or not.
+     * If it has, it calls infect and updates the field.
+     * */
+    hasChangedRoom: function(){
+
+        if(this.currentRoom != this.previousRoom){
+            this.previousRoom = this.currentRoom;
+            this.infect(currentEnemyRoom);
+        }
+
+    },
+
     infect: function(room){
         //TODO: add implementation
+        room.properties.infected = true;
     },
     /**
      * Method used to add a password to the enemy's dictionary

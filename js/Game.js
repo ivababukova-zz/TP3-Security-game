@@ -5,6 +5,7 @@ Encrypt.Game = function(){};
 
 var currentDoor = null;
 var currentDoorEnemy = null; // @iva: global variable to remember the door object the enemy is on, so we can close it
+//TODO decide on a default start room for the enemy and set it here, or at the beginning of the game
 var text = null;
 var fPause = false;
 var lastKnownPlayerDirection = ['',0]; /*BMDK: for the purpose of tracking what animation frame to end on and lastKnownPlayerDirection*/
@@ -23,6 +24,7 @@ var enemyFrame = 0; //this tracks the current frame of animation for the enemy
 var enemyFrameRate = 0; // this stablises the rate of enemy frame changes (for now at least)
 var flagEnemyOnDoor; // @iva: is the enemy in front of a door
 var enemyWaitOnDoorTime = 10; // @iva: the amount of time in seconds the enemy waits on particular door
+var currentEnemyRoom = null; // Andi: global variable to keep track of where the enemy is
 
 Encrypt.Game.prototype = {
   create: function () {
@@ -389,7 +391,7 @@ Encrypt.Game.prototype = {
     // draw rooms
     this.drawRooms();
   },
-  /** Update the global variable currentRoom to store the current room's ID */
+  /** Update entity's variable currentRoom to store the current room's ID */
   getCurrentRoom: function (entity) {
 
     // Checking each room
@@ -406,6 +408,9 @@ Encrypt.Game.prototype = {
 
       if (rect.contains(entity.sprite.x, entity.sprite.y)){
         entity.currentRoom = parseInt(element.properties.idx);
+        if( entity instanceof Enemy ) {
+          currentEnemyRoom = element;
+        }
         return;
       }
     }, this);
@@ -416,6 +421,7 @@ Encrypt.Game.prototype = {
     var graphics; // used to store room's graph
     // one room at a time
     this.rooms.forEach(function(element){
+    //  console.log(element);
       // get dimensions and coordinates
       var x = parseInt(element.x);
       var y = parseInt(element.y+this.map.tileHeight);
