@@ -63,23 +63,21 @@ Encrypt.Game.prototype = {
     this.loadRooms();
     this.createInput();
 
+
     /* create a button for viewing the pickedHints and tips collected so far; @iva */
     this.hintsButton = this.game.add.button (535, 10, 'hintButtons', this.manageHintsPopup, this, 0, 1, 0, 0);
-    //this.hintsButton = this.game.add.button (535, 10, 'hintsButton', this.displayLastHintCollected, this );
+    this.hintsButton.clicked = false;
     this.hintsButton.fixedToCamera = true;
-
-    this.pressedHintsButton = this.game.add.button(535, 10, 'pressedHintsButton', this.hideHintsCollected, this);
-    this.pressedHintsButton.inputEnabled = false;
-    this.pressedHintsButton.renderable = false;
-    this.pressedHintsButton.fixedToCamera = true;
-
-    //this.hintsButton.clicked = false; -- this code doesn't work
 
     /* create a button for making a new note or reviewing saved passwords: @iva */
     this.noteButton = this.game.add.button (470, 10, 'noteButtons', this.manageNote, this, 0, 1, 0, 0);
     this.noteButton.clicked = false;
-    // this.noteButton = this.game.add.button (470, 10, 'noteButton', this.displayNote, this);
     this.noteButton.fixedToCamera = true;
+
+    /* create button to activate antikey logger: @iva */
+    this.keylogButton = this.game.add.button (200, 10, 'keyLogButtons', this.manageKeylogger, this, 0, 1, 0, 0);
+    this.keylogButton.clicked = false;
+    this.keylogButton.fixedToCamera = false;
 
     /* a cross over the player's head: */
     this.cross = "_";
@@ -115,6 +113,16 @@ Encrypt.Game.prototype = {
     document.getElementById ("showAllHints").addEventListener ("click", this.displayHintsCollected.bind (this));
 
     console.log();
+  },
+
+  manageKeylogger: function(){
+    this.keylogButton.clicked = !this.keylogButton.clicked;
+    if(this.keylogButton.clicked){
+      this.keylogButton.setFrames(0, 0, 0, 0);
+      this.player.disinfect();
+    }else{
+      this.keylogButton.setFrames(0, 1, 0, 0);
+    }
   },
 
   /* ************************************** UPDATE STATE: ************************************************* */
@@ -168,6 +176,7 @@ Encrypt.Game.prototype = {
     this.game.world.bringToTop(this.scoreLabel);              // and bring it to top of the rendered objects
     this.game.world.bringToTop(this.hintsButton);  // @iva: bring the hints button to be always at the top
     this.game.world.bringToTop(this.noteButton);
+    this.game.world.bringToTop(this.keylogButton);
     this.game.world.bringToTop(this.cross);
 
     // if the enemy is in a different room than the player is
