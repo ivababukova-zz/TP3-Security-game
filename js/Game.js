@@ -1000,7 +1000,7 @@ Encrypt.Game.prototype = {
       found = true;
       enemyWaitOnDoorTime = 1000;// the enemy waits only 1 second if it has the right password
     }
-
+    // would be great if we could implement a waiting bar on top of the enemy when he waits
     if (currentDoorEnemy.password === 'null' && !found) {
       enemyWaitOnDoorTime = 500; // the waiting time on doors without password is 10 seconds
     }

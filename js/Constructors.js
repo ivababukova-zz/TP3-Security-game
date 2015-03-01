@@ -552,29 +552,6 @@ Enemy.prototype = {
         return false;
     }
 
-/* Method not used anymore; keeping it in to remember how the infections would work
-    breakDoor: function () {
-
-        // test for door proximity when calling this function; door should be tied to the room, i.e. the room you're passing to
-
-        //test password power on this door
-        var passwordStrength = 10;
-        //make enemy wait for a set amount of time, according to the strength of the password
-        //would be neat if we could implement a waiting bar for when this happens
-        console.log("enemy is in front of a door");
-
-
-        // now let's see if either the door or the room get infected; arguable if we need two separate chances for each
-        var infectionChance = Math.random();
-
-        if( infectionChance <= this.loggerChance) {
-            this.putKeyLogger(door);
-        }
-        //TODO: detect which the enemy is in
-        if( infectionChance <= this.virusChance) {
-            this.infect(room);
-        }
-    }*/
 };
 
 /*
