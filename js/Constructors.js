@@ -129,7 +129,7 @@ Player.prototype = {
      * method to add an item to the player's bag; assume item is a string saying what type of item we're adding
      * */
     /*
-    * TODO: there is a bug in this method:
+    *
     * no more than one item from the same type can be added. For example, if the player collects 1, or 15, or
     * 2 firewall items, the bag will contain only 1.
     * */
@@ -138,15 +138,12 @@ Player.prototype = {
         //console.log ("just collected item wohohohooooo!");
          if (numb === 1) {
              this.firewallBag.push(this.firewallBag.length + 1);  // increment the firewall bag
-             //console.log("number of items in the firewall bag now: " + this.firewallBag.length);
          }
         else if (numb === 2) {
              this.antivirusBag.push(this.antivirusBag.length + 1);
-             //console.log("number of items in the antivirus bag now: " + this.antivirusBag.length);
          }
         else if (numb === 3) {
              this.antikeyLoggerBag.push(this.antikeyLoggerBag.length + 1);
-             //console.log("number of items in the antikeylog bag now: " + this.antikeyLoggerBag.length);
          }
     },
 
@@ -155,9 +152,6 @@ Player.prototype = {
         this.note.write(password);
     },
 
-    interactWithFriend: function () {
-
-    },
     /* method to be called everytime the user moves (or at every update) that simulates losing the note object*/
     //TODO: handle situation where player picks up another note if he already has one
     loseNote: function () {
@@ -264,15 +258,11 @@ update: function () {
         // if the array is not empty or we've not reached the end of the array
         if (this.pathPosition < this.pathToPlayer.length) {
             // if we've reached the next tile in the path
-            //console.log("ENEMY - POSITION IN ARRAY:" + this.pathPosition);
-            //console.log("ENEMY - LENGTH OF ARRAY:" + this.pathToPlayer.length);
             if (this._onNextTile()) {
-                console.log("INITIAL: " + this.pathPosition);
                 //increment our position in the path
                 this.pathPosition++;
                 //re-initialise the counter when a new tile is moved to
                 this.nextTileCounter = 30;
-                console.log("AFTER: " + this.pathPosition);
             }
             else {
                  //otherwise, move in that direction
@@ -466,8 +456,8 @@ _moveInNextDirection: function(){
 
     infect: function(room){
         //TODO: add implementation
-    },
-
+    }
+/* Method not used anymore; keeping it in to remember how the infections would work
     breakDoor: function () {
 
         // test for door proximity when calling this function; door should be tied to the room, i.e. the room you're passing to
@@ -489,7 +479,7 @@ _moveInNextDirection: function(){
         if( infectionChance <= this.virusChance) {
             this.infect(room);
         }
-    }
+    }*/
 };
 
 /*
@@ -656,7 +646,7 @@ Policy = function( currentX, currentY, game, minLength, minUpper, minLower, minN
  *  Friend area
  * */
 
-Friend = function(currentX, currentY, player, game){
+/*Friend = function(currentX, currentY, player, game){
 
     //location
     this.currentX = currentX;
@@ -674,11 +664,10 @@ Friend = function(currentX, currentY, player, game){
     // permission to follow player; can be set to true after player interacts with the friend
     this.permission = false;
 
-    //TODO: uncomment out when the friend image is added to the project
     //this.friend = game.add.sprite(currentX, currentY, 'friend');
-};
+};*/
 
-Friend.prototype = {
+/*Friend.prototype = {
 
     // function to be called when player agrees to cooperate
     getApproval: function(note){
@@ -698,7 +687,7 @@ Friend.prototype = {
     follow: function(player){
 
     }
-};
+};*/
 
 MetricsSystem = function( game, approval ){
 
@@ -874,7 +863,6 @@ MetricsSystem.prototype = {
      * */
     updateNotesTaken: function( notesArray ){
         this.notesTaken =  notesArray;
-        console.log(this.notesTaken);
     },
     /**
      * Method that returns the most used password in the array of passwords used. Returns the password, if there is one,
@@ -1007,10 +995,10 @@ ScoreSystem.prototype = {
      * Function used to award points to the player upon use of the firewall
      * WOULD be great to know whether the enemy is in the same room or not; would improve accuracy of points awarded
      * */
-    scoreFirewall: function(){
+    /*scoreFirewall: function(){
         //award a base 5 points for usel; potentially increase this number so as to encourage use; PITFALL: can be used without actual need
         this.score += 5;
-    },
+    },*/
 
     /**
      * Function used when the player goes through a door he's already set a password on (i.e. when he remembers a password he set before)
@@ -1049,11 +1037,13 @@ ScoreSystem.prototype = {
     },
 
     /**
-     * Function that subtracts points from the player when they write down one of the passwords. Decided to only take 1 point/password written
+     * Function that subtracts points from the player when they write down one of the passwords. Decided to only take 10% points/password written
+     * Only occurs when the thing written on the note is a string found as a password on the doors
+     * @param: entropy is the entropy of the password written down on the note; used to subtract points from the player
      * */
-    scorePasswordWriteDown: function(){
+    scorePasswordWriteDown: function(entropy){
 
-        this.score -= 10;
+        this.score -= 0.1 * (entropy * 10);
     },
 
     /**
@@ -1066,22 +1056,30 @@ ScoreSystem.prototype = {
     },
 
     /**
-     * Function to award points to the player for helping the friend. As friend, as a feature, is still under scrutiny, this was not implemented yet.
-     * */
-    scoreHelpFriend: function(){
-
-    },
-
-    /**
      * Function used to award points to the player upon finishing the game.
      * BONUSES:
-     *  - enemy not in the room (TODO)
-     *  - how far away enemies are (TODO once search algorithm is in place)
      *  - time taken to complete game(TODO: find a standard time needed to finish a game)
      * EXTRA NICETIES:
      *  - generate string saying what bonuses are given and for what
      * */
-    scoreGameWon: function(){
+     /**
+      * Method used to give the player a bonus for winning the game & the enemy not being in the same room
+      * */
+     scoreEnemyNotInRoomBonus: function(){
+
+         this.score += 50;
+    },
+    /**
+     * Method used to award player a bonus upon finishing the game according to how far the enemy is from him
+     * @param: pathLength - is the length of the path array stored in the enemy object
+     * */
+    scoreDistanceToPlayerBonus: function( pathLength ){
+
+        //award 10 points per tile distance
+        this.score += pathLength * 10;
+    },
+
+     scoreGameWon: function(){
 
         //award 100 points for winning the game
         this.score  += 100;
@@ -1102,18 +1100,35 @@ ScoreSystem.prototype = {
  * @param: targetedMatches - an array of potential matches
  * */
 
-/*StringMatcher = function(){
+StringMatcher = function(){
 
 };
 
 StringMatcher.prototype = {
 
+    /**
+     * A simple matching method that checks whether the note taken is the same as a password set on a door
+     * @param: stringToMatch - the note taken
+     * @param: targetedMatches - array of passwords on the doors
+     * @returns: the true if found, false if not
+     * */
+    simpleMatch: function(stringToMatch, targetedMatches){
+
+        var i = 0;
+
+        while ( i < targetedMatches.length ){
+            if( stringToMatch === targetedMatches[i])
+                return true;
+        }
+        return false;
+    },
+
     match: function(stringToMatch, targetedMatches){
 
         // preliminary check if the given parameter is an array or not
-        if( targetedMatches.constructor === Array ){
+        if( targetedMatches.constructor === Array && targetedMatches.length !== 0){
 
-            var resultArray = [];
+            //var resultArray = [];
             var foundMatch = false;
             var i = 0;
 
@@ -1131,7 +1146,7 @@ StringMatcher.prototype = {
                     return true;
                 }
 
-                resultArray.push(dist);
+                //resultArray.push(dist);
 
             }
 
@@ -1182,12 +1197,12 @@ StringMatcher.prototype = {
  * @param Number z
  * @return Number
  */
-    /*minimator: function(x, y, z) {
+    minimator: function(x, y, z) {
         if (x < y && x < z) return x;
         if (y < x && y < z) return y;
         return z;
         }
-};*/
+};
 
  //Blank Section below by BMDK for DB function setup
 //Storage of successful passwords to Passwords table BMDK - DONE

@@ -38,7 +38,7 @@ Encrypt.Game.prototype = {
     //creating the auxiliary systems
     this.scoreSystem = new ScoreSystem(this.game); // the score is initially 0
     this.metricsSystem = new MetricsSystem(this.game, true);
-    //this.stringMatcher = new StringMatcher();
+    this.stringMatcher = new StringMatcher();
 
     this.map = this.game.add.tilemap('level1');
 
@@ -115,7 +115,6 @@ Encrypt.Game.prototype = {
   /* ************************************** UPDATE STATE: ************************************************* */
   update: function () {
     var self = this;
-    //this.stringMatcher.match("Hello", ["sup", "howdy", "salut"]);
     /*This code was added to control frame rates for the enemy.
     * In the enemy update, the next frame is loaded when cond
     * is satisfied ~BMDK
@@ -512,13 +511,20 @@ Encrypt.Game.prototype = {
         if(document.getElementById("titlePwd").innerHTML === "Type in passwords you want to save:"){
           // write it to the note
           self.player.note.write(this._value);
+
+          //test whether the thing the user has written is close to a password he has set on a door
+          var passwordsOnDoors = Object.keys(self.metricsSystem.passwords);
+          if( self.stringMatcher.simpleMatch(this._value, passwordsOnDoors) ){
+            //Andi: call the score system to penalise player for writing down passwords
+            self.scoreSystem.scorePasswordWriteDown(self.getEntropy(this._value));
+
+          }
+
           self.notes += self.player.note.passwords[i] + "<br>";
           i++;
           this._hiddenInput.value = '';
           self.manageNote();
 
-          //Andi: call the score system to penalise player for writing down passwords
-          self.scoreSystem.scorePasswordWriteDown();
           //Andi: call to metrics system to update the notes the player has taken
           self.metricsSystem.updateNotesTaken(self.player.note.passwords);
           return;
@@ -565,7 +571,7 @@ Encrypt.Game.prototype = {
       onkeyup: function() {
         // first check if main layer is open and then check if it's not a noPolicy pop up
         if (document.getElementById("feedback").style.display === "block"){
-          console.log(self.getEntropy(this._hiddenInput.value)[0]);//BMDK testing
+          //console.log(self.getEntropy(this._hiddenInput.value)[0]);//BMDK testing
           var policy = self.player.policies[currentDoor.policy];
           var feedback = "";
           this.approved = false;
@@ -828,6 +834,14 @@ Encrypt.Game.prototype = {
     else if (collectable.type === "winkey" ) {
       // this.scoreSystem.setScore(this.score);
         this.metricsSystem.addToolCollected(4);
+        //Andi: bonus for the player if the enemy is not in the same room
+        if( this.player.currentRoom != this.enemy.currentRoom )
+          this.scoreSystem.scoreEnemyNotInRoomBonus();
+        // Andi: award a bonus for how far away the enemy is from the player when winning
+        this.scoreSystem.scoreDistanceToPlayerBonus(this.enemy.pathToPlayer.length);
+        // Andi: bonus for winning the game
+        this.scoreSystem.scoreGameWon();
+
         finalscore = this.scoreSystem.score;
         this.state.start('GameWon');
         collectable.destroy();
