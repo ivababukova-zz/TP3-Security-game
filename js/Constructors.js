@@ -1102,7 +1102,7 @@ ScoreSystem.prototype = {
  * @param: targetedMatches - an array of potential matches
  * */
 
-StringMatcher = function(){
+/*StringMatcher = function(){
 
 };
 
@@ -1182,12 +1182,12 @@ StringMatcher.prototype = {
  * @param Number z
  * @return Number
  */
-    minimator: function(x, y, z) {
+    /*minimator: function(x, y, z) {
         if (x < y && x < z) return x;
         if (y < x && y < z) return y;
         return z;
         }
-};
+};*/
 
  //Blank Section below by BMDK for DB function setup
 //Storage of successful passwords to Passwords table BMDK - DONE

@@ -38,7 +38,7 @@ Encrypt.Game.prototype = {
     //creating the auxiliary systems
     this.scoreSystem = new ScoreSystem(this.game); // the score is initially 0
     this.metricsSystem = new MetricsSystem(this.game, true);
-    this.stringMatcher = new StringMatcher();
+    //this.stringMatcher = new StringMatcher();
 
     this.map = this.game.add.tilemap('level1');
 
@@ -115,7 +115,7 @@ Encrypt.Game.prototype = {
   /* ************************************** UPDATE STATE: ************************************************* */
   update: function () {
     var self = this;
-    this.stringMatcher.match("Hello", ["sup", "howdy", "salut"]);
+    //this.stringMatcher.match("Hello", ["sup", "howdy", "salut"]);
     /*This code was added to control frame rates for the enemy.
     * In the enemy update, the next frame is loaded when cond
     * is satisfied ~BMDK
