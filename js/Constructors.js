@@ -99,7 +99,7 @@ Player = function (currentX, currentY, game, metrics, score) {
 
 Player.prototype = {
 
-    /*use item from bag on a specified target - will call the object's "use()" method
+    /**use item from bag on a specified target - will call the object's "use()" method
      due to small number of objects, will use a switch case to handle usage */
     // modified by Iva 07.02.2015
     use: function (item) {

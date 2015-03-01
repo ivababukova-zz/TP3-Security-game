@@ -239,7 +239,14 @@ Encrypt.Game.prototype = {
     this.player.sprite.anchor.setTo(0.5, 0.5);
 
     //move player with cursor keys
-    this.cursors = this.game.input.keyboard.createCursorKeys();
+    //this.cursors = this.game.input.keyboard.createCursorKeys();
+    this.cursors = {
+                  up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
+                  down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
+                  right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
+                  left: this.game.input.keyboard.addKey(Phaser.Keyboard.A)
+              };
+
   },
 
   //create an enemy
