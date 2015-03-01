@@ -41,6 +41,7 @@ Encrypt.Preload.prototype = {
     this.load.spritesheet ('enemy', 'assets/images/Animations/EnemySpriteSheet.png', 55, 61, 5); // BMDK: - Added enemy spritesheet
 
     //main menu images
+    this.load.image ('logo', 'assets/images/EncryptLogo.png');
     this.load.image ('space', 'assets/images/BackDrop.png');
     this.load.image ('space2', 'assets/images/MLetters.png');
 

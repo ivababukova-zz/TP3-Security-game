@@ -27,11 +27,8 @@ Encrypt.MainMenu.prototype = {
         //BMDK:- Letters are given other direction of scrolling
         this.foreground.autoScroll (0, 20);
 
-        text = "WELCOME TO 3NCRYPT";
-        style = {font: "35px Serif", fill: "#fff", align: "center"};
-        var welcomeLabel = this.game.add.text(this.game.width / 2, this.game.height - 500, text, style);
-        welcomeLabel.anchor.set(0.5);
-
+        // ad logo here
+        this.logo = this.game.add.sprite(this.game.width- 525 ,this.game.height - 575, 'logo');
 
         text =  "You are on a spaceship whose mission is to colonize Mars\n" +
                 "When you approach the planet the native aliens attack the spaceship.\n" +
