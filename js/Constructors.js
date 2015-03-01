@@ -206,7 +206,16 @@ this.isstuck = false;
 this.isstuckcount = 0;
 
 // @iva: the enemy's dictionary with most used passwords:
-this.passwordsDictionary = ["letmein", "00000000", "qwerty", "12345678", "12345", "monkey", "123123", "password", "abc123"];
+this.passwordsDictionary = {
+    letmein:1,
+    00000000:1,
+    qwerty:1,
+    12345678:1,
+    12345:1,
+    monkey:1,
+    123123:1,
+    password:1,
+    abc123: 1};
 // visibility - set to true?
 this.isVisible = true;
 //collidable set to true
@@ -458,8 +467,7 @@ _moveInNextDirection: function(){
         // add a function to the door to send the set passwords to the enemy array
         door.keylog = function( password, enemy ){
 
-            console.log(enemy);
-            enemy.passwordsDictionary.push(password);
+            enemy.addPasswordToDictionary(password);
         }
     },
 
@@ -477,7 +485,40 @@ _moveInNextDirection: function(){
 
     infect: function(room){
         //TODO: add implementation
+    },
+    /**
+     * Method used to add a password to the enemy's dictionary
+     * @param: password - the password to store
+     * */
+    addPasswordToDictionary: function(password){
+
+
+        if(typeof(password) === "string") {
+
+            // check if it's in the password array or not
+            if (this.passwordsDictionary.hasOwnProperty(password)) {
+                //add one to its value
+                this.passwordsDictionary[password] += 1;
+            }
+            else
+            //otherwise, initialise it to 1
+                this.passwordsDictionary[password] = 1;
+        }
+
+    },
+    /**
+     * Method that checks whether the enemy has a password in its dictionary or not
+     * @param: password - the password to be checked
+     * @returns: true if it contains the password, false otherwise
+     * */
+    hasPassword: function( password ){
+
+        if( this.passwordsDictionary.hasOwnProperty(password))
+            return true;
+
+        return false;
     }
+
 /* Method not used anymore; keeping it in to remember how the infections would work
     breakDoor: function () {
 
