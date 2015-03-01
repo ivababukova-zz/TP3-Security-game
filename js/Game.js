@@ -195,7 +195,7 @@ Encrypt.Game.prototype = {
     this.getCurrentRoom(this.enemy);
 
   },
-/*
+
   enemyWaitsOnDoor: function () {
     this.setEnemyUnmovable();
     this.getWaitOnDoorTime();
@@ -209,7 +209,7 @@ Encrypt.Game.prototype = {
     timer.start();
     this.changeDoorState(currentDoorEnemy, 'opening');
   },
-*/
+
   // this function is used in Game.js update
   setEnemyMovable: function () {
     this.enemy.isMovable = true;
@@ -939,6 +939,7 @@ Encrypt.Game.prototype = {
       currentDoorEnemy = door;
       flagEnemyOnDoor = true;
       this.getWaitOnDoorTime();
+      console.log ("enemy will wait " + enemyWaitOnDoorTime);
       this.game.time.events.add(enemyWaitOnDoorTime, this.setEnemyMovable, this); // @iva: the waiting time is the entropy value mult by 4
     }
   },
@@ -950,7 +951,7 @@ Encrypt.Game.prototype = {
     // see whether we have the password stored in the enemy dictionary:
     for (var i = 0; i < this.enemy.passwordsDictionary.length; i++) {
       if (currentDoorEnemy.password === this.enemy.passwordsDictionary[i]) {
-        enemyWaitOnDoorTime = 100; // the enemy waits only 1 second if it has the right password
+        enemyWaitOnDoorTime = 1000; // the enemy waits only 1 second if it has the right password
         found = 1;
       }
       if (found) {
@@ -962,7 +963,7 @@ Encrypt.Game.prototype = {
       enemyWaitOnDoorTime = 500; // the waiting time on doors without password is 10 seconds
     }
     else if (!found){
-      enemyWaitOnDoorTime = this.getEntropy(currentDoorEnemy.password) * 1.5 * 100; // wait time = entropy * 2500 seconds
+      enemyWaitOnDoorTime = this.getEntropy(currentDoorEnemy.password) * 0.8 * 100; // wait time = entropy * 2500 seconds
       this.enemy.passwordsDictionary.push(currentDoorEnemy.password); // add this password to the dictionary
     }
   },
