@@ -452,6 +452,27 @@ _moveInNextDirection: function(){
 
     putKeyLogger: function(door){
         //TODO: add implementation
+        //add property to the door object
+        door.hasKeylogger = true;
+
+        // add a function to the door to send the set passwords to the enemy array
+        door.keylog = function( password, enemy ){
+
+            console.log(enemy);
+            enemy.passwordsDictionary.push(password);
+        }
+    },
+
+    /**
+     * Method that returns true if the enemy is going to keylog a door, and false if not
+     * */
+    willKeylog: function(){
+
+        var infectionChance = Math.random();
+
+        if( infectionChance < this.loggerChance)
+            return true;
+        return false;
     },
 
     infect: function(room){

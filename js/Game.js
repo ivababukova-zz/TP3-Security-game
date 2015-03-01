@@ -110,6 +110,8 @@ Encrypt.Game.prototype = {
     document.getElementById("esc").addEventListener("click", this.closePopup.bind(this));
     document.getElementById("resetPassword").addEventListener("click", this.resetPassword.bind(this));
     document.getElementById ("showAllHints").addEventListener ("click", this.displayHintsCollected.bind (this));
+
+    console.log();
   },
 
   /* ************************************** UPDATE STATE: ************************************************* */
@@ -551,6 +553,12 @@ Encrypt.Game.prototype = {
           doorsCollidable = false;
           doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
+          //Andi: keylogger functionality
+          if( currentDoor.hasOwnProperty("hasKeylogger"))
+            if(currentDoor.hasKeylogger) {
+              currentDoor.keylog(this._value, self.enemy);
+            }
+
           self.scoreSystem.scorePassword(self.getEntropy(this._value)); /*Andi: adding the password to the score & metrics systems*/
           self.metricsSystem.addPassword(this._value, self.getEntropy(this._value), currentDoor.z);
           this._hiddenInput.value = '';
@@ -560,6 +568,13 @@ Encrypt.Game.prototype = {
             doorSound.play();
             /*BMDK: call to function to open door when password is successful*/
             self.changeDoorState(currentDoor,'opening');
+
+            //Andi: keylogger functionality
+            if( currentDoor.hasOwnProperty("hasKeylogger"))
+              if(currentDoor.hasKeylogger) {
+                currentDoor.keylog(this._value, self.enemy);
+              }
+
             doorsCollidable = false;
             //TODO: Confirm that currentDoor.z is the door id & add refusal of passwords not conforming with door policy
             self.metricsSystem.addUsedPassword(this._value, currentDoor.z); //Andi: adding the already set up password to the metrics system;
@@ -958,6 +973,11 @@ Encrypt.Game.prototype = {
     if (doorsCollidableEnemy === true && flagEnemyOnDoor === true) {
       this.setEnemyUnmovable();
       currentDoorEnemy = door;
+
+      // Andi: add keylogger if the player is unlucky enough
+      if( this.enemy.willKeylog() )
+        this.enemy.putKeyLogger(door);
+
       flagEnemyOnDoor = true;
       this.getWaitOnDoorTime();
       console.log ("enemy will wait " + enemyWaitOnDoorTime);
