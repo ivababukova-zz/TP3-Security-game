@@ -3,15 +3,20 @@
  */
 Encrypt = Encrypt || {};
 
+var mainMenuMusic = null;
+
 Encrypt.MainMenu = function(){};
 
 Encrypt.MainMenu.prototype = {
 
     create: function() {
 	
-		    //play main menu music
-	      this.music = this.game.add.audio ('music');
-        this.music.play ();
+		//play main menu music
+        if( mainMenuMusic === null ) {
+            mainMenuMusic = this.game.add.audio('music');
+            mainMenuMusic.play();
+        }
+
 
         //show the space tile, repeated: - (BMDK - Updated to our backdrop)
         this.background = this.game.add.tileSprite (0, 0, this.game.width, this.game.height, 'space');
@@ -48,7 +53,7 @@ Encrypt.MainMenu.prototype = {
     },
 
     startGame: function () {
-		    this.music.stop ();
+        mainMenuMusic.stop ();
         this.game.state.start ('Game');
     }
 };
