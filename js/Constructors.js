@@ -143,6 +143,21 @@ Player.prototype = {
 
 
     },
+
+    /**
+     * Method for when the user wants to remove the keylogger on a door; should be called through a button on the input form
+     * @param: door - the door to test & remove keylogger
+     * */
+    removeKeylogger: function(door){
+
+      if(door.hasOwnProperty("hasKeylogger") && this.antikeyLoggerBag.length > 0){
+
+          if(door.hasKeylogger === true) {
+              door.hasKeylogger = false;
+              this.antikeyLoggerBag.splice(this.antikeyLoggerBag.length-1, 1);
+          }
+      }
+    },
     /*
      * method to add an item to the player's bag; assume item is a string saying what type of item we're adding
      * */
