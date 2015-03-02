@@ -1005,7 +1005,8 @@ Encrypt.Game.prototype = {
     // see whether we have the password stored in the enemy dictionary
     if( this.enemy.hasPassword(currentDoorEnemy.password) ) {
       found = true;
-      enemyWaitOnDoorTime = 1000;// the enemy waits only 1 second if it has the right password
+      enemyWaitOnDoorTime = 1000;// the enemy waits only 1 second if it has the right
+      enemyWaitOnDoorTime -= this.enemy.passwordsDictionary[currentDoorEnemy.password] * 10;
     }
     // would be great if we could implement a waiting bar on top of the enemy when he waits
     if (currentDoorEnemy.password === 'null' && !found) {
