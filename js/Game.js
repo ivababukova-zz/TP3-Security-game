@@ -65,18 +65,17 @@ Encrypt.Game.prototype = {
 
 
     /* create a button for viewing the pickedHints and tips collected so far; @iva */
-    this.hintsButton = this.game.add.button (535, 10, 'hintButtons', this.manageHintsPopup, this, 0, 1, 0, 0);
+    this.hintsButton = this.game.add.button(535, 10, 'hintButtons', this.manageHintsPopup, this, 0, 1, 0, 0);
     this.hintsButton.clicked = false;
     this.hintsButton.fixedToCamera = true;
 
     /* create a button for making a new note or reviewing saved passwords: @iva */
-    this.noteButton = this.game.add.button (470, 10, 'noteButtons', this.manageNote, this, 0, 1, 0, 0);
+    this.noteButton = this.game.add.button(470, 10, 'noteButtons', this.manageNote, this, 0, 1, 0, 0);
     this.noteButton.clicked = false;
     this.noteButton.fixedToCamera = true;
 
     /* create button to activate antivirus: @iva */
-    this.antivirusButton = this.game.add.button (200, 10, 'icons', this.manageAntivirus, this, null, 2, 3, null);
-    this.antivirusButton.clicked = false;
+    this.antivirusButton = this.game.add.button(200, 10, 'icons', this.manageAntivirus, this, 5, 5, 5, 5);
     this.antivirusButton.fixedToCamera = true;
 
     /* a cross over the player's head: */
@@ -87,11 +86,15 @@ Encrypt.Game.prototype = {
 
     /* create the score label */
     this.scoreString = "Score: " + this.scoreSystem.score;
-    this.scoreLabel = this.game.add.text(0, 0, this.scoreString, { font: "32px Arial", fill: "#ffffff", align: "center"});
+    this.scoreLabel = this.game.add.text(0, 0, this.scoreString, {
+      font: "32px Arial",
+      fill: "#ffffff",
+      align: "center"
+    });
     this.scoreLabel.fixedToCamera = true;
-    this.scoreLabel.cameraOffset.setTo(25,25);
+    this.scoreLabel.cameraOffset.setTo(25, 25);
 
-  
+
     //create sounds used elsewhere in the gam
     doorSound = this.game.add.audio('doorSound');
     pickupSound = this.game.add.audio('pickUpSound');
@@ -110,7 +113,8 @@ Encrypt.Game.prototype = {
     // Esc and password reset buttons
     document.getElementById("esc").addEventListener("click", this.closePopup.bind(this));
     document.getElementById("resetPassword").addEventListener("click", this.resetPassword.bind(this));
-    document.getElementById ("showAllHints").addEventListener ("click", this.displayHintsCollected.bind (this));
+    document.getElementById("showAllHints").addEventListener("click", this.displayHintsCollected.bind(this));
+    document.getElementById("antiKeyLogButton").addEventListener("click", this.applyAntiKeyLogger.bind(this));
 
     console.log();
   },
@@ -119,12 +123,12 @@ Encrypt.Game.prototype = {
   update: function () {
     var self = this;
     /*This code was added to control frame rates for the enemy.
-    * In the enemy update, the next frame is loaded when cond
-    * is satisfied ~BMDK
-    */
+     * In the enemy update, the next frame is loaded when cond
+     * is satisfied ~BMDK
+     */
     enemyFrameRate += 1;
-    if (enemyFrameRate%3 === 0){
-      enemyFrame +=1;
+    if (enemyFrameRate % 3 === 0) {
+      enemyFrame += 1;
     }
     //collision
     if (fPause === true) {
@@ -132,8 +136,7 @@ Encrypt.Game.prototype = {
       return;
     }
 
-    if (this.game.input.activePointer.justReleased())
-    {
+    if (this.game.input.activePointer.justReleased()) {
       this.input.focus();
     }
 
@@ -142,16 +145,16 @@ Encrypt.Game.prototype = {
     }
 
     if (doorsCollidableEnemy === true) {
-      this.game.physics.arcade.collide (this.enemy.sprite, this.doorBlocks);
+      this.game.physics.arcade.collide(this.enemy.sprite, this.doorBlocks);
     }
 
-    this.game.physics.arcade.collide (this.player.sprite, this.blockedLayer);   // set up collision with this layer
-    this.game.physics.arcade.collide (this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
-    this.game.physics.arcade.collide (this.enemy.sprite, this.player.sprite); // BMDK: Added collision between enemy and player
-    this.game.physics.arcade.overlap (this.player.sprite, this.items, this.pickupItem, null, this);
+    this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
+    this.game.physics.arcade.collide(this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
+    this.game.physics.arcade.collide(this.enemy.sprite, this.player.sprite); // BMDK: Added collision between enemy and player
+    this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
 
-    this.flagEnter = this.game.physics.arcade.overlap (this.player.sprite, this.doors, this.enterDoor, null, this);
-    flagEnemyOnDoor = this.game.physics.arcade.overlap (this.enemy.sprite, this.doors, this.enterDoorEnemy, null, this);
+    this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
+    flagEnemyOnDoor = this.game.physics.arcade.overlap(this.enemy.sprite, this.doors, this.enterDoorEnemy, null, this);
 
     // when come out the door, check the room.
     this.updateRoomHighlighting();
@@ -159,7 +162,7 @@ Encrypt.Game.prototype = {
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
     //Andi: slowing player down in infected rooms
-    if( currentPlayerRoom.properties.infected ) {
+    if (currentPlayerRoom.properties.infected) {
       var speed = 200;
     }
     else {
@@ -176,12 +179,12 @@ Encrypt.Game.prototype = {
     this.game.world.bringToTop(this.cross);
 
     // if the enemy is in a different room than the player is
-    if( this.enemy.currentRoom !== this.player.currentRoom){
+    if (this.enemy.currentRoom !== this.player.currentRoom) {
       // keep going on the path previously had
       // the enemy can collide with a door when he's not in the same room as the player
-      if(!doorJustOpenedEnemy)
+      if (!doorJustOpenedEnemy)
         doorsCollidableEnemy = true;
-      if(this.enemy.needNewPath){
+      if (this.enemy.needNewPath) {
         //get it
         this.getEnemyPath();
         //and reset the value
@@ -191,13 +194,13 @@ Encrypt.Game.prototype = {
 
     }
     //if he is in the same room
-    else{
-        // update his path on every tick - less efficient in terms of computation, but gets to player faster
+    else {
+      // update his path on every tick - less efficient in terms of computation, but gets to player faster
       /*Andi: set to false so that the enemy won't attempt to go through doors when they're in the same room*/
-        doorsCollidableEnemy = false;
-        this.getEnemyPath();
-        // make sure he's at the first element in the path
-        this.enemy.pathPosition = 1;
+      doorsCollidableEnemy = false;
+      this.getEnemyPath();
+      // make sure he's at the first element in the path
+      this.enemy.pathPosition = 1;
     }
     // if the enemy needs a path
     this.enemy.update();
@@ -237,12 +240,12 @@ Encrypt.Game.prototype = {
 
   //create player
   createPlayer: function () {
-    this.player = new Player(300,500, this.game, this.scoreSystem);
+    this.player = new Player(300, 500, this.game, this.scoreSystem);
 
-    this.player.sprite.animations.add('down', [1,2,3,4,5,6,7,8], 14, true, true);
-    this.player.sprite.animations.add('up',  [10,11,12,13,14,15,16,17], 14, true, true);
-    this.player.sprite.animations.add('right', [19,20,21,22,23,24,25,26], 14, true, true);
-    this.player.sprite.animations.add('left',    [28,29,30,31,32,33,34,35], 14, true, true);
+    this.player.sprite.animations.add('down', [1, 2, 3, 4, 5, 6, 7, 8], 14, true, true);
+    this.player.sprite.animations.add('up', [10, 11, 12, 13, 14, 15, 16, 17], 14, true, true);
+    this.player.sprite.animations.add('right', [19, 20, 21, 22, 23, 24, 25, 26], 14, true, true);
+    this.player.sprite.animations.add('left', [28, 29, 30, 31, 32, 33, 34, 35], 14, true, true);
     //this.player.animations.add('static', [0], 1, true, true);
 
     // made player centered, which fixes room highlighting problems. A.M.
@@ -251,16 +254,16 @@ Encrypt.Game.prototype = {
     //move player with cursor keys
     //this.cursors = this.game.input.keyboard.createCursorKeys();
     this.cursors = {
-                  up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
-                  down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
-                  right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
-                  left: this.game.input.keyboard.addKey(Phaser.Keyboard.A)
-              };
+      up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
+      down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
+      right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
+      left: this.game.input.keyboard.addKey(Phaser.Keyboard.A)
+    };
 
   },
 
   //create an enemy
-  createEnemy: function() {
+  createEnemy: function () {
     this.enemy = new Enemy(600, 500, this.game, this.player, this.backgroundlayer);
     this.enemy.sprite.anchor.setTo(0.5, 0.5);
   },
@@ -325,7 +328,7 @@ Encrypt.Game.prototype = {
 
   },
 
-  createDoorBlocks: function(){
+  createDoorBlocks: function () {
     this.doorBlocks = this.game.add.group();
     this.doorBlocks.enableBody = true;
 
@@ -367,12 +370,12 @@ Encrypt.Game.prototype = {
     }, this);
   },
 
-/********************* POLICY METHODS ************************
+  /********************* POLICY METHODS ************************
 
-  /** When found add the new policy
+   /** When found add the new policy
    * @param {object} policy
    */
-  addPolicy: function(policy){
+  addPolicy: function (policy) {
     this.player.addPolicy(policy);
     policy.destroy();
   },
@@ -380,16 +383,16 @@ Encrypt.Game.prototype = {
    * @param {string} the color of a policy
    * @return {string} rules policy contains
    */
-  retrievePolicyRules: function(colour){
+  retrievePolicyRules: function (colour) {
     var policy = this.player.policies[colour];
-    return "MIN LENGTH: " + policy.minLength + "<br>MIN UPPER CASE LETTERS: " + policy.minUpper +  "<br>MIN LOWER CASE LETTERS: " + policy.minLower +
-        "<br>MIN #NUMBERS: " + policy.minNums  + "<br>MIN # of PUNCTUATION or SPEC SIGNS: " + policy.minPunctOrSpecChar;
+    return "MIN LENGTH: " + policy.minLength + "<br>MIN UPPER CASE LETTERS: " + policy.minUpper + "<br>MIN LOWER CASE LETTERS: " + policy.minLower +
+        "<br>MIN #NUMBERS: " + policy.minNums + "<br>MIN # of PUNCTUATION or SPEC SIGNS: " + policy.minPunctOrSpecChar;
   }, /**
 
-**********************************************************************/
-/*****************METHODS TO MANAGE ROOM OBJECTS**********************
-  /** Preload all room objects */
-  loadRooms: function() {
+   **********************************************************************/
+  /*****************METHODS TO MANAGE ROOM OBJECTS**********************
+   /** Preload all room objects */
+  loadRooms: function () {
     // Get all room objects
     this.rooms = this.findObjectsByType('room', this.map, 'RoomLayer');
     // find in which room(if any) the player is located
@@ -401,44 +404,44 @@ Encrypt.Game.prototype = {
   getCurrentRoom: function (entity) {
 
     // Checking each room
-    this.rooms.forEach(function(element){
+    this.rooms.forEach(function (element) {
       // Getting room's dimensions and coordinates
       var x = parseInt(element.x);
-      var y = parseInt(element.y+this.map.tileHeight);
+      var y = parseInt(element.y + this.map.tileHeight);
       var w = parseInt(element.width);
       var h = parseInt(element.height);
-      var rect = new PIXI.Rectangle(x,y,w,h);
+      var rect = new PIXI.Rectangle(x, y, w, h);
 
       // check if a player is in a room. If yes,
       // then memorise its ID and finish searching
 
-      if (rect.contains(entity.sprite.x, entity.sprite.y)){
+      if (rect.contains(entity.sprite.x, entity.sprite.y)) {
         entity.currentRoom = parseInt(element.properties.idx);
-        if( entity instanceof Enemy ) {
+        if (entity instanceof Enemy) {
           currentEnemyRoom = element;
         }
-        else if( entity instanceof Player)
-              currentPlayerRoom = element;
+        else if (entity instanceof Player)
+          currentPlayerRoom = element;
         return;
       }
     }, this);
 
   },
   /** Draws the rooms */
-  drawRooms: function() {
+  drawRooms: function () {
     var graphics; // used to store room's graph
     // one room at a time
-    this.rooms.forEach(function(element){
-    //  console.log(element);
+    this.rooms.forEach(function (element) {
+      //  console.log(element);
       // get dimensions and coordinates
       var x = parseInt(element.x);
-      var y = parseInt(element.y+this.map.tileHeight);
+      var y = parseInt(element.y + this.map.tileHeight);
       var w = parseInt(element.width);
       var h = parseInt(element.height);
       // get the state of the room
       var state = parseInt(element.properties.state);
       // generating unique room's ID. Beneficial in cases when room is not a rectangle and therefore built from multiple blocks.
-      var str = element.properties.idx.toString()+"+"+x.toString()+"+"+y.toString();
+      var str = element.properties.idx.toString() + "+" + x.toString() + "+" + y.toString();
       // if already drawn, then destroy the graph(start from scratch)
       if (this.roomGraphs[str] != undefined && this.roomGraphs[str] != null) {
         graphics = this.roomGraphs[str];
@@ -455,20 +458,20 @@ Encrypt.Game.prototype = {
       var opacity;
       if (this.player.currentRoom === parseInt(element.properties.idx)) { // player in the room
         element.properties.state = "0"; // Change to visited
-        if(element.properties.infected){ // Infected
+        if (element.properties.infected) { // Infected
           color = 0x16E91D;
           opacity = 0.5;
-        }else{
+        } else {
           return;
         }
-      } else if(state === 0){  // visited
-        if(element.properties.infected){ // Infected
+      } else if (state === 0) {  // visited
+        if (element.properties.infected) { // Infected
           color = 0x16E91D;
           opacity = 0.5;
-        }else{
+        } else {
           opacity = 0.6;
         }
-      }else if (state ===  1) { // not visited
+      } else if (state === 1) { // not visited
         color = 0x444444;
         opacity = 1;
       }
@@ -479,11 +482,34 @@ Encrypt.Game.prototype = {
     }, this);
   },
 
-  resetPassword: function(){
-    if(currentDoor.password === 'null'){
+  applyAntiKeyLogger: function () {
+    // if it is key-logged
+    if (currentDoor.hasKeylogger) {
+      // apply key-logger
+      this.player.use("AntiKeyLog");
+      // if successful
+      if (!currentDoor.hasKeylogger) {
+        document.getElementById("feedback").innerHTML = "Anti key-logger applied successfully. Now you can enter your password safely."
+        document.getElementById("keyLogIndicator").src = "assets/images/GameIcons/lockedLock.png";
+        // if unsuccessful
+      } else {
+        document.getElementById("feedback").innerHTML = "You don't have anti key-loggers available."
+      }
+      // if it is NOT key-logged
+    } else {
+      document.getElementById("feedback").innerHTML = "This door is not key-logged."
+    }
+    ;
+
+    // focus back on password entry box
+    this.input.focus();
+  },
+
+  resetPassword: function () {
+    if (currentDoor.password === 'null') {
       document.getElementById("feedback").innerHTML = "Password is not set for this door.";
       return;
-    }else if(this.player.passwordResetsAvailable === 0){
+    } else if (this.player.passwordResetsAvailable === 0) {
       document.getElementById("feedback").innerHTML = "You are out of password resets.";
       return
     }
@@ -496,7 +522,7 @@ Encrypt.Game.prototype = {
     document.getElementById("titlePwd").innerHTML = "Setup a password.";
   },
 
-  closePopup: function() {
+  closePopup: function () {
     document.getElementById("inputPwd").style.display = "none";
     document.getElementById("policyTitle").style.display = "none";
     document.getElementById("feedback").style.display = "none";
@@ -510,7 +536,7 @@ Encrypt.Game.prototype = {
   },
   /**
    ************************************************************
-  ********************ALL ABOUT THE INPUT**********************/
+   ********************ALL ABOUT THE INPUT**********************/
   createInput: function () {
     this.notes = "";
     var i = 0;
@@ -530,13 +556,13 @@ Encrypt.Game.prototype = {
       placeHolder: 'password',
       onsubmit: function () {
         // Password note is open
-        if(document.getElementById("titlePwd").innerHTML === "Type in passwords you want to save:"){
+        if (document.getElementById("titlePwd").innerHTML === "Type in passwords you want to save:") {
           // write it to the note
           self.player.note.write(this._value);
 
           //test whether the thing the user has written is close to a password he has set on a door
           var passwordsOnDoors = Object.keys(self.metricsSystem.passwords);
-          if( self.stringMatcher.simpleMatch(this._value, passwordsOnDoors) ){
+          if (self.stringMatcher.simpleMatch(this._value, passwordsOnDoors)) {
             //Andi: call the score system to penalise player for writing down passwords
             self.scoreSystem.scorePasswordWriteDown(self.getEntropy(this._value));
 
@@ -552,7 +578,7 @@ Encrypt.Game.prototype = {
           return;
         }
         // when the user input password and enter 'Enter' key
-        if(!this.approved){
+        if (!this.approved) {
           //Need to check this, bit of a hack, but it prevents users entering passwords to DB
           // and to the metrics system when they type AND/OR hit enter during regular gameplay
           if (document.getElementById("inputPwd").style.display !== "none") {
@@ -561,18 +587,18 @@ Encrypt.Game.prototype = {
           return;
         }
         if (currentDoor.password === 'null') {
-          self.changeDoorState(currentDoor,'opening');
+          self.changeDoorState(currentDoor, 'opening');
           doorSound.play();
           doorsCollidable = false;
           doorJustOpened = true; //BMDK: track that door opened
           currentDoor.password = this._value;
           //Andi: keylogger functionality
-          if( currentDoor.hasOwnProperty("hasKeylogger"))
-            if(currentDoor.hasKeylogger) {
-              currentDoor.keylog(this._value, self.enemy);
-            }
+          if (currentDoor.hasKeylogger) {
+            currentDoor.keylog(this._value, self.enemy);
+          }
 
-          self.scoreSystem.scorePassword(self.getEntropy(this._value)); /*Andi: adding the password to the score & metrics systems*/
+          self.scoreSystem.scorePassword(self.getEntropy(this._value));
+          /*Andi: adding the password to the score & metrics systems*/
           self.metricsSystem.addPassword(this._value, self.getEntropy(this._value), currentDoor.z);
           this._hiddenInput.value = '';
           self.closePopup();
@@ -580,13 +606,12 @@ Encrypt.Game.prototype = {
           if (currentDoor.password === this._value) {
             doorSound.play();
             /*BMDK: call to function to open door when password is successful*/
-            self.changeDoorState(currentDoor,'opening');
+            self.changeDoorState(currentDoor, 'opening');
 
             //Andi: keylogger functionality
-            if( currentDoor.hasOwnProperty("hasKeylogger"))
-              if(currentDoor.hasKeylogger) {
-                currentDoor.keylog(this._value, self.enemy);
-              }
+            if (currentDoor.hasKeylogger) {
+              currentDoor.keylog(this._value, self.enemy);
+            }
 
             doorsCollidable = false;
             //TODO: Confirm that currentDoor.z is the door id & add refusal of passwords not conforming with door policy
@@ -603,9 +628,9 @@ Encrypt.Game.prototype = {
         }
       },
       // Feedback generated within each key-press
-      onkeyup: function() {
+      onkeyup: function () {
         // first check if main layer is open and then check if it's not a noPolicy pop up
-        if (document.getElementById("feedback").style.display === "block"){
+        if (document.getElementById("feedback").style.display === "block") {
           //console.log(self.getEntropy(this._hiddenInput.value)[0]);//BMDK testing
           var policy = self.player.policies[currentDoor.policy];
           var feedback = "";
@@ -623,9 +648,9 @@ Encrypt.Game.prototype = {
           } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/\D/g, '').length < policy.minNums) {
             feedback = "Need more numbers.";
             // CHECK PUNCTUATION
-          } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/[a-zA-Z 0-9]+/g,'').length < policy.minPunctOrSpecChar) {
+          } else if (this._hiddenInput.value.length > 0 && this._hiddenInput.value.replace(/[a-zA-Z 0-9]+/g, '').length < policy.minPunctOrSpecChar) {
             feedback = "Need more punctuation or special character signs.";
-          } else if(this._hiddenInput.value.length > 0){ // If policy requirements are met, approve
+          } else if (this._hiddenInput.value.length > 0) { // If policy requirements are met, approve
             this.approved = true;
             feedback = "Policy requirements met.";
           }
@@ -645,60 +670,60 @@ Encrypt.Game.prototype = {
   },
   /* BMDK: - Function for calculation of password entropy*/
   getEntropy: function (pwdFeed) {
-  /* ints to represent how many characters are in each set
-  *  Note: not consistent with password policies that split into special & punctuation characters
-  */
-  var pwd = String(pwdFeed);
-  var numbersNumOf = 10;
-  var lowersNumOf = 26;
-  var uppersNumOf = 26;
-  var nonAlphaNumericsNumOf = 34; 
+    /* ints to represent how many characters are in each set
+     *  Note: not consistent with password policies that split into special & punctuation characters
+     */
+    var pwd = String(pwdFeed);
+    var numbersNumOf = 10;
+    var lowersNumOf = 26;
+    var uppersNumOf = 26;
+    var nonAlphaNumericsNumOf = 34;
 
-  /* the range of characters used */
-  var range = 0;
-  /* the length of the password */
-  var pwdLength = pwd.length;
-  /* possible feedback for the user */
+    /* the range of characters used */
+    var range = 0;
+    /* the length of the password */
+    var pwdLength = pwd.length;
+    /* possible feedback for the user */
 
 
-  /* increase range if numbers are present*/
-  if (pwd.replace(/[0-9]+/g, "").length < pwdLength) {
-    range += numbersNumOf;
-  }
-  /* increase range if lower case chars are present*/
-  if (pwd.replace(/[a-z]+/g, "").length < pwdLength) {
-    range += lowersNumOf;
-  }
-  /* increase range if upper case chars are present*/
-  if (pwd.replace(/[A-Z]+/g, "").length < pwdLength) {
-    range += uppersNumOf;
-  }
-  /* increase range if non-alphanumeric chars are present*/
-  if (pwd.replace(/\W+/g, "").length < pwdLength) {
-    range += nonAlphaNumericsNumOf;
-  }
+    /* increase range if numbers are present*/
+    if (pwd.replace(/[0-9]+/g, "").length < pwdLength) {
+      range += numbersNumOf;
+    }
+    /* increase range if lower case chars are present*/
+    if (pwd.replace(/[a-z]+/g, "").length < pwdLength) {
+      range += lowersNumOf;
+    }
+    /* increase range if upper case chars are present*/
+    if (pwd.replace(/[A-Z]+/g, "").length < pwdLength) {
+      range += uppersNumOf;
+    }
+    /* increase range if non-alphanumeric chars are present*/
+    if (pwd.replace(/\W+/g, "").length < pwdLength) {
+      range += nonAlphaNumericsNumOf;
+    }
 
-  /*bit strength calculated by log2(rangeOfChars)*lengthOfPassword*/
-  var tempLogVal = Math.log(range) / Math.log(2);
-  /*Array to hold entropy @ index 0 and user feedback at index 1 */
-  var entropy = pwdLength*tempLogVal;
-  /* Stop from returning NaN value*/
-  if (entropy > 0) {
-    return Math.floor(entropy); //Andi: returning the floor from here so that it doesn't need to get done everywhere else
-  }
-  return 0;
-},
+    /*bit strength calculated by log2(rangeOfChars)*lengthOfPassword*/
+    var tempLogVal = Math.log(range) / Math.log(2);
+    /*Array to hold entropy @ index 0 and user feedback at index 1 */
+    var entropy = pwdLength * tempLogVal;
+    /* Stop from returning NaN value*/
+    if (entropy > 0) {
+      return Math.floor(entropy); //Andi: returning the floor from here so that it doesn't need to get done everywhere else
+    }
+    return 0;
+  },
 
-  displayPasswordStrength: function(entropy){
-    if(entropy<20){
+  displayPasswordStrength: function (entropy) {
+    if (entropy < 20) {
       document.getElementById("passwordStrengthBar").style.backgroundColor = "red";
       document.getElementById("passwordStrengthBar").style.width = "10%";
       document.getElementById("passwordStrengthBar").innerHTML = "Weak";
-    }else if(entropy<100){
+    } else if (entropy < 100) {
       document.getElementById("passwordStrengthBar").style.backgroundColor = "yellow";
       document.getElementById("passwordStrengthBar").style.width = "20%";
       document.getElementById("passwordStrengthBar").innerHTML = "Medium";
-    }else{
+    } else {
       document.getElementById("passwordStrengthBar").style.backgroundColor = "green";
       document.getElementById("passwordStrengthBar").style.width = "30%";
       document.getElementById("passwordStrengthBar").innerHTML = "Strong";
@@ -747,8 +772,8 @@ Encrypt.Game.prototype = {
     //frontDoorSprite = this.game.add.sprite(element.x, element.y, 'frontDoor');
     var sprite = group.create(element.x, element.y, spritesheet);
     // these animation options are valid for both types of doors
-    sprite.animations.add('opening', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 17, false, true);
-    sprite.animations.add('closing', [16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0], 17, false, true);
+    sprite.animations.add('opening', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 17, false, true);
+    sprite.animations.add('closing', [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0], 17, false, true);
     sprite.animations.add('closed', [0], 1, true, true);
     sprite.animations.add('opened', [], 0, true, true); // no sprite, because an opened door sprite is already drawn on the map.
 
@@ -765,24 +790,26 @@ Encrypt.Game.prototype = {
    * @param string : animation to be played
    * This function changes the current state of the doorObject to new one, specified by the string parameter
    */
-  changeDoorState: function(doorObject, string) {
+  changeDoorState: function (doorObject, string) {
     doorObject.animations.play(string);
   },
   /** Method stops movable entities from moving
    */
-  stopMotion: function(){
+  stopMotion: function () {
     var self = this;
     //self.enemy.sprite.animations.stop(); // not needed yet as can't get enemy animation to loop
-    self.enemy.sprite.body.velocity.y = 0;/* Andi: stopping the enemy first */
+    self.enemy.sprite.body.velocity.y = 0;
+    /* Andi: stopping the enemy first */
     self.enemy.sprite.body.velocity.x = 0;
 
-    self.player.sprite.animations.stop(); /* BMDK: This will stop the animations running whilst game is paused*/
+    self.player.sprite.animations.stop();
+    /* BMDK: This will stop the animations running whilst game is paused*/
     self.player.sprite.body.velocity.y = 0;
     self.player.sprite.body.velocity.x = 0;
   },
   /** Method deals with states of the doors when they are being approached, opened or left
    */
-  changeDoorStates: function(){
+  changeDoorStates: function () {
     if (this.flagEnter) {
       /*BMDK:- update doorPass to track last door action*/
       doorPass = 'in front of a door';
@@ -804,19 +831,18 @@ Encrypt.Game.prototype = {
         doorJustOpenedEnemy = !doorJustOpenedEnemy;
       }
 
-       /* BMDK:- update doorPass to track last door action */
+      /* BMDK:- update doorPass to track last door action */
       doorPass = 'went away from the door';
       doorPassEnemy = 'enemy went away from the door';
     }
   },
   /** Method deals with redrawing of the rooms
    */
-  updateRoomHighlighting: function(){
+  updateRoomHighlighting: function () {
     if (this.flagEnter) {
       this.flagSearch = true;
     }
-    else
-    {
+    else {
       if (this.flagSearch === true) {
         this.flagSearch = false;
         this.loadRooms();
@@ -827,69 +853,69 @@ Encrypt.Game.prototype = {
    * @param player
    * @param collectable
    */
-  pickupItem: function(player, collectable){
-  
+  pickupItem: function (player, collectable) {
+
     pickupSound.play(); //play sound when object is picked up
-  
-    if (collectable.type === "clue"  || (collectable.type === "info") ) {
+
+    if (collectable.type === "clue" || (collectable.type === "info")) {
       this.player.addItem(4);
-        this.showHint(player, collectable);
+      this.showHint(player, collectable);
     }
 
-    else
-      if (collectable.type === "policy") {
-        this.addPolicy(collectable);
-        this.scoreSystem.scorePolicyPickUp();
-        this.metricsSystem.addPolicyCollected(collectable.colour);
-      }
+    else if (collectable.type === "policy") {
+      this.addPolicy(collectable);
+      this.scoreSystem.scorePolicyPickUp();
+      this.metricsSystem.addPolicyCollected(collectable.colour);
+    }
 
-      // added by @iva 07.02.2015
-      else if (collectable.type === "firewall") {
-        this.player.addItem(1);
-        this.metricsSystem.addToolCollected(1);
-        collectable.destroy();
-      }
+    // added by @iva 07.02.2015
+    else if (collectable.type === "firewall") {
+      this.player.addItem(1);
+      this.metricsSystem.addToolCollected(1);
+      collectable.destroy();
+    }
 
-      // added by @iva 07.02.2015
-      else if (collectable.type === "antivirus") {
-        this.player.addItem(2);
-        this.metricsSystem.addToolCollected(2);
-        //finalscore = this.scoreSystem.score;
-        ///this.state.start('GameLost');
-        collectable.destroy();
-      }
+    // added by @iva 07.02.2015
+    else if (collectable.type === "antivirus") {
+      this.player.addItem(2);
+      this.antivirusButton.setFrames(3, 4, 3, 3);
+      this.metricsSystem.addToolCollected(2);
+      //finalscore = this.scoreSystem.score;
+      ///this.state.start('GameLost');
+      collectable.destroy();
+    }
 
-      // added by @iva 07.02.2015
-      else if (collectable.type === "AntiKeyLog") {
-        this.player.addItem(3);
-        this.metricsSystem.addToolCollected(3);
-        collectable.destroy();
-      }
+    // added by @iva 07.02.2015
+    else if (collectable.type === "AntiKeyLog") {
+      this.player.addItem(3);
+      this.metricsSystem.addToolCollected(3);
+      collectable.destroy();
+    }
     // calls the win page @iva
-    else if (collectable.type === "winkey" ) {
+    else if (collectable.type === "winkey") {
       // this.scoreSystem.setScore(this.score);
-        this.metricsSystem.addToolCollected(4);
-        //Andi: bonus for the player if the enemy is not in the same room
-        if( this.player.currentRoom != this.enemy.currentRoom )
-          this.scoreSystem.scoreEnemyNotInRoomBonus();
-        // Andi: award a bonus for how far away the enemy is from the player when winning
-        this.scoreSystem.scoreDistanceToPlayerBonus(this.enemy.pathToPlayer.length);
-        // Andi: bonus for winning the game
-        this.scoreSystem.scoreGameWon();
+      this.metricsSystem.addToolCollected(4);
+      //Andi: bonus for the player if the enemy is not in the same room
+      if (this.player.currentRoom != this.enemy.currentRoom)
+        this.scoreSystem.scoreEnemyNotInRoomBonus();
+      // Andi: award a bonus for how far away the enemy is from the player when winning
+      this.scoreSystem.scoreDistanceToPlayerBonus(this.enemy.pathToPlayer.length);
+      // Andi: bonus for winning the game
+      this.scoreSystem.scoreGameWon();
 
-        finalscore = this.scoreSystem.score;
-        this.state.start('GameWon');
-        collectable.destroy();
+      finalscore = this.scoreSystem.score;
+      this.state.start('GameWon');
+      collectable.destroy();
     }
   },
 
   /**************************************** HINTS AREA ****************************************/
-  manageHintsPopup: function(){
+  manageHintsPopup: function () {
     this.hintsButton.clicked = !this.hintsButton.clicked;
-    if(this.hintsButton.clicked){
+    if (this.hintsButton.clicked) {
       this.hintsButton.setFrames(0, 0, 0, 0);
       this.displayLastHintCollected();
-    }else{
+    } else {
       this.hintsButton.setFrames(0, 1, 0, 0);
       this.hideHintsCollected();
     }
@@ -897,11 +923,12 @@ Encrypt.Game.prototype = {
 
   /* displays the last hint that the player has collected @iva */
   displayLastHintCollected: function () {
-    document.getElementById ("hintsLayer").style.display = "block";
+    fPause = true;
+    document.getElementById("hintsLayer").style.display = "block";
     document.getElementById("showAllHints").style.display = "block";
 
     if (lastHint === "") {
-      document.getElementById ("hintsDisplay").innerHTML = "<br>" + "You haven't collected any hints yet";
+      document.getElementById("hintsDisplay").innerHTML = "<br>" + "You haven't collected any hints yet";
     }
     else {
       document.getElementById("hintsDisplay").innerHTML = "<br>" + lastHint;
@@ -912,16 +939,16 @@ Encrypt.Game.prototype = {
   displayHintsCollected: function () {
 
     // document.getElementById ("showAllHints").style.display = "none";
-    document.getElementById ("hintsTitle").innerHTML = "Hints collected so far:";
-    document.getElementById ("hintsDisplay").innerHTML = ""; // remove the lastHintCollected display
-    document.getElementById ("hintsLayer").style.display = "block";
+    document.getElementById("hintsTitle").innerHTML = "Hints collected so far:";
+    document.getElementById("hintsDisplay").innerHTML = ""; // remove the lastHintCollected display
+    document.getElementById("hintsLayer").style.display = "block";
 
     if (lastHint === "") {
-      document.getElementById ("hintsDisplay").innerHTML = "<br>" + "You haven't collected any hints yet";
+      document.getElementById("hintsDisplay").innerHTML = "<br>" + "You haven't collected any hints yet";
     }
 
     else {
-       var hintsToDisplay = pickedHints[0] === undefined ? "" : ("1. " + pickedHints[0]);
+      var hintsToDisplay = pickedHints[0] === undefined ? "" : ("1. " + pickedHints[0]);
 
       var i = 1;
       while (i < pickedHints.length) {
@@ -934,7 +961,8 @@ Encrypt.Game.prototype = {
 
   /* @iva hides the window with the hints */
   hideHintsCollected: function () {
-    document.getElementById ("hintsTitle").innerHTML = "Last hint collected:"; // the right title when the hints menu is opened again;
+    fPause = false;
+    document.getElementById("hintsTitle").innerHTML = "Last hint collected:"; // the right title when the hints menu is opened again;
     document.getElementById("hintsLayer").style.display = "none"
   },
 
@@ -943,23 +971,23 @@ Encrypt.Game.prototype = {
    * @param player
    * @param collectable
    */
-  showHint: function(player, collectable) {
+  showHint: function (player, collectable) {
     var found = false; // false if the user has picked hint for first time
     var hintsArray = [];
     var self = this;
-    hintsArray.push ("Don't share your passwords with anyone");
-    hintsArray.push ("Use combination of small and big letters, numbers and special characters");
-    hintsArray.push ("Don't ever use same passwords on multiple websites");
-    hintsArray.push ("Don't include personal information in your passwords");
-    hintsArray.push ("Create passwords easy to remember but hard to guess");
-    hintsArray.push ("Make your passwords at least 8 characters long");
-    hintsArray.push ("Don't let your browser remember the password for you");
-    hintsArray.push ("Always log off if you leave your device and anyone is around");
+    hintsArray.push("Don't share your passwords with anyone");
+    hintsArray.push("Use combination of small and big letters, numbers and special characters");
+    hintsArray.push("Don't ever use same passwords on multiple websites");
+    hintsArray.push("Don't include personal information in your passwords");
+    hintsArray.push("Create passwords easy to remember but hard to guess");
+    hintsArray.push("Make your passwords at least 8 characters long");
+    hintsArray.push("Don't let your browser remember the password for you");
+    hintsArray.push("Always log off if you leave your device and anyone is around");
 
     var randomIndex = Math.floor(Math.random() * (hintsArray.length) + 0); // gives random number between 0 and the length of the array
     var hint = hintsArray [randomIndex];
 
-    for (var i = 0; i<pickedHints.length; i++) {
+    for (var i = 0; i < pickedHints.length; i++) {
       if (pickedHints[i] === hint) {
         found = true;
         break;
@@ -972,11 +1000,11 @@ Encrypt.Game.prototype = {
     lastHint = hint;
 
     // display hint:
-    var style = { font: "20px Serif", fill: "#000000", align: "center" };
-    var text2 = this.game.add.text (this.player.sprite.x - 200, this.player.sprite.y, hint, style);
+    var style = {font: "20px Serif", fill: "#000000", align: "center"};
+    var text2 = this.game.add.text(this.player.sprite.x - 200, this.player.sprite.y, hint, style);
     this.time.events.add(4000, text2.destroy, text2);  // makes the text disappear after some time
     this.metricsSystem.addHintCollected(randomIndex); // added by Bryan to store the fact that ed info was collected
-    collectable.destroy ();
+    collectable.destroy();
 
   },
 
@@ -988,12 +1016,13 @@ Encrypt.Game.prototype = {
       currentDoorEnemy = door;
 
       // Andi: add keylogger if the player is unlucky enough
-      if( this.enemy.willKeylog() )
+
+      if (this.enemy.willKeylog())
         this.enemy.putKeyLogger(door);
 
       flagEnemyOnDoor = true;
       this.getWaitOnDoorTime();
-      console.log ("enemy will wait " + enemyWaitOnDoorTime);
+      console.log("enemy will wait " + enemyWaitOnDoorTime);
       this.game.time.events.add(enemyWaitOnDoorTime, this.setEnemyMovable, this); // @iva: the waiting time is the entropy value mult by 4
     }
   },
@@ -1003,7 +1032,7 @@ Encrypt.Game.prototype = {
   getWaitOnDoorTime: function () {
     var found = false;
     // see whether we have the password stored in the enemy dictionary
-    if( this.enemy.hasPassword(currentDoorEnemy.password) ) {
+    if (this.enemy.hasPassword(currentDoorEnemy.password)) {
       found = true;
       enemyWaitOnDoorTime = 1000;// the enemy waits only 1 second if it has the right
       enemyWaitOnDoorTime -= this.enemy.passwordsDictionary[currentDoorEnemy.password] * 10;
@@ -1012,7 +1041,7 @@ Encrypt.Game.prototype = {
     if (currentDoorEnemy.password === 'null' && !found) {
       enemyWaitOnDoorTime = 500; // the waiting time on doors without password is 10 seconds
     }
-    else if (!found){
+    else if (!found) {
       enemyWaitOnDoorTime = this.getEntropy(currentDoorEnemy.password) * 0.8 * 100; // wait time = entropy * 2500 seconds
       this.enemy.addPasswordToDictionary(currentDoorEnemy.password); // add this password to the dictionary
     }
@@ -1047,6 +1076,13 @@ Encrypt.Game.prototype = {
         else {
           document.getElementById("titlePwd").innerHTML = "Input password";
         }
+        // check if key logger is present
+        if (currentDoor.hasKeylogger) {
+          document.getElementById("keyLogIndicator").src = "assets/images/GameIcons/unlockedLock.png";
+        } else {
+          document.getElementById("keyLogIndicator").src = "assets/images/GameIcons/lockedLock.png";
+        }
+
         document.getElementById("policyTitle").style.color = door.policy;
         document.getElementById("policyRules").innerHTML = this.retrievePolicyRules(door.policy);
         // display password pop up
@@ -1130,16 +1166,20 @@ Encrypt.Game.prototype = {
     else {
       character.animations.stop();
       if (lastKnownPlayerDirection [0] === 'up') {
-        character.frame = 9; /* leave player facing up*/
+        character.frame = 9;
+        /* leave player facing up*/
       }
       else if (lastKnownPlayerDirection [0] === 'down') {
-        character.frame = 0; /* leave player facing down*/
+        character.frame = 0;
+        /* leave player facing down*/
       }
       else if (lastKnownPlayerDirection [0] === 'left') {
-        character.frame = 27; /* leave player facing left*/
+        character.frame = 27;
+        /* leave player facing left*/
       }
       else if (lastKnownPlayerDirection [0] === 'right') {
-        character.frame = 18; /* leave player facing right*/
+        character.frame = 18;
+        /* leave player facing right*/
       }
     }
     this.welcomeLabel.destroy();
@@ -1149,7 +1189,7 @@ Encrypt.Game.prototype = {
   /**
    * Andi: method to get a path for the enemy
    * */
-  getEnemyPath: function( ){
+  getEnemyPath: function () {
 
     //get its tiles
     var currentTileX = this.backgroundlayer.getTileX(this.enemy.sprite.x);
@@ -1166,11 +1206,11 @@ Encrypt.Game.prototype = {
    * Andi: function called in the callback function of the find path algorithm
    * Sets the enemy's path to the player to that of the path just found
    * */
-  setNewPath: function(path){
+  setNewPath: function (path) {
     this.enemy.pathToPlayer = path;
   },
 
-  findPathTo: function(enemyX, enemyY, playerX, playerY) {
+  findPathTo: function (enemyX, enemyY, playerX, playerY) {
 
     var self = this;
     this.pathfinder.setCallbackFunction(function (path) {
@@ -1178,7 +1218,7 @@ Encrypt.Game.prototype = {
       self.setNewPath(path);
     });
 
-    this.pathfinder.preparePathCalculation([enemyX, enemyY], [playerX,playerY]);
+    this.pathfinder.preparePathCalculation([enemyX, enemyY], [playerX, playerY]);
     this.pathfinder.calculatePath();
   },
 
@@ -1203,27 +1243,34 @@ Encrypt.Game.prototype = {
     this.closePopup();
   },
 
-  manageNote: function(){
+  manageNote: function () {
     // Switch
     this.noteButton.clicked = !this.noteButton.clicked;
-    if(this.noteButton.clicked){
+    if (this.noteButton.clicked) {
       this.noteButton.setFrames(0, 0, 0, 0);
       this.displayNote();
-    }else{
+    } else {
       this.noteButton.setFrames(0, 1, 0, 0);
       this.hideNote();
       return;
     }
   },
 
-  manageAntivirus: function(){
-    this.antivirusButton.clicked = !this.antivirusButton.clicked;
-    if(this.antivirusButton.clicked){
-      this.antivirusButton.setFrames(0, 3, 0, 0);
-      this.player.disinfect();
-    }else{
-      this.antivirusButton.setFrames(0, 2, 0, 0);
+  manageAntivirus: function () {
+    // if no antivirus available
+    if (this.player.antivirusBag.length === 0) {
+      this.antivirusButton.setFrames(5, 5, 5, 5);
+      return;
+    }
+
+    this.player.disinfect();
+    if (this.player.antivirusBag.length === 0) {
+      this.antivirusButton.setFrames(5, 5, 5, 5);
+    }
+    else {
+      this.antivirusButton.setFrames(3, 4, 3, 3);
     }
   }
+
 
  };

@@ -37,7 +37,11 @@ Encrypt.Preload.prototype = {
 
     this.load.spritesheet ('startButtons','assets/images/ButtonImages/startButtonSpriteSheet.png', 141, 65, 2 );
 
-    this.load.spritesheet ('mainPageButtons','assets/images/ButtonImages/mainPageButtonSpriteSheet.png', 141, 65, 2 );
+    this.load.spritesheet ('skipButtons','assets/images/ButtonImages/skipButtonSpriteSheet.png', 141, 65, 2 );
+
+    this.load.spritesheet ('nextArrow','assets/images/ButtonImages/arrowsNextSpritesheet.png', 141, 65, 2 );
+
+    this.load.spritesheet ('previousArrow','assets/images/ButtonImages/arrowsPreviousSpriteSheet.png', 141, 65, 2 );
 
     this.load.spritesheet ('noteButtons','assets/images/ButtonImages/noteButtonSpriteSheet.png', 56, 58, 2 );
 
@@ -52,6 +56,15 @@ Encrypt.Preload.prototype = {
     this.load.image ('logo', 'assets/images/EncryptLogo.png');
     this.load.image ('space', 'assets/images/BackDrop.png');
     this.load.image ('space2', 'assets/images/MLetters.png');
+
+    // instruction pages
+    this.load.image ('firstInstructionPage', 'assets/images/firstPageOfInstructions.png');
+    this.load.image ('secondInstructionPage', 'assets/images/secondPageOfInstructions.png');
+    this.load.image ('thirdInstructionPage', 'assets/images/thirdPageOfInstructions.png');
+    this.load.image ('fourthInstructionPage', 'assets/images/fourthPageOfInstructions.png');
+    this.load.image ('fifthInstructionPage', 'assets/images/fifthPageOfInstructions.png');
+    this.load.image ('sixthInstructionPage', 'assets/images/sixthPageOfInstructions.png');
+    this.load.image ('seventhInstructionPage', 'assets/images/seventhPageOfInstructions.png');
 
     // buttons:
     // this.load.spritesheet ('instructionsButt', 'assets/images/ButtonImages/instrButtonSprite.png', 64, 130);

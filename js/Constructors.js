@@ -519,7 +519,7 @@ Enemy.prototype = {
     willKeylog: function(){
 
         var infectionChance = Math.random();
-
+        console.log("infectionChance " + infectionChance + " " + this.loggerChance);
         if( infectionChance < this.loggerChance)
             return true;
         return false;

@@ -42,9 +42,7 @@ Encrypt.MainMenu.prototype = {
         welcomeLabel = this.game.add.text(this.game.width / 2, this.game.height - 350, text, style);
         welcomeLabel.anchor.set(0.5);
 
-        this.instrButton = this.game.add.button (this.game.width/2 -70, this.game.height - 240, 'instrButtons', this.showInstructions, this, 1, 0);
-
-        this.startButton = this.game.add.button (this.game.width/2 - 73, this.game.height - 150, 'startButtons', this.startGame, this, 1, 0);
+        this.startButton = this.game.add.button (this.game.width/2 - 73, this.game.height - 220, 'startButtons', this.startGame, this, 1, 0);
 
         //#000000 black; #fff white
         style = {font: "20px Serif", fill: "#000000", align: "center"};
@@ -54,12 +52,8 @@ Encrypt.MainMenu.prototype = {
 
     },
 
-    showInstructions: function () {
-        this.game.state.start ('Instructions');
-    },
-
     startGame: function () {
         mainMenuMusic.stop ();
-        this.game.state.start ('Game');
+        this.game.state.start ('Instructions1');
     }
 };

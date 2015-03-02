@@ -83,7 +83,7 @@ body {
     display: none;
     top: 92%;
     left: 40%;
-    color: #FFF;
+    color: #000000;
     font-size: 25px;
 }
 #hintsTitle{
@@ -99,4 +99,14 @@ body {
     left: 5%;
     color: #fff;
     font-size: 20px;
+}
+#antiKeyLogButton {
+    position:absolute;
+    top: 87%;
+    left: 90%;
+}
+#keyLogIndicator {
+    position:absolute;
+    top: 10%;
+    left: 90%;
 }
