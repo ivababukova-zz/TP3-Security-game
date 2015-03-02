@@ -1136,7 +1136,6 @@ ScoreSystem.prototype = {
      * */
 
     scoreReset: function(entropy){
-
         this.score -= 0.5 * (entropy *10);
         //returning for the purpose of storing in the database
         return 0.5 * (entropy * 10);

@@ -487,11 +487,10 @@ Encrypt.Game.prototype = {
       document.getElementById("feedback").innerHTML = "You are out of password resets.";
       return
     }
-
     this.player.passwordResetsAvailable -= 1;
-
+    var penalty = this.scoreSystem.scoreReset(this.getEntropy(currentDoor.password)); 
     //last parameter in function call below calls the score system for a reset and returns the value of the penalty
-    this.metricsSystem.addResetPassword(currentDoor.password, currentDoor.z, this.scoreSystem.scoreReset());
+    this.metricsSystem.addResetPassword(currentDoor.password, currentDoor.z, penalty);
     currentDoor.password = 'null';
     document.getElementById("feedback").innerHTML = "Password reset completed.";
     document.getElementById("titlePwd").innerHTML = "Setup a password.";
