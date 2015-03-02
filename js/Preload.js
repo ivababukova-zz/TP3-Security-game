@@ -43,7 +43,7 @@ Encrypt.Preload.prototype = {
 
     this.load.spritesheet ('hintButtons','assets/images/ButtonImages/hintsButtonSpriteSheet.png', 56, 58, 2 );
 
-    this.load.spritesheet ('icons', 'assets/images/GameIcons/IconsSpriteSheet.png', 32, 32, 14);
+    this.load.spritesheet ('icons', 'assets/images/GameIcons/IconsSpriteSheet.png', 32, 32, 21);
 
     this.load.spritesheet ('sideDoor', 'assets/images/Animations/DoorAnimations/SideDoorAnimationFrames.png', 128, 128, 17, 0, 0);
     this.load.spritesheet ('enemy', 'assets/images/Animations/EnemySpriteSheet.png', 55, 61, 5); // BMDK: - Added enemy spritesheet
