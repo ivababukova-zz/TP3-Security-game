@@ -488,7 +488,7 @@ Encrypt.Game.prototype = {
       return
     }
     this.player.passwordResetsAvailable -= 1;
-    var penalty = this.scoreSystem.scoreReset(this.getEntropy(currentDoor.password)); 
+    var penalty = this.scoreSystem.scoreReset(this.getEntropy(currentDoor.password));
     //last parameter in function call below calls the score system for a reset and returns the value of the penalty
     this.metricsSystem.addResetPassword(currentDoor.password, currentDoor.z, penalty);
     currentDoor.password = 'null';
