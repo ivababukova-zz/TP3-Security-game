@@ -64,7 +64,7 @@ Note.prototype = {
  * ________________________________________________________________________________________________________________
  * Player area
  * */
-Player = function (currentX, currentY, game, metrics, score) {
+Player = function (currentX, currentY, game, score) {
 
     // player's location on the map
     this.currentX = currentX;
@@ -73,6 +73,8 @@ Player = function (currentX, currentY, game, metrics, score) {
     this.isCollidable = true;
     this.speed = 10.0;
     this.currentRoom = 0;
+    this.game = game;
+    this.score = score; // variable that holds a reference to the score system | used in disinfect
 
     this.firewallBag = [];  // stores: firewall objects collected from the map @iva
     this.antivirusBag = []; // stores: antivirus objects collected from the map @iva
@@ -81,8 +83,6 @@ Player = function (currentX, currentY, game, metrics, score) {
 
     this.looseNoteChance = 0.25;
     this.note = new Note();
-    this.metrics = metrics;
-    this.score = score;
     this.passwordResetsAvailable = 5;
 
     // policies dictionary: keeps track of what policies the player has access to
@@ -131,15 +131,17 @@ Player.prototype = {
      * @param: room - the room to disinfect
      * */
     disinfect: function(){
-        console.log("Called!");
-        console.log(currentPlayerRoom);
-        console.log(currentPlayerRoom.properties.infected + " " + this.antivirusBag.length )
+
         if( currentPlayerRoom.properties.infected && this.antivirusBag.length > 0 ){
 
             currentPlayerRoom.properties.infected = false;
-            console.log("Before: " + this.antivirusBag);
             this.antivirusBag.splice(this.antivirusBag.length-1, 1 );
-            console.log("After: " + this.antivirusBag);
+            // take note of this in the score system
+            this.score.scoreNeutralise("room");
+        }
+        else if(!currentPlayerRoom.properties.infected) {
+            // mark it as a fail only when the room is not infected
+            this.score.scoreNeutralise("failed");
         }
 
 
@@ -1081,20 +1083,21 @@ ScoreSystem.prototype = {
 
         if( objectName === "door"){
             this.score += 20;   // as specified in the score system doc, 20 points are added
+            this.disinfections++;
         }
         else if(objectName === "room"){
             this.score += 10;   //as above
-
+            this.disinfections++;
         }
         else if(objectName === "failed"){
             this.disinfections = 0; // set this variable back to 0, to reset the streak
         }
         else{
-            //console.log("Tie fuck? This is naething I canne disinfect!");
+           //do nothing
         }
         // give a bonus for a streak of successful disinfections
-        if( this.disinfections > 0 )
-            this.score += this.disinfections * 2; // award a basic bonus according to the number of success
+        if( this.disinfections > 1 && objectName !== "failed")
+            this.score += this.disinfections * 5; // award a basic bonus according to the number of success
     },
 
     /**

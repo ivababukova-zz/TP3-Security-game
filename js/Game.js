@@ -237,7 +237,7 @@ Encrypt.Game.prototype = {
 
   //create player
   createPlayer: function () {
-    this.player = new Player(300,500, this.game);
+    this.player = new Player(300,500, this.game, this.scoreSystem);
 
     this.player.sprite.animations.add('down', [1,2,3,4,5,6,7,8], 14, true, true);
     this.player.sprite.animations.add('up',  [10,11,12,13,14,15,16,17], 14, true, true);
