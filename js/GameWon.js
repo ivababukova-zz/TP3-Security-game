@@ -41,9 +41,17 @@ Encrypt.GameWon.prototype = {
 
 
     var backButton = this.game.add.button(this.game.width/2 -90, this.game.height - 180, 'restartButton', this.actionInstructions, this);
-},
+    this.endButton = this.game.add.button (this.game.width/2 -45, this.game.height - 220, 'endButton', this.goToQuestionaire, this);
+    this.endButton.clicked = false;
+
+  },
 
   actionInstructions: function(){
+    this.state.start("MainMenu");
+  },
+
+
+  goToQuestionaire: function(){
     checkUserStatus();
     //window.location.href='questionnaireAfter.html';
   }
