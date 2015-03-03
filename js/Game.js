@@ -63,19 +63,18 @@ Encrypt.Game.prototype = {
     this.loadRooms();
     this.createInput();
 
-
     /* create a button for viewing the pickedHints and tips collected so far; @iva */
-    this.hintsButton = this.game.add.button(560, 10, 'icons', this.manageHintsPopup, this, 14, 14, 14, 14);
+    this.hintsButton = this.game.add.button(535, 10, 'icons', this.manageHintsPopup, this, 14, 14, 14, 14);
     this.hintsButton.clicked = false;
     this.hintsButton.fixedToCamera = true;
 
     /* create a button for making a new note or reviewing saved passwords: @iva */
-    this.noteButton = this.game.add.button(560, 50, 'icons', this.manageNote, this, 15, 16, 15, 15);
+    this.noteButton = this.game.add.button(535, 70, 'icons', this.manageNote, this, 15, 16, 15, 15);
     this.noteButton.clicked = false;
     this.noteButton.fixedToCamera = true;
 
     /* create button to activate antivirus: @iva */
-    this.antivirusButton = this.game.add.button(560, 90, 'icons', this.manageAntivirus, this, 5, 5, 5, 5);
+    this.antivirusButton = this.game.add.button(535, 130, 'icons', this.manageAntivirus, this, 5, 5, 5, 5);
     this.antivirusButton.fixedToCamera = true;
 
     /* a cross over the player's head: */
@@ -782,6 +781,7 @@ Encrypt.Game.prototype = {
     Object.keys(element.properties).forEach(function (key) {
       sprite[key] = element.properties[key];
     });
+    console.log(doorID+" "+element.properties.policy);
   },
   /*************************METHODS CALLED BY UPDATE() **************************
    * @param doorObject
