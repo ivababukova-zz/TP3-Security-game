@@ -274,14 +274,6 @@ Encrypt.Game.prototype = {
     this.items = this.game.add.group();
     this.items.enableBody = true;
 
-    // CLUES
-    var clue;
-    var result = this.findObjectsByType('clue', this.map, 'objectsLayer');
-
-    result.forEach(function (element) {
-      this.createFromTiledObject(element, this.items);
-    }, this);
-
     // POLICIES
     var policy;
     result = this.findObjectsByType('policy', this.map, 'objectsLayer');
@@ -863,9 +855,10 @@ Encrypt.Game.prototype = {
 
     pickupSound.play(); //play sound when object is picked up
 
-    if (collectable.type === "clue" || (collectable.type === "info")) {
+    if (collectable.type === "info") {
       this.player.addItem(4);
       this.hintsButton.setFrames(12, 13, 12, 12);
+      // this.state.start('GameLost');
       this.showHint(player, collectable);
     }
 
@@ -888,7 +881,6 @@ Encrypt.Game.prototype = {
       this.antivirusButton.setFrames(3, 4, 3, 3);
       this.metricsSystem.addToolCollected(2);
       //finalscore = this.scoreSystem.score;
-      ///this.state.start('GameLost');
       collectable.destroy();
     }
 

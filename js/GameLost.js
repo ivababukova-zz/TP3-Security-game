@@ -37,7 +37,7 @@ Encrypt.GameLost.prototype = {
 
   },
   actionInstructions: function(){
-    this.state.start("MainMenu");
+    this.state.start("Boot");
   },
 /*
   actionInstructions: function(){

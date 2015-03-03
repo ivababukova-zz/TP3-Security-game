@@ -47,7 +47,7 @@ Encrypt.GameWon.prototype = {
   },
 
   actionInstructions: function(){
-    this.state.start("MainMenu");
+    this.state.start("Boot");
   },
 
 
