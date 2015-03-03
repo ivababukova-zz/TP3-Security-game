@@ -220,6 +220,8 @@ function generateBeforeResponse() {
             +"&a21="+responseBefore[20]+"&a22="+responseBefore[21]+"&a23="+responseBefore[22]
             +"&a24="+responseBefore[23]+"&a25="+responseBefore[24]+"&a26="+responseBefore[25]
             +"&a27="+responseBefore[26]+"&a28="+responseBefore[27]+"&a29="+responseBefore[28]
-            +"&a30="+responseBefore[29]+"&a31="+responseBefore[30]+"&a32="+responseBefore[31],true);
+            +"&a30="+responseBefore[29]+"&a31="+responseBefore[30]+"&a32="+responseBefore[31]
+            +"&a33="+responseBefore[32]+"&a34="+responseBefore[33]+"&a35="+responseBefore[34]
+            +"&a36="+responseBefore[35]+"&a37="+responseBefore[36]+"&a38="+responseBefore[37],true);
         xmlhttp.send();
 };
