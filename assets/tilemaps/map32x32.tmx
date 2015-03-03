@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="62" height="80" tilewidth="32" tileheight="32" nextobjectid="130">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="62" height="80" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="32x32TileSet1Encrypt" tilewidth="32" tileheight="32">
   <image source="../EncryptTileSets/32x32TileSet1Encrypt.png" width="3200" height="3200"/>
  </tileset>
@@ -25,130 +25,144 @@
   <image source="../images/winkey.png" width="32" height="32"/>
  </tileset>
  <objectgroup name="doorBlocks">
-  <object id="1" gid="6116" x="192" y="426">
+  <object gid="6116" x="192" y="426">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="2" gid="6116" x="608" y="685">
+  <object gid="6116" x="608" y="685">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="3" gid="6116" x="544" y="192">
+  <object gid="6116" x="544" y="192">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="4" gid="6116" x="1248" y="192">
+  <object gid="6116" x="1248" y="192">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="5" gid="6116" x="1248" y="800">
+  <object gid="6116" x="1248" y="800">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="6" gid="6116" x="1472" y="928">
+  <object gid="6116" x="1472" y="928">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="7" gid="6116" x="992" y="1536">
+  <object gid="6116" x="992" y="1536">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="8" gid="6116" x="768" y="1632">
+  <object gid="6116" x="768" y="1632">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="9" gid="6116" x="160" y="896">
+  <object gid="6116" x="160" y="896">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="10" gid="6116" x="768" y="2176">
+  <object gid="6116" x="768" y="2176">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="11" gid="6116" x="384" y="1966">
+  <object gid="6116" x="384" y="1966">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="12" gid="6116" x="1536" y="1804">
+  <object gid="6116" x="1536" y="1804">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="13" gid="6116" x="384" y="1451">
+  <object gid="6116" x="384" y="1451">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="14" gid="6116" x="640" y="1259">
+  <object gid="6116" x="640" y="1259">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="15" gid="6116" x="1664" y="685">
+  <object gid="6116" x="1664" y="685">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="16" gid="6116" x="1632" y="1387">
+  <object gid="6116" x="1632" y="1387">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="17" gid="6116" x="1088" y="427">
+  <object gid="6116" x="1088" y="427">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="18" gid="6116" x="1472" y="480">
+  <object gid="6116" x="1472" y="480">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="19" gid="6116" x="1024" y="1995">
+  <object gid="6116" x="1024" y="1995">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="20" gid="6116" x="1632" y="1997">
+  <object gid="6116" x="1632" y="1997">
    <properties>
     <property name="sprite" value="frontBlock"/>
     <property name="type" value="block"/>
    </properties>
   </object>
-  <object id="21" gid="6116" x="1344" y="2272">
+  <object gid="6116" x="1344" y="2272">
    <properties>
     <property name="sprite" value="sideBlock"/>
     <property name="type" value="block"/>
+   </properties>
+  </object>
+  <object x="160" y="576" width="1152" height="64">
+   <properties>
+    <property name="idx" value="10"/>
+    <property name="state" value="2"/>
+    <property name="type" value="room"/>
+   </properties>
+  </object>
+  <object x="992" y="1312" width="480" height="64">
+   <properties>
+    <property name="idx" value="10"/>
+    <property name="state" value="2"/>
+    <property name="type" value="room"/>
    </properties>
   </object>
  </objectgroup>
@@ -163,14 +177,14 @@
   </data>
  </layer>
  <objectgroup name="objectsLayer">
-  <object id="22" gid="10002" x="1120" y="416">
+  <object gid="10002" x="1120" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object id="23" gid="10002" x="1120" y="416">
+  <object gid="10002" x="1120" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -178,7 +192,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="24" gid="10002" x="224" y="416">
+  <object gid="10002" x="224" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -186,7 +200,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="25" gid="10002" x="672" y="1248">
+  <object gid="10002" x="672" y="1248">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -194,7 +208,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="26" gid="10002" x="1664" y="1375.5">
+  <object gid="10002" x="1664" y="1375.5">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="red"/>
@@ -202,7 +216,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="27" gid="10002" x="1568" y="1792">
+  <object gid="10002" x="1568" y="1792">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -210,7 +224,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="28" gid="10002" x="1696" y="672">
+  <object gid="10002" x="1696" y="672">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="red"/>
@@ -218,7 +232,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="29" gid="10002" x="640" y="672">
+  <object gid="10002" x="640" y="672">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -226,7 +240,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="30" gid="10002" x="416" y="1440">
+  <object gid="10002" x="416" y="1440">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="yellow"/>
@@ -234,7 +248,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="31" gid="10002" x="416" y="1952">
+  <object gid="10002" x="416" y="1952">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="black"/>
@@ -242,7 +256,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="41" gid="10069" x="1167" y="2217.33">
+  <object gid="10069" x="1167" y="2217.33">
    <properties>
     <property name="colour" value="red"/>
     <property name="minLength" value="8"/>
@@ -254,7 +268,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object id="42" gid="10069" x="706" y="989">
+  <object gid="10069" x="706" y="989">
    <properties>
     <property name="colour" value="yellow"/>
     <property name="minLength" value="7"/>
@@ -266,7 +280,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object id="43" gid="10069" x="1738" y="1032">
+  <object gid="10069" x="1738" y="1032">
    <properties>
     <property name="colour" value="black"/>
     <property name="minLength" value="10"/>
@@ -278,7 +292,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object id="44" gid="10070" x="127.75" y="895.25">
+  <object gid="10070" x="127.75" y="895.25">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -286,7 +300,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="45" gid="10070" x="1215.64" y="799.091">
+  <object gid="10070" x="1215.64" y="799.091">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -294,7 +308,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="46" gid="10070" x="511.909" y="192">
+  <object gid="10070" x="511.909" y="192">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -302,7 +316,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="47" gid="10070" x="1215.91" y="191.909">
+  <object gid="10070" x="1215.91" y="191.909">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -310,7 +324,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="48" gid="10070" x="1440" y="928">
+  <object gid="10070" x="1440" y="928">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="red"/>
@@ -318,7 +332,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="49" gid="10070" x="960" y="1536">
+  <object gid="10070" x="960" y="1536">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -326,7 +340,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="50" gid="10070" x="736" y="1631.94">
+  <object gid="10070" x="736" y="1631.94">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="yellow"/>
@@ -334,49 +348,49 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="52" gid="10342" x="270" y="228">
+  <object gid="10342" x="270" y="228">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object id="53" gid="10342" x="1114" y="2430">
+  <object gid="10342" x="1114" y="2430">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object id="56" gid="10343" x="1122.91" y="775.758">
+  <object gid="10343" x="1122.91" y="775.758">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
-  <object id="60" gid="10344" x="760" y="536">
+  <object gid="10344" x="760" y="536">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="61" gid="10344" x="916" y="894">
+  <object gid="10344" x="916" y="894">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="62" gid="10344" x="368" y="1744">
+  <object gid="10344" x="368" y="1744">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="63" gid="10345" x="508" y="2186">
+  <object gid="10345" x="508" y="2186">
    <properties>
     <property name="sprite" value="winkey"/>
     <property name="type" value="winkey"/>
    </properties>
   </object>
-  <object id="64" gid="10110" x="736" y="2175.94">
+  <object gid="10110" x="736" y="2175.94">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="black"/>
@@ -384,7 +398,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="65" gid="10070" x="1440" y="480">
+  <object gid="10070" x="1440" y="480">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -392,7 +406,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="66" gid="10002" x="1056" y="1984">
+  <object gid="10002" x="1056" y="1984">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="yellow"/>
@@ -400,7 +414,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="67" gid="10002" x="1664" y="1984">
+  <object gid="10002" x="1664" y="1984">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="yellow"/>
@@ -408,7 +422,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="68" gid="10070" x="1312" y="2272">
+  <object gid="10070" x="1312" y="2272">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="yellow"/>
@@ -416,86 +430,86 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="115" gid="10344" x="1399" y="869">
+  <object gid="10344" x="1399" y="869">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="116" gid="10344" x="103" y="1232">
+  <object gid="10344" x="103" y="1232">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="117" gid="10344" x="1754" y="464">
+  <object gid="10344" x="1754" y="464">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="118" gid="10344" x="1776" y="1172">
+  <object gid="10344" x="1776" y="1172">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="119" gid="10344" x="1675" y="2307">
+  <object gid="10344" x="1675" y="2307">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="120" gid="10344" x="1282" y="1646">
+  <object gid="10344" x="1282" y="1646">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="121" gid="10344" x="415" y="1100">
+  <object gid="10344" x="415" y="1100">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="123" gid="10342" x="1824" y="1469">
+  <object gid="10342" x="1824" y="1469">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object id="124" gid="10342" x="703" y="1548">
+  <object gid="10342" x="703" y="1548">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object id="125" gid="10343" x="980" y="274">
+  <object gid="10343" x="980" y="274">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
-  <object id="126" gid="10343" x="1564" y="1556">
+  <object gid="10343" x="1564" y="1556">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
-  <object id="127" gid="10343" x="1552" y="2140">
+  <object gid="10343" x="1552" y="2140">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
-  <object id="129" gid="10343" x="288" y="728">
+  <object gid="10343" x="288" y="728">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="RoomLayer" visible="0">
+ <objectgroup name="RoomLayer">
   <properties>
    <property name="idx" value="3"/>
    <property name="state" value="1"/>
@@ -505,308 +519,308 @@
    <property name="vx" value="44"/>
    <property name="vy" value="2"/>
   </properties>
-  <object id="69" x="1312" y="64" width="576" height="256">
+  <object x="1312" y="64" width="576" height="256">
    <properties>
     <property name="idx" value="3"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="70" x="608" y="64" width="640" height="256">
+  <object x="608" y="64" width="640" height="256">
    <properties>
     <property name="idx" value="2"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="71" x="128" y="64" width="416" height="256">
+  <object x="128" y="64" width="416" height="256">
    <properties>
     <property name="idx" value="1"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="72" x="1536" y="320" width="352" height="256">
+  <object x="1536" y="320" width="352" height="256">
    <properties>
     <property name="idx" value="3"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="73" x="832" y="2016" width="512" height="480">
+  <object x="832" y="2016" width="512" height="480">
    <properties>
     <property name="idx" value="4"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="74" x="128" y="1984" width="640" height="512">
+  <object x="128" y="1984" width="640" height="512">
    <properties>
     <property name="idx" value="5"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="75" x="128" y="1472" width="640" height="384">
+  <object x="128" y="1472" width="640" height="384">
    <properties>
     <property name="idx" value="6"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="76" x="1536" y="704" width="352" height="576">
+  <object x="1536" y="704" width="352" height="576">
    <properties>
     <property name="idx" value="8"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="77" x="1056" y="1408" width="832" height="288">
+  <object x="1056" y="1408" width="832" height="288">
    <properties>
     <property name="idx" value="9"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="78" x="832" y="1760" width="1152" height="128">
+  <object x="832" y="1760" width="1152" height="128">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="79" x="832" y="1216" width="160" height="544">
+  <object x="832" y="1216" width="160" height="544">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="80" x="992" y="1216" width="480" height="96">
+  <object x="992" y="1216" width="480" height="96">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="81" x="1312" y="384" width="160" height="832">
+  <object x="1312" y="384" width="160" height="832">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="82" x="160" y="384" width="1152" height="192">
+  <object x="160" y="384" width="1152" height="192">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="83" x="0" y="384" width="160" height="960">
+  <object x="0" y="384" width="160" height="960">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="84" x="160" y="1216" width="672" height="128">
+  <object x="160" y="1216" width="672" height="128">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="85" x="224" y="704" width="1024" height="448">
+  <object x="224" y="704" width="1024" height="448">
    <properties>
     <property name="idx" value="7"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="86" x="1408" y="2016" width="480" height="480">
+  <object x="1408" y="2016" width="480" height="480">
    <properties>
     <property name="idx" value="11"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="87" x="1120" y="1974" width="224" height="42">
+  <object x="1120" y="1974" width="224" height="42">
    <properties>
     <property name="idx" value="4"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="88" x="832" y="1974" width="224" height="42">
+  <object x="832" y="1974" width="224" height="42">
    <properties>
     <property name="idx" value="4"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="89" x="480" y="1942" width="288" height="42">
+  <object x="480" y="1942" width="288" height="42">
    <properties>
     <property name="idx" value="5"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="90" x="128" y="1942" width="288" height="42">
+  <object x="128" y="1942" width="288" height="42">
    <properties>
     <property name="idx" value="5"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="91" x="1408" y="1974" width="256" height="42">
+  <object x="1408" y="1974" width="256" height="42">
    <properties>
     <property name="idx" value="11"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="92" x="1728" y="1974" width="160" height="42">
+  <object x="1728" y="1974" width="160" height="42">
    <properties>
     <property name="idx" value="11"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="93" x="480" y="1432" width="288" height="42.6667">
+  <object x="480" y="1432" width="288" height="42.6667">
    <properties>
     <property name="idx" value="6"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="94" x="128" y="1432" width="288" height="42.6667">
+  <object x="128" y="1432" width="288" height="42.6667">
    <properties>
     <property name="idx" value="6"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="95" x="1056" y="1398" width="608" height="10">
+  <object x="1056" y="1398" width="608" height="10">
    <properties>
     <property name="idx" value="9"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="96" x="1536" y="1366" width="128" height="32">
+  <object x="1536" y="1366" width="128" height="32">
    <properties>
     <property name="idx" value="9"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="97" x="1726.67" y="1366" width="160" height="42">
+  <object x="1726.67" y="1366" width="160" height="42">
    <properties>
     <property name="idx" value="9"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="98" x="1760" y="662" width="128" height="42">
+  <object x="1760" y="662" width="128" height="42">
    <properties>
     <property name="idx" value="8"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="99" x="1536" y="662" width="160" height="42">
+  <object x="1536" y="662" width="160" height="42">
    <properties>
     <property name="idx" value="8"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="100" x="128" y="320" width="416" height="64">
+  <object x="128" y="320" width="416" height="64">
    <properties>
     <property name="idx" value="1"/>
     <property name="state" value="2"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="101" x="608" y="320" width="640" height="64">
+  <object x="608" y="320" width="640" height="64">
    <properties>
     <property name="idx" value="2"/>
     <property name="state" value="2"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="102" x="1536" y="576" width="352" height="64">
+  <object x="1536" y="576" width="352" height="64">
    <properties>
     <property name="idx" value="3"/>
     <property name="state" value="2"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="103" x="1536" y="1280" width="352" height="64">
+  <object x="1536" y="1280" width="352" height="64">
    <properties>
     <property name="idx" value="8"/>
     <property name="state" value="2"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="104" x="1056" y="1696" width="832" height="64">
+  <object x="1056" y="1696" width="832" height="64">
    <properties>
     <property name="idx" value="9"/>
     <property name="state" value="2"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="105" x="128" y="1856" width="640" height="64">
+  <object x="128" y="1856" width="640" height="64">
    <properties>
     <property name="idx" value="6"/>
     <property name="state" value="2"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="106" x="224" y="1152" width="1024" height="64">
+  <object x="224" y="1152" width="1024" height="64">
    <properties>
     <property name="idx" value="7"/>
     <property name="state" value="2"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="107" x="704" y="662" width="544" height="42">
+  <object x="704" y="662" width="544" height="42">
    <properties>
     <property name="idx" value="7"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="108" x="224" y="662" width="416" height="42">
+  <object x="224" y="662" width="416" height="42">
    <properties>
     <property name="idx" value="7"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="109" x="832" y="1888" width="1152" height="64">
+  <object x="832" y="1888" width="1152" height="64">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="2"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="110" x="160" y="1344" width="672" height="64">
+  <object x="64" y="1344" width="768" height="64">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="2"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="111" x="0" y="0" width="64" height="384">
+  <object x="0" y="0" width="64" height="384">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object id="112" x="0" y="1344" width="64" height="1216">
+  <object x="0" y="1344" width="64" height="1216">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>

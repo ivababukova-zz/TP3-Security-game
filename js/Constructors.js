@@ -129,9 +129,10 @@ Player.prototype = {
     /**
      * Method used to disinfect a room
      * @param: room - the room to disinfect
+     * @return: boolean - indication whether disinfection happened
      * */
     disinfect: function(){
-
+        var successful = false;
         if( currentPlayerRoom.properties.infected && this.antivirusBag.length > 0 ){
 
             currentPlayerRoom.properties.infected = false;
@@ -139,13 +140,14 @@ Player.prototype = {
             // take note of this in the score system
             this.score.scoreNeutralise("room");
             this.metrics.usedTool("antivirus", true);
+            successful = true;
         }
         else if(!currentPlayerRoom.properties.infected) {
             // mark it as a fail only when the room is not infected
             this.score.scoreNeutralise("failed");
             this.metrics.usedTool("antivirus", false);
         }
-
+        return successful;
 
     },
 

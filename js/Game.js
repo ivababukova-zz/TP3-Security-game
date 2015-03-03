@@ -918,7 +918,7 @@ Encrypt.Game.prototype = {
 
   /**************************************** HINTS AREA ****************************************/
   manageHintsPopup: function () {
-    // if no antivirus available
+    // if no hints available
     if (pickedHints.length === 0) {
       this.hintsButton.setFrames(14, 14, 14, 14);
       return;
@@ -1276,13 +1276,18 @@ Encrypt.Game.prototype = {
       this.antivirusButton.setFrames(5, 5, 5, 5);
       return;
     }
+    this.getCurrentRoom(this.player);
+    // if successful
+    if(this.player.disinfect()){
+      this.loadRooms();
 
-    this.player.disinfect();
-    if (this.player.antivirusBag.length === 0) {
-      this.antivirusButton.setFrames(5, 5, 5, 5);
-    }
-    else {
-      this.antivirusButton.setFrames(3, 4, 3, 3);
+      // Check again
+      if (this.player.antivirusBag.length === 0) {
+        this.antivirusButton.setFrames(5, 5, 5, 5);
+      }
+      else {
+        this.antivirusButton.setFrames(3, 4, 3, 3);
+      }
     }
   }
 
