@@ -30,14 +30,30 @@ Encrypt.GameLost.prototype = {
     textLabel = this.game.add.text(this.game.width / 2, this.game.height - 250 , text, style);
     textLabel.anchor.set(0.5);
 
-    var backButton = this.game.add.button(this.game.width/2 - 70, this.game.height - 200, 'restartButton', this.actionInstructions, this);
-  },
+    this.backButton = this.game.add.button(this.game.width/2 - 70, this.game.height - 150, 'restartButton', this.actionInstructions, this);
 
+    this.endButton = this.game.add.button (this.game.width/2 -45, this.game.height - 220, 'endButton', this.goToQuestionaire, this);
+    this.endButton.clicked = false;
+
+  },
   actionInstructions: function(){
+    this.state.start("MainMenu");
+  },
+/*
+  actionInstructions: function(){
+    this.endButton.clicked = !this.endButton.clicked;
+    if (this.endButton.clicked) {
+      this.endButton.setFrames(0, 0, 0, 0);
+      finalscore = 0;
+      this.state.start ('MainMenu');
+    } else {
+      this.endButton.setFrames(0, 1, 0, 0);
+    }
+  },
+*/
+  goToQuestionaire: function(){
     window.location.href='questionnaireAfter.html';
   }
-
-
 
 };
 
