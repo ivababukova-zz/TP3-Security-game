@@ -64,17 +64,17 @@ Note.prototype = {
  * ________________________________________________________________________________________________________________
  * Player area
  * */
-Player = function (currentX, currentY, game, score) {
+Player = function (currentX, currentY, game, score, metrics) {
 
     // player's location on the map
     this.currentX = currentX;
     this.currentY = currentY;
     this.isVisible = true;
     this.isCollidable = true;
-    this.speed = 10.0;
     this.currentRoom = 0;
     this.game = game;
     this.score = score; // variable that holds a reference to the score system | used in disinfect
+    this.metrics = metrics;
 
     this.firewallBag = [];  // stores: firewall objects collected from the map @iva
     this.antivirusBag = []; // stores: antivirus objects collected from the map @iva
@@ -138,10 +138,12 @@ Player.prototype = {
             this.antivirusBag.splice(this.antivirusBag.length-1, 1 );
             // take note of this in the score system
             this.score.scoreNeutralise("room");
+            this.metrics.usedTool("antivirus", true);
         }
         else if(!currentPlayerRoom.properties.infected) {
             // mark it as a fail only when the room is not infected
             this.score.scoreNeutralise("failed");
+            this.metrics.usedTool("antivirus", false);
         }
 
 
@@ -153,11 +155,18 @@ Player.prototype = {
      * */
     removeKeylogger: function(door){
 
-      if(door.hasOwnProperty("hasKeylogger") && this.antikeyLoggerBag.length > 0){
+      if(door.hasKeylogger !== undefined && this.antikeyLoggerBag.length > 0){
 
           if(door.hasKeylogger === true) {
               door.hasKeylogger = false;
               this.antikeyLoggerBag.splice(this.antikeyLoggerBag.length-1, 1);
+              //take note in the score system
+              this.score.scoreNeutralise("door");
+              this.metrics.usedTool("antikeylogger", true);
+          }
+          else {
+              this.score.scoreNeutralise("failed");
+              this.metrics.usedTool("antikeylogger", false);
           }
       }
     },
@@ -317,13 +326,11 @@ Enemy.prototype = {
                     this._moveInNextDirection();
                     //decrement the tile counter at every move
                     this.nextTileCounter--;
-                  //  console.log("________ \n I MOVED \n _______");
                 }
 
                 if (this.nextTileCounter === 0) {
                     this.needNewPath = true;
                     this.nextTileCounter = 30;
-                 //   console.log("TILE RESET!");
                 }
             }
             else {
@@ -338,7 +345,6 @@ Enemy.prototype = {
             this.needNewPath = true;
         }
 
-        // this.sprite.body.velocity.x = 10;
     },
 
     /**
@@ -519,7 +525,6 @@ Enemy.prototype = {
     willKeylog: function(){
 
         var infectionChance = Math.random();
-        console.log("infectionChance " + infectionChance + " " + this.loggerChance);
         if( infectionChance < this.loggerChance)
             return true;
         return false;
@@ -552,7 +557,6 @@ Enemy.prototype = {
     },
 
     infect: function(room){
-        //TODO: add implementation
         room.properties.infected = true;
     },
     /**
@@ -749,53 +753,6 @@ Policy = function( currentX, currentY, game, minLength, minUpper, minLower, minN
     }
     // there was no need for methods, as the attributes are set to public)
 };
-/*
- *  ________________________________________________________________________________________________________________
- *  Friend area
- * */
-
-/*Friend = function(currentX, currentY, player, game){
-
-    //location
-    this.currentX = currentX;
-    this.currentY = currentY;
-
-    this.player = player;
-    this.game = game;
-
-    this.isVisible = false;
-    this.isCollidable = true;
-    //speed attribute set to a default of 10.0
-    this.speed = 10.0;
-    // password paper set to null by default; will be assigned a clone of the actual object upon player's approval
-    this.passwordNote = new Note();
-    // permission to follow player; can be set to true after player interacts with the friend
-    this.permission = false;
-
-    //this.friend = game.add.sprite(currentX, currentY, 'friend');
-};*/
-
-/*Friend.prototype = {
-
-    // function to be called when player agrees to cooperate
-    getApproval: function(note){
-
-        // friend gets the object (needs changed to clone the object, not a direct reference to it)
-        this.passwordNote = note;
-        // permission is set to true, so that he can now follow the player around
-        this.permission = true;
-    },
-
-    //method that alters friend's speed when the player's speed is altered; speed is the speed of the player
-    changeSPeed: function(speed){
-        this.speed = speed;
-    },
-
-    // function to be called when the player moves; or handle friend movement in player movement area
-    follow: function(player){
-
-    }
-};*/
 
 MetricsSystem = function( game, approval ){
 
@@ -1035,13 +992,13 @@ MetricsSystem.prototype = {
     usedTool: function(tool, successful){
 
         if( tool instanceof Firewall){
-            this.resetPasswords["firewall"].push(successful);
+            this.toolsUsed["firewall"].push(successful);
         }
         else if( tool instanceof Antivirus){
-            this.resetPasswords["antivirus"].push(successful);
+            this.toolsUsed["antivirus"].push(successful);
         }
         else if( tool instanceof AntiKeyLogger){
-            this.resetPasswords["antikeylogger"].push(successful);
+            this.toolsUsed["antikeylogger"].push(successful);
         }
     }
 };
@@ -1099,15 +1056,6 @@ ScoreSystem.prototype = {
         if( this.disinfections > 1 && objectName !== "failed")
             this.score += this.disinfections * 5; // award a basic bonus according to the number of success
     },
-
-    /**
-     * Function used to award points to the player upon use of the firewall
-     * WOULD be great to know whether the enemy is in the same room or not; would improve accuracy of points awarded
-     * */
-    /*scoreFirewall: function(){
-        //award a base 5 points for usel; potentially increase this number so as to encourage use; PITFALL: can be used without actual need
-        this.score += 5;
-    },*/
 
     /**
      * Function used when the player goes through a door he's already set a password on (i.e. when he remembers a password he set before)
