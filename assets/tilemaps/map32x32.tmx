@@ -3,34 +3,25 @@
  <tileset firstgid="1" name="32x32TileSet1Encrypt" tilewidth="32" tileheight="32">
   <image source="../EncryptTileSets/32x32TileSet1Encrypt.png" width="3200" height="3200"/>
  </tileset>
- <tileset firstgid="10001" name="32x32ExampleSprite" tilewidth="32" tileheight="32">
-  <image source="../images/32x32ExampleSprite.png" width="1142" height="635"/>
- </tileset>
- <tileset firstgid="10666" name="FrontDoorAnimationFrames" tilewidth="32" tileheight="32">
+ <tileset firstgid="10001" name="FrontDoorAnimationFrames" tilewidth="32" tileheight="32">
   <image source="../images/Animations/DoorAnimations/FrontDoorAnimationFrames.png" width="1088" height="64"/>
  </tileset>
- <tileset firstgid="10734" name="Clue" tilewidth="32" tileheight="32">
-  <image source="../images/GameIcons/Clue.png" width="32" height="32"/>
- </tileset>
- <tileset firstgid="10735" name="policySheet" tilewidth="32" tileheight="32">
+ <tileset firstgid="10069" name="policySheet" tilewidth="32" tileheight="32">
   <image source="../images/GameIcons/PasswordPolicySheet.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="10736" name="SideDoorAnimationFrames" tilewidth="32" tileheight="32">
+ <tileset firstgid="10070" name="SideDoorAnimationFrames" tilewidth="32" tileheight="32">
   <image source="../images/Animations/DoorAnimations/SideDoorAnimationFrames.png" width="2176" height="128"/>
  </tileset>
- <tileset firstgid="11008" name="AntiKeyLogger" tilewidth="32" tileheight="32">
+ <tileset firstgid="10342" name="AntiKeyLogger" tilewidth="32" tileheight="32">
   <image source="../images/GameIcons/AntiKeyLogger.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="11009" name="AntiVirus" tilewidth="32" tileheight="32">
+ <tileset firstgid="10343" name="AntiVirus" tilewidth="32" tileheight="32">
   <image source="../images/GameIcons/AntiVirus.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="11010" name="Firewall" tilewidth="32" tileheight="32">
-  <image source="../images/GameIcons/Firewall.png" width="32" height="32"/>
- </tileset>
- <tileset firstgid="11011" name="Info" tilewidth="32" tileheight="32">
+ <tileset firstgid="10344" name="Info" tilewidth="32" tileheight="32">
   <image source="../images/GameIcons/Info.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="11012" name="winkey" tilewidth="32" tileheight="32">
+ <tileset firstgid="10345" name="winkey" tilewidth="32" tileheight="32">
   <image source="../images/winkey.png" width="32" height="32"/>
  </tileset>
  <objectgroup name="doorBlocks">
@@ -163,7 +154,7 @@
  </objectgroup>
  <layer name="backgroundLayer" width="62" height="80">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer name="blockedLayer" width="62" height="80">
@@ -172,14 +163,14 @@
   </data>
  </layer>
  <objectgroup name="objectsLayer">
-  <object id="22" gid="10667" x="1120" y="416">
+  <object id="22" gid="10002" x="1120" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="sprite" value="frontDoor"/>
     <property name="type" value="door"/>
    </properties>
   </object>
-  <object id="23" gid="10667" x="1120" y="416">
+  <object id="23" gid="10002" x="1120" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -187,7 +178,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="24" gid="10667" x="224" y="416">
+  <object id="24" gid="10002" x="224" y="416">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -195,7 +186,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="25" gid="10667" x="672" y="1248">
+  <object id="25" gid="10002" x="672" y="1248">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -203,7 +194,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="26" gid="10667" x="1664" y="1375.5">
+  <object id="26" gid="10002" x="1664" y="1375.5">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="red"/>
@@ -211,7 +202,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="27" gid="10667" x="1568" y="1792">
+  <object id="27" gid="10002" x="1568" y="1792">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -219,7 +210,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="28" gid="10667" x="1696" y="672">
+  <object id="28" gid="10002" x="1696" y="672">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="red"/>
@@ -227,7 +218,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="29" gid="10667" x="640" y="672">
+  <object id="29" gid="10002" x="640" y="672">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -235,7 +226,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="30" gid="10667" x="416" y="1440">
+  <object id="30" gid="10002" x="416" y="1440">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="yellow"/>
@@ -243,7 +234,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="31" gid="10667" x="416" y="1952">
+  <object id="31" gid="10002" x="416" y="1952">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="black"/>
@@ -251,7 +242,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="41" gid="10735" x="1167" y="2217.33">
+  <object id="41" gid="10069" x="1167" y="2217.33">
    <properties>
     <property name="colour" value="red"/>
     <property name="minLength" value="8"/>
@@ -263,7 +254,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object id="42" gid="10735" x="706" y="989">
+  <object id="42" gid="10069" x="706" y="989">
    <properties>
     <property name="colour" value="yellow"/>
     <property name="minLength" value="7"/>
@@ -275,7 +266,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object id="43" gid="10735" x="1738" y="1032">
+  <object id="43" gid="10069" x="1738" y="1032">
    <properties>
     <property name="colour" value="black"/>
     <property name="minLength" value="10"/>
@@ -287,7 +278,7 @@
     <property name="type" value="policy"/>
    </properties>
   </object>
-  <object id="44" gid="10736" x="127.75" y="895.25">
+  <object id="44" gid="10070" x="127.75" y="895.25">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -295,7 +286,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="45" gid="10736" x="1215.64" y="799.091">
+  <object id="45" gid="10070" x="1215.64" y="799.091">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -303,7 +294,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="46" gid="10736" x="511.909" y="192">
+  <object id="46" gid="10070" x="511.909" y="192">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -311,7 +302,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="47" gid="10736" x="1215.91" y="191.909">
+  <object id="47" gid="10070" x="1215.91" y="191.909">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -319,7 +310,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="48" gid="10736" x="1440" y="928">
+  <object id="48" gid="10070" x="1440" y="928">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="red"/>
@@ -327,7 +318,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="49" gid="10736" x="960" y="1536">
+  <object id="49" gid="10070" x="960" y="1536">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -335,7 +326,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="50" gid="10736" x="736" y="1631.94">
+  <object id="50" gid="10070" x="736" y="1631.94">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="yellow"/>
@@ -343,49 +334,49 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="52" gid="11008" x="270" y="228">
+  <object id="52" gid="10342" x="270" y="228">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object id="53" gid="11008" x="1114" y="2430">
+  <object id="53" gid="10342" x="1114" y="2430">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object id="56" gid="11009" x="1122.91" y="775.758">
+  <object id="56" gid="10343" x="1122.91" y="775.758">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
-  <object id="60" gid="11011" x="760" y="536">
+  <object id="60" gid="10344" x="760" y="536">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="61" gid="11011" x="916" y="894">
+  <object id="61" gid="10344" x="916" y="894">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="62" gid="11011" x="368" y="1744">
+  <object id="62" gid="10344" x="368" y="1744">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="63" gid="11012" x="508" y="2186">
+  <object id="63" gid="10345" x="508" y="2186">
    <properties>
     <property name="sprite" value="winkey"/>
     <property name="type" value="winkey"/>
    </properties>
   </object>
-  <object id="64" gid="10776" x="736" y="2175.94">
+  <object id="64" gid="10110" x="736" y="2175.94">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="black"/>
@@ -393,7 +384,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="65" gid="10736" x="1440" y="480">
+  <object id="65" gid="10070" x="1440" y="480">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="green"/>
@@ -401,7 +392,7 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="66" gid="10667" x="1056" y="1984">
+  <object id="66" gid="10002" x="1056" y="1984">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="yellow"/>
@@ -409,7 +400,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="67" gid="10667" x="1664" y="1984">
+  <object id="67" gid="10002" x="1664" y="1984">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="yellow"/>
@@ -417,7 +408,7 @@
     <property name="type" value="frontDoor"/>
    </properties>
   </object>
-  <object id="68" gid="10736" x="1312" y="2272">
+  <object id="68" gid="10070" x="1312" y="2272">
    <properties>
     <property name="password" value="null"/>
     <property name="policy" value="yellow"/>
@@ -425,79 +416,79 @@
     <property name="type" value="sideDoor"/>
    </properties>
   </object>
-  <object id="115" gid="11011" x="1399" y="869">
+  <object id="115" gid="10344" x="1399" y="869">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="116" gid="11011" x="103" y="1232">
+  <object id="116" gid="10344" x="103" y="1232">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="117" gid="11011" x="1754" y="464">
+  <object id="117" gid="10344" x="1754" y="464">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="118" gid="11011" x="1776" y="1172">
+  <object id="118" gid="10344" x="1776" y="1172">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="119" gid="11011" x="1675" y="2307">
+  <object id="119" gid="10344" x="1675" y="2307">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="120" gid="11011" x="1282" y="1646">
+  <object id="120" gid="10344" x="1282" y="1646">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="121" gid="11011" x="415" y="1100">
+  <object id="121" gid="10344" x="415" y="1100">
    <properties>
     <property name="sprite" value="info"/>
     <property name="type" value="info"/>
    </properties>
   </object>
-  <object id="123" gid="11008" x="1824" y="1469">
+  <object id="123" gid="10342" x="1824" y="1469">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object id="124" gid="11008" x="703" y="1548">
+  <object id="124" gid="10342" x="703" y="1548">
    <properties>
     <property name="sprite" value="AntiKeyLog"/>
     <property name="type" value="AntiKeyLog"/>
    </properties>
   </object>
-  <object id="125" gid="11009" x="980" y="274">
+  <object id="125" gid="10343" x="980" y="274">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
-  <object id="126" gid="11009" x="1564" y="1556">
+  <object id="126" gid="10343" x="1564" y="1556">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
-  <object id="127" gid="11009" x="1552" y="2140">
+  <object id="127" gid="10343" x="1552" y="2140">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
    </properties>
   </object>
-  <object id="129" gid="11009" x="288" y="728">
+  <object id="129" gid="10343" x="288" y="728">
    <properties>
     <property name="sprite" value="antivirus"/>
     <property name="type" value="antivirus"/>
