@@ -65,17 +65,17 @@ Encrypt.Game.prototype = {
 
 
     /* create a button for viewing the pickedHints and tips collected so far; @iva */
-    this.hintsButton = this.game.add.button(535, 10, 'hintButtons', this.manageHintsPopup, this, 0, 1, 0, 0);
+    this.hintsButton = this.game.add.button(560, 10, 'icons', this.manageHintsPopup, this, 14, 14, 14, 14);
     this.hintsButton.clicked = false;
     this.hintsButton.fixedToCamera = true;
 
     /* create a button for making a new note or reviewing saved passwords: @iva */
-    this.noteButton = this.game.add.button(470, 10, 'noteButtons', this.manageNote, this, 0, 1, 0, 0);
+    this.noteButton = this.game.add.button(560, 50, 'icons', this.manageNote, this, 15, 16, 15, 15);
     this.noteButton.clicked = false;
     this.noteButton.fixedToCamera = true;
 
     /* create button to activate antivirus: @iva */
-    this.antivirusButton = this.game.add.button(200, 10, 'icons', this.manageAntivirus, this, 5, 5, 5, 5);
+    this.antivirusButton = this.game.add.button(560, 90, 'icons', this.manageAntivirus, this, 5, 5, 5, 5);
     this.antivirusButton.fixedToCamera = true;
 
     /* a cross over the player's head: */
@@ -457,7 +457,9 @@ Encrypt.Game.prototype = {
       var color = 0xCCCCCC;
       var opacity;
       if (this.player.currentRoom === parseInt(element.properties.idx)) { // player in the room
-        element.properties.state = "0"; // Change to visited
+        if(element.properties.state !== "2") {
+          element.properties.state = "0"; // Change to visited
+        }
         if (element.properties.infected) { // Infected
           color = 0x16E91D;
           opacity = 0.5;
@@ -474,6 +476,8 @@ Encrypt.Game.prototype = {
       } else if (state === 1) { // not visited
         color = 0x444444;
         opacity = 1;
+      } else if(state === 2){ // checker block, does not need to be drawn
+        opacity = 0;
       }
 
       graphics.beginFill(color, opacity);
@@ -530,6 +534,8 @@ Encrypt.Game.prototype = {
     document.getElementById("resetPassword").style.display = "none";
     document.getElementById("passwordStrengthBar").style.display = "none";
     document.getElementById("passStr").style.display = "none";
+    document.getElementById("antiKeyLogButton").style.display = "none";
+    document.getElementById("keyLogIndicator").style.display = "none";
     this.game.input.keyboard.enabled = true;
     this.input.focus();
     fPause = false;
@@ -859,6 +865,7 @@ Encrypt.Game.prototype = {
 
     if (collectable.type === "clue" || (collectable.type === "info")) {
       this.player.addItem(4);
+      this.hintsButton.setFrames(12, 13, 12, 12);
       this.showHint(player, collectable);
     }
 
@@ -911,12 +918,17 @@ Encrypt.Game.prototype = {
 
   /**************************************** HINTS AREA ****************************************/
   manageHintsPopup: function () {
+    // if no antivirus available
+    if (pickedHints.length === 0) {
+      this.hintsButton.setFrames(14, 14, 14, 14);
+      return;
+    }
     this.hintsButton.clicked = !this.hintsButton.clicked;
     if (this.hintsButton.clicked) {
-      this.hintsButton.setFrames(0, 0, 0, 0);
+      this.hintsButton.setFrames(13, 13, 13, 13);
       this.displayLastHintCollected();
     } else {
-      this.hintsButton.setFrames(0, 1, 0, 0);
+      this.hintsButton.setFrames(12, 13, 12, 12);
       this.hideHintsCollected();
     }
   },
@@ -1094,6 +1106,8 @@ Encrypt.Game.prototype = {
         document.getElementById("feedback").style.display = "block";
         document.getElementById("passwordStrengthBar").style.display = "block";
         document.getElementById("passStr").style.display = "block";
+        document.getElementById("antiKeyLogButton").style.display = "block";
+        document.getElementById("keyLogIndicator").style.display = "block";
       }
     }
   },
@@ -1247,10 +1261,10 @@ Encrypt.Game.prototype = {
     // Switch
     this.noteButton.clicked = !this.noteButton.clicked;
     if (this.noteButton.clicked) {
-      this.noteButton.setFrames(0, 0, 0, 0);
+      this.noteButton.setFrames(16, 16, 16, 16);
       this.displayNote();
     } else {
-      this.noteButton.setFrames(0, 1, 0, 0);
+      this.noteButton.setFrames(15, 16, 15, 15);
       this.hideNote();
       return;
     }
