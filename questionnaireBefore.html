@@ -130,6 +130,14 @@ session_start();
 				I always forget passwords
                 </label>
 			</li>
+
+            <!--Q3E-->
+            <li id="Q3fCheck">
+                <label>
+                    <input class="checkbox" type="checkbox" name="Q3" id="Q3f" value="Y">
+                    NO ANSWER
+                </label>
+            </li>
 		</ul>
     </div>
 
@@ -179,51 +187,122 @@ session_start();
     <br>
 
     <!--HOW STRONG ARE YOUR PASSWORDS-->
-    <div id="Question6Before" class="radio">
-        <b>How strong are your passwords?</b><br>
-        <ul class="list-unstyled">
-            <!--Q6A-->
-            <li id="Q6aRadio" class="radio-item">
-                <label>
-                    <input class="radio" type="radio" name="Q6" id="Q6a" value="Very strong">
-                    Very strong
-                </label>
-            </li>
+    <div id="Question6Before" class="fieldgroup">
+        <b>How strong are your passwords on different websites:</b><br>
+        <table class="table-striped" style="width:100%">
+            <tr>
+                <th> </th>
+                <th>Very<br>weak</th>
+                <th>Weak</th>
+                <th>Average</th>
+                <th>Strong</th>
+                <th>Very<br>strong</th>
+            </tr>
 
-            <!--Q3B-->
-            <li id="Q6bRadio" class="radio-item">
-                <label>
-                    <input class="radio" type="radio" name="Q6" id="Q6b" value="Somewhat strong">
-                    Somewhat strong
-                </label>
-            </li>
+            <tr>
+                <td align="center">Online banking websites</td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6b" id="Q6ba" value="Very weak">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6b" id="Q6bb" value="Weak">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6b" id="Q6bc" value="Average">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6b" id="Q6bd" value="Strong">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6b" id="Q6be" value="Very strong">
+                </td>
+            </tr>
 
-            <!--Q6C-->
-            <li id="Q36Radio" class="radio-item">
-                <label>
-                    <input class="radio" type="radio" name="Q6" id="Q6c" value="Somewhat weak">
-                    Somewhat weak
-                </label>
-            </li>
+            <tr>
+                <td align="center">Shopping websites</td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6c" id="Q6ca" value="Very weak">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6c" id="Q6cb" value="Weak">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6c" id="Q6cc" value="Average">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6c" id="Q6cd" value="Strong">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6c" id="Q6ce" value="Very strong">
+                </td>
+            </tr>
 
-            <!--Q6D-->
-            <li id="Q6dRadio" class="radio-item">
-                <label>
-                    <input class="radio" type="radio" name="Q6" id="Q6d" value="Very weak">
-                    Very weak
-                </label>
-            </li>
+            <tr>
+                <td align="center">Social media websites</td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6d" id="Q6da" value="Very weak">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6d" id="Q6db" value="Weak">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6d" id="Q6dc" value="Average">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6d" id="Q6dd" value="Strong">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6d" id="Q6de" value="Very strong">
+                </td>
+            </tr>
 
-        </ul>
+            <tr>
+                <td align="center">Email websites</td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6e" id="Q6ea" value="Very weak">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6e" id="Q6eb" value="Weak">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6e" id="Q6ec" value="Average">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6e" id="Q6ed" value="Strong">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6e" id="Q6ee" value="Very strong">
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center">Random websites you only visit from time to time</td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6f" id="Q6fa" value="Very weak">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6f" id="Q6fb" value="Weak">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6f" id="Q6fc" value="Average">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6f" id="Q6fd" value="Strong">
+                </td>
+                <td align="center">
+                    <input class="radio" type="radio" name="Q6f" id="Q6fe" value="Very strong">
+                </td>
+            </tr>
+        </table>
     </div>
 
-    <br>
+    <br><br>
 
     <h2>PASSWORD PREFERENCES:</h2>
 	
 	<!--WHEN CREATING A PASSWORD-->
 	<div id="Question7Before" class="checkbox">
-		<b>When creating a password:</b><br>
+		<b>When creating a password: (in general)</b><br>
 		<ul class="list-unstyled">
 			<!--Q7A-->
 			<li id="Q7aCheck">
@@ -296,6 +375,14 @@ session_start();
                     I use character substitution (@=a, !=i, 3=E etc)
                 </label>
             </li>
+
+            <!--Q7J-->
+            <li id="Q7jCheck">
+                <label>
+                    <input class="checkbox" type="checkbox" name="Q7" id="Q7j" value="Y">
+                    NO ANSWER
+                </label>
+            </li>
 		</ul>
         </div>
 
@@ -352,6 +439,13 @@ session_start();
                     longer than 12 characters
                 </label>
             </li>
+
+            <li id="Q8gCheck">
+                <label>
+                    <input class="checkbox" type="checkbox" name="Q8" id="Q8g" value="Y">
+                    NO ANSWER
+                </label>
+            </li>
         </ul>
     </div>
 		
@@ -368,24 +462,6 @@ session_start();
 				<th>Neutral</th>
 				<th>Somewhat<br>agree</th>
 				<th>Strongly<br>agree</th>
-			  </tr>
-			  <tr>
-			    <td align="center">I create strong passwords<br>when register online</td>
-			    <td align="center">
-					<input class="radio" type="radio" name="Q9a" id="Q9aa" value="Strongly disagree">
-				</td> 
-			    <td align="center">
-					<input class="radio" type="radio" name="Q9a" id="Q9ab" value="Somewhat disagree">
-				</td>
-			    <td align="center">
-					<input class="radio" type="radio" name="Q9a" id="Q9ac" value="Neutral">
-				</td>
-			    <td align="center">
-					<input class="radio" type="radio" name="Q9a" id="Q9ad" value="Somewhat agree">
-				</td>
-			    <td align="center">
-					<input class="radio" type="radio" name="Q9a" id="Q9ae" value="Strongly agree">
-				</td>
 			  </tr>
 			  
 			  <tr>

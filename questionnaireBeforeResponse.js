@@ -36,6 +36,7 @@ function generateBeforeResponse() {
 	var Q3c = String(Q3Output[2]);
 	var Q3d = String(Q3Output[3]);
 	var Q3e = String(Q3Output[4]);
+    var Q3f = String(Q3Output[5]);
 
     var Q4RadioButtons = document.getElementsByName('Q4');
 
@@ -55,12 +56,39 @@ function generateBeforeResponse() {
         }
     }
 
-    var Q6RadioButtons = document.getElementsByName('Q6');
+    var Q6BRadioButtons = document.getElementsByName('Q6b');
+    var Q6CRadioButtons = document.getElementsByName('Q6c');
+    var Q6DRadioButtons = document.getElementsByName('Q6d');
+    var Q6ERadioButtons = document.getElementsByName('Q6e');
+    var Q6FRadioButtons = document.getElementsByName('Q6f');
 
-    for(var i = 0; i < Q6RadioButtons.length; i++){
-        if(Q6RadioButtons[i].checked) {
-            var Q6 = String(Q6RadioButtons[i].value);
-            break;
+    for(var i = 0; i < Q6BRadioButtons.length; i++){
+        if(Q6BRadioButtons[i].checked) {
+            var Q6b = String(Q6BRadioButtons[i].value);
+        }
+    }
+
+    for(var i = 0; i < Q6CRadioButtons.length; i++){
+        if(Q6CRadioButtons[i].checked) {
+            var Q6c = String(Q6CRadioButtons[i].value);
+        }
+    }
+
+    for(var i = 0; i < Q6DRadioButtons.length; i++){
+        if(Q6DRadioButtons[i].checked) {
+            var Q6d = String(Q6DRadioButtons[i].value);
+        }
+    }
+
+    for(var i = 0; i < Q6ERadioButtons.length; i++){
+        if(Q6ERadioButtons[i].checked) {
+            var Q6e = String(Q6ERadioButtons[i].value);
+        }
+    }
+
+    for(var i = 0; i < Q6FRadioButtons.length; i++){
+        if(Q6FRadioButtons[i].checked) {
+            var Q6f = String(Q6FRadioButtons[i].value);
         }
     }
 
@@ -85,6 +113,7 @@ function generateBeforeResponse() {
     var Q7g = String(Q7Output[6]);
     var Q7h = String(Q7Output[7]);
     var Q7i = String(Q7Output[8]);
+    var Q7j = String(Q7Output[8]);
 
     var Q8Output = [];
 
@@ -104,20 +133,14 @@ function generateBeforeResponse() {
     var Q8d = String(Q8Output[3]);
     var Q8e = String(Q8Output[4]);
     var Q8f = String(Q8Output[5]);
+    var Q8g = String(Q8Output[6]);
 
-    var Q9ARadioButtons = document.getElementsByName('Q9a');
     var Q9BRadioButtons = document.getElementsByName('Q9b');
     var Q9CRadioButtons = document.getElementsByName('Q9c');
     var Q9DRadioButtons = document.getElementsByName('Q9d');
     var Q9ERadioButtons = document.getElementsByName('Q9e');
     var Q9FRadioButtons = document.getElementsByName('Q9f');
     var Q9GRadioButtons = document.getElementsByName('Q9g');
-
-    for(var i = 0; i < Q9ARadioButtons.length; i++){
-        if(Q9ARadioButtons[i].checked) {
-            var Q9a = String(Q9ARadioButtons[i].value);
-        }
-    }
 
     for(var i = 0; i < Q9BRadioButtons.length; i++){
         if(Q9BRadioButtons[i].checked) {
@@ -155,10 +178,11 @@ function generateBeforeResponse() {
         }
     }
     //required to ensure that string type is passed properly to the DB
-	responseBefore = [Q1, Q2, Q3a, Q3b, Q3c, Q3d, Q3e, Q4, Q5, Q6,
-				Q7a, Q7b, Q7c, Q7d, Q7e, Q7f, Q7g, Q7h, Q7i,
-                Q8a, Q8b, Q8c, Q8d, Q8e, Q8f,
-                Q9a, Q9b, Q9c, Q9d, Q9e, Q9f, Q9g];
+	responseBefore = [Q1, Q2, Q3a, Q3b, Q3c, Q3d, Q3e, Q3f, Q4, Q5,
+                Q6b, Q6c, Q6d, Q6e, Q6f,
+				Q7a, Q7b, Q7c, Q7d, Q7e, Q7f, Q7g, Q7h, Q7i, Q7j,
+                Q8a, Q8b, Q8c, Q8d, Q8e, Q8f, Q8g,
+                Q9b, Q9c, Q9d, Q9e, Q9f, Q9g];
 
 	for(var i = 0; i < responseBefore.length; i++){
 		if(responseBefore[i] === null || responseBefore[i] === undefined){
