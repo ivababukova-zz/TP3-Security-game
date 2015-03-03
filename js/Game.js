@@ -927,6 +927,7 @@ Encrypt.Game.prototype = {
 
   /* displays the last hint that the player has collected @iva */
   displayLastHintCollected: function () {
+    this.metricsSystem.addStartInfoRead();
     fPause = true;
     document.getElementById("hintsLayer").style.display = "block";
     document.getElementById("showAllHints").style.display = "block";

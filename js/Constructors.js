@@ -899,7 +899,14 @@ MetricsSystem.prototype = {
     addHintCollected: function (cid){
         storeUserEducationalInfoCollectToDB(cid);
     },
-
+    //log when hints & tips are opened
+    addStartInfoRead: function(){
+        storeUserStartedReadingTipToDB();
+    },
+    //log when finished reading
+    addEndInfoRead: function(){
+        storeUserStoppedReadingTipToDB();
+    },
     /**
      * Method to be called when a password input by the user on a door is rejected.
      * @param password: the actual string that was attempted
@@ -1427,7 +1434,7 @@ function storeUsersSuccessfulPasswordUse(did){
     }
 };
 
-//Storage of User Tools Used -- Will implement once there are actually tools that you can use
+//Storage of User Tools Used -- Will implement once there are actually tools that you can use -TODO
  function storeUserToolsUsedToDB(uid, sid, tid) {
     if (uid === "") {
         return;
@@ -1442,4 +1449,30 @@ function storeUsersSuccessfulPasswordUse(did){
         xmlhttp.open("GET","storeusertoolsused.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
         xmlhttp.send();
     }
+};
+
+//Storage of when hints and tips are re-read
+function storeUserStartedReadingTipToDB(){
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.open("GET","storeuseredreads.php?",true);
+    xmlhttp.send();
+};
+
+//Storage of when hints & tips are closed
+function storeUserStoppedReadingTipToDB(){
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.open("GET","storeuseredreadsupdate.php?",true);
+    xmlhttp.send();
 };
