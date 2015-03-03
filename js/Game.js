@@ -966,6 +966,7 @@ Encrypt.Game.prototype = {
 
   /* @iva hides the window with the hints */
   hideHintsCollected: function () {
+    this.metricsSystem.addEndInfoRead();
     fPause = false;
     document.getElementById("hintsTitle").innerHTML = "Last hint collected:"; // the right title when the hints menu is opened again;
     document.getElementById("hintsLayer").style.display = "none"
