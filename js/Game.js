@@ -240,7 +240,7 @@ Encrypt.Game.prototype = {
 
   //create player
   createPlayer: function () {
-    this.player = new Player(300, 500, this.game, this.scoreSystem);
+    this.player = new Player(300, 500, this.game, this.scoreSystem, this.metricsSystem);
 
     this.player.sprite.animations.add('down', [1, 2, 3, 4, 5, 6, 7, 8], 14, true, true);
     this.player.sprite.animations.add('up', [10, 11, 12, 13, 14, 15, 16, 17], 14, true, true);
@@ -482,7 +482,7 @@ Encrypt.Game.prototype = {
     // if it is key-logged
     if (currentDoor.hasKeylogger) {
       // apply key-logger
-      this.player.use("AntiKeyLog");
+      this.player.removeKeylogger(currentDoor);
       // if successful
       if (!currentDoor.hasKeylogger) {
         document.getElementById("feedback").innerHTML = "Anti key-logger applied successfully. Now you can enter your password safely."
@@ -910,7 +910,7 @@ Encrypt.Game.prototype = {
 
   /**************************************** HINTS AREA ****************************************/
   manageHintsPopup: function () {
-    // if no antivirus available
+    // if no hints available
     if (pickedHints.length === 0) {
       this.hintsButton.setFrames(14, 14, 14, 14);
       return;
@@ -1268,13 +1268,18 @@ Encrypt.Game.prototype = {
       this.antivirusButton.setFrames(5, 5, 5, 5);
       return;
     }
+    this.getCurrentRoom(this.player);
+    // if successful
+    if(this.player.disinfect()){
+      this.loadRooms();
 
-    this.player.disinfect();
-    if (this.player.antivirusBag.length === 0) {
-      this.antivirusButton.setFrames(5, 5, 5, 5);
-    }
-    else {
-      this.antivirusButton.setFrames(3, 4, 3, 3);
+      // Check again
+      if (this.player.antivirusBag.length === 0) {
+        this.antivirusButton.setFrames(5, 5, 5, 5);
+      }
+      else {
+        this.antivirusButton.setFrames(3, 4, 3, 3);
+      }
     }
   }
 
