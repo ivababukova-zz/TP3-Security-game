@@ -29,6 +29,7 @@ var currentPlayerRoom = null; // Andi: global var to track where the player is
 var isMoving = false;
 var isPlaying = false;
 var runningSound = null;
+var isLethal = true;
 
 
 Encrypt.Game.prototype = {
