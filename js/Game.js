@@ -82,6 +82,10 @@ Encrypt.Game.prototype = {
     this.antivirusButton = this.game.add.button(535, 130, 'icons', this.manageAntivirus, this, 5, 5, 5, 5);
     this.antivirusButton.fixedToCamera = true;
 
+    /* button to activate firewall: */
+    this.firewallButton = this.game.add.button(535, 190, 'icons', this.manageFirewall, this, 11, 11, 11, 11);
+    this.firewallButton.fixedToCamera = true;
+
     /* a cross over the player's head: */
     this.cross = "_";
     this.cross_style = {font: "40px Serif", fill: "#000", align: "center"};
@@ -186,6 +190,7 @@ Encrypt.Game.prototype = {
     this.game.world.bringToTop(this.hintsButton);  // @iva: bring the hints button to be always at the top
     this.game.world.bringToTop(this.noteButton);
     this.game.world.bringToTop(this.antivirusButton);
+    this.game.world.bringToTop(this.firewallButton);
     this.game.world.bringToTop(this.cross);
 
     // if the enemy is in a different room than the player is
@@ -884,6 +889,7 @@ Encrypt.Game.prototype = {
     // added by @iva 07.02.2015
     else if (collectable.type === "firewall") {
       this.player.addItem(1);
+      this.firewallButton.setFrames(9, 10, 10, 10);
       this.metricsSystem.addToolCollected(1);
       this.scoreSystem.scoreObjectPickUp();
       collectable.destroy();
@@ -1311,6 +1317,29 @@ Encrypt.Game.prototype = {
       }
       else {
         this.antivirusButton.setFrames(3, 4, 3, 3);
+      }
+    }
+  },
+
+  manageFirewall: function () {
+    // if no antivirus available
+    if (this.player.firewallBag.length === 0) {
+      this.firewallButton.setFrames(11, 11, 11, 11);
+      return;
+    }
+    if (this.player.firewallBag.length > 0) {
+      this.firewallButton.setFrames(9, 10, 9, 9);
+      this.firewallButton.clicked = !this.firewallButton.clicked;
+      if (this.firewallButton.clicked) {
+        this.firewallButton.setFrames(9, 9, 9, 9);
+        this.setEnemyUnmovable();
+        this.game.time.events.add(3500, this.setEnemyMovable, this); // the enemy stops moving for 7 seconds
+        if (this.player.firewallBag.length === 0) {
+          this.firewallButton.setFrames(11, 11, 11, 11);
+        }
+        else {
+          this.firewallButton.setFrames(9, 10, 9, 9);
+        }
       }
     }
   },
