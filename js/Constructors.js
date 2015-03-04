@@ -291,20 +291,21 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     //variable to keep track of how long it's taking the enemy to get to the next tile; when it gets to 0, a new path is requested
     this.nextTileCounter = 15;
 
-
+    // this.spriteOnFire = game.add.sprite(currentX, currentY, 'enemyOnFire');
+    this.spriteNotOnFire = game.add.sprite(currentX, currentY, 'enemy');
 
     //add its spriteSheet
-    this.sprite = game.add.sprite(currentX, currentY, 'enemyOnFire');
+   this.sprite = this.spriteNotOnFire;
+
     //BMDK: - Set sprite to first frame
     this.sprite.frame = 0;
     //BMDK: - Add animation loop for alien
-    this.sprite.animations.add('any', [0, 1, 2, 3, 4], 15,true, true);
+    this.sprite.animations.add('any', [0, 1, 2, 3, 4], 15, true, true);
 
     game.physics.enable (this.sprite, Phaser.ARCADE);
     this.sprite.body.immovable = false;
     this.sprite.body.collideWorldBounds = true;
     this.sprite.enableBody = true;
-
 };
 
 Enemy.prototype = {
@@ -312,7 +313,15 @@ Enemy.prototype = {
     update: function () {
         this.sprite.frame = enemyFrame%5;
         this.hasChangedRoom();
+/*
+        if (isOnFire === true) {
+            this.sprite.setTexture('enemyOnFire');
+        }
 
+        else if (isOnFire === false) {
+            this.sprite.setTexture('enemy');
+        }
+*/
         if (this.pathToPlayer.length !== 0) {
             // if the array is not empty or we've not reached the end of the array
             if (this.pathPosition < this.pathToPlayer.length) {

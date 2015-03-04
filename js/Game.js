@@ -29,7 +29,8 @@ var currentPlayerRoom = null; // Andi: global var to track where the player is
 var isMoving = false;
 var isPlaying = false;
 var runningSound = null;
-var isLethal = true;
+var isLethal = false;
+var isOnFire = false;
 
 
 Encrypt.Game.prototype = {
@@ -1323,17 +1324,21 @@ Encrypt.Game.prototype = {
 
   manageFirewall: function () {
     // if no antivirus available
+    console.log("number of firewall items: " + this.player.firewallBag.length);
     if (this.player.firewallBag.length === 0) {
       this.firewallButton.setFrames(11, 11, 11, 11);
       return;
     }
-    if (this.player.firewallBag.length > 0) {
+    else if (this.player.firewallBag.length > 0) {
       this.firewallButton.setFrames(9, 10, 9, 9);
       this.firewallButton.clicked = !this.firewallButton.clicked;
       if (this.firewallButton.clicked) {
         this.firewallButton.setFrames(9, 9, 9, 9);
+        isOnFire = true;
+        this.player.firewallBag.length -=1;
         this.setEnemyUnmovable();
         this.game.time.events.add(3500, this.setEnemyMovable, this); // the enemy stops moving for 7 seconds
+        isOnFire = false;
         if (this.player.firewallBag.length === 0) {
           this.firewallButton.setFrames(11, 11, 11, 11);
         }
