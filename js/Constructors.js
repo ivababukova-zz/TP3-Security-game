@@ -81,7 +81,6 @@ Player = function (currentX, currentY, game, score, metrics) {
     this.antikeyLoggerBag = []; // stores: antikeylogger objects from the map @iva
     this.hintsBag = pickedHints; // stores the hints and tips collected by the player @iva
 
-    this.looseNoteChance = 0.25;
     this.note = new Note();
     this.passwordResetsAvailable = 5;
 
@@ -182,7 +181,6 @@ Player.prototype = {
     * */
     // modified by Iva 07.02.2015
       addItem: function (numb) {
-        //console.log ("just collected item wohohohooooo!");
          if (numb === 1) {
              this.firewallBag.push(this.firewallBag.length + 1);  // increment the firewall bag
          }
@@ -197,28 +195,6 @@ Player.prototype = {
     // TODO: refine to add password to a particular policy, or provide option to just write them down as they are
     writeToNote: function (password) {
         this.note.write(password);
-    },
-
-    /* method to be called everytime the user moves (or at every update) that simulates losing the note object*/
-    //TODO: handle situation where player picks up another note if he already has one
-    loseNote: function () {
-
-        // if there's anything worth losing, i.e. if the note is not empty
-        if (this.note.passwords.size() > 0) {
-
-            var chance = Math.random();
-
-            if (chance > this.looseNoteChance) {
-                //console.log("oh no, you're losing yer paper");
-                //drop the note in the current position;
-                this.note.dropPaper(currentX, currentY);
-            }
-            // create a fresh note in the previous one's stead; need to handle case where user has a note and picks another up
-            this.note = new Note();
-            //lose the note, i.e. drop it
-            // place it on the game map
-            // set the player's Note object to null
-        }
     },
 
     addPolicy: function(policy){
@@ -244,13 +220,11 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.game = game;
     this.player = player;
     this.backgroundLayer = backgroundLayer;
-    this.currentRoom = 10;               // TODO: decide default value to be initialised - currently instantiated in room 2
+    this.currentRoom = 10;
     this.previousRoom = this.currentRoom; // Andi: a variable used for infecting rooms; set to the default room upon creation
     this.lastKnownDirections = ["",""];
     this.lastKnownY = 0;
     this.lastKnownX = 0;
-    //this.lastKnownDirection = "";
-    //this.isstuck = false;
     this.isstuckcount = 0;
     this.isOnFire = false;
 
@@ -271,8 +245,6 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.isCollidable = true;
     // speed of the enemy - set to 10.0 by default
     this.speed = 280;
-    // variable that'll keep track of whether the object is slowed down by firewall
-    this.isSlowed = false;
     // logger chance - set to 0.1 by default - set to private as not used outside of object
     this.loggerChance = 0.1;
     // room infection chance set to 0.1 by default - set to private as not used outside of object
@@ -296,7 +268,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.spriteNotOnFire = game.add.sprite(currentX, currentY, 'enemy');
 
     //add its spriteSheet
-   this.sprite = this.spriteNotOnFire;
+    this.sprite = this.spriteNotOnFire;
 
     //BMDK: - Set sprite to first frame
     this.sprite.frame = 0;
@@ -657,12 +629,6 @@ Firewall.prototype = {
         //that both attributes are set to false
         this.switchCollidable();
         this.switchVisible();
-
-
-        // then... we need to load up the new sprite
-
-        // it needs to spread out on the length of the room; how to determine which direction to expand in
-        // upon use, a new group needs to be created to simulate collision
     }
 
 };
@@ -776,12 +742,7 @@ Policy = function( currentX, currentY, game, minLength, minUpper, minLower, minN
 
 MetricsSystem = function( game, approval ){
 
-    // assume approval given; (approval to store passwords used in game); field to be checked whenever sensitive data might be stored
-    this.approval = true;
     this.game = game;
-    // check if we've been passed a boolean and assign it to the field just in case it's changed
-    if(typeof(approval) == "boolean")
-        this.approval = approval;
 
     /*an associative array to store the in-game passwords
      http://stackoverflow.com/questions/1208222/how-do-i-implement-a-dictionary-or-hashtable-in-javascript
@@ -795,9 +756,6 @@ MetricsSystem = function( game, approval ){
     /* another associative array to keep track of what passwords were re-used on doors, and on which of them; used to determined best remembered password*/
     this.passwordsUsed = {};
 
-    /* the array of passwords used on more than one door, as set by function getPasswordsMultipleDoors*/
-    this.passwordsOnMultipleDoors = [];
-
     /*an associative array to keep track of the passwords input on doors, but rejected by the checker*/
     this.rejectedPasswords = {};
 
@@ -810,25 +768,9 @@ MetricsSystem = function( game, approval ){
     /*an array to keep track of what notes the player took*/
     this.notesTaken = [];
 
-    //a variable to keep track of the average length of passwords employed
-    this.avgPassLen = 0;
-    // a variable to keep track of the number unique passwords input used to calculate the average
-    this.passNumber = 0;
-    this.totalPassLength = 0;
-
 };
 
 MetricsSystem.prototype = {
-
-    /**this only returns the UNIQUE passwords in the array, not the total number of them
-    * the array can have only one member, say "123abc," but be used 10 times (i.e. on 10 different doors)
-     * TO BE USED ONLY WHEN SETTING A PASSWORD ON A DOOR
-    * */
-    getPasswordArrayLength: function(){
-
-        // the weird, slightly convoluted way of getting the length of an object's/associative array's length
-        return Object.keys(this.passwords).length;
-    },
 
     addPolicyCollected: function(colour){
         storeUserPoliciesCollectedToDB(colour);
@@ -837,7 +779,6 @@ MetricsSystem.prototype = {
     addPassword: function(password, entropy, doorID){
         storePasswordToDB(password, entropy, password.length);
         var score12 = entropy*10;
-        console.log(score12 + " Score Bitches " + typeof(score12));
         storeUserPasswordsEnteredToDB(doorID, score12);
         //first check if the parameter is actually a string
         if(typeof(password) === "string") {
@@ -856,14 +797,6 @@ MetricsSystem.prototype = {
             //add its length to the total password length var
             this.totalPassLength += password.length;
         }
-    },
-
-    /**
-     * Assumption: passNumber & totalPassLength are only incremented when a password is added to a door by calling addPassword
-     * */
-    updateAverage: function(passwordLength){
-
-        this.avgPassLen = this.totalPassLength / this.passNumber;
     },
 
     /**
@@ -954,8 +887,9 @@ MetricsSystem.prototype = {
      * @param: notesArray is the array stored in the notes object owned by the player
      * */
     updateNotesTaken: function( notesArray ){
-        this.notesTaken =  notesArray;
+        this.notesTaken =  notesArray; // NEED TO REMOVE THIS
     },
+
     addNote: function(note){
         storeNoteToDB(note);
     },
@@ -964,60 +898,6 @@ MetricsSystem.prototype = {
     },
     logNoteClosed: function(){
         storeUserStoppedRorWNotesToDB();
-    },
-    /**
-     * Method that returns the most used password in the array of passwords used. Returns the password, if there is one,
-     * or null, if not.
-     * */
-    mostUsedPassword: function(){
-
-        var max = 0;
-        var mostUsed;
-
-        for( var password in this.passwordsUsed) {
-            if (this.passwordsUsed[password].length > max) {    // here, length represents the number of doorIDs in for password
-                                                                // so, the length of the array denotes how many times that password was used
-                max = this.passwordsUsed[password].length;
-                mostUsed = password;
-            }
-        }
-
-        // if there was a password in the array (each password key is initialised to 1 when added)
-        if( max > 0 )
-            return mostUsed;
-        else
-            return null;
-    },
-
-    /**
-     * Function used to create an array of the passwords use on more than one door, using the passwordsUsed array
-     * the passwordsOnMultipleDoors field of the system will be filled in with all the appropriate passwords
-     * TO BE CALLED AT THE END OF THE GAME as a wrap-up function
-     * */
-    getPasswordsMultipleDoors: function(){
-
-        for( var password in this.passwordsUsed ){
-
-            // associative array used to track the number of unique doors the password was used on
-            var doors = {};
-
-            for( var i = 0; i < this.passwordsUsed[password].length; i++ ) {
-
-                var doorID = this.passwordsUsed[password][i].toString();
-
-                //if this doorID is not in the doors array
-                if (!doors.hasOwnProperty(doorID)) {
-                    // we simply initialise it to 1; no need to keep track how many times it was used on a door; could want it eventually
-                    doors[doorID] = 1;
-                    }
-                }
-
-            //if the length of this array is more than 1, then we know it was used on more than one door
-            if( Object.keys(doors).length > 1 )
-                //then push the current password onto the array
-                this.passwordsOnMultipleDoors.push(password);
-
-        }
     },
 
     /**
@@ -1170,10 +1050,6 @@ ScoreSystem.prototype = {
 
     /**
      * Function used to award points to the player upon finishing the game.
-     * BONUSES:
-     *  - time taken to complete game(TODO: find a standard time needed to finish a game)
-     * EXTRA NICETIES:
-     *  - generate string saying what bonuses are given and for what
      * */
      /**
       * Method used to give the player a bonus for winning the game & the enemy not being in the same room
