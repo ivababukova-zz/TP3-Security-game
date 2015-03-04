@@ -103,8 +103,8 @@ body {
 #antiKeyLogButton {
     position:absolute;
     display:none;
-    top: 87%;
-    left: 90%;
+    top: 85%;
+    left: 85%;
 }
 #keyLogIndicator {
     position:absolute;
