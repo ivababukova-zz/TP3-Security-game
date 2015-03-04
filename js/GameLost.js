@@ -42,7 +42,7 @@ Encrypt.GameLost.prototype = {
     this.backButton.clicked = !this.backButton.clicked;
     if (this.backButton.clicked) {
       this.backButton.setFrames(0, 0, 0, 0);
-      checkUserStatus();
+      updateEndOfAttempt();
       //this.state.start ('Boot');
     } else {
       this.backButton.setFrames(0, 1, 0, 0);
