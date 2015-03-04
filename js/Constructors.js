@@ -248,7 +248,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     // logger chance - set to 0.1 by default - set to private as not used outside of object
     this.loggerChance = 0.1;
     // room infection chance set to 0.1 by default - set to private as not used outside of object
-    this.virusChance = 0.1;
+    this.virusChance = 1;
     // an array that stores the path to the player
     this.pathToPlayer = [];
     //variable to keep track of how often the path-finding algorithm is called
@@ -907,7 +907,7 @@ MetricsSystem.prototype = {
      * */
     usedTool: function(tool, successful){
 
-        if( tool instanceof Firewall){
+        if( tool === "firewall"){
             this.toolsUsed["firewall"].push(successful);
             if(successful){
                 storeUserToolsUsedToDB(1, 1);
@@ -916,15 +916,17 @@ MetricsSystem.prototype = {
             }
             
         }
-        else if( tool instanceof Antivirus){
+        else if( tool === "antivirus"){
+
             this.toolsUsed["antivirus"].push(successful);
             if(successful){
+
                 storeUserToolsUsedToDB(2, 1);
             } else {
                 storeUserToolsUsedToDB(2, 0);
             }
         }
-        else if( tool instanceof AntiKeyLogger){
+        else if( tool === "antikeylogger"){
             this.toolsUsed["antikeylogger"].push(successful);
             if(successful){
                 storeUserToolsUsedToDB(3, 1);
@@ -987,6 +989,11 @@ ScoreSystem.prototype = {
         // give a bonus for a streak of successful disinfections
         if( this.disinfections > 1 && objectName !== "failed")
             this.score += this.disinfections * 5; // award a basic bonus according to the number of success
+    },
+
+    scoreFirewall: function(){
+
+        this.score += 15;
     },
 
     /**

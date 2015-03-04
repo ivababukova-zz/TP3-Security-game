@@ -1335,6 +1335,8 @@ Encrypt.Game.prototype = {
         this.firewallButton.setFrames(10, 10, 10, 10);
         //isOnFire = true;
         this.enemy.isOnFire = true;
+        this.metricsSystem.usedTool("firewall", true);
+        this.scoreSystem.scoreFirewall();
         this.player.firewallBag.length -=1;
         this.setEnemyUnmovable();
         this.game.time.events.add(3500, this.setEnemyMovable, this); // the enemy stops moving for 7 seconds
