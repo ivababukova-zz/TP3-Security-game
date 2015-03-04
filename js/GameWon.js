@@ -40,8 +40,8 @@ Encrypt.GameWon.prototype = {
     textLabel.anchor.set(0.5);
 
 
-    var backButton = this.game.add.button(this.game.width/2 -90, this.game.height - 180, 'restartButton', this.actionInstructions, this);
-    this.endButton = this.game.add.button (this.game.width/2 -45, this.game.height - 220, 'endButton', this.goToQuestionaire, this);
+    var backButton = this.game.add.button(this.game.width/2 -80, this.game.height - 130, 'restartButton', this.actionInstructions, this);
+    this.endButton = this.game.add.button (this.game.width/2 -45, this.game.height - 180, 'endButton', this.goToQuestionaire, this);
     this.endButton.clicked = false;
 
   },
