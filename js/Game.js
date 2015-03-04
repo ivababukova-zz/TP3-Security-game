@@ -593,7 +593,7 @@ Encrypt.Game.prototype = {
           }
           return;
         }
-        if (currentDoor.password === 'null') {
+        if (currentDoor.password === 'null' && document.getElementById("inputPwd").style.display === "block") {
           self.changeDoorState(currentDoor, 'opening');
           doorSound.play();
           doorsCollidable = false;
