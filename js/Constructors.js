@@ -1002,12 +1002,15 @@ MetricsSystem.prototype = {
 
         if( tool instanceof Firewall){
             this.toolsUsed["firewall"].push(successful);
+            storeUserToolsUsedToDB(1);
         }
         else if( tool instanceof Antivirus){
             this.toolsUsed["antivirus"].push(successful);
+            storeUserToolsUsedToDB(2);
         }
         else if( tool instanceof AntiKeyLogger){
             this.toolsUsed["antikeylogger"].push(successful);
+            storeUserToolsUsedToDB(3);
         }
     }
 };
@@ -1435,8 +1438,8 @@ function storeUsersSuccessfulPasswordUse(did){
 };
 
 //Storage of User Tools Used -- Will implement once there are actually tools that you can use -TODO
- function storeUserToolsUsedToDB(uid, sid, tid) {
-    if (uid === "") {
+ function storeUserToolsUsedToDB(tid) {
+    if (tid === "") {
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -1446,7 +1449,7 @@ function storeUsersSuccessfulPasswordUse(did){
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storeusertoolsused.php?uid="+uid+"&sid="+sid+"&tid="+tid,true);
+        xmlhttp.open("GET","storeusertoolsused.php?tid="+tid,true);
         xmlhttp.send();
     }
 };
