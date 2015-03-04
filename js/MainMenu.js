@@ -31,12 +31,8 @@ Encrypt.MainMenu.prototype = {
         this.logo = this.game.add.sprite(this.game.width- 525 ,this.game.height - 575, 'logo');
 
         //TODO format better; add disclaimer saying that if you play the game, you agree to us storing your passwords
-        text =  "You are on a spaceship whose mission is to colonize Mars\n" +
-                "When you approach the planet the native aliens attack the spaceship.\n" +
-                "Being the only survivor, you have to get back to Earth and warn everyone.\n" +
-                "Your only hope to escape is to get to the launch pad and fly back to Earth.\n" +
-                "See how on the instructions page.\n\n" +
-                "Note: For security reasons\nDO NOT USE YOUR PASSWORDS FROM REAL LIFE!\n";
+        text =   "BY PLAYING THIS GAME YOU GRANT US PERMISSION TO \n STORE YOUR IN-GAME PASSWORDS FOR ANALYSIS PURPOSES\n\n" +
+                "NOTE: FOR SECURITY REASONS\nDO NOT USE YOUR PASSWORDS FROM REAL LIFE!\n";
 
         style = {font: "20px Serif", fill: "#fff", align: "center"};
         welcomeLabel = this.game.add.text(this.game.width / 2, this.game.height - 350, text, style);
@@ -45,10 +41,10 @@ Encrypt.MainMenu.prototype = {
         this.startButton = this.game.add.button (this.game.width/2 - 73, this.game.height - 220, 'startButtons', this.startGame, this, 1, 0);
 
         //#000000 black; #fff white
-        style = {font: "20px Serif", fill: "#000000", align: "center"};
+       /* style = {font: "20px Serif", fill: "#000000", align: "center"};
         text = "BY PLAYING THIS GAME YOU GRANT US PERMISSION TO \n STORE YOUR IN-GAME PASSWORDS FOR ANALYSIS PURPOSES";
         var disclaimerLabel = this.game.add.text(this.game.width/2, this.game.height - 55, text, style);
-        disclaimerLabel.anchor.set(0.5);
+        disclaimerLabel.anchor.set(0.5);*/
 
     },
 
