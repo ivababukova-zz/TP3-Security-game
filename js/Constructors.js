@@ -294,7 +294,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
 
 
     //add its spriteSheet
-    this.sprite = game.add.sprite(currentX, currentY, 'enemy');
+    this.sprite = game.add.sprite(currentX, currentY, 'enemyOnFire');
     //BMDK: - Set sprite to first frame
     this.sprite.frame = 0;
     //BMDK: - Add animation loop for alien
