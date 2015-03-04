@@ -375,10 +375,6 @@ Encrypt.Game.prototype = {
       this.createDoorFromTiledObject(element, this.doors, doorID, 'sideDoor');
       doorID++;
     }, this);
-
-    this.doors.forEach(function (element) {
-      console.log(element.z + " " + element.policy);
-    }, this);
   },
 
   /********************* POLICY METHODS ************************
@@ -571,7 +567,7 @@ Encrypt.Game.prototype = {
         if (document.getElementById("titlePwd").innerHTML === "Type in passwords you want to save:") {
           // write it to the note
           self.player.note.write(this._value);
-          this.metricsSystem.addNote(this._value); //added by BMDK to get the note into the DB
+          self.metricsSystem.addNote(this._value); //added by BMDK to get the note into the DB
 
           //test whether the thing the user has written is close to a password he has set on a door
           var passwordsOnDoors = Object.keys(self.metricsSystem.passwords);
@@ -797,7 +793,6 @@ Encrypt.Game.prototype = {
     Object.keys(element.properties).forEach(function (key) {
       sprite[key] = element.properties[key];
     });
-    console.log(element.z+" "+element.properties.policy);
   },
   /*************************METHODS CALLED BY UPDATE() **************************
    * @param doorObject
@@ -1291,6 +1286,7 @@ Encrypt.Game.prototype = {
   },
 
   manageNote: function () {
+    console.log("called");
     if(document.getElementById("esc").style.display === "block" || document.getElementById("hintsLayer").style.display === "block")
       return;
     // Switch
@@ -1301,7 +1297,6 @@ Encrypt.Game.prototype = {
     } else {
       this.noteButton.setFrames(16, 15, 15, 15);
       this.hideNote();
-      return;
     }
   },
 
