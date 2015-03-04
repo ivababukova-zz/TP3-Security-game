@@ -74,7 +74,7 @@ Encrypt.Game.prototype = {
     this.hintsButton.fixedToCamera = true;
 
     /* create a button for making a new note or reviewing saved passwords: @iva */
-    this.noteButton = this.game.add.button(535, 70, 'icons', this.manageNote, this, 15, 16, 15, 15);
+    this.noteButton = this.game.add.button(535, 70, 'icons', this.manageNote, this, 16, 15, 15, 15);
     this.noteButton.clicked = false;
     this.noteButton.fixedToCamera = true;
 
@@ -873,7 +873,7 @@ Encrypt.Game.prototype = {
 
     if (collectable.type === "info") {
       this.player.addItem(4);
-      this.hintsButton.setFrames(12, 13, 12, 12);
+      this.hintsButton.setFrames(13, 12, 12, 12);
       // this.state.start('GameLost');
       this.showHint(player, collectable);
       this.scoreSystem.scoreObjectPickUp();
@@ -888,7 +888,7 @@ Encrypt.Game.prototype = {
     // added by @iva 07.02.2015
     else if (collectable.type === "firewall") {
       this.player.addItem(1);
-      this.firewallButton.setFrames(9, 10, 10, 10);
+      this.firewallButton.setFrames(10, 9, 9, 9);
       this.metricsSystem.addToolCollected(1);
       this.scoreSystem.scoreObjectPickUp();
       collectable.destroy();
@@ -897,7 +897,7 @@ Encrypt.Game.prototype = {
     // added by @iva 07.02.2015
     else if (collectable.type === "antivirus") {
       this.player.addItem(2);
-      this.antivirusButton.setFrames(3, 4, 3, 3);
+      this.antivirusButton.setFrames(4, 3, 3, 3);
       this.metricsSystem.addToolCollected(2);
       this.scoreSystem.scoreObjectPickUp();
       collectable.destroy();
@@ -943,7 +943,7 @@ Encrypt.Game.prototype = {
       this.hintsButton.setFrames(13, 13, 13, 13);
       this.displayLastHintCollected();
     } else {
-      this.hintsButton.setFrames(12, 13, 12, 12);
+      this.hintsButton.setFrames(13, 12, 12, 12);
       this.hideHintsCollected();
     }
   },
@@ -1299,7 +1299,7 @@ Encrypt.Game.prototype = {
       this.noteButton.setFrames(16, 16, 16, 16);
       this.displayNote();
     } else {
-      this.noteButton.setFrames(15, 16, 15, 15);
+      this.noteButton.setFrames(16, 15, 15, 15);
       this.hideNote();
       return;
     }
@@ -1334,10 +1334,10 @@ Encrypt.Game.prototype = {
       return;
     }
     else if (this.player.firewallBag.length > 0) {
-      this.firewallButton.setFrames(9, 10, 9, 9);
+      this.firewallButton.setFrames(10, 9, 9, 9);
       this.firewallButton.clicked = !this.firewallButton.clicked;
       if (this.firewallButton.clicked) {
-        this.firewallButton.setFrames(9, 9, 9, 9);
+        this.firewallButton.setFrames(10, 10, 10, 10);
         //isOnFire = true;
         this.enemy.isOnFire = true;
         this.player.firewallBag.length -=1;
@@ -1348,7 +1348,7 @@ Encrypt.Game.prototype = {
           this.firewallButton.setFrames(11, 11, 11, 11);
         }
         else {
-          this.firewallButton.setFrames(9, 10, 9, 9);
+          this.firewallButton.setFrames(10, 9, 9, 9);
         }
       }
     }
