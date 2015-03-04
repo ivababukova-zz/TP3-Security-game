@@ -1002,15 +1002,28 @@ MetricsSystem.prototype = {
 
         if( tool instanceof Firewall){
             this.toolsUsed["firewall"].push(successful);
-            storeUserToolsUsedToDB(1);
+            if(successful){
+                storeUserToolsUsedToDB(1, 1);
+            } else {
+                storeUserToolsUsedToDB(1, 0);
+            }
+            
         }
         else if( tool instanceof Antivirus){
             this.toolsUsed["antivirus"].push(successful);
-            storeUserToolsUsedToDB(2);
+            if(successful){
+                storeUserToolsUsedToDB(2, 1);
+            } else {
+                storeUserToolsUsedToDB(2, 0);
+            }
         }
         else if( tool instanceof AntiKeyLogger){
             this.toolsUsed["antikeylogger"].push(successful);
-            storeUserToolsUsedToDB(3);
+            if(successful){
+                storeUserToolsUsedToDB(3, 1);
+            } else {
+                storeUserToolsUsedToDB(3, 0);
+            }
         }
     }
 };
@@ -1438,7 +1451,7 @@ function storeUsersSuccessfulPasswordUse(did){
 };
 
 //Storage of User Tools Used -- Will implement once there are actually tools that you can use -TODO
- function storeUserToolsUsedToDB(tid) {
+ function storeUserToolsUsedToDB(tid ,success) {
     if (tid === "") {
         return;
     } else {
@@ -1449,7 +1462,7 @@ function storeUsersSuccessfulPasswordUse(did){
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("GET","storeusertoolsused.php?tid="+tid,true);
+        xmlhttp.open("GET","storeusertoolsused.php?tid="+tid+"&success="+success,true);
         xmlhttp.send();
     }
 };
