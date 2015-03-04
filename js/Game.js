@@ -26,6 +26,9 @@ var flagEnemyOnDoor; // @iva: is the enemy in front of a door
 var enemyWaitOnDoorTime = 10; // @iva: the amount of time in seconds the enemy waits on particular door
 var currentEnemyRoom = null; // Andi: global variable to keep track of where the enemy is
 var currentPlayerRoom = null; // Andi: global var to track where the player is
+var isMoving = false;
+var isPlaying = false;
+var runningSound = null;
 
 Encrypt.Game.prototype = {
   create: function () {
@@ -97,6 +100,7 @@ Encrypt.Game.prototype = {
     //create sounds used elsewhere in the gam
     doorSound = this.game.add.audio('doorSound');
     pickupSound = this.game.add.audio('pickUpSound');
+	runningSound = this.game.add.audio('runningSound');  
 
     // path-finding algorithm set up
 
@@ -168,6 +172,8 @@ Encrypt.Game.prototype = {
       var speed = 260;  // setting up the speed of the player
     }
     this.moveCharacter(this.player.sprite, speed);
+	this.playRunningSound();  
+	  
     /*BMDK: - Moved bringToTop here to allow the score to appear on top at all times*/
 
     this.scoreLabel.text = "Score:" + this.scoreSystem.score; // Andi: update the score
@@ -1106,6 +1112,17 @@ Encrypt.Game.prototype = {
       }
     }
   },
+	
+  playRunningSound: function() {
+	  if(!isPlaying && isMoving) {
+		  runningSound.play('',0,1,true);
+		  isPlaying = true;
+	  } if(isMoving == false) {
+		  runningSound.stop();
+		  isPlaying = false;
+	  	}
+  },
+
   /** Move character function for controlling animations of player
    *  This could probably be generalised to move Enemy too. - BMDK
    */
@@ -1113,6 +1130,7 @@ Encrypt.Game.prototype = {
     //player movement
     character.body.velocity.y = 0;
     character.body.velocity.x = 0;
+	isMoving = true;
 
     /* Player moving up only */
     if (this.cursors.up.isDown && !this.cursors.right.isDown && !this.cursors.left.isDown) {
@@ -1174,6 +1192,7 @@ Encrypt.Game.prototype = {
     /*If player becomes static/stops, use last known direction to keep them facing that way*/
     else {
       character.animations.stop();
+	  isMoving = false;	
       if (lastKnownPlayerDirection [0] === 'up') {
         character.frame = 9;
         /* leave player facing up*/
