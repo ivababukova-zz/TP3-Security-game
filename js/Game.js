@@ -494,18 +494,15 @@ Encrypt.Game.prototype = {
   },
 
   applyAntiKeyLogger: function () {
-    // if it is key-logged
-    if (currentDoor.hasKeylogger && this.player.antikeyLoggerBag.length > 0) {
-      // apply key-logger
-      this.player.removeKeylogger(currentDoor);
-      if(this.player.antikeyLoggerBag.length === 0){
+    // apply key-logger
+    if(this.player.removeKeylogger(currentDoor)) {
+      if (this.player.antikeyLoggerBag.length === 0) {
         document.getElementById("antiKeyLogButtonImg").src = "assets/images/GameIcons/AntiKeyLoggerInactive56x56.png";
       }
       document.getElementById("feedback").innerHTML = "Anti key-logger applied successfully."
       document.getElementById("keyLogIndicator").src = "assets/images/GameIcons/lockedLock.png";
+      ;
     }
-    ;
-
     // focus back on password entry box
     this.input.focus();
   },

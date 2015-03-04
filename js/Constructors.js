@@ -155,21 +155,23 @@ Player.prototype = {
      * @param: door - the door to test & remove keylogger
      * */
     removeKeylogger: function(door){
+        var successful = false;
+        if(door.hasKeylogger !== undefined && this.antikeyLoggerBag.length > 0){
 
-      if(door.hasKeylogger !== undefined && this.antikeyLoggerBag.length > 0){
-
-          if(door.hasKeylogger === true) {
-              door.hasKeylogger = false;
-              this.antikeyLoggerBag.splice(this.antikeyLoggerBag.length-1, 1);
-              //take note in the score system
-              this.score.scoreNeutralise("door");
-              this.metrics.usedTool("antikeylogger", true);
-          }
-          else {
-              this.score.scoreNeutralise("failed");
-              this.metrics.usedTool("antikeylogger", false);
-          }
-      }
+            if(door.hasKeylogger === true) {
+                door.hasKeylogger = false;
+                this.antikeyLoggerBag.splice(this.antikeyLoggerBag.length-1, 1);
+                //take note in the score system
+                this.score.scoreNeutralise("door");
+                this.metrics.usedTool("antikeylogger", true);
+                successful = true;
+            }
+            else {
+                this.score.scoreNeutralise("failed");
+                this.metrics.usedTool("antikeylogger", false);
+            }
+        }
+        return successful
     },
     /*
      * method to add an item to the player's bag; assume item is a string saying what type of item we're adding
