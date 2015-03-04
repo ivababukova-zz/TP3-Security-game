@@ -1512,3 +1512,29 @@ function storeNoteToDB(note){
         xmlhttp.send();
     }
 };
+
+//Storage of when notes are opened
+function storeUserStartedRorWNotesToDB(){
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.open("GET","storeusernotesopened.php?",true);
+    xmlhttp.send();
+};
+
+//Storage of when notes are closed
+function storeUserStoppedRorWNotesToDB(){
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.open("GET","storeusernotesclosed.php?",true);
+    xmlhttp.send();
+};
