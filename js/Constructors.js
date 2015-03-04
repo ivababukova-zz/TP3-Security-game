@@ -919,13 +919,11 @@ MetricsSystem.prototype = {
             
         }
         else if( tool === "antivirus"){
-
             this.toolsUsed["antivirus"].push(successful);
             if(successful){
-
                 storeUserToolsUsedToDB(2, 1);
             } else {
-                storeUserToolsUsedToDB(2, 0);
+                //storeUserToolsUsedToDB(2, 0);
             }
         }
         else if( tool === "antikeylogger"){
@@ -992,6 +990,7 @@ ScoreSystem.prototype = {
         if( this.disinfections > 1 && objectName !== "failed")
             this.score += this.disinfections * 5; // award a basic bonus according to the number of success
     },
+
 
     scoreFirewall: function(){
 
