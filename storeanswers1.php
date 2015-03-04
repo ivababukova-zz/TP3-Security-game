@@ -55,5 +55,9 @@ $sql="INSERT INTO `teamr1415`.`AnswersBefore` (`uid`, `sid`, `a1`, `a2`, `a3`, `
 		.$a26."', '".$a27."', '".$a28."', '".$a29."', '".$a30."', '".$a31."', '".$a32."', '"
 		.$a33."', '".$a34."', '".$a35."', '".$a36."', '".$a37."', '".$a38."');";
 mysqli_query($conn,$sql);
+//Update to say we have the 1st questionnaire results for this user
+$sql="UPDATE `User` SET `q1` = 1 WHERE `uid` = '".$_SESSION["uid"]."';";
+mysqli_query($conn,$sql);
+//close connection
 mysqli_close($conn);
 ?>
