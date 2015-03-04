@@ -610,21 +610,21 @@
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="1312" y="384" width="160" height="832">
+  <object x="1312" y="406" width="160" height="810">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="160" y="384" width="1152" height="192">
+  <object x="160" y="406" width="1152" height="170">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="0" y="384" width="160" height="960">
+  <object x="0" y="406" width="160" height="938">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
@@ -820,7 +820,7 @@
     <property name="type" value="room"/>
    </properties>
   </object>
-  <object x="0" y="0" width="64" height="384">
+  <object x="0" y="0" width="64" height="406">
    <properties>
     <property name="idx" value="10"/>
     <property name="state" value="1"/>
