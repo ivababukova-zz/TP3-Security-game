@@ -29,6 +29,8 @@ var currentPlayerRoom = null; // Andi: global var to track where the player is
 var isMoving = false;
 var isPlaying = false;
 var runningSound = null;
+var isLethal = true;
+
 
 Encrypt.Game.prototype = {
   create: function () {
@@ -153,8 +155,9 @@ Encrypt.Game.prototype = {
 
     this.game.physics.arcade.collide(this.player.sprite, this.blockedLayer);   // set up collision with this layer
     this.game.physics.arcade.collide(this.enemy.sprite, this.blockedLayer);   // Andi: set up enemy's collision with blocked layer
-    this.game.physics.arcade.collide(this.enemy.sprite, this.player.sprite); // BMDK: Added collision between enemy and player
+    this.game.physics.arcade.collide(this.enemy.sprite, this.player.sprite, this.gameOver, null, this); // BMDK: Added collision between enemy and player
     this.game.physics.arcade.overlap(this.player.sprite, this.items, this.pickupItem, null, this);
+    //this.game.physics.arcade.overlap(this.player.sprite, this.enemy.sprite, this.gameOver(), null, this);
 
     this.flagEnter = this.game.physics.arcade.overlap(this.player.sprite, this.doors, this.enterDoor, null, this);
     flagEnemyOnDoor = this.game.physics.arcade.overlap(this.enemy.sprite, this.doors, this.enterDoorEnemy, null, this);
@@ -165,9 +168,11 @@ Encrypt.Game.prototype = {
     //console.log("door left, right:", this.doors.getAt(1).body.position.x, this.doors.getAt(1).body.right, "door top, down:", this.doors.getAt(1).body.position.y, this.doors.getAt(1).body.down);
 
     //Andi: slowing player down in infected rooms
+
     if (currentPlayerRoom.properties.infected) {
       var speed = 200;
     }
+
     else {
       var speed = 260;  // setting up the speed of the player
     }
@@ -207,8 +212,8 @@ Encrypt.Game.prototype = {
       // make sure he's at the first element in the path
       this.enemy.pathPosition = 1;
     }
-    // if the enemy needs a path
     this.enemy.update();
+    //update its current room
     this.getCurrentRoom(this.enemy);
 
   },
@@ -245,7 +250,7 @@ Encrypt.Game.prototype = {
 
   //create player
   createPlayer: function () {
-    this.player = new Player(300, 500, this.game, this.scoreSystem, this.metricsSystem);
+    this.player = new Player(200, 200, this.game, this.scoreSystem, this.metricsSystem);
 
     this.player.sprite.animations.add('down', [1, 2, 3, 4, 5, 6, 7, 8], 14, true, true);
     this.player.sprite.animations.add('up', [10, 11, 12, 13, 14, 15, 16, 17], 14, true, true);
@@ -269,7 +274,7 @@ Encrypt.Game.prototype = {
 
   //create an enemy
   createEnemy: function () {
-    this.enemy = new Enemy(600, 500, this.game, this.player, this.backgroundlayer);
+    this.enemy = new Enemy(1700, 2000, this.game, this.player, this.backgroundlayer);
     this.enemy.sprite.anchor.setTo(0.5, 0.5);
   },
 
@@ -867,11 +872,12 @@ Encrypt.Game.prototype = {
       this.hintsButton.setFrames(12, 13, 12, 12);
       // this.state.start('GameLost');
       this.showHint(player, collectable);
+      this.scoreSystem.scoreObjectPickUp();
     }
 
     else if (collectable.type === "policy") {
       this.addPolicy(collectable);
-      this.scoreSystem.scorePolicyPickUp();
+      this.scoreSystem.scoreObjectPickUp();
       this.metricsSystem.addPolicyCollected(collectable.colour);
     }
 
@@ -879,6 +885,7 @@ Encrypt.Game.prototype = {
     else if (collectable.type === "firewall") {
       this.player.addItem(1);
       this.metricsSystem.addToolCollected(1);
+      this.scoreSystem.scoreObjectPickUp();
       collectable.destroy();
     }
 
@@ -887,7 +894,7 @@ Encrypt.Game.prototype = {
       this.player.addItem(2);
       this.antivirusButton.setFrames(3, 4, 3, 3);
       this.metricsSystem.addToolCollected(2);
-      //finalscore = this.scoreSystem.score;
+      this.scoreSystem.scoreObjectPickUp();
       collectable.destroy();
     }
 
@@ -895,6 +902,7 @@ Encrypt.Game.prototype = {
     else if (collectable.type === "AntiKeyLog") {
       this.player.addItem(3);
       this.metricsSystem.addToolCollected(3);
+      this.scoreSystem.scoreObjectPickUp();
       collectable.destroy();
     }
     // calls the win page @iva
@@ -1305,7 +1313,18 @@ Encrypt.Game.prototype = {
         this.antivirusButton.setFrames(3, 4, 3, 3);
       }
     }
+  },
+  /**
+   * Andi: game over function; simply ends the game and start the game over state
+   * */
+  gameOver: function(){
+
+    if(isLethal) {
+
+      finalscore = this.scoreSystem.score;
+      this.state.start('GameLost');
+    }
+
   }
 
-
- };
+};

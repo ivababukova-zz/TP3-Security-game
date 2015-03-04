@@ -249,8 +249,8 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     this.lastKnownDirections = ["",""];
     this.lastKnownY = 0;
     this.lastKnownX = 0;
-    this.lastKnownDirection = "";
-    this.isstuck = false;
+    //this.lastKnownDirection = "";
+    //this.isstuck = false;
     this.isstuckcount = 0;
 
     // @iva: the enemy's dictionary with most used passwords:
@@ -269,7 +269,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     //collidable set to true
     this.isCollidable = true;
     // speed of the enemy - set to 10.0 by default
-    this.speed = 260;
+    this.speed = 280;
     // variable that'll keep track of whether the object is slowed down by firewall
     this.isSlowed = false;
     // logger chance - set to 0.1 by default - set to private as not used outside of object
@@ -279,7 +279,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     // an array that stores the path to the player
     this.pathToPlayer = [];
     //variable to keep track of how often the path-finding algorithm is called
-    this.countsToFindPath = 30;
+   //this.countsToFindPath = 30;
     //variable to keep track of the position in the path array; set to 1 as the first element is the enemy's position
     this.pathPosition = 1;
 
@@ -1140,8 +1140,13 @@ ScoreSystem.prototype = {
      * Function to award points to the player when he picks up a password policy; only intended as an incentive to make him explore the full breadth of the game
      * TO BE CALLED WHEN PICKING UP A POLICY
      * */
-    scorePolicyPickUp: function(){
 
+    /**
+     * Function to award points to the player when he picks up a tool or
+     * TO BE CALLED WHEN PICKING UP ANYOBJECT
+     * */
+
+    scoreObjectPickUp: function (){
         this.score += 5;
     },
 
