@@ -29,7 +29,7 @@ function generateUserIdentity() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     var userstatusphp = String(xmlhttp.responseText);
                     convert[0] = userstatusphp;
-                    if (convert[0].trim() === "newuser"){
+                    if (convert[0].trim() === "0"){
                         window.location.href='questionnaireBefore.html';
                     }
                     else {

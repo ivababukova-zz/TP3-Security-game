@@ -30,6 +30,10 @@ $sql="INSERT INTO `teamr1415`.`AnswersAfter` (`uid`, `sid`, `a1`, `a2`, `a3`, `a
 
 mysqli_query($conn,$sql);
 
+//Update to say we have the 2nd questionnaire results for this user
+$sql="UPDATE `User` SET `q2` = 1 WHERE `uid` = '".$_SESSION["uid"]."';";
+mysqli_query($conn,$sql);
+
 //update the Game session table as ended
 $sql="UPDATE `teamr1415`.`GameSessions` SET `endtime` = CURRENT_TIMESTAMP WHERE `sid` = '"
 	.$_SESSION["sid"]."';";
