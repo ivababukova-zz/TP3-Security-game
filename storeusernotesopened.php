@@ -2,8 +2,8 @@
 session_start();
 include_once("connect.php");
 
-$sql="INSERT INTO `teamr1415`.`UsersNotesAccessed` (`uid`, `sid`, `timeopened`)"
-	." VALUES ('".$_SESSION["uid"]."', '".$_SESSION["sid"]."', CURRENT_TIMESTAMP);";
+$sql="INSERT INTO `teamr1415`.`UsersNotesAccessed` (`uid`, `sid`, `timeopened`, `gaid`)"
+	." VALUES ('".$_SESSION["uid"]."', '".$_SESSION["sid"]."', CURRENT_TIMESTAMP, '".$_SESSION["gaid"]."');";
 	
 mysqli_query($conn,$sql);
 mysqli_close($conn);

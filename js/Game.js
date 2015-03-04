@@ -375,6 +375,10 @@ Encrypt.Game.prototype = {
       this.createDoorFromTiledObject(element, this.doors, doorID, 'sideDoor');
       doorID++;
     }, this);
+
+    this.doors.forEach(function (element) {
+      console.log(element.z + " " + element.policy);
+    }, this);
   },
 
   /********************* POLICY METHODS ************************
@@ -793,7 +797,7 @@ Encrypt.Game.prototype = {
     Object.keys(element.properties).forEach(function (key) {
       sprite[key] = element.properties[key];
     });
-    console.log(doorID+" "+element.properties.policy);
+    console.log(element.z+" "+element.properties.policy);
   },
   /*************************METHODS CALLED BY UPDATE() **************************
    * @param doorObject

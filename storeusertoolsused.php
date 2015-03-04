@@ -8,8 +8,8 @@ $tid = intval($_GET['tid']);
 $success = intval($_GET['success']);
 
 //SQL to insert into the usertools used table
-$sql="INSERT INTO `teamr1415`.`UsersToolsUsed` (`uid`, `sid`, `tid`, `success`) VALUES ('"
-	.$$_SESSION["uid"]."', '".$_SESSION["sid"]."', '".$tid."', '".$success."')";
+$sql="INSERT INTO `teamr1415`.`UsersToolsUsed` (`uid`, `sid`, `tid`, `success`, `gaid`) VALUES ('"
+	.$$_SESSION["uid"]."', '".$_SESSION["sid"]."', '".$tid."', '".$success."', '".$_SESSION["gaid"]."')";
 mysqli_query($conn,$sql);
 mysqli_close($conn);
 ?>

@@ -10,7 +10,8 @@ Encrypt.Instructions7.prototype  = {
 
     create: function(){
         this.background = this.game.add.tileSprite (0, 0, this.game.width, this.game.height, 'seventhInstructionPage');
-        var startButton = this.game.add.button(this.game.width/2 -70, this.game.height - 90, 'startButtons', this.onActionClick, this, 1, 0);
+        var skipButton = this.game.add.button(this.game.width/2 -70, this.game.height - 90, 'skipButtons', this.onActionClick, this, 1, 0);
+        var nextButton = this.game.add.button(this.game.width/2 + 120, this.game.height - 90, 'nextArrow', this.nextPage, this, 1, 0);
         var previousButton = this.game.add.button(this.game.width/2 -250, this.game.height - 90, 'previousArrow', this.previousPage, this, 0, 1);
     },
 
@@ -20,5 +21,9 @@ Encrypt.Instructions7.prototype  = {
 
     previousPage: function(){
         this.game.state.start('Instructions6');
+    },
+
+    nextPage: function(){
+        this.game.state.start('Instructions8');
     }
 };
