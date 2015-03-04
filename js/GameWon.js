@@ -49,20 +49,26 @@ Encrypt.GameWon.prototype = {
   },
 
   actionInstructions: function(){
+    //in here do an update to the end of the current game attempt 
+    // then redirect on ready to the game
     this.backButton.clicked = !this.backButton.clicked;
     if (this.backButton.clicked) {
-      this.backButton.setFrames(0, 0, 0, 0);
-      this.state.start ('Boot');
+        this.backButton.setFrames(0, 0, 0, 0);
+        updateEndOfAttempt();
+        //this.state.start ('Boot');
     } else {
       this.backButton.setFrames(0, 1, 0, 0);
     }
   },
 
   goToQuestionaire: function(){
+    //check the user status then do a redirect based on 
+    // whether or not we already have their answers
     this.endButton.clicked = !this.endButton.clicked;
     if (this.endButton.clicked) {
       this.endButton.setFrames(0, 0, 0, 0);
-      window.location.href = 'questionnaireAfter.html';
+      checkUserStatus();
+      //window.location.href = 'questionnaireAfter.html';
     } else {
       this.endButton.setFrames(0, 1, 0, 0);
     }
@@ -86,15 +92,36 @@ Encrypt.GameWon.prototype = {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     var userstatusphp = String(xmlhttp.responseText);
                     convert[0] = userstatusphp;
-                    if (convert[0].trim() === "newuser"){
+                    //may need to be === 0 (without quotes)
+                    if (convert[0].trim() === "0"){
                         window.location.href='questionnaireAfter.html';
                     }
                     else {
-                        window.location.href='userIdentity.html';
+                        window.location.href='feedback.html';
                     }
                 }
             }
         xmlhttp.open("GET","getuserstatus.php?won="+won+"&finalscore="+finalscore,true);
+        xmlhttp.send();
+    
+};
+
+//Function call to use php for finding if new user or existing
+ function updateEndOfAttempt() {
+        var won = "yes";
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    this.state.start ('Boot');
+                }
+            }
+        xmlhttp.open("GET","endCurrentGameAttempt.php?won="+won+"&finalscore="+finalscore,true);
         xmlhttp.send();
     
 };
