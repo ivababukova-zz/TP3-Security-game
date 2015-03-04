@@ -946,7 +946,7 @@ MetricsSystem.prototype = {
     },
     logNoteClosed: function(){
         storeUserStoppedRorWNotesToDB();
-    }
+    },
     /**
      * Method that returns the most used password in the array of passwords used. Returns the password, if there is one,
      * or null, if not.
