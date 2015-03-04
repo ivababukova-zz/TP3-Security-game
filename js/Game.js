@@ -538,6 +538,7 @@ Encrypt.Game.prototype = {
     document.getElementById("passStr").style.display = "none";
     document.getElementById("antiKeyLogButton").style.display = "none";
     document.getElementById("keyLogIndicator").style.display = "none";
+    document.getElementById("esc").style.display = "none";
     this.game.input.keyboard.enabled = true;
     this.input.focus();
     fPause = false;
@@ -927,6 +928,8 @@ Encrypt.Game.prototype = {
 
   /**************************************** HINTS AREA ****************************************/
   manageHintsPopup: function () {
+    if(document.getElementById("mainLayer").style.display === "block")
+      return;
     // if no hints available
     if (pickedHints.length === 0) {
       this.hintsButton.setFrames(14, 14, 14, 14);
@@ -1119,6 +1122,7 @@ Encrypt.Game.prototype = {
         document.getElementById("passStr").style.display = "block";
         document.getElementById("antiKeyLogButton").style.display = "block";
         document.getElementById("keyLogIndicator").style.display = "block";
+        document.getElementById("esc").style.display = "block";
       }
     }
   },
@@ -1279,11 +1283,12 @@ Encrypt.Game.prototype = {
 
   hideNote: function () {
     this.metricsSystem.logNoteClosed(); //Should be in the right place ~BMDK
-    document.getElementById("esc").style.display = "block";
     this.closePopup();
   },
 
   manageNote: function () {
+    if(document.getElementById("esc").style.display === "block" || document.getElementById("hintsLayer").style.display === "block")
+      return;
     // Switch
     this.noteButton.clicked = !this.noteButton.clicked;
     if (this.noteButton.clicked) {
