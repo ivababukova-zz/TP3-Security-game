@@ -32,6 +32,7 @@ $_SESSION["uid"] = $row['uid'];
 $_SESSION["userstatus"] = $row['userstatus'];
 $_SESSION["q1"] = $row['q1'];
 $_SESSION["q2"] = $row['q2'];
+$_SESSION["gaid"] = "1";
 
 if ($_SESSION["userstatus"] == "newuser") {
 	//insert a new user to the user table
