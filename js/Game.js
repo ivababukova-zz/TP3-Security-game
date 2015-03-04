@@ -1232,6 +1232,7 @@ Encrypt.Game.prototype = {
   },
 
   displayNote: function () {
+    this.metricsSystem.logNoteOpened();
     fPause = true;
     this.input.focus();
     this.game.input.keyboard.reset(false);
@@ -1248,6 +1249,7 @@ Encrypt.Game.prototype = {
   },
 
   hideNote: function () {
+    this.metricsSystem.logNoteClosed(); //Should be in the right place ~BMDK
     document.getElementById("esc").style.display = "block";
     this.closePopup();
   },
