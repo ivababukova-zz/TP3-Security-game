@@ -1286,7 +1286,6 @@ Encrypt.Game.prototype = {
   },
 
   manageNote: function () {
-    console.log("called");
     if(document.getElementById("esc").style.display === "block" || document.getElementById("hintsLayer").style.display === "block")
       return;
     // Switch
