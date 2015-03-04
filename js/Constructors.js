@@ -938,6 +938,9 @@ MetricsSystem.prototype = {
     updateNotesTaken: function( notesArray ){
         this.notesTaken =  notesArray;
     },
+    addNote: function(note){
+        storeNoteToDB(note);
+    },
     /**
      * Method that returns the most used password in the array of passwords used. Returns the password, if there is one,
      * or null, if not.
@@ -1491,4 +1494,21 @@ function storeUserStoppedReadingTipToDB(){
     }
     xmlhttp.open("GET","storeuseredreadsupdate.php?",true);
     xmlhttp.send();
+};
+
+//Storage of notes taken by the user
+function storeNoteToDB(note){
+    if (note === "") {
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","storeusernoteswritten.php?note="+note,true);
+        xmlhttp.send();
+    }
 };

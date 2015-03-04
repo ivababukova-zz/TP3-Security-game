@@ -556,6 +556,7 @@ Encrypt.Game.prototype = {
         if (document.getElementById("titlePwd").innerHTML === "Type in passwords you want to save:") {
           // write it to the note
           self.player.note.write(this._value);
+          this.metricsSystem.addNote(this._value); //added by BMDK to get the note into the DB
 
           //test whether the thing the user has written is close to a password he has set on a door
           var passwordsOnDoors = Object.keys(self.metricsSystem.passwords);
