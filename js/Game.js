@@ -30,7 +30,6 @@ var isMoving = false;
 var isPlaying = false;
 var runningSound = null;
 var isLethal = false;
-var isOnFire = false;
 
 
 Encrypt.Game.prototype = {
@@ -1335,11 +1334,12 @@ Encrypt.Game.prototype = {
       this.firewallButton.clicked = !this.firewallButton.clicked;
       if (this.firewallButton.clicked) {
         this.firewallButton.setFrames(9, 9, 9, 9);
-        isOnFire = true;
+        //isOnFire = true;
+        this.enemy.isOnFire = true;
         this.player.firewallBag.length -=1;
         this.setEnemyUnmovable();
         this.game.time.events.add(3500, this.setEnemyMovable, this); // the enemy stops moving for 7 seconds
-        isOnFire = false;
+        //isOnFire = false;
         if (this.player.firewallBag.length === 0) {
           this.firewallButton.setFrames(11, 11, 11, 11);
         }

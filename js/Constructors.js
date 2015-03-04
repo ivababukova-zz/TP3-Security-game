@@ -252,6 +252,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     //this.lastKnownDirection = "";
     //this.isstuck = false;
     this.isstuckcount = 0;
+    this.isOnFire = false;
 
     // @iva: the enemy's dictionary with most used passwords:
     this.passwordsDictionary = {
@@ -311,7 +312,15 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
 Enemy.prototype = {
 
     update: function () {
-        this.sprite.frame = enemyFrame%5;
+        if (this.isMovable && this.isOnFire){
+            this.isOnFire = false;
+        }
+        if (this.isOnFire){
+            this.sprite.frame = enemyFrame%5 + 5;
+        } else {
+            this.sprite.frame = enemyFrame%5;
+        }
+
         this.hasChangedRoom();
 /*
         if (isOnFire === true) {

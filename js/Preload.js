@@ -54,8 +54,8 @@ Encrypt.Preload.prototype = {
     this.load.spritesheet ('icons', 'assets/images/GameIcons/IconsSpriteSheet.png', 56, 56, 21);
 
     this.load.spritesheet ('sideDoor', 'assets/images/Animations/DoorAnimations/SideDoorAnimationFrames.png', 128, 128, 17, 0, 0);
-    this.load.spritesheet ('enemy', 'assets/images/Animations/EnemySpriteSheet.png', 55, 61, 5); // BMDK: - Added enemy spritesheet
-    this.load.spritesheet ('enemyOnFire', 'assets/images/Animations/EnemyOnFireSpriteSheet.png', 55, 61, 5); // BMDK: - Added enemy spritesheet
+    //this.load.spritesheet ('enemy', 'assets/images/Animations/EnemySpriteSheet.png', 55, 61, 5); // BMDK: - Added enemy spritesheet
+    this.load.spritesheet ('enemy', 'assets/images/Animations/EnemySpriteSheetAll.png', 55, 61, 10); // BMDK: - Added enemy spritesheet
 
     //main menu images
     this.load.image ('logo', 'assets/images/EncryptLogo.png');
@@ -79,9 +79,9 @@ Encrypt.Preload.prototype = {
 
       //music
       this.load.audio ('music', 'assets/sounds/main_music.ogg');
-	  this.load.audio('runningSound', 'assets/sounds/running.ogg');    
-	  this.load.audio ('pickUpSound', 'assets/sounds/pickup_sound.ogg');
-	  this.load.audio ('doorSound', 'assets/sounds/door_open.ogg');
+      this.load.audio('runningSound', 'assets/sounds/running.ogg');    
+      this.load.audio ('pickUpSound', 'assets/sounds/pickup_sound.ogg');
+      this.load.audio ('doorSound', 'assets/sounds/door_open.ogg');
 
   },
   create: function() {
