@@ -1117,6 +1117,7 @@ StringMatcher.prototype = {
         while ( i < targetedMatches.length ){
             if( stringToMatch === targetedMatches[i])
                 return true;
+            i++;
         }
         return false;
     },

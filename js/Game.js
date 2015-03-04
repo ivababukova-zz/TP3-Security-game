@@ -917,6 +917,7 @@ Encrypt.Game.prototype = {
       this.scoreSystem.scoreGameWon();
 
       finalscore = this.scoreSystem.score;
+      runningSound.stop();
       this.state.start('GameWon');
       collectable.destroy();
     }
@@ -1353,7 +1354,7 @@ Encrypt.Game.prototype = {
   gameOver: function(){
 
     if(isLethal) {
-
+      runningSound.stop();
       finalscore = this.scoreSystem.score;
       this.state.start('GameLost');
     }
