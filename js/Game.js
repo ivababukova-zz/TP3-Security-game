@@ -511,12 +511,13 @@ Encrypt.Game.prototype = {
   },
 
   resetPassword: function () {
+    this.input.focus();
     if (currentDoor.password === 'null') {
       document.getElementById("feedback").innerHTML = "Password is not set for this door.";
       return;
     } else if (this.player.passwordResetsAvailable === 0) {
       document.getElementById("feedback").innerHTML = "You are out of password resets.";
-      return
+      return;
     }
     this.player.passwordResetsAvailable -= 1;
     var penalty = this.scoreSystem.scoreReset(this.getEntropy(currentDoor.password));
