@@ -73,6 +73,7 @@ Encrypt.Preload.prototype = {
     this.load.image ('fifthInstructionPage', 'assets/images/fifthPageOfInstructions.png');
     this.load.image ('sixthInstructionPage', 'assets/images/sixthPageOfInstructions.png');
     this.load.image ('seventhInstructionPage', 'assets/images/seventhPageOfInstructions.png');
+    this.load.image ('eighthInstructionPage', 'assets/images/eighthPageOfInstructions.png');
 
     // buttons:
     // this.load.spritesheet ('instructionsButt', 'assets/images/ButtonImages/instrButtonSprite.png', 64, 130);

@@ -16,6 +16,7 @@ Encrypt.game.state.add('Instructions4', Encrypt.Instructions4);
 Encrypt.game.state.add('Instructions5', Encrypt.Instructions5);
 Encrypt.game.state.add('Instructions6', Encrypt.Instructions6);
 Encrypt.game.state.add('Instructions7', Encrypt.Instructions7);
+Encrypt.game.state.add('Instructions8', Encrypt.Instructions8);
 Encrypt.game.state.add('Game', Encrypt.Game);
 
 
