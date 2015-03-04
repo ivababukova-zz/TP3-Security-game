@@ -248,7 +248,7 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     // logger chance - set to 0.1 by default - set to private as not used outside of object
     this.loggerChance = 0.1;
     // room infection chance set to 0.1 by default - set to private as not used outside of object
-    this.virusChance = 1;
+    this.virusChance = 0.1;
     // an array that stores the path to the player
     this.pathToPlayer = [];
     //variable to keep track of how often the path-finding algorithm is called
