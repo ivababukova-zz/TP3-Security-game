@@ -40,20 +40,32 @@ Encrypt.GameWon.prototype = {
     textLabel.anchor.set(0.5);
 
 
-    var backButton = this.game.add.button(this.game.width/2 -80, this.game.height - 130, 'restartButton', this.actionInstructions, this);
-    this.endButton = this.game.add.button (this.game.width/2 -45, this.game.height - 180, 'endButton', this.goToQuestionaire, this);
+    this.backButton = this.game.add.button (this.game.width/2 -45, this.game.height - 120, 'restartButtons', this.actionInstructions, this, 0, 1, 0, 0)
+    this.backButton.clicked = false;
+
+    this.endButton = this.game.add.button (this.game.width/2 -45, this.game.height - 180, 'endButtons', this.goToQuestionaire, this, 0, 1, 0, 0);
     this.endButton.clicked = false;
 
   },
 
   actionInstructions: function(){
-    this.state.start("Boot");
+    this.backButton.clicked = !this.backButton.clicked;
+    if (this.backButton.clicked) {
+      this.backButton.setFrames(0, 0, 0, 0);
+      this.state.start ('Boot');
+    } else {
+      this.backButton.setFrames(0, 1, 0, 0);
+    }
   },
 
-
   goToQuestionaire: function(){
-    checkUserStatus();
-    //window.location.href='questionnaireAfter.html';
+    this.endButton.clicked = !this.endButton.clicked;
+    if (this.endButton.clicked) {
+      this.endButton.setFrames(0, 0, 0, 0);
+      window.location.href = 'questionnaireAfter.html';
+    } else {
+      this.endButton.setFrames(0, 1, 0, 0);
+    }
   }
 
 

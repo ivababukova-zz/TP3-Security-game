@@ -47,6 +47,10 @@ Encrypt.Preload.prototype = {
 
     this.load.spritesheet ('hintButtons','assets/images/ButtonImages/hintsButtonSpriteSheet.png', 56, 58, 2 );
 
+    this.load.spritesheet('restartButtons', 'assets/images/ButtonImages/restartButtonSpritesheet.png', 80, 43, 2);
+
+    this.load.spritesheet ('endButtons', 'assets/images/ButtonImages/endButtonSpriteSheet.png', 80, 43, 2);
+
     this.load.spritesheet ('icons', 'assets/images/GameIcons/IconsSpriteSheet.png', 56, 56, 21);
 
     this.load.spritesheet ('sideDoor', 'assets/images/Animations/DoorAnimations/SideDoorAnimationFrames.png', 128, 128, 17, 0, 0);
@@ -69,9 +73,6 @@ Encrypt.Preload.prototype = {
     // buttons:
     // this.load.spritesheet ('instructionsButt', 'assets/images/ButtonImages/instrButtonSprite.png', 64, 130);
     this.load.image ('backButton','assets/images/ButtonImages/gobackButtonIva.png');
-    this.load.image ('restartButton','assets/images/ButtonImages/restart_button.png');
-    this.load.image ('endButton', 'assets/images/ButtonImages/endButton.png');
-    // this.load.image ('endButtons', 'assets/images/ButtonImages/endButtonSpriteSheet.png', 70, 32, 2);
 
 
 

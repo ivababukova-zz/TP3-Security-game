@@ -30,29 +30,32 @@ Encrypt.GameLost.prototype = {
     textLabel = this.game.add.text(this.game.width / 2, this.game.height - 250 , text, style);
     textLabel.anchor.set(0.5);
 
-    this.backButton = this.game.add.button(this.game.width/2 - 70, this.game.height - 150, 'restartButton', this.actionInstructions, this);
+    this.backButton = this.game.add.button (this.game.width/2 -45, this.game.height - 160, 'restartButtons', this.actionInstructions, this, 0, 1, 0, 0)
+    this.backButton.clicked = false;
 
-    this.endButton = this.game.add.button (this.game.width/2 -45, this.game.height - 220, 'endButton', this.goToQuestionaire, this);
+    this.endButton = this.game.add.button (this.game.width/2 -45, this.game.height - 220, 'endButtons', this.goToQuestionaire, this, 0, 1, 0, 0);
     this.endButton.clicked = false;
 
   },
+
   actionInstructions: function(){
-    this.state.start("Boot");
+    this.backButton.clicked = !this.backButton.clicked;
+    if (this.backButton.clicked) {
+      this.backButton.setFrames(0, 0, 0, 0);
+      this.state.start ('Boot');
+    } else {
+      this.backButton.setFrames(0, 1, 0, 0);
+    }
   },
-/*
-  actionInstructions: function(){
+
+  goToQuestionaire: function(){
     this.endButton.clicked = !this.endButton.clicked;
     if (this.endButton.clicked) {
       this.endButton.setFrames(0, 0, 0, 0);
-      finalscore = 0;
-      this.state.start ('MainMenu');
+      window.location.href = 'questionnaireAfter.html';
     } else {
       this.endButton.setFrames(0, 1, 0, 0);
     }
-  },
-*/
-  goToQuestionaire: function(){
-    window.location.href='questionnaireAfter.html';
   }
 
 };
