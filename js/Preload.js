@@ -47,6 +47,8 @@ Encrypt.Preload.prototype = {
 
     this.load.spritesheet ('hintButtons','assets/images/ButtonImages/hintsButtonSpriteSheet.png', 56, 58, 2 );
 
+    this.load.spritesheet ('seeHowButtons','assets/images/ButtonImages/seeHowButtonSpriteSheet.png', 141, 65, 2 );
+
     this.load.spritesheet('restartButtons', 'assets/images/ButtonImages/restartButtonSpritesheet.png', 80, 43, 2);
 
     this.load.spritesheet ('endButtons', 'assets/images/ButtonImages/endButtonSpriteSheet.png', 80, 43, 2);
@@ -63,6 +65,7 @@ Encrypt.Preload.prototype = {
     this.load.image ('space2', 'assets/images/MLetters.png');
 
     // instruction pages
+    this.load.image ('initialInstructionPage', 'assets/images/initialPageOfInstructions.png');
     this.load.image ('firstInstructionPage', 'assets/images/firstPageOfInstructions.png');
     this.load.image ('secondInstructionPage', 'assets/images/secondPageOfInstructions.png');
     this.load.image ('thirdInstructionPage', 'assets/images/thirdPageOfInstructions.png');

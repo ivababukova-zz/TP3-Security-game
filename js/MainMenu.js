@@ -50,6 +50,6 @@ Encrypt.MainMenu.prototype = {
 
     startGame: function () {
         mainMenuMusic.stop ();
-        this.game.state.start ('Instructions1');
+        this.game.state.start ('InstructionsStory');
     }
 };

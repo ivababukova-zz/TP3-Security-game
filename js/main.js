@@ -8,6 +8,7 @@ Encrypt.game.state.add('Preload', Encrypt.Preload);
 Encrypt.game.state.add('GameWon', Encrypt.GameWon);
 Encrypt.game.state.add('GameLost', Encrypt.GameLost);
 Encrypt.game.state.add('MainMenu', Encrypt.MainMenu);
+Encrypt.game.state.add('InstructionsStory', Encrypt.InstructionsStory);
 Encrypt.game.state.add('Instructions1', Encrypt.Instructions1);
 Encrypt.game.state.add('Instructions2', Encrypt.Instructions2);
 Encrypt.game.state.add('Instructions3', Encrypt.Instructions3);
