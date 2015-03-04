@@ -1092,6 +1092,7 @@ Encrypt.Game.prototype = {
       // Check if player has the right policy for the door
       if (this.player.policies[door.policy] === undefined) {
         document.getElementById("mainLayer").style.display = "block";
+        document.getElementById("esc").style.display = "block";
         document.getElementById("policyRules").innerHTML = "You can't enter here. You need to collect the " + door.policy + " policy for this door first.";
       }
       else {
