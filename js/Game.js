@@ -496,20 +496,14 @@ Encrypt.Game.prototype = {
 
   applyAntiKeyLogger: function () {
     // if it is key-logged
-    if (currentDoor.hasKeylogger) {
+    if (currentDoor.hasKeylogger && this.player.antikeyLoggerBag.length > 0) {
       // apply key-logger
       this.player.removeKeylogger(currentDoor);
-      // if successful
-      if (!currentDoor.hasKeylogger) {
-        document.getElementById("feedback").innerHTML = "Anti key-logger applied successfully. Now you can enter your password safely."
-        document.getElementById("keyLogIndicator").src = "assets/images/GameIcons/lockedLock.png";
-        // if unsuccessful
-      } else {
-        document.getElementById("feedback").innerHTML = "You don't have anti key-loggers available."
+      if(this.player.antikeyLoggerBag.length === 0){
+        document.getElementById("antiKeyLogButtonImg").src = "assets/images/GameIcons/AntiKeyLoggerInactive56x56.png";
       }
-      // if it is NOT key-logged
-    } else {
-      document.getElementById("feedback").innerHTML = "This door is not key-logged."
+      document.getElementById("feedback").innerHTML = "Anti key-logger applied successfully."
+      document.getElementById("keyLogIndicator").src = "assets/images/GameIcons/lockedLock.png";
     }
     ;
 
@@ -908,6 +902,7 @@ Encrypt.Game.prototype = {
     // added by @iva 07.02.2015
     else if (collectable.type === "AntiKeyLog") {
       this.player.addItem(3);
+      document.getElementById("antiKeyLogButtonImg").src = "assets/images/GameIcons/AntiKeyLogger56x56.png";
       this.metricsSystem.addToolCollected(3);
       this.scoreSystem.scoreObjectPickUp();
       collectable.destroy();
