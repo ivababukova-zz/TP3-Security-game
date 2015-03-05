@@ -31,7 +31,7 @@ Encrypt.MainMenu.prototype = {
         this.logo = this.game.add.sprite(this.game.width- 525 ,this.game.height - 575, 'logo');
 
         //TODO format better; add disclaimer saying that if you play the game, you agree to us storing your passwords
-        text =   "BY PLAYING THIS GAME YOU GRANT US PERMISSION TO \n STORE YOUR IN-GAME PASSWORDS FOR ANALYSIS PURPOSES\n\n" +
+        text =   "BY PLAYING THIS GAME YOU\n GRANT US PERMISSION TO STORE YOUR\n IN-GAME PASSWORDS FOR ANALYSIS PURPOSES\n\n" +
                 "NOTE: FOR SECURITY REASONS\nDO NOT USE YOUR PASSWORDS FROM REAL LIFE!\n";
 
         style = {font: "20px Serif", fill: "#fff", align: "center"};

@@ -1111,10 +1111,11 @@ StringMatcher.prototype = {
     simpleMatch: function(stringToMatch, targetedMatches){
 
         var i = 0;
-
+        console.log("HELLO!");
         while ( i < targetedMatches.length ){
             if( stringToMatch === targetedMatches[i])
                 return true;
+            i++;
         }
         return false;
     },

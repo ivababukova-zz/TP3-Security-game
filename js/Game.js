@@ -572,8 +572,10 @@ Encrypt.Game.prototype = {
 
           //test whether the thing the user has written is close to a password he has set on a door
           var passwordsOnDoors = Object.keys(self.metricsSystem.passwords);
+
           if (self.stringMatcher.simpleMatch(this._value, passwordsOnDoors)) {
             //Andi: call the score system to penalise player for writing down passwords
+            console.log("Here!");
             self.scoreSystem.scorePasswordWriteDown(self.getEntropy(this._value));
 
           }
