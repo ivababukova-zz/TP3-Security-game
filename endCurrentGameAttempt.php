@@ -5,7 +5,7 @@ include_once("connect.php");
 $won = strval($_GET['won']);
 $finalscore = intval($_GET['finalscore']);
 
-if ($won = "yes"){
+if ($won == "yes"){
 	//Update user game session table with final score and successful result
 	$sql="UPDATE `teamr1415`.`UserGameAttempts` SET `overallscore` = '"
 	.$finalscore."', `success` = 1, `endtime` = CURRENT_TIMESTAMP WHERE `uid` = '"

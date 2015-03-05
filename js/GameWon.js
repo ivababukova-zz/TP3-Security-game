@@ -54,7 +54,7 @@ Encrypt.GameWon.prototype = {
     this.backButton.clicked = !this.backButton.clicked;
     if (this.backButton.clicked) {
         this.backButton.setFrames(0, 0, 0, 0);
-        updateEndOfAttempt();
+        updateEndOfAttempt(this);
         //this.state.start ('Boot');
     } else {
       this.backButton.setFrames(0, 1, 0, 0);
@@ -107,7 +107,7 @@ Encrypt.GameWon.prototype = {
 };
 
 //Function call to use php for finding if new user or existing
- function updateEndOfAttempt() {
+ function updateEndOfAttempt(context) {
         var won = "yes";
         if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -118,7 +118,7 @@ Encrypt.GameWon.prototype = {
         }
         xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    this.state.start ('Boot');
+                    context.state.start ('Boot');
                 }
             }
         xmlhttp.open("GET","endCurrentGameAttempt.php?won="+won+"&finalscore="+finalscore,true);

@@ -42,7 +42,7 @@ Encrypt.GameLost.prototype = {
     this.backButton.clicked = !this.backButton.clicked;
     if (this.backButton.clicked) {
       this.backButton.setFrames(0, 0, 0, 0);
-      updateEndOfAttempt();
+      updateEndOfAttempt1(this);
       //this.state.start ('Boot');
     } else {
       this.backButton.setFrames(0, 1, 0, 0);
@@ -64,7 +64,7 @@ Encrypt.GameLost.prototype = {
     this.endButton.clicked = !this.endButton.clicked;
     if (this.endButton.clicked) {
       this.endButton.setFrames(0, 0, 0, 0);
-      checkUserStatus();
+      checkUserStatus1();
       //window.location.href = 'questionnaireAfter.html';
     } else {
       this.endButton.setFrames(0, 1, 0, 0);
@@ -75,7 +75,7 @@ Encrypt.GameLost.prototype = {
 };
 
 //Function call to use php for finding if new user or existing
-function checkUserStatus() {
+function checkUserStatus1() {
         var won = "no";
         if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -103,7 +103,7 @@ function checkUserStatus() {
 };
 
 //Function call to use php for finding if new user or existing
- function updateEndOfAttempt() {
+ function updateEndOfAttempt1(context) {
         var won = "no";
         if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -114,7 +114,7 @@ function checkUserStatus() {
         }
         xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    this.state.start ('Boot');
+                    context.state.start ('Boot');
                 }
             }
         xmlhttp.open("GET","endCurrentGameAttempt.php?won="+won+"&finalscore="+finalscore,true);
