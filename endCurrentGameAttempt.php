@@ -18,7 +18,7 @@ if ($won == "yes"){
 	.$_SESSION["uid"]."' AND `sid` = '".$_SESSION["sid"]."' AND `gaid` = '".$_SESSION["gaid"]."';";
 	mysqli_query($conn,$sql);
 }
-$_SESSION["gaid"] = $_SESSION["gaid"] + 1; //might not work
+$_SESSION["gaid"] = $_SESSION["gaid"] + 1; 
 mysqli_close($conn);
 
 ?>
