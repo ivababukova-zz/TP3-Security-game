@@ -2,7 +2,7 @@
 session_start();
 include_once("connect.php");
 
-//Get questionnare results - NEED TO ADD IN WHAT TYPE THEY ARE: strval, intval, floatval ....
+//Get questionnare results 
 $a1 = strval($_GET['a1']);
 $a2 = strval($_GET['a2']);
 $a3 = strval($_GET['a3']);

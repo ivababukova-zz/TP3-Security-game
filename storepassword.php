@@ -34,13 +34,5 @@ if ($row['existsornot'] == 0){
 	$_SESSION["currentpid"] = $row['existsornot'];
 }
 
-//$sql="INSERT INTO `teamr1415`.`Passwords` (`pid`, `stringrep`, `entropy`, `length`) VALUES (NULL, '".$p."', '".$ent."', '".$len."');";
-//mysqli_query($conn,$sql);
-
-////get the pid of new password
-//$sql="SELECT `pid` FROM `teamr1415`.`Passwords` WHERE `stringrep` = '".$p."';";
-//$result = mysqli_query($conn,$sql);
-//$row = mysqli_fetch_array($result);
-
 mysqli_close($conn);
 ?>
