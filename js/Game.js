@@ -45,7 +45,7 @@ Encrypt.Game.prototype = {
 
     //creating the auxiliary systems
     this.scoreSystem = new ScoreSystem(this.game); // the score is initially 0
-    this.metricsSystem = new MetricsSystem(this.game, true);
+    this.metricsSystem = new MetricsSystem(this.game);
     this.stringMatcher = new StringMatcher();
 
     this.map = this.game.add.tilemap('level1');

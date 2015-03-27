@@ -2,63 +2,22 @@
  * Created by andi on 27/01/15.
  */
 var Encrypt = Encrypt || {};
-
-/* game objects contructor area
- ===================================================================================================================
- */
-
-
 /*
  * _________________________________________________________________________________________________________________
  * Note area
  * */
-
-/**
- * This object is meant to be owned by the player. If the player drops it, it has to be added to the map, and become
- * pickable. The enemies should be able to pick it up as well. It should be transferable to the friend upon request; yet
- * only as a clone
- * */
 Note = function () {
-
-    // variable to keep track of visibility; set to true as a default
-    this.isVisible = false;
-
-    // variable to keep track of collidability; set to false as a default because it will be instantiated as belongig to player
-    this.isCollidable = false;
-
     /* an array to keep track of the passwords written down; it should be an array of arrays so that it can track
      the password with its corresponding policy. */
     this.passwords =[];
-
-    /* coordinates for the object; if it's not owned, it should appear on the map where it's dropped; if not, its
-     default should be -1, -1, so that it's outside out canvas*/
-    this.currentX = -1;
-    this.currentY = -1;
 };
 
 Note.prototype = {
-
     write: function(password){
-
         if(typeof(password) === 'string')
             this.passwords.push(password);
         //otherwise do nothing
-    },
-
-    /* this method should modify the object's coordinates; the place where it's called should be where the object is
-     * removed from the owning object's possession, i.e. set it's paperPassword attribute to null */
-    dropPaper: function(droppedX, droppedY){
-
-        this.currentX = droppedX;
-        this.currentY = droppedY;
-        //TODO: handle putting the paper on the map when it's dropped and removing it when it's picked up
-        //  make the switch, if the appropriate fields are false
-        if( !this.isCollidable && !this.isVisible) {
-            this.isCollidable = true;
-            this.isVisible = true;
-        }
     }
-
 };
 /*
  * ________________________________________________________________________________________________________________
@@ -69,8 +28,6 @@ Player = function (currentX, currentY, game, score, metrics) {
     // player's location on the map
     this.currentX = currentX;
     this.currentY = currentY;
-    this.isVisible = true;
-    this.isCollidable = true;
     this.currentRoom = 0;
     this.game = game;
     this.score = score; // variable that holds a reference to the score system | used in disinfect
@@ -79,7 +36,6 @@ Player = function (currentX, currentY, game, score, metrics) {
     this.firewallBag = [];  // stores: firewall objects collected from the map @iva
     this.antivirusBag = []; // stores: antivirus objects collected from the map @iva
     this.antikeyLoggerBag = []; // stores: antikeylogger objects from the map @iva
-    this.hintsBag = pickedHints; // stores the hints and tips collected by the player @iva
 
     this.note = new Note();
     this.passwordResetsAvailable = 5;
@@ -100,7 +56,6 @@ Player.prototype = {
 
     /**use item from bag on a specified target - will call the object's "use()" method
      due to small number of objects, will use a switch case to handle usage */
-    // modified by Iva 07.02.2015
     use: function (item) {
 
         switch (item) {
@@ -126,7 +81,7 @@ Player.prototype = {
     },
 
     /**
-     * Method used to disinfect a room
+     * Function used to disinfect a room
      * @param: room - the room to disinfect
      * @return: boolean - indication whether disinfection happened
      * */
@@ -147,11 +102,10 @@ Player.prototype = {
             this.metrics.usedTool("antivirus", false);
         }
         return successful;
-
     },
 
     /**
-     * Method for when the user wants to remove the keylogger on a door; should be called through a button on the input form
+     * Function for when the user wants to remove the keylogger on a door; should be called through a button on the input form
      * @param: door - the door to test & remove keylogger
      * */
     removeKeylogger: function(door){
@@ -173,46 +127,37 @@ Player.prototype = {
         }
         return successful
     },
-    /*
-     * method to add an item to the player's bag; assume item is a string saying what type of item we're adding
+    /**
+     * Function to add an item to the player's bag; assume item is a string saying what type of item we're adding
      * */
-    /*
-    *
-    * no more than one item from the same type can be added. For example, if the player collects 1, or 15, or
-    * 2 firewall items, the bag will contain only 1.
-    * */
-    // modified by Iva 07.02.2015
-      addItem: function (numb) {
-         if (numb === 1) {
-             this.firewallBag.push(this.firewallBag.length + 1);  // increment the firewall bag
-         }
+    addItem: function (numb) {
+        if (numb === 1) {
+            this.firewallBag.push(this.firewallBag.length + 1);  // increment the firewall bag
+        }
         else if (numb === 2) {
-             this.antivirusBag.push(this.antivirusBag.length + 1);
-         }
+            this.antivirusBag.push(this.antivirusBag.length + 1);
+        }
         else if (numb === 3) {
-             this.antikeyLoggerBag.push(this.antikeyLoggerBag.length + 1);
-         }
+            this.antikeyLoggerBag.push(this.antikeyLoggerBag.length + 1);
+        }
     },
-
-    // TODO: refine to add password to a particular policy, or provide option to just write them down as they are
-    writeToNote: function (password) {
-        this.note.write(password);
-    },
-
+    /**
+     * Function adds policy for the player
+     * @param policy - the policy to add
+     */
     addPolicy: function(policy){
 
-         // if the array stored in the player doesn't have the key corresponding to the colour of the given policy
+        // if the array stored in the player doesn't have the key corresponding to the colour of the given policy
         if(!this.policies.hasOwnProperty(policy.colour))
             this.policies[policy.colour] = policy;
-            //else do nothing
-        }
+        //else do nothing
+    }
 };
 
 /*
-* ________________________________________________________________________________________________________________
-* Enemy area
-* */
-
+ * ________________________________________________________________________________________________________________
+ * Enemy area
+ * */
 Enemy = function(currentX, currentY, game, player, backgroundLayer) {
 
     // x,y coordinates
@@ -241,10 +186,6 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
         123123:1,
         password:1,
         abc123: 1};
-    // visibility - set to true?
-    this.isVisible = true;
-    //collidable set to true
-    this.isCollidable = true;
     // speed of the enemy - set to 10.0 by default
     this.speed = 280;
     // logger chance - set to 0.1 by default - set to private as not used outside of object
@@ -254,12 +195,12 @@ Enemy = function(currentX, currentY, game, player, backgroundLayer) {
     // an array that stores the path to the player
     this.pathToPlayer = [];
     //variable to keep track of how often the path-finding algorithm is called
-   //this.countsToFindPath = 30;
+    //this.countsToFindPath = 30;
     //variable to keep track of the position in the path array; set to 1 as the first element is the enemy's position
     this.pathPosition = 1;
 
     this.isMovable = true; /* @iva: is the enemy disabled to move.NOTE: this variable is used only for testing.
-    As soon as the door breaking functionality is ready, I will delete it */
+     As soon as the door breaking functionality is ready, I will delete it */
 
     // variable to keep track of whether a new path is needed; default is true as we don't have a path yet
     this.needNewPath = true;
@@ -296,15 +237,7 @@ Enemy.prototype = {
         }
 
         this.hasChangedRoom();
-/*
-        if (isOnFire === true) {
-            this.sprite.setTexture('enemyOnFire');
-        }
 
-        else if (isOnFire === false) {
-            this.sprite.setTexture('enemy');
-        }
-*/
         if (this.pathToPlayer.length !== 0) {
             // if the array is not empty or we've not reached the end of the array
             if (this.pathPosition < this.pathToPlayer.length) {
@@ -316,7 +249,7 @@ Enemy.prototype = {
                     this.nextTileCounter = 30;
                 }
                 else {
-                     //otherwise, move in that direction
+                    //otherwise, move in that direction
                     this._moveInNextDirection();
                     //decrement the tile counter at every move
                     this.nextTileCounter--;
@@ -342,10 +275,9 @@ Enemy.prototype = {
     },
 
     /**
-    * Private function that returns true if the enemy is on the next tile in the path or false if it is not
-    * */
+     * Private function that returns true if the enemy is on the next tile in the path or false if it is not
+     * */
     _onNextTile: function(){
-
         // current tile
         var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
         var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
@@ -361,7 +293,6 @@ Enemy.prototype = {
     },
 
     _moveInNextDirection: function(){
-
         //the positions
         var enemyTileX = this.backgroundLayer.getTileX(this.sprite.x);
         var enemyTileY = this.backgroundLayer.getTileY(this.sprite.y);
@@ -378,7 +309,7 @@ Enemy.prototype = {
         }
         // go right
         if( nextTileX > enemyTileX && nextTileY === enemyTileY) {
-             //If he is stuck and was last headed up, shift upwards
+            //If he is stuck and was last headed up, shift upwards
             if (this.lastKnownX === enemyTileX && this.lastKnownDirections[0] === "up" && this.isstuckcount > 2) {
                 this.lastKnownX = 0;
                 this.lastKnownY = 0;
@@ -422,7 +353,7 @@ Enemy.prototype = {
             }
         }
 
-    // go up
+        // go up
         else if( nextTileX === enemyTileX && nextTileY < enemyTileY) {
             //If he is stuck and was last headed left, shift left to correct
             if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left" && this.isstuckcount > 2) {
@@ -445,7 +376,7 @@ Enemy.prototype = {
             }
         }
 
-    // go down
+        // go down
         else if( nextTileX === enemyTileX && nextTileY > enemyTileY) {
             //If he is stuck and was last headed left, shift left to correct
             if (this.lastKnownY === enemyTileY && this.lastKnownDirections[1] === "left" && this.isstuckcount > 2) {
@@ -499,7 +430,7 @@ Enemy.prototype = {
     },
 
     /**
-     * Method used to put a keylogger on a door. Called when the enemy breaks a door
+     * Function used to put a keylogger on a door. Called when the enemy breaks a door
      * @param: door - the door to keylog
      * */
     putKeyLogger: function(door){
@@ -514,10 +445,9 @@ Enemy.prototype = {
     },
 
     /**
-     * Method that returns true if the enemy is going to keylog a door, and false if not
+     * Function that returns true if the enemy is going to keylog a door, and false if not
      * */
     willKeylog: function(){
-
         var infectionChance = Math.random();
         if( infectionChance < this.loggerChance)
             return true;
@@ -525,10 +455,9 @@ Enemy.prototype = {
     },
 
     /**
-     * Method that returns true if the enemy is going to keylog a door, and false if not
+     * Function that returns true if the enemy is going to keylog a door, and false if not
      * */
     willInfect: function(){
-
         var infectionChance = Math.random();
 
         if( infectionChance < this.virusChance)
@@ -536,11 +465,10 @@ Enemy.prototype = {
         return false;
     },
     /**
-     * Method used to keep track of whether the enemy has gone into a new room or not.
+     * Function used to keep track of whether the enemy has gone into a new room or not.
      * If it has, it calls infect and updates the field.
      * */
     hasChangedRoom: function(){
-
         if(this.currentRoom != this.previousRoom){
             this.previousRoom = this.currentRoom;
 
@@ -549,17 +477,18 @@ Enemy.prototype = {
         }
 
     },
-
+    /**
+     * Function used to infect a given room
+     * @param room
+     */
     infect: function(room){
         room.properties.infected = true;
     },
     /**
-     * Method used to add a password to the enemy's dictionary
+     * Function used to add a password to the enemy's dictionary
      * @param: password - the password to store
      * */
     addPasswordToDictionary: function(password){
-
-
         if(typeof(password) === "string") {
 
             // check if it's in the password array or not
@@ -574,7 +503,7 @@ Enemy.prototype = {
 
     },
     /**
-     * Method that checks whether the enemy has a password in its dictionary or not
+     * Function that checks whether the enemy has a password in its dictionary or not
      * @param: password - the password to be checked
      * @returns: true if it contains the password, false otherwise
      * */
@@ -584,124 +513,6 @@ Enemy.prototype = {
             return true;
 
         return false;
-    }
-
-};
-
-/*
- *  ________________________________________________________________________________________________________________
- *  Firewall, Antivirus, AntiKeylogger area
- * */
-/**
- * This object is meant to be used by the user. Its function is to slow down/kill enemies.
- * As opposed to other objects, it has two different states on the map: static, pickable object, and static actual
- * wall of fire.
- * */
-
-Firewall = function(currentX, currentY, game){
-
-    this.currentX = currentX;
-    this.currentY = currentY;
-    this.game = game;
-
-    //add its sprite
-    this.firewall = game.add.sprite(currentX, currentY, 'firewall');
-    //enable physics - not sure if need for collision detection
-    game.physics.enable(this.firewall, Phaser.Physics.ARCADE);
-    //made immovable as we don't want it thrown around the map
-    this.firewall.body.immovable = true;
-
-    //assume objects of type firewall get placed on the map
-    this.isVisible = true;
-    this.isCollidable = true;
-
-    // a number of seconds the firewall is active; set to a default of 30
-    var activeTime = 30;
-};
-
-Firewall.prototype = {
-
-    use: function (useX, useY) {
-
-        // first off, we update its coordinates on the map
-        this.currentX = useX;
-        this.currentY = useY;
-
-        // set it to visible and collidable; this function can't be called again on the object, so it's safe to assume
-        //that both attributes are set to false
-        this.switchCollidable();
-        this.switchVisible();
-    }
-
-};
-
-/**
- * This object is meant to be owned and used by the Player. When placing objects of this type on the map, make sure
- * they belong to the same group as the other pickable objects that only the player can pick up.*/
-Antivirus = function(currentX, currentY, game, score){
-
-    this.currentX = currentX;
-    this.currentY = currentY;
-    this.game = game;
-    this.score = score;
-
-    //assume put on the map
-    this.isVisible = true;
-    this.isCollidable = true;
-
-    this.antivirus = game.add.sprite(currentX, currentY, 'antivirus');
-    //enable physics - not sure if need for collision detection
-    game.physics.enable(this.antivirus, Phaser.Physics.ARCADE);
-    //made immovable as we don't want it thrown around the map
-    this.antivirus.body.immovable = true;
-};
-
-Antivirus.prototype = {
-
-    //antivirus' use function to be used on doors only
-    use: function(room){
-        if(typeof (room) === 'object')
-            if(room.hasOwnProperty('isInfected')){
-                room.switchInfected();         //huzzah! door is healed
-                this.score.scoreNeutralise("room");     //update the score in case of success
-            }
-        this.score.scoreNeutralise("failed");
-    }
-};
-
-/**
- * This object is meant to be owned and used by the Player. When placing objects of this type on the map, make sure
- * they belong to the same group as the other pickable objects that only the player can pick up.*/
-
-AntiKeyLogger = function(currentX, currentY, game, score){
-
-    this.currentX = currentX;
-    this.currentY = currentY;
-    this.game = game;
-    this.score = score;
-
-    //assumed to be on the map
-    this.isVisible = true;
-    this.isCollidable = true;
-
-    this.antikeylloger = game.add.sprite(currentX, currentY, 'antikeylogger');
-    //enable physics - not sure if need for collision detection
-    game.physics.enable(this.antikeylloger, Phaser.Physics.ARCADE);
-    //made immovable as we don't want it thrown around the map
-    this.antikeylloger.body.immovable = true;
-};
-
-AntiKeyLogger.prototype = {
-
-    // the function responsible for usage of the object on a given door
-    use: function(door){
-
-        if(typeof (door) === 'object')
-            if(door.hasOwnProperty('isInfected')){
-                door.switchInfected();         //huzzah! door is healed
-                this.score.scoreNeutralise("door");
-            }
-        this.score.scoreNeutralise("failed");
     }
 
 };
@@ -739,11 +550,13 @@ Policy = function( currentX, currentY, game, minLength, minUpper, minLower, minN
         //made immovable as we don't want it thrown around the map
         this.policy.body.immovable = true;
     }
-    // there was no need for methods, as the attributes are set to public)
+    // there was no need for methods, as the attributes are set to public
 };
-
-MetricsSystem = function( game, approval ){
-
+/*
+ *  ________________________________________________________________________________________________________________
+ *  Metrics System area
+ * */
+MetricsSystem = function( game){
     this.game = game;
 
     /*an associative array to store the in-game passwords
@@ -767,17 +580,22 @@ MetricsSystem = function( game, approval ){
     this.toolsUsed["antivirus"] = [];           // one entry in the array will serve as a time when that tools was used
     this.toolsUsed["antikeylogger"] = [];       // it will be true if the operation was successful; false if not
 
-    /*an array to keep track of what notes the player took*/
-    this.notesTaken = [];
-
 };
 
 MetricsSystem.prototype = {
-
+    /**
+     * Method to be called when a policy is picked up
+     * @param colour - a colour of a policy
+     */
     addPolicyCollected: function(colour){
         storeUserPoliciesCollectedToDB(colour);
     },
-
+    /**
+     * Function to be called when a password is being submited on the doors
+     * @param password
+     * @param entropy
+     * @param doorID
+     */
     addPassword: function(password, entropy, doorID){
         storePasswordToDB(password, entropy, password.length);
         var score12 = entropy*10;
@@ -787,23 +605,20 @@ MetricsSystem.prototype = {
 
             // check if it's in the password array or not
             if (this.passwords.hasOwnProperty(password)) {
-            //add one to its value
-            this.passwords[password] += 1;
+                //add one to its value
+                this.passwords[password] += 1;
             }
             else
-                //otherwise, initialise it to 1
+            //otherwise, initialise it to 1
                 this.passwords[password] = 1;
-
-            //in any case, a password was used again
-            this.passNumber += 1;
-            //add its length to the total password length var
-            this.totalPassLength += password.length;
         }
     },
-
     /**
      * Function to be called only when a password is reset on a door; will add the password to be replaced to an array
-     * */
+     * @param password
+     * @param doorID
+     * @param penalty
+     */
     addResetPassword: function(password, doorID, penalty){
         storePasswordResetsToDB(doorID, penalty);
         if( typeof(password) === "string"){
@@ -819,11 +634,12 @@ MetricsSystem.prototype = {
                 this.resetPasswords[password] = 1;
         }
     },
-
     /**
      * Function to be called whenever the player goes through a door using a password he set; doorID is the id of the door he went through
      * This can be used to determine which passwords were used on more than one door
-     * */
+     * @param password
+     * @param doorID
+     */
     addUsedPassword: function(password, doorID){
         storeUsersSuccessfulPasswordUse(doorID);
         if( typeof(password) === "string"){
@@ -861,7 +677,7 @@ MetricsSystem.prototype = {
         storeUserStoppedReadingTipToDB();
     },
     /**
-     * Method to be called when a password input by the user on a door is rejected.
+     * Function to be called when a password input by the user on a door is rejected.
      * @param password: the actual string that was attempted
      * @param doorID: the door on which it was tried
      * @param: reason: the reason why it was rejected, i.e. not matching a password already set, or not matching policy
@@ -883,15 +699,6 @@ MetricsSystem.prototype = {
         // initialise it to hold the first attempt
             this.rejectedPasswords[password] = [doorID, reason];
     },
-
-    /**
-     * Method to update the field of notes taken by the player for sending to the database
-     * @param: notesArray is the array stored in the notes object owned by the player
-     * */
-    updateNotesTaken: function( notesArray ){
-        this.notesTaken =  notesArray; // NEED TO REMOVE THIS
-    },
-
     addNote: function(note){
         storeNoteToDB(note);
     },
@@ -916,14 +723,14 @@ MetricsSystem.prototype = {
             } else {
                 storeUserToolsUsedToDB(1, 0);
             }
-            
+
         }
         else if( tool === "antivirus"){
             this.toolsUsed["antivirus"].push(successful);
             if(successful){
                 storeUserToolsUsedToDB(2, 1);
             } else {
-                //storeUserToolsUsedToDB(2, 0);
+                storeUserToolsUsedToDB(2, 0);
             }
         }
         else if( tool === "antikeylogger"){
@@ -936,9 +743,11 @@ MetricsSystem.prototype = {
         }
     }
 };
-
+/*
+ *  ________________________________________________________________________________________________________________
+ *  Score System area
+ * */
 ScoreSystem = function(game){
-
     this.game = game;
 
     // the variable that is going to keep track of the actual score
@@ -949,7 +758,6 @@ ScoreSystem = function(game){
 };
 
 ScoreSystem.prototype = {
-
     /**
      * Function used to award points to the player according to the entropy score he received upon setting a password.
      * Assumption: Entropy scores ar ein range 1 - 10
@@ -957,7 +765,6 @@ ScoreSystem.prototype = {
      * TO BE CALLED UPON SUCCESSFULLY SETTING UP A PASSWORD
      * */
     scorePassword: function( entropy ){
-
         //taking the floor of the entropy as it comes as a float
         if(typeof(entropy) === "number")
             this.score += 10 * entropy;
@@ -971,7 +778,6 @@ ScoreSystem.prototype = {
      * TO BE CALLED WHEN THE DISINFECTANT TOOLS ARE USED
      * */
     scoreNeutralise: function (objectName){
-
         if( objectName === "door"){
             this.score += 20;   // as specified in the score system doc, 20 points are added
             this.disinfections++;
@@ -983,9 +789,7 @@ ScoreSystem.prototype = {
         else if(objectName === "failed"){
             this.disinfections = 0; // set this variable back to 0, to reset the streak
         }
-        else{
-           //do nothing
-        }
+
         // give a bonus for a streak of successful disinfections
         if( this.disinfections > 1 && objectName !== "failed")
             this.score += this.disinfections * 5; // award a basic bonus according to the number of success
@@ -993,7 +797,6 @@ ScoreSystem.prototype = {
 
 
     scoreFirewall: function(){
-
         this.score += 15;
     },
 
@@ -1002,10 +805,7 @@ ScoreSystem.prototype = {
      * Based on the entropy of the password: 25% of the initial score awarded for setting the password
      * TO BE USED ONLY WHEN THE PLAYER INPUTS A PASSWORD HE SET PREVIOUSLY
      * */
-
-    //working title
     scorePassingThroughDoorWithoutResetting: function(password, entropy, player){
-
         var found = false;
 
         //look through the player's note to see if he has it already stored
@@ -1025,7 +825,6 @@ ScoreSystem.prototype = {
      * Function that subtracts points from the user for each reset he uses. Initial idea: subtract 50% of initial password score given
      * TO BE CALLED ONLY WHEN A RESET IS ISSUES AND COMPLETED
      * */
-
     scoreReset: function(entropy){
         this.score -= 0.5 * (entropy *10);
         //returning for the purpose of storing in the database
@@ -1043,66 +842,42 @@ ScoreSystem.prototype = {
     },
 
     /**
-     * Function to award points to the player when he picks up a password policy; only intended as an incentive to make him explore the full breadth of the game
-     * TO BE CALLED WHEN PICKING UP A POLICY
-     * */
-
-    /**
-     * Function to award points to the player when he picks up a tool or
+     * Function to award points to the player when he picks up a tool or any other object
      * TO BE CALLED WHEN PICKING UP ANYOBJECT
      * */
-
     scoreObjectPickUp: function (){
         this.score += 5;
     },
 
     /**
-     * Function used to award points to the player upon finishing the game.
+     * Function used to give the player a bonus for winning the game & the enemy not being in the same room
      * */
-     /**
-      * Method used to give the player a bonus for winning the game & the enemy not being in the same room
-      * */
-     scoreEnemyNotInRoomBonus: function(){
-
-         this.score += 50;
+    scoreEnemyNotInRoomBonus: function(){
+        this.score += 50;
     },
     /**
-     * Method used to award player a bonus upon finishing the game according to how far the enemy is from him
+     * Function used to award player a bonus upon finishing the game according to how far the enemy is from him
      * @param: pathLength - is the length of the path array stored in the enemy object
      * */
     scoreDistanceToPlayerBonus: function( pathLength ){
-
         //award 10 points per tile distance
         this.score += pathLength * 10;
     },
 
-     scoreGameWon: function(){
-
+    /**
+     * Function used to award points to the player upon finishing the game.
+     * */
+    scoreGameWon: function(){
         //award 100 points for winning the game
         this.score  += 100;
     }
-
-
 };
-
-/**
- * Function used to match a string written down on the note against all the passwords the user has set.
- * If the string written down is very similar to a password, the points awarded to the player for that password are deducted
- * Code courtesy of: Andrew Hedges
- * Link: http://andrew.hedges.name/experiments/levenshtein/levenshtein.js
- * http://andrew.hedges.name/experiments/levenshtein/
- * Algorithm: http://en.wikipedia.org/wiki/Levenshtein_distance
- *
- * @param: stringToMatch - the string that needs to be teste
- * @param: targetedMatches - an array of potential matches
- * */
-
+// String matcher
 StringMatcher = function(){
 
 };
 
 StringMatcher.prototype = {
-
     /**
      * A simple matching method that checks whether the note taken is the same as a password set on a door
      * @param: stringToMatch - the note taken
@@ -1110,101 +885,21 @@ StringMatcher.prototype = {
      * @returns: the true if found, false if not
      * */
     simpleMatch: function(stringToMatch, targetedMatches){
-
         var i = 0;
-        console.log("HELLO!");
         while ( i < targetedMatches.length ){
             if( stringToMatch === targetedMatches[i])
                 return true;
             i++;
         }
         return false;
-    },
-
-    match: function(stringToMatch, targetedMatches){
-
-        // preliminary check if the given parameter is an array or not
-        if( targetedMatches.constructor === Array && targetedMatches.length !== 0){
-
-            //var resultArray = [];
-            var foundMatch = false;
-            var i = 0;
-
-            // while we've not found a complete match
-            while( !foundMatch ){
-
-                // get the computed matrix for the given strings
-                var distArray = this.levenshteinenator(stringToMatch, targetedMatches[i]);
-                //get the distance for the current element
-                var dist = distArray[ distArray.length - 1 ][ distArray[ distArray.length - 1 ].length - 1 ];
-
-                // if the distance is 0, 1, or 2, then this is a very close match so we return true
-                if( dist === 0 || dist === 1 || dist === 2 ){
-                    foundMatch = true;
-                    return true;
-                }
-
-                //resultArray.push(dist);
-
-            }
-
-            // reached this point, return false as we've not found a close enough match
-            return false;
-
-        }
-
-    },
-
-    levenshteinenator: function( a, b ){
-        var cost;
-        var m = a.length;
-        var n = b.length;
-
-        // make sure a.length >= b.length to use O(min(n,m)) space, whatever that is
-        if (m < n) {
-            var c = a;
-            a = b;
-            b = c;
-            var o = m;
-            m = n;
-            n = o;
-        }
-
-        var r = [];
-        r[0] = [];
-        for (var c = 0; c < n + 1; ++c) {
-            r[0][c] = c;
-        }
-
-        for (var i = 1; i < m + 1; ++i) {
-            r[i] = [];
-            r[i][0] = i;
-            for (var j = 1; j < n + 1; ++j) {
-                cost = a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1;
-                r[i][j] = this.minimator(r[i - 1][j] + 1, r[i][j - 1] + 1, r[i - 1][j - 1] + cost);
-            }
-        }
-
-        return r;
-    },
-
-/**
- * Return the smallest of the three numbers passed in
- * @param Number x
- * @param Number y
- * @param Number z
- * @return Number
- */
-    minimator: function(x, y, z) {
-        if (x < y && x < z) return x;
-        if (y < x && y < z) return y;
-        return z;
-        }
+    }
 };
-
- //Blank Section below by BMDK for DB function setup
+/*
+ *  ________________________________________________________________________________________________________________
+ *  Database setup area
+ * */
 //Storage of successful passwords to Passwords table BMDK - DONE
- function storePasswordToDB(pwd, entropy, length) {
+function storePasswordToDB(pwd, entropy, length) {
     if (pwd === "") {
         return;
     } else {
@@ -1221,36 +916,36 @@ StringMatcher.prototype = {
 };
 
 //Storage of bad passwords to UsersBadPwdEntries -forgotten passwords(potentially) - DONE
- function storeBadPasswordToDB(did) {
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storebadpassword.php?did="+did,true);
-        xmlhttp.send();
+function storeBadPasswordToDB(did) {
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.open("GET","storebadpassword.php?did="+did,true);
+    xmlhttp.send();
 };
 
 
 //Storage of non-conforming password entry to UserFailedPasswordAttempts - DONE
- function storeNonConformingPasswordToDB(did) {
-    
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","storefailedpassword.php?did="+did,true);
-        xmlhttp.send();
-    
+function storeNonConformingPasswordToDB(did) {
+
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.open("GET","storefailedpassword.php?did="+did,true);
+    xmlhttp.send();
+
 };
 
 //Storage of User Passwords entered -- DONE
- function storeUserPasswordsEnteredToDB(did, score) {
+function storeUserPasswordsEnteredToDB(did, score) {
     if (did === ""){
         return;
     } else {
@@ -1267,7 +962,7 @@ StringMatcher.prototype = {
 };
 
 //Storage of User Password Resets -- DONE
- function storePasswordResetsToDB(did, penalty) {
+function storePasswordResetsToDB(did, penalty) {
     if (did === "") {
         return;
     } else {
@@ -1300,7 +995,7 @@ function storeUsersSuccessfulPasswordUse(did){
     }
 };
 //Storage of User door visits -- DONE
- function storeDoorVisitsToDB(did) {
+function storeDoorVisitsToDB(did) {
     if (did === "") {
         return;
     } else {
@@ -1317,7 +1012,7 @@ function storeUsersSuccessfulPasswordUse(did){
 };
 
 //Storage of User hints collected -- DONE
- function storeUserEducationalInfoCollectToDB(cid) {
+function storeUserEducationalInfoCollectToDB(cid) {
     if (cid === "") {
         return;
     } else {
@@ -1334,7 +1029,7 @@ function storeUsersSuccessfulPasswordUse(did){
 };
 
 //Storage of User Policies collected -- DONE
- function storeUserPoliciesCollectedToDB(colour) {
+function storeUserPoliciesCollectedToDB(colour) {
     if (colour === "") {
         return;
     } else {
@@ -1351,7 +1046,7 @@ function storeUsersSuccessfulPasswordUse(did){
 };
 
 //Storage of User Tools collected --DONE
- function storeUserToolsCollectedToDB(tid) {
+function storeUserToolsCollectedToDB(tid) {
     if (tid === "") {
         return;
     } else {
@@ -1367,8 +1062,8 @@ function storeUsersSuccessfulPasswordUse(did){
     }
 };
 
-//Storage of User Tools Used -- Will implement once there are actually tools that you can use -TODO
- function storeUserToolsUsedToDB(tid ,success) {
+//Storage of User Tools Used
+function storeUserToolsUsedToDB(tid ,success) {
     if (tid === "") {
         return;
     } else {
